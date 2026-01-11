@@ -71,20 +71,14 @@
             to { opacity: 1; transform: translateY(0); }
         }
         .fade-in { animation: fadeIn 0.5s ease forwards; }
-        
-        #adminTrigger {
-            animation: fadeIn 0.3s ease;
-        }
-
-        /* Feedback for the secret click */
-        .click-pulse {
-            color: #059669 !important;
-            transform: scale(1.05);
-            transition: all 0.1s ease;
-        }
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
+
+    <!-- Admin Hidden Trigger (Bottom Right Corner) -->
+    <div id="adminAccess" onclick="toggleAdmin()" class="fixed bottom-4 right-4 z-[200] opacity-[0.05] hover:opacity-100 transition-opacity cursor-pointer p-2">
+        <i class="fa-solid fa-gear text-xl text-gray-500"></i>
+    </div>
 
     <!-- Navigation -->
     <nav class="nav-blur sticky top-0 z-50 border-b border-gray-100">
@@ -131,7 +125,6 @@
         </div>
 
         <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            <!-- Products appear here -->
             <div class="col-span-full py-20 text-center text-gray-400">
                 <i class="fa-solid fa-spinner fa-spin text-3xl mb-4"></i>
                 <p id="loadingStatus">Loading gear catalog...</p>
@@ -188,7 +181,7 @@
             <div class="border-t pt-4">
                 <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Live Inventory</h3>
                 <div id="adminList" class="max-h-48 overflow-y-auto space-y-2">
-                    <!-- Delete list items here -->
+                    <!-- Products appear here for deletion -->
                 </div>
             </div>
         </div>
@@ -200,45 +193,18 @@
             <a href="https://facebook.com" target="_blank" class="text-gray-300 hover:text-blue-600 transition"><i class="fa-brands fa-facebook-f text-xl"></i></a>
             <a href="https://tiktok.com" target="_blank" class="text-gray-300 hover:text-black transition"><i class="fa-brands fa-tiktok text-xl"></i></a>
         </div>
-        
         <div class="mb-4">
             <span class="font-bold uppercase tracking-[0.3em] text-[10px] text-gray-900">TheSale3 Camping Store</span>
         </div>
-        
-        <div class="flex flex-col items-center gap-2">
-            <!-- CLICK THIS 5 TIMES -->
-            <p id="copyrightText" class="text-[9px] text-gray-300 uppercase tracking-[0.2em] cursor-pointer select-none py-2 px-4 transition-all duration-200">
-                &copy; 2024 All Rights Reserved. Premium Gear Shop.
-            </p>
-            
-            <!-- Hidden Admin Mode Button -->
-            <button id="adminTrigger" style="display: none;" onclick="toggleAdmin()" class="bg-emerald-50 text-emerald-600 px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest border border-emerald-100 hover:bg-emerald-100 transition">
-                <i class="fa-solid fa-mountain-sun mr-1"></i> Admin Mode
-            </button>
-        </div>
+        <p class="text-[9px] text-gray-300 uppercase tracking-[0.2em] select-none">
+            &copy; 2024 All Rights Reserved. Premium Gear Shop.
+        </p>
     </footer>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, collection, addDoc, onSnapshot, doc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-
-        // Secret Reveal Logic (Outside of main try block for robustness)
-        let secretClicks = 0;
-        const secretEl = document.getElementById('copyrightText');
-        if (secretEl) {
-            secretEl.addEventListener('click', function() {
-                secretClicks++;
-                // Visual feedback
-                this.classList.add('click-pulse');
-                setTimeout(() => this.classList.remove('click-pulse'), 150);
-                
-                if (secretClicks >= 5) {
-                    document.getElementById('adminTrigger').style.display = 'inline-block';
-                    secretClicks = 0;
-                }
-            });
-        }
 
         let products = [];
         let currentCat = 'all';
@@ -249,7 +215,7 @@
         const setupFirebase = async () => {
             try {
                 const configStr = typeof __firebase_config !== 'undefined' ? __firebase_config : null;
-                if (!configStr) throw new Error("Missing config");
+                if (!configStr) return;
                 
                 const firebaseConfig = JSON.parse(configStr);
                 const appId = typeof __app_id !== 'undefined' ? __app_id : 'thesale3-camping';
@@ -259,7 +225,7 @@
 
                 const productCol = collection(db, 'artifacts', appId, 'public', 'data', 'products');
 
-                // Auth & Data
+                // Auth
                 if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
                     await signInWithCustomToken(auth, __initial_auth_token);
                 } else {
@@ -276,7 +242,7 @@
                     }
                 });
 
-                // Admin Form Handler
+                // Admin Form
                 document.getElementById('adminForm').onsubmit = async (e) => {
                     e.preventDefault();
                     if (!currentUser) return;
@@ -299,16 +265,17 @@
 
             } catch (err) {
                 console.error("Firebase Error:", err);
-                document.getElementById('loadingStatus').innerText = "Inventory sync temporarily unavailable.";
+                document.getElementById('loadingStatus').innerText = "Syncing available shortly...";
             }
         };
 
         setupFirebase();
 
-        // UI Functions attached to window
+        // UI Functions
         window.toggleAdmin = () => {
-            document.getElementById('adminModal').style.display = 'flex';
-            document.body.style.overflow = 'hidden';
+            const m = document.getElementById('adminModal');
+            m.style.display = (m.style.display === 'none') ? 'flex' : 'none';
+            document.body.style.overflow = (m.style.display === 'flex') ? 'hidden' : 'auto';
         };
 
         window.closeModals = () => {
