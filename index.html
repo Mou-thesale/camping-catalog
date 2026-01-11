@@ -141,7 +141,7 @@
         <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             <div class="col-span-full py-20 text-center text-gray-400">
                 <i class="fa-solid fa-spinner fa-spin text-3xl mb-4"></i>
-                <p>Syncing with cloud...</p>
+                <p id="loadingStatus">Connecting to cloud...</p>
             </div>
         </div>
     </main>
@@ -216,18 +216,19 @@
         let products = [];
         let filteredProducts = [];
         let currentCat = 'all';
+        let currentUser = null;
 
-        // Initialize Firebase
+        // Configuration from Environment
         const firebaseConfig = JSON.parse(__firebase_config);
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'thesale3-camping';
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
 
-        // Path Rule 1
+        // Path (MANDATORY RULE 1)
         const productCollection = collection(db, 'artifacts', appId, 'public', 'data', 'products');
 
-        // Functions exposed to window for HTML onclick handlers
+        // Functions exposed to window
         window.toggleAdmin = () => {
             const m = document.getElementById('adminModal');
             m.style.display = m.style.display === 'flex' ? 'none' : 'flex';
@@ -268,13 +269,13 @@
         };
 
         window.removeItem = async (id) => {
+            if (!currentUser) return;
             if(!confirm("Delete this product?")) return;
             try {
                 await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'products', id));
             } catch (e) { console.error("Delete failed:", e); }
         };
 
-        // UI Logic
         function applyFilters() {
             const search = document.getElementById('searchInput').value.toLowerCase();
             filteredProducts = products.filter(p => {
@@ -292,7 +293,7 @@
             grid.innerHTML = filteredProducts.map(p => `
                 <div class="product-card group overflow-hidden flex flex-col cursor-pointer fade-in" onclick="openDetails('${p.id}')">
                     <div class="h-64 overflow-hidden relative bg-gray-50">
-                        <img src="${p.image}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                        <img src="${p.image}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" onerror="this.src='https://via.placeholder.com/400x300?text=No+Image'">
                     </div>
                     <div class="p-8 flex flex-col flex-grow text-left">
                         <span class="text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-2">${p.category}</span>
@@ -319,23 +320,35 @@
             `).join('');
         }
 
-        // Firebase Auth & Data
+        // Firebase Auth & Initial Data Loading (RULE 3)
         const init = async () => {
-            // Rule 3: Auth First
+            // STEP 1: AUTH FIRST
             try {
                 if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
                     await signInWithCustomToken(auth, __initial_auth_token);
                 } else {
                     await signInAnonymously(auth);
                 }
-            } catch (e) { console.error("Auth Error:", e); }
+            } catch (authError) {
+                console.error("Auth Failure:", authError);
+                document.getElementById('loadingStatus').innerText = "Security check failed. Please refresh.";
+                return;
+            }
 
+            // STEP 2: LISTEN FOR STATE CHANGES
             onAuthStateChanged(auth, (user) => {
+                currentUser = user;
                 if (user) {
+                    // STEP 3: START QUERIES ONLY AFTER AUTH (RULE 3 GUARD)
                     onSnapshot(productCollection, (snapshot) => {
                         products = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
                         applyFilters();
-                    }, (err) => console.error("Firestore Error:", err));
+                    }, (err) => {
+                        console.error("Firestore Error Details:", err);
+                        document.getElementById('loadingStatus').innerText = "Database connection issue. Check permissions.";
+                    });
+                } else {
+                    console.warn("No authenticated user session.");
                 }
             });
         };
@@ -343,6 +356,8 @@
         // Form Submission
         document.getElementById('adminForm').onsubmit = async (e) => {
             e.preventDefault();
+            if (!currentUser) return;
+
             const payload = {
                 name: document.getElementById('pName').value,
                 price: Number(document.getElementById('pPrice').value),
@@ -356,11 +371,16 @@
                 await addDoc(productCollection, payload);
                 document.getElementById('adminForm').reset();
                 window.toggleAdmin();
-            } catch (err) { console.error("Save Error:", err); }
+            } catch (err) { 
+                console.error("Save Error:", err);
+                alert("Could not save. Check if you have permission to add products.");
+            }
         };
 
-        // Start everything
-        init();
+        // Initialize App
+        window.onload = () => {
+            init();
+        };
 
     </script>
 </body>
