@@ -28,7 +28,7 @@
         }
 
         .hero-banner {
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://i.postimg.cc/FKL5Q4JW/489751506-1424454392283349-8154752889413656228-n.jpg');
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.4)), url('https://i.postimg.cc/FKL5Q4JW/489751506-1424454392283349-8154752889413656228-n.jpg');
             background-size: cover;
             background-position: center;
         }
@@ -91,11 +91,8 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6">
             <div class="flex justify-between items-center h-16 sm:h-20">
                 <div class="flex items-center gap-3">
-                    <div class="bg-black w-10 h-10 flex items-center justify-center rounded-xl cursor-pointer" onclick="toggleAdmin()">
-                        <i class="fa-solid fa-mountain-sun text-white text-lg"></i>
-                    </div>
                     <div class="flex flex-col">
-                        <span class="font-black text-lg leading-none tracking-tight text-black uppercase">THESALE3</span>
+                        <span class="font-black text-xl leading-none tracking-tight text-black uppercase">THESALE3</span>
                         <span class="text-[9px] font-bold text-emerald-600 tracking-[0.2em] uppercase">Camping Store</span>
                     </div>
                 </div>
@@ -103,27 +100,27 @@
                 <div class="flex items-center gap-6">
                     <a href="https://wa.me/8562054849393" target="_blank" class="flex items-center gap-2 group">
                         <i class="fa-brands fa-whatsapp text-2xl text-emerald-500 group-hover:scale-110 transition"></i>
-                        <span class="hidden sm:block text-[11px] font-bold uppercase tracking-widest text-gray-900">Contact Shop</span>
+                        <span class="hidden sm:block text-[11px] font-bold uppercase tracking-widest text-gray-900">Chat with us</span>
                     </a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <!-- Hero -->
-    <header class="hero-banner h-[400px] sm:h-[500px] flex items-center justify-center text-center px-4">
+    <!-- Hero (Reduced height to show products "first") -->
+    <header class="hero-banner h-[300px] sm:h-[400px] flex items-center justify-center text-center px-4">
         <div class="max-w-3xl">
-            <h1 class="text-5xl sm:text-7xl font-black text-white mb-6 tracking-tighter drop-shadow-2xl">TheSale3 Store</h1>
-            <p class="text-gray-100 text-base sm:text-xl mb-10 font-medium drop-shadow-md max-w-xl mx-auto">Premium outdoor equipment for the Lao adventurer. Quality tested for our unique terrain.</p>
-            <a href="#catalog" class="bg-emerald-600 text-white px-10 py-4 rounded-full font-bold text-sm uppercase tracking-widest hover:bg-emerald-700 transition shadow-2xl inline-block">
-                Start Exploring
+            <h1 class="text-4xl sm:text-6xl font-black text-white mb-4 tracking-tighter drop-shadow-2xl">TheSale3 Store</h1>
+            <p class="text-gray-200 text-sm sm:text-lg mb-8 font-medium drop-shadow-md max-w-lg mx-auto uppercase tracking-widest">Premium Camping Solutions in Laos</p>
+            <a href="#catalog" class="bg-emerald-600 text-white px-8 py-3.5 rounded-full font-bold text-[10px] uppercase tracking-[0.2em] hover:bg-emerald-700 transition shadow-2xl inline-block">
+                Browse Gear
             </a>
         </div>
     </header>
 
     <!-- Catalog -->
-    <main id="catalog" class="max-w-7xl mx-auto px-4 sm:px-6 py-12 flex-grow w-full">
-        <div class="flex flex-col lg:flex-row justify-between items-center mb-12 gap-6">
+    <main id="catalog" class="max-w-7xl mx-auto px-4 sm:px-6 py-10 flex-grow w-full">
+        <div class="flex flex-col lg:flex-row justify-between items-center mb-10 gap-6">
             <div id="categoryContainer" class="flex gap-2 overflow-x-auto no-scrollbar w-full lg:w-auto pb-2">
                 <button onclick="filterBy('all', this)" class="category-pill active bg-emerald-600 text-white px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest border border-transparent">All Gear</button>
                 <button onclick="filterBy('coffee', this)" class="category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600">Coffee</button>
@@ -141,13 +138,13 @@
         <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             <div class="col-span-full py-20 text-center text-gray-400">
                 <i class="fa-solid fa-spinner fa-spin text-3xl mb-4"></i>
-                <p id="loadingStatus">Connecting to cloud...</p>
+                <p id="loadingStatus">Syncing inventory...</p>
             </div>
         </div>
     </main>
 
     <!-- Product Details Modal -->
-    <div id="modal" class="modal-container fixed inset-0 z-[100] flex items-center justify-center p-4">
+    <div id="modal" class="modal-container fixed inset-0 z-[100] flex items-center justify-center p-4" onclick="if(event.target === this) closeModals()">
         <div class="bg-white rounded-[32px] max-w-4xl w-full overflow-hidden shadow-2xl relative flex flex-col md:flex-row max-h-[90vh]">
             <button onclick="closeModals()" class="absolute top-4 right-4 text-gray-400 hover:text-black z-20 bg-white/80 w-10 h-10 rounded-full flex items-center justify-center shadow-sm">
                 <i class="fa-solid fa-xmark"></i>
@@ -162,17 +159,19 @@
                 <div class="h-1 w-12 bg-emerald-600 mb-6"></div>
                 <p id="modalDescription" class="text-gray-500 text-sm leading-relaxed mb-8 flex-grow"></p>
                 <a id="whatsappBtn" href="#" target="_blank" class="whatsapp-btn text-white py-4 rounded-2xl font-black flex items-center justify-center gap-3 shadow-lg uppercase tracking-widest text-xs">
-                    <i class="fa-brands fa-whatsapp text-2xl"></i> Chat to Buy
+                    <i class="fa-brands fa-whatsapp text-2xl"></i> Order via WhatsApp
                 </a>
             </div>
         </div>
     </div>
 
     <!-- Admin Panel Modal -->
-    <div id="adminModal" class="modal-container fixed inset-0 z-[110] flex items-center justify-center p-4">
+    <div id="adminModal" class="modal-container fixed inset-0 z-[110] flex items-center justify-center p-4" onclick="if(event.target === this) closeModals()">
         <div class="bg-white rounded-3xl max-w-lg w-full p-8 shadow-2xl relative">
-            <button onclick="closeModals()" class="absolute top-6 right-6 text-gray-400 hover:text-black"><i class="fa-solid fa-xmark text-xl"></i></button>
-            <h2 class="text-2xl font-black mb-6">Admin Panel</h2>
+            <button onclick="closeModals()" class="absolute top-6 right-6 text-gray-400 hover:text-black">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+            <h2 class="text-2xl font-black mb-6">Management Panel</h2>
             <form id="adminForm" class="space-y-4 mb-8">
                 <input type="text" id="pName" placeholder="Product Name" class="w-full p-3 bg-gray-50 rounded-xl outline-none focus:ring-2 focus:ring-emerald-500 border-none" required>
                 <div class="grid grid-cols-2 gap-4">
@@ -185,13 +184,13 @@
                         <option value="furniture">Furniture</option>
                     </select>
                 </div>
-                <input type="url" id="pImage" placeholder="Image URL (PostImg direct link)" class="w-full p-3 bg-gray-50 rounded-xl outline-none focus:ring-2 focus:ring-emerald-500 border-none" required>
-                <textarea id="pDesc" placeholder="Product Description..." class="w-full p-3 bg-gray-50 rounded-xl outline-none focus:ring-2 focus:ring-emerald-500 border-none h-20" required></textarea>
-                <button type="submit" class="w-full bg-black text-white py-3 rounded-xl font-bold hover:bg-gray-800 transition shadow-lg">Save Product</button>
+                <input type="url" id="pImage" placeholder="Direct Image URL" class="w-full p-3 bg-gray-50 rounded-xl outline-none focus:ring-2 focus:ring-emerald-500 border-none" required>
+                <textarea id="pDesc" placeholder="Product details..." class="w-full p-3 bg-gray-50 rounded-xl outline-none focus:ring-2 focus:ring-emerald-500 border-none h-20" required></textarea>
+                <button type="submit" class="w-full bg-black text-white py-3 rounded-xl font-bold hover:bg-gray-800 transition shadow-lg">Upload Product</button>
             </form>
 
             <div class="border-t pt-4">
-                <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Live Inventory</h3>
+                <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Inventory List</h3>
                 <div id="adminList" class="max-h-48 overflow-y-auto space-y-2 pr-2">
                     <!-- Delete list items here -->
                 </div>
@@ -199,12 +198,20 @@
         </div>
     </div>
 
+    <!-- Footer with Hidden Admin Access -->
     <footer class="bg-white border-t py-12 px-4 text-center mt-auto">
-        <div class="flex justify-center items-center gap-2 mb-4 text-gray-300">
-            <i class="fa-solid fa-mountain-sun"></i>
-            <span class="font-bold uppercase tracking-widest text-[10px]">TheSale3 Camping Laos</span>
+        <div class="flex justify-center items-center gap-4 mb-6">
+            <a href="https://facebook.com" target="_blank" class="text-gray-300 hover:text-blue-600 transition"><i class="fa-brands fa-facebook-f"></i></a>
+            <a href="https://tiktok.com" target="_blank" class="text-gray-300 hover:text-black transition"><i class="fa-brands fa-tiktok"></i></a>
+            <!-- Admin Button Moved Here -->
+            <div class="text-gray-200 hover:text-emerald-600 cursor-pointer transition ml-4" onclick="toggleAdmin()">
+                <i class="fa-solid fa-mountain-sun"></i>
+            </div>
         </div>
-        <p class="text-[10px] text-gray-400 uppercase tracking-widest">Premium Outdoor Solutions</p>
+        <div class="mb-4">
+            <span class="font-bold uppercase tracking-[0.3em] text-[10px] text-gray-900">TheSale3 Camping Laos</span>
+        </div>
+        <p class="text-[9px] text-gray-400 uppercase tracking-[0.2em]">&copy; 2024 All Rights Reserved. Premium Gear Shop.</p>
     </footer>
 
     <script type="module">
@@ -218,7 +225,7 @@
         let currentCat = 'all';
         let currentUser = null;
 
-        // Configuration from Environment
+        // Configuration
         const firebaseConfig = JSON.parse(__firebase_config);
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'thesale3-camping';
         const app = initializeApp(firebaseConfig);
@@ -231,7 +238,12 @@
         // Functions exposed to window
         window.toggleAdmin = () => {
             const m = document.getElementById('adminModal');
-            m.style.display = m.style.display === 'flex' ? 'none' : 'flex';
+            if (m.style.display === 'flex') {
+                closeModals();
+            } else {
+                m.style.display = 'flex';
+                document.body.style.overflow = 'hidden';
+            }
         };
 
         window.closeModals = () => {
@@ -270,7 +282,7 @@
 
         window.removeItem = async (id) => {
             if (!currentUser) return;
-            if(!confirm("Delete this product?")) return;
+            if(!confirm("Delete this product permanently?")) return;
             try {
                 await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'products', id));
             } catch (e) { console.error("Delete failed:", e); }
@@ -293,14 +305,14 @@
             grid.innerHTML = filteredProducts.map(p => `
                 <div class="product-card group overflow-hidden flex flex-col cursor-pointer fade-in" onclick="openDetails('${p.id}')">
                     <div class="h-64 overflow-hidden relative bg-gray-50">
-                        <img src="${p.image}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" onerror="this.src='https://via.placeholder.com/400x300?text=No+Image'">
+                        <img src="${p.image}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" onerror="this.src='https://via.placeholder.com/400x300?text=Gear+Image'">
                     </div>
                     <div class="p-8 flex flex-col flex-grow text-left">
                         <span class="text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-2">${p.category}</span>
                         <h3 class="font-bold text-lg mb-1 text-gray-900 group-hover:text-emerald-700 transition-colors tracking-tight">${p.name}</h3>
                         <p class="text-base font-bold text-emerald-600 mb-6 italic">LAK ${Number(p.price).toLocaleString()}</p>
                         <div class="mt-auto flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-gray-900">
-                            Check Details <i class="fa-solid fa-arrow-right-long text-emerald-600 group-hover:translate-x-1 transition"></i>
+                            View Details <i class="fa-solid fa-arrow-right-long text-emerald-600 group-hover:translate-x-1 transition"></i>
                         </div>
                     </div>
                 </div>
@@ -322,7 +334,6 @@
 
         // Firebase Auth & Initial Data Loading (RULE 3)
         const init = async () => {
-            // STEP 1: AUTH FIRST
             try {
                 if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
                     await signInWithCustomToken(auth, __initial_auth_token);
@@ -331,24 +342,19 @@
                 }
             } catch (authError) {
                 console.error("Auth Failure:", authError);
-                document.getElementById('loadingStatus').innerText = "Security check failed. Please refresh.";
                 return;
             }
 
-            // STEP 2: LISTEN FOR STATE CHANGES
             onAuthStateChanged(auth, (user) => {
                 currentUser = user;
                 if (user) {
-                    // STEP 3: START QUERIES ONLY AFTER AUTH (RULE 3 GUARD)
                     onSnapshot(productCollection, (snapshot) => {
                         products = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
                         applyFilters();
                     }, (err) => {
-                        console.error("Firestore Error Details:", err);
-                        document.getElementById('loadingStatus').innerText = "Database connection issue. Check permissions.";
+                        console.error("Firestore Error:", err);
+                        document.getElementById('loadingStatus').innerText = "Database connection error.";
                     });
-                } else {
-                    console.warn("No authenticated user session.");
                 }
             });
         };
@@ -373,11 +379,9 @@
                 window.toggleAdmin();
             } catch (err) { 
                 console.error("Save Error:", err);
-                alert("Could not save. Check if you have permission to add products.");
             }
         };
 
-        // Initialize App
         window.onload = () => {
             init();
         };
