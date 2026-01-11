@@ -4,17 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- SEO TAGS (Search Engine Optimization) -->
     <title>TheSale3 Camping Store | Premium Outdoor Gear Laos</title>
     <meta name="description" content="Premium outdoor equipment for the Lao adventurer. Shop portable stoves, tents, coffee gear, and furniture. Quality tested for Laos terrain. Contact +8562054849393.">
-    <meta name="keywords" content="Camping Laos, TheSale3, Vientiane Camping, Outdoor Gear Laos, Portable Stove Laos, Tent Shop Laos">
-    <meta name="author" content="TheSale3">
     
     <!-- Open Graph Tags (For Facebook/WhatsApp Sharing) -->
     <meta property="og:title" content="TheSale3 Camping Store | Cloud Powered">
     <meta property="og:description" content="Premium outdoor equipment for the Lao adventurer. Click to browse our catalog.">
     <meta property="og:image" content="https://i.postimg.cc/FKL5Q4JW/489751506-1424454392283349-8154752889413656228-n.jpg">
-    <meta property="og:url" content="https://thesale3.github.io/">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
@@ -49,7 +45,6 @@
         .product-card:hover {
             transform: translateY(-6px);
             box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-            border-color: #e5e7eb;
         }
 
         .category-pill.active {
@@ -59,18 +54,13 @@
         }
 
         .modal-overlay {
-            background: rgba(0,0,0,0.7);
+            background: rgba(0,0,0,0.8);
             backdrop-filter: blur(8px);
         }
 
         .whatsapp-btn {
             background: #25D366;
             transition: all 0.3s ease;
-        }
-
-        .whatsapp-btn:hover {
-            background: #1eb956;
-            transform: scale(1.02);
         }
 
         .no-scrollbar::-webkit-scrollbar { display: none; }
@@ -81,6 +71,10 @@
             to { opacity: 1; transform: translateY(0); }
         }
         .fade-in { animation: fadeIn 0.5s ease forwards; }
+        
+        #adminTrigger {
+            animation: fadeIn 0.3s ease;
+        }
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
@@ -89,19 +83,14 @@
     <nav class="nav-blur sticky top-0 z-50 border-b border-gray-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6">
             <div class="flex justify-between items-center h-16 sm:h-20">
-                <div class="flex items-center gap-3">
-                    <div class="flex flex-col">
-                        <span class="font-black text-xl leading-none tracking-tight text-black uppercase">THESALE3</span>
-                        <span class="text-[9px] font-bold text-emerald-600 tracking-[0.2em] uppercase">Camping Store</span>
-                    </div>
+                <div class="flex flex-col">
+                    <span class="font-black text-xl leading-none tracking-tight text-black uppercase">THESALE3</span>
+                    <span class="text-[9px] font-bold text-emerald-600 tracking-[0.2em] uppercase">Camping Store</span>
                 </div>
-
-                <div class="flex items-center gap-6">
-                    <a href="https://wa.me/8562054849393" target="_blank" class="flex items-center gap-2 group">
-                        <i class="fa-brands fa-whatsapp text-2xl text-emerald-500 group-hover:scale-110 transition"></i>
-                        <span class="hidden sm:block text-[11px] font-bold uppercase tracking-widest text-gray-900">Chat with us</span>
-                    </a>
-                </div>
+                <a href="https://wa.me/8562054849393" target="_blank" class="flex items-center gap-2 group">
+                    <i class="fa-brands fa-whatsapp text-2xl text-emerald-500 group-hover:scale-110 transition"></i>
+                    <span class="hidden sm:block text-[11px] font-bold uppercase tracking-widest text-gray-900">Chat with us</span>
+                </a>
             </div>
         </div>
     </nav>
@@ -110,9 +99,9 @@
     <header class="hero-banner h-[300px] sm:h-[400px] flex items-center justify-center text-center px-4">
         <div class="max-w-3xl">
             <h1 class="text-4xl sm:text-6xl font-black text-white mb-4 tracking-tighter drop-shadow-2xl">TheSale3 Store</h1>
-            <p class="text-gray-200 text-sm sm:text-lg mb-8 font-medium drop-shadow-md max-w-lg mx-auto uppercase tracking-widest">Premium Camping Solutions in Laos</p>
+            <p class="text-gray-200 text-sm sm:text-lg mb-8 font-medium drop-shadow-md max-w-lg mx-auto uppercase tracking-widest">Premium Camping Gear Laos</p>
             <a href="#catalog" class="bg-emerald-600 text-white px-8 py-3.5 rounded-full font-bold text-[10px] uppercase tracking-[0.2em] hover:bg-emerald-700 transition shadow-2xl inline-block">
-                Browse Gear
+                Browse Collection
             </a>
         </div>
     </header>
@@ -130,14 +119,15 @@
             
             <div class="relative w-full lg:w-72">
                 <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
-                <input type="text" id="searchInput" oninput="searchItems()" placeholder="Search gear..." class="w-full pl-12 pr-4 py-3 rounded-2xl border-none ring-1 ring-gray-200 focus:ring-2 focus:ring-emerald-500 shadow-sm transition">
+                <input type="text" id="searchInput" oninput="searchItems()" placeholder="Search..." class="w-full pl-12 pr-4 py-3 rounded-2xl border-none ring-1 ring-gray-200 focus:ring-2 focus:ring-emerald-500 shadow-sm transition">
             </div>
         </div>
 
         <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <!-- Products appear here -->
             <div class="col-span-full py-20 text-center text-gray-400">
                 <i class="fa-solid fa-spinner fa-spin text-3xl mb-4"></i>
-                <p id="loadingStatus">Syncing inventory...</p>
+                <p id="loadingStatus">Loading gear catalog...</p>
             </div>
         </div>
     </main>
@@ -158,7 +148,7 @@
                 <div class="h-1 w-12 bg-emerald-600 mb-6"></div>
                 <p id="modalDescription" class="text-gray-500 text-sm leading-relaxed mb-8 flex-grow"></p>
                 <a id="whatsappBtn" href="#" target="_blank" class="whatsapp-btn text-white py-4 rounded-2xl font-black flex items-center justify-center gap-3 shadow-lg uppercase tracking-widest text-xs">
-                    <i class="fa-brands fa-whatsapp text-2xl"></i> Order via WhatsApp
+                    <i class="fa-brands fa-whatsapp text-2xl"></i> Order on WhatsApp
                 </a>
             </div>
         </div>
@@ -184,13 +174,13 @@
                     </select>
                 </div>
                 <input type="url" id="pImage" placeholder="Direct Image URL" class="w-full p-3 bg-gray-50 rounded-xl outline-none focus:ring-2 focus:ring-emerald-500 border-none" required>
-                <textarea id="pDesc" placeholder="Product details..." class="w-full p-3 bg-gray-50 rounded-xl outline-none focus:ring-2 focus:ring-emerald-500 border-none h-20" required></textarea>
-                <button type="submit" class="w-full bg-black text-white py-3 rounded-xl font-bold hover:bg-gray-800 transition shadow-lg">Upload Product</button>
+                <textarea id="pDesc" placeholder="Description..." class="w-full p-3 bg-gray-50 rounded-xl outline-none focus:ring-2 focus:ring-emerald-500 border-none h-20" required></textarea>
+                <button type="submit" class="w-full bg-black text-white py-3 rounded-xl font-bold hover:bg-gray-800 transition shadow-lg">Add Product</button>
             </form>
 
             <div class="border-t pt-4">
-                <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Inventory List</h3>
-                <div id="adminList" class="max-h-48 overflow-y-auto space-y-2 pr-2">
+                <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Live Inventory</h3>
+                <div id="adminList" class="max-h-48 overflow-y-auto space-y-2">
                     <!-- Delete list items here -->
                 </div>
             </div>
@@ -200,20 +190,25 @@
     <!-- Footer -->
     <footer class="bg-white border-t py-12 px-4 text-center mt-auto">
         <div class="flex justify-center items-center gap-4 mb-6">
-            <a href="https://facebook.com" target="_blank" class="text-gray-300 hover:text-blue-600 transition"><i class="fa-brands fa-facebook-f"></i></a>
-            <a href="https://tiktok.com" target="_blank" class="text-gray-300 hover:text-black transition"><i class="fa-brands fa-tiktok"></i></a>
-            
-            <!-- Admin Icon: Starts HIDDEN -->
-            <div id="adminTrigger" style="display: none;" class="text-emerald-600 cursor-pointer transition ml-4" onclick="toggleAdmin()">
-                <i class="fa-solid fa-mountain-sun text-lg"></i>
-            </div>
+            <a href="https://facebook.com" target="_blank" class="text-gray-300 hover:text-blue-600 transition"><i class="fa-brands fa-facebook-f text-xl"></i></a>
+            <a href="https://tiktok.com" target="_blank" class="text-gray-300 hover:text-black transition"><i class="fa-brands fa-tiktok text-xl"></i></a>
         </div>
+        
         <div class="mb-4">
             <span class="font-bold uppercase tracking-[0.3em] text-[10px] text-gray-900">TheSale3 Camping Store</span>
         </div>
         
-        <!-- Secret Revealer -->
-        <p onclick="handleSecretClick()" class="text-[9px] text-gray-400 uppercase tracking-[0.2em] cursor-default select-none">&copy; 2024 All Rights Reserved. Premium Gear Shop.</p>
+        <div class="flex flex-col items-center gap-2">
+            <!-- CLICK THIS 5 TIMES -->
+            <p id="copyrightText" class="text-[9px] text-gray-300 uppercase tracking-[0.2em] cursor-pointer select-none py-2 px-4">
+                &copy; 2024 All Rights Reserved. Premium Gear Shop.
+            </p>
+            
+            <!-- Hidden Admin Mode Button -->
+            <button id="adminTrigger" style="display: none;" onclick="toggleAdmin()" class="bg-emerald-50 text-emerald-600 px-4 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest border border-emerald-100 hover:bg-emerald-100 transition">
+                <i class="fa-solid fa-mountain-sun mr-1"></i> Admin Mode
+            </button>
+        </div>
     </footer>
 
     <script type="module">
@@ -221,40 +216,83 @@
         import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, collection, addDoc, onSnapshot, doc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // Global State
         let products = [];
-        let filteredProducts = [];
         let currentCat = 'all';
         let currentUser = null;
-        let secretCount = 0;
+        let secretClicks = 0;
 
-        // Configuration
-        const firebaseConfig = JSON.parse(__firebase_config);
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'thesale3-camping';
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
+        // Firebase Setup
+        let db, auth;
+        try {
+            const firebaseConfig = JSON.parse(__firebase_config);
+            const appId = typeof __app_id !== 'undefined' ? __app_id : 'thesale3-camping';
+            const app = initializeApp(firebaseConfig);
+            auth = getAuth(app);
+            db = getFirestore(app);
 
-        const productCollection = collection(db, 'artifacts', appId, 'public', 'data', 'products');
+            const productCol = collection(db, 'artifacts', appId, 'public', 'data', 'products');
 
-        // Secret Click Handler
-        window.handleSecretClick = () => {
-            secretCount++;
-            if (secretCount >= 5) {
-                document.getElementById('adminTrigger').style.display = 'block';
-                secretCount = 0; 
-            }
-        };
+            // Secret Reveal Logic
+            document.getElementById('copyrightText').addEventListener('click', () => {
+                secretClicks++;
+                if (secretClicks >= 5) {
+                    document.getElementById('adminTrigger').style.display = 'inline-block';
+                    secretClicks = 0;
+                }
+            });
 
-        // Functions exposed to window
+            // Auth & Data
+            const startApp = async () => {
+                try {
+                    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                        await signInWithCustomToken(auth, __initial_auth_token);
+                    } else {
+                        await signInAnonymously(auth);
+                    }
+                    
+                    onAuthStateChanged(auth, (user) => {
+                        currentUser = user;
+                        if (user) {
+                            onSnapshot(productCol, (snap) => {
+                                products = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+                                applyFilters();
+                            });
+                        }
+                    });
+                } catch (e) { console.error(e); }
+            };
+            startApp();
+
+            // Admin Actions
+            document.getElementById('adminForm').onsubmit = async (e) => {
+                e.preventDefault();
+                if (!currentUser) return;
+                const p = {
+                    name: document.getElementById('pName').value,
+                    price: Number(document.getElementById('pPrice').value),
+                    category: document.getElementById('pCategory').value,
+                    image: document.getElementById('pImage').value,
+                    description: document.getElementById('pDesc').value,
+                    createdAt: new Date().toISOString()
+                };
+                await addDoc(productCol, p);
+                document.getElementById('adminForm').reset();
+                window.closeModals();
+            };
+
+            window.removeItem = async (id) => {
+                if(confirm("Delete product?")) await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'products', id));
+            };
+
+        } catch (err) {
+            console.error("Firebase Config Missing", err);
+            document.getElementById('loadingStatus').innerText = "Connecting to catalog...";
+        }
+
+        // UI Functions
         window.toggleAdmin = () => {
-            const m = document.getElementById('adminModal');
-            if (m.style.display === 'none') {
-                m.style.display = 'flex';
-                document.body.style.overflow = 'hidden';
-            } else {
-                closeModals();
-            }
+            document.getElementById('adminModal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
         };
 
         window.closeModals = () => {
@@ -266,17 +304,13 @@
         window.filterBy = (cat, btn) => {
             currentCat = cat;
             document.querySelectorAll('.category-pill').forEach(b => {
-                b.classList.remove('active', 'bg-emerald-600', 'text-white');
-                b.classList.add('bg-white', 'text-gray-400', 'border-gray-100');
+                b.className = 'category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600';
             });
-            btn.classList.add('active', 'bg-emerald-600', 'text-white');
-            btn.classList.remove('bg-white', 'text-gray-400', 'border-gray-100');
+            btn.className = 'category-pill active bg-emerald-600 text-white px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest border border-transparent';
             applyFilters();
         };
 
-        window.searchItems = () => {
-            applyFilters();
-        };
+        window.searchItems = () => applyFilters();
 
         window.openDetails = (id) => {
             const p = products.find(x => x.id === id);
@@ -286,41 +320,32 @@
             document.getElementById('modalPrice').innerText = `LAK ${Number(p.price).toLocaleString()}`;
             document.getElementById('modalDescription').innerText = p.description;
             document.getElementById('modalImage').src = p.image;
-            document.getElementById('whatsappBtn').href = `https://wa.me/8562054849393?text=Sabaidee! I am interested in: ${p.name}`;
+            document.getElementById('whatsappBtn').href = `https://wa.me/8562054849393?text=Sabaidee! I want to buy: ${p.name}`;
             document.getElementById('modal').style.display = 'flex';
             document.body.style.overflow = 'hidden';
         };
 
-        window.removeItem = async (id) => {
-            if (!currentUser) return;
-            if(!confirm("Delete this product permanently?")) return;
-            try {
-                await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'products', id));
-            } catch (e) { console.error("Delete failed:", e); }
-        };
-
         function applyFilters() {
             const search = document.getElementById('searchInput').value.toLowerCase();
-            filteredProducts = products.filter(p => {
-                const matchesSearch = p.name.toLowerCase().includes(search);
-                const matchesCat = currentCat === 'all' || p.category === currentCat;
-                return matchesSearch && matchesCat;
+            const filtered = products.filter(p => {
+                return (currentCat === 'all' || p.category === currentCat) && 
+                       p.name.toLowerCase().includes(search);
             });
-            render();
+            render(filtered);
         }
 
-        function render() {
+        function render(items) {
             const grid = document.getElementById('productGrid');
             const adminList = document.getElementById('adminList');
             
-            grid.innerHTML = filteredProducts.map(p => `
+            grid.innerHTML = items.map(p => `
                 <div class="product-card group overflow-hidden flex flex-col cursor-pointer fade-in" onclick="openDetails('${p.id}')">
-                    <div class="h-64 overflow-hidden relative bg-gray-50">
-                        <img src="${p.image}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" onerror="this.src='https://via.placeholder.com/400x300?text=Gear+Image'">
+                    <div class="h-64 bg-gray-50 overflow-hidden relative">
+                        <img src="${p.image}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" onerror="this.src='https://via.placeholder.com/400x300?text=Gear+Photo'">
                     </div>
                     <div class="p-8 flex flex-col flex-grow text-left">
                         <span class="text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-2">${p.category}</span>
-                        <h3 class="font-bold text-lg mb-1 text-gray-900 group-hover:text-emerald-700 transition-colors tracking-tight">${p.name}</h3>
+                        <h3 class="font-bold text-lg mb-1 text-gray-900 tracking-tight">${p.name}</h3>
                         <p class="text-base font-bold text-emerald-600 mb-6 italic">LAK ${Number(p.price).toLocaleString()}</p>
                         <div class="mt-auto flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-gray-900">
                             View Details <i class="fa-solid fa-arrow-right-long text-emerald-600 group-hover:translate-x-1 transition"></i>
@@ -329,72 +354,15 @@
                 </div>
             `).join('');
 
-            if(filteredProducts.length === 0) {
-                grid.innerHTML = '<div class="col-span-full py-20 text-center text-gray-400 italic">No equipment found matching your criteria.</div>';
-            }
+            if(items.length === 0) grid.innerHTML = '<div class="col-span-full py-20 text-center text-gray-400 italic">No gear found matching that search.</div>';
 
             adminList.innerHTML = products.map(p => `
-                <div class="flex items-center justify-between p-2 bg-gray-50 rounded-lg text-[11px]">
-                    <span class="font-bold truncate w-32">${p.name}</span>
-                    <button onclick="removeItem('${p.id}')" class="text-red-400 hover:text-red-600 transition p-2">
-                        <i class="fa-solid fa-trash-can"></i>
-                    </button>
+                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-xl mb-2">
+                    <span class="text-[11px] font-bold truncate pr-4">${p.name}</span>
+                    <button onclick="removeItem('${p.id}')" class="text-red-400 hover:text-red-600 transition"><i class="fa-solid fa-trash-can"></i></button>
                 </div>
             `).join('');
         }
-
-        const init = async () => {
-            try {
-                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                    await signInWithCustomToken(auth, __initial_auth_token);
-                } else {
-                    await signInAnonymously(auth);
-                }
-            } catch (authError) {
-                console.error("Auth Failure:", authError);
-                return;
-            }
-
-            onAuthStateChanged(auth, (user) => {
-                currentUser = user;
-                if (user) {
-                    onSnapshot(productCollection, (snapshot) => {
-                        products = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
-                        applyFilters();
-                    }, (err) => {
-                        console.error("Firestore Error:", err);
-                        document.getElementById('loadingStatus').innerText = "Database connection error.";
-                    });
-                }
-            });
-        };
-
-        document.getElementById('adminForm').onsubmit = async (e) => {
-            e.preventDefault();
-            if (!currentUser) return;
-
-            const payload = {
-                name: document.getElementById('pName').value,
-                price: Number(document.getElementById('pPrice').value),
-                category: document.getElementById('pCategory').value,
-                image: document.getElementById('pImage').value,
-                description: document.getElementById('pDesc').value,
-                createdAt: new Date().toISOString()
-            };
-
-            try {
-                await addDoc(productCollection, payload);
-                document.getElementById('adminForm').reset();
-                window.toggleAdmin();
-            } catch (err) { 
-                console.error("Save Error:", err);
-            }
-        };
-
-        window.onload = () => {
-            init();
-        };
-
     </script>
 </body>
 </html>
