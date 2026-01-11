@@ -155,9 +155,13 @@
             <button onclick="closeModals()" class="absolute top-6 right-6 text-gray-400 hover:text-black">
                 <i class="fa-solid fa-xmark text-xl"></i>
             </button>
-            <h2 class="text-2xl font-black mb-6">Management Panel</h2>
+            <h2 class="text-2xl font-black mb-2">Management Panel</h2>
+            <p id="adminConnStatus" class="text-[10px] text-gray-400 uppercase tracking-widest mb-6 italic">
+                <i class="fa-solid fa-circle text-[8px] mr-1"></i> Checking cloud link...
+            </p>
+
             <form id="adminForm" class="space-y-4 mb-8">
-                <input type="text" id="pName" placeholder="Product Name" class="w-full p-3 bg-gray-50 rounded-xl outline-none focus:ring-2 focus:ring-emerald-500 border-none" required>
+                <input type="text" id="pName" placeholder="Product Name (e.g. Pro Tent 3000)" class="w-full p-3 bg-gray-50 rounded-xl outline-none focus:ring-2 focus:ring-emerald-500 border-none" required>
                 <div class="grid grid-cols-2 gap-4">
                     <input type="number" id="pPrice" placeholder="Price (LAK)" class="p-3 bg-gray-50 rounded-xl outline-none focus:ring-2 focus:ring-emerald-500 border-none" required>
                     <select id="pCategory" class="p-3 bg-gray-50 rounded-xl outline-none focus:ring-2 focus:ring-emerald-500 border-none">
@@ -168,15 +172,15 @@
                         <option value="furniture">Furniture</option>
                     </select>
                 </div>
-                <input type="url" id="pImage" placeholder="Direct Image URL" class="w-full p-3 bg-gray-50 rounded-xl outline-none focus:ring-2 focus:ring-emerald-500 border-none" required>
-                <textarea id="pDesc" placeholder="Description..." class="w-full p-3 bg-gray-50 rounded-xl outline-none focus:ring-2 focus:ring-emerald-500 border-none h-20" required></textarea>
-                <button type="submit" id="submitBtn" class="w-full bg-black text-white py-3 rounded-xl font-bold hover:bg-gray-800 transition shadow-lg flex items-center justify-center gap-2">
-                    <span id="btnText">Add Product</span>
+                <input type="url" id="pImage" placeholder="Direct Image URL (Link to photo)" class="w-full p-3 bg-gray-50 rounded-xl outline-none focus:ring-2 focus:ring-emerald-500 border-none" required>
+                <textarea id="pDesc" placeholder="Write a short description..." class="w-full p-3 bg-gray-50 rounded-xl outline-none focus:ring-2 focus:ring-emerald-500 border-none h-20" required></textarea>
+                <button type="submit" id="submitBtn" class="w-full bg-black text-white py-4 rounded-xl font-bold hover:bg-gray-800 transition shadow-lg flex items-center justify-center gap-2">
+                    <span id="btnText">Add Product to Shop</span>
                 </button>
             </form>
 
             <div class="border-t pt-4">
-                <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Live Inventory</h3>
+                <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Current Products</h3>
                 <div id="adminList" class="max-h-48 overflow-y-auto space-y-2">
                     <!-- Products appear here for deletion -->
                 </div>
@@ -190,8 +194,8 @@
             <a href="https://facebook.com" target="_blank" class="text-gray-300 hover:text-blue-600 transition"><i class="fa-brands fa-facebook-f text-xl"></i></a>
             <a href="https://tiktok.com" target="_blank" class="text-gray-300 hover:text-black transition"><i class="fa-brands fa-tiktok text-xl"></i></a>
             
-            <!-- Management Trigger (Subtle Icon in Footer) -->
-            <div id="adminAccess" onclick="toggleAdmin()" class="opacity-[0.2] hover:opacity-100 transition-opacity cursor-pointer p-2 ml-2">
+            <!-- Management Trigger (Faint icon in footer) -->
+            <div id="adminAccess" onclick="toggleAdmin()" class="opacity-[0.25] hover:opacity-100 transition-opacity cursor-pointer p-2 ml-2">
                 <i class="fa-solid fa-gear text-lg text-gray-400"></i>
             </div>
         </div>
@@ -208,17 +212,30 @@
         import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, collection, addDoc, onSnapshot, doc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        let products = [];
+        // Requested Tent to pre-add as a featured product
+        const REQUESTED_TENT = {
+            id: 'featured-tent',
+            name: 'TheSale3 Premium Tent',
+            price: 1250000,
+            category: 'tents',
+            image: 'https://i.postimg.cc/qv0hwyZz/471874894-1103166361597493-1459129778683580847-n.jpg',
+            description: 'Professional grade waterproof tent designed for the Lao adventurer. Spacious interior, durable outer shell, and quality tested for humidity and rain.',
+            featured: true
+        };
+
+        let products = [REQUESTED_TENT]; // Always start with the requested tent
         let currentCat = 'all';
         let currentUser = null;
+        let productCol = null;
 
         // Firebase Setup
         let db, auth;
         const setupFirebase = async () => {
+            const statusEl = document.getElementById('adminConnStatus');
             try {
                 const configStr = typeof __firebase_config !== 'undefined' ? __firebase_config : null;
                 if (!configStr) {
-                    document.getElementById('loadingStatus').innerText = "Missing configuration. Check project settings.";
+                    statusEl.innerText = "Demo Mode (Local)";
                     return;
                 }
                 
@@ -228,33 +245,32 @@
                 auth = getAuth(app);
                 db = getFirestore(app);
 
-                const productCol = collection(db, 'artifacts', appId, 'public', 'data', 'products');
+                productCol = collection(db, 'artifacts', appId, 'public', 'data', 'products');
 
-                // Auth - RULE 3: Auth First
-                const initAuth = async () => {
-                    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                        await signInWithCustomToken(auth, __initial_auth_token);
-                    } else {
-                        await signInAnonymously(auth);
-                    }
-                };
+                // RULE 3: Auth First
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                    await signInWithCustomToken(auth, __initial_auth_token);
+                } else {
+                    await signInAnonymously(auth);
+                }
                 
-                await initAuth();
-
                 onAuthStateChanged(auth, (user) => {
                     currentUser = user;
                     if (user) {
-                        // Start Snapshot listener with error handling
+                        statusEl.innerHTML = '<i class="fa-solid fa-circle text-[8px] mr-1 text-emerald-500"></i> Cloud Active';
                         onSnapshot(productCol, (snap) => {
-                            products = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+                            const dbProducts = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+                            // Combine hardcoded featured items with database items
+                            products = [REQUESTED_TENT, ...dbProducts.filter(p => p.id !== REQUESTED_TENT.id)];
                             applyFilters();
                         }, (err) => {
-                            console.error("Snapshot error:", err);
+                            statusEl.innerHTML = '<i class="fa-solid fa-circle text-[8px] mr-1 text-red-500"></i> Permissions Issue';
+                            console.error("Firestore error:", err);
                         });
                     }
                 });
 
-                // Admin Form Submission with Error Handling
+                // Management Panel Form
                 const adminForm = document.getElementById('adminForm');
                 const submitBtn = document.getElementById('submitBtn');
                 const btnText = document.getElementById('btnText');
@@ -262,14 +278,13 @@
                 adminForm.onsubmit = async (e) => {
                     e.preventDefault();
                     
-                    if (!currentUser) {
-                        alert("Authentication in progress... please wait a moment.");
+                    if (!currentUser || !productCol) {
+                        alert("Cloud connection is pending. Try again in 5 seconds.");
                         return;
                     }
 
-                    // UI Loading State
                     submitBtn.disabled = true;
-                    btnText.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Saving...';
+                    btnText.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Saving to Cloud...';
 
                     const p = {
                         name: document.getElementById('pName').value,
@@ -285,17 +300,21 @@
                         adminForm.reset();
                         window.closeModals();
                     } catch (err) {
-                        console.error("Add error:", err);
-                        alert("Could not add product. Error: " + err.message);
+                        console.error("Save error:", err);
+                        alert("Could not add product: " + err.message);
                     } finally {
                         submitBtn.disabled = false;
-                        btnText.innerText = 'Add Product';
+                        btnText.innerText = 'Add Product to Shop';
                     }
                 };
 
                 window.removeItem = async (id) => {
+                    if (id === 'featured-tent') {
+                        alert("The main featured product cannot be deleted from demo mode.");
+                        return;
+                    }
                     if (!currentUser) return;
-                    if(confirm("Delete product?")) {
+                    if(confirm("Delete this product permanently?")) {
                         try {
                             await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'products', id));
                         } catch (err) {
@@ -305,12 +324,12 @@
                 };
 
             } catch (err) {
-                console.error("Firebase Error:", err);
-                document.getElementById('loadingStatus').innerText = "Database connection error.";
+                console.error("Setup failed:", err);
             }
         };
 
         setupFirebase();
+        applyFilters(); // Initial render
 
         // UI Functions
         window.toggleAdmin = () => {
@@ -367,13 +386,14 @@
                 <div class="product-card group overflow-hidden flex flex-col cursor-pointer fade-in" onclick="openDetails('${p.id}')">
                     <div class="h-64 bg-gray-50 overflow-hidden relative">
                         <img src="${p.image}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" onerror="this.src='https://via.placeholder.com/400x300?text=Gear+Photo'">
+                        ${p.featured ? '<div class="absolute top-4 left-4 bg-emerald-600 text-white text-[8px] font-bold uppercase tracking-widest px-3 py-1 rounded-full shadow-lg">Featured</div>' : ''}
                     </div>
                     <div class="p-8 flex flex-col flex-grow text-left">
                         <span class="text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-2">${p.category}</span>
                         <h3 class="font-bold text-lg mb-1 text-gray-900 tracking-tight">${p.name}</h3>
                         <p class="text-base font-bold text-emerald-600 mb-6 italic">LAK ${Number(p.price).toLocaleString()}</p>
                         <div class="mt-auto flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-gray-900">
-                            View Details <i class="fa-solid fa-arrow-right-long text-emerald-600 group-hover:translate-x-1 transition"></i>
+                            View Product <i class="fa-solid fa-arrow-right-long text-emerald-600 group-hover:translate-x-1 transition"></i>
                         </div>
                     </div>
                 </div>
@@ -381,9 +401,10 @@
 
             if(items.length === 0) grid.innerHTML = '<div class="col-span-full py-20 text-center text-gray-400 italic">No gear found matching that search.</div>';
 
+            // Management Panel List
             adminList.innerHTML = products.map(p => `
                 <div class="flex items-center justify-between p-3 bg-gray-50 rounded-xl mb-2">
-                    <span class="text-[11px] font-bold truncate pr-4">${p.name}</span>
+                    <span class="text-[11px] font-bold truncate pr-4">${p.name} ${p.featured ? '(System)' : ''}</span>
                     <button onclick="removeItem('${p.id}')" class="text-red-400 hover:text-red-600 transition p-2">
                         <i class="fa-solid fa-trash-can"></i>
                     </button>
