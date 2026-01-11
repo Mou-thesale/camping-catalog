@@ -170,7 +170,9 @@
                 </div>
                 <input type="url" id="pImage" placeholder="Direct Image URL" class="w-full p-3 bg-gray-50 rounded-xl outline-none focus:ring-2 focus:ring-emerald-500 border-none" required>
                 <textarea id="pDesc" placeholder="Description..." class="w-full p-3 bg-gray-50 rounded-xl outline-none focus:ring-2 focus:ring-emerald-500 border-none h-20" required></textarea>
-                <button type="submit" class="w-full bg-black text-white py-3 rounded-xl font-bold hover:bg-gray-800 transition shadow-lg">Add Product</button>
+                <button type="submit" id="submitBtn" class="w-full bg-black text-white py-3 rounded-xl font-bold hover:bg-gray-800 transition shadow-lg flex items-center justify-center gap-2">
+                    <span id="btnText">Add Product</span>
+                </button>
             </form>
 
             <div class="border-t pt-4">
@@ -215,7 +217,10 @@
         const setupFirebase = async () => {
             try {
                 const configStr = typeof __firebase_config !== 'undefined' ? __firebase_config : null;
-                if (!configStr) return;
+                if (!configStr) {
+                    document.getElementById('loadingStatus').innerText = "Missing configuration. Check project settings.";
+                    return;
+                }
                 
                 const firebaseConfig = JSON.parse(configStr);
                 const appId = typeof __app_id !== 'undefined' ? __app_id : 'thesale3-camping';
@@ -225,27 +230,47 @@
 
                 const productCol = collection(db, 'artifacts', appId, 'public', 'data', 'products');
 
-                // Auth
-                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                    await signInWithCustomToken(auth, __initial_auth_token);
-                } else {
-                    await signInAnonymously(auth);
-                }
+                // Auth - RULE 3: Auth First
+                const initAuth = async () => {
+                    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                        await signInWithCustomToken(auth, __initial_auth_token);
+                    } else {
+                        await signInAnonymously(auth);
+                    }
+                };
                 
+                await initAuth();
+
                 onAuthStateChanged(auth, (user) => {
                     currentUser = user;
                     if (user) {
+                        // Start Snapshot listener with error handling
                         onSnapshot(productCol, (snap) => {
                             products = snap.docs.map(d => ({ id: d.id, ...d.data() }));
                             applyFilters();
+                        }, (err) => {
+                            console.error("Snapshot error:", err);
                         });
                     }
                 });
 
-                // Admin Form
-                document.getElementById('adminForm').onsubmit = async (e) => {
+                // Admin Form Submission with Error Handling
+                const adminForm = document.getElementById('adminForm');
+                const submitBtn = document.getElementById('submitBtn');
+                const btnText = document.getElementById('btnText');
+
+                adminForm.onsubmit = async (e) => {
                     e.preventDefault();
-                    if (!currentUser) return;
+                    
+                    if (!currentUser) {
+                        alert("Authentication in progress... please wait a moment.");
+                        return;
+                    }
+
+                    // UI Loading State
+                    submitBtn.disabled = true;
+                    btnText.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Saving...';
+
                     const p = {
                         name: document.getElementById('pName').value,
                         price: Number(document.getElementById('pPrice').value),
@@ -254,18 +279,34 @@
                         description: document.getElementById('pDesc').value,
                         createdAt: new Date().toISOString()
                     };
-                    await addDoc(productCol, p);
-                    document.getElementById('adminForm').reset();
-                    window.closeModals();
+
+                    try {
+                        await addDoc(productCol, p);
+                        adminForm.reset();
+                        window.closeModals();
+                    } catch (err) {
+                        console.error("Add error:", err);
+                        alert("Could not add product. Error: " + err.message);
+                    } finally {
+                        submitBtn.disabled = false;
+                        btnText.innerText = 'Add Product';
+                    }
                 };
 
                 window.removeItem = async (id) => {
-                    if(confirm("Delete product?")) await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'products', id));
+                    if (!currentUser) return;
+                    if(confirm("Delete product?")) {
+                        try {
+                            await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'products', id));
+                        } catch (err) {
+                            alert("Delete failed: " + err.message);
+                        }
+                    }
                 };
 
             } catch (err) {
                 console.error("Firebase Error:", err);
-                document.getElementById('loadingStatus').innerText = "Inventory sync temporarily unavailable.";
+                document.getElementById('loadingStatus').innerText = "Database connection error.";
             }
         };
 
@@ -274,7 +315,6 @@
         // UI Functions
         window.toggleAdmin = () => {
             const m = document.getElementById('adminModal');
-            // Force display toggle based on current state
             const isHidden = window.getComputedStyle(m).display === 'none';
             m.style.display = isHidden ? 'flex' : 'none';
             document.body.style.overflow = isHidden ? 'hidden' : 'auto';
@@ -344,7 +384,9 @@
             adminList.innerHTML = products.map(p => `
                 <div class="flex items-center justify-between p-3 bg-gray-50 rounded-xl mb-2">
                     <span class="text-[11px] font-bold truncate pr-4">${p.name}</span>
-                    <button onclick="removeItem('${p.id}')" class="text-red-400 hover:text-red-600 transition"><i class="fa-solid fa-trash-can"></i></button>
+                    <button onclick="removeItem('${p.id}')" class="text-red-400 hover:text-red-600 transition p-2">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </button>
                 </div>
             `).join('');
         }
