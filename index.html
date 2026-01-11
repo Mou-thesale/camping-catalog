@@ -75,7 +75,7 @@
 </head>
 <body class="flex flex-col min-h-screen">
 
-    <!-- Navigation -->
+    <!-- การนำทาง (Navigation) -->
     <nav class="nav-blur sticky top-0 z-50 border-b border-gray-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6">
             <div class="flex justify-between items-center h-16 sm:h-20">
@@ -83,15 +83,17 @@
                     <span class="font-black text-xl leading-none tracking-tight text-black uppercase">THESALE3</span>
                     <span class="text-[9px] font-bold text-emerald-600 tracking-[0.2em] uppercase">Camping Store</span>
                 </div>
-                <a href="https://wa.me/8562054849393" target="_blank" class="flex items-center gap-2 group">
-                    <i class="fa-brands fa-whatsapp text-2xl text-emerald-500 group-hover:scale-110 transition"></i>
-                    <span class="hidden sm:block text-[11px] font-bold uppercase tracking-widest text-gray-900">Chat with us</span>
-                </a>
+                <div class="flex items-center gap-4">
+                    <a href="https://wa.me/8562054849393" target="_blank" class="flex items-center gap-2 group">
+                        <i class="fa-brands fa-whatsapp text-2xl text-emerald-500 group-hover:scale-110 transition"></i>
+                        <span class="hidden sm:block text-[11px] font-bold uppercase tracking-widest text-gray-900">Chat with us</span>
+                    </a>
+                </div>
             </div>
         </div>
     </nav>
 
-    <!-- Hero -->
+    <!-- ส่วนหัว (Hero) -->
     <header class="hero-banner h-[300px] sm:h-[400px] flex items-center justify-center text-center px-4">
         <div class="max-w-3xl">
             <h1 class="text-4xl sm:text-6xl font-black text-white mb-4 tracking-tighter drop-shadow-2xl">TheSale3 Store</h1>
@@ -102,13 +104,14 @@
         </div>
     </header>
 
-    <!-- Catalog -->
+    <!-- รายการสินค้า (Catalog) -->
     <main id="catalog" class="max-w-7xl mx-auto px-4 sm:px-6 py-10 flex-grow w-full">
         <div class="flex flex-col lg:flex-row justify-between items-center mb-10 gap-6">
             <div id="categoryContainer" class="flex gap-2 overflow-x-auto no-scrollbar w-full lg:w-auto pb-2">
                 <button onclick="filterBy('all', this)" class="category-pill active bg-emerald-600 text-white px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest border border-transparent">All Gear</button>
                 <button onclick="filterBy('coffee', this)" class="category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600">Coffee</button>
                 <button onclick="filterBy('tents', this)" class="category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600">Tents</button>
+                <button onclick="filterBy('lighting', this)" class="category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600">Lighting</button>
                 <button onclick="filterBy('cooking', this)" class="category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600">Cooking</button>
                 <button onclick="filterBy('furniture', this)" class="category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600">Furniture</button>
             </div>
@@ -122,12 +125,12 @@
         <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             <div class="col-span-full py-20 text-center text-gray-400">
                 <i class="fa-solid fa-spinner fa-spin text-3xl mb-4"></i>
-                <p id="loadingStatus">Loading gear catalog...</p>
+                <p id="loadingStatus">Syncing with cloud catalog...</p>
             </div>
         </div>
     </main>
 
-    <!-- Product Details Modal -->
+    <!-- รายละเอียดสินค้า (Product Details Modal) -->
     <div id="modal" style="display: none;" class="fixed inset-0 z-[100] modal-overlay items-center justify-center p-4" onclick="if(event.target === this) closeModals()">
         <div class="bg-white rounded-[32px] max-w-4xl w-full overflow-hidden shadow-2xl relative flex flex-col md:flex-row max-h-[90vh]">
             <button onclick="closeModals()" class="absolute top-4 right-4 text-gray-400 hover:text-black z-20 bg-white/80 w-10 h-10 rounded-full flex items-center justify-center shadow-sm">
@@ -141,63 +144,19 @@
                 <h2 id="modalTitle" class="text-3xl font-black text-gray-900 mb-4 tracking-tighter"></h2>
                 <p id="modalPrice" class="text-2xl font-bold text-emerald-600 mb-6 italic"></p>
                 <div class="h-1 w-12 bg-emerald-600 mb-6"></div>
-                <p id="modalDescription" class="text-gray-500 text-sm leading-relaxed mb-8 flex-grow"></p>
+                <p id="modalDescription" class="text-gray-500 text-sm leading-relaxed mb-8 flex-grow whitespace-pre-line"></p>
                 <a id="whatsappBtn" href="#" target="_blank" class="whatsapp-btn text-white py-4 rounded-2xl font-black flex items-center justify-center gap-3 shadow-lg uppercase tracking-widest text-xs">
-                    <i class="fa-brands fa-whatsapp text-2xl"></i> Order on WhatsApp
+                    <i class="fa-brands fa-whatsapp text-2xl"></i> Chat to Purchase
                 </a>
             </div>
         </div>
     </div>
 
-    <!-- Admin Panel Modal -->
-    <div id="adminModal" style="display: none;" class="fixed inset-0 z-[110] modal-overlay items-center justify-center p-4" onclick="if(event.target === this) closeModals()">
-        <div class="bg-white rounded-3xl max-w-lg w-full p-8 shadow-2xl relative">
-            <button onclick="closeModals()" class="absolute top-6 right-6 text-gray-400 hover:text-black">
-                <i class="fa-solid fa-xmark text-xl"></i>
-            </button>
-            <h2 class="text-2xl font-black mb-2">Management Panel</h2>
-            <p id="adminConnStatus" class="text-[10px] text-gray-400 uppercase tracking-widest mb-6 italic">
-                <i class="fa-solid fa-circle text-[8px] mr-1"></i> Checking cloud link...
-            </p>
-
-            <form id="adminForm" class="space-y-4 mb-8">
-                <input type="text" id="pName" placeholder="Product Name (e.g. Pro Tent 3000)" class="w-full p-3 bg-gray-50 rounded-xl outline-none focus:ring-2 focus:ring-emerald-500 border-none" required>
-                <div class="grid grid-cols-2 gap-4">
-                    <input type="number" id="pPrice" placeholder="Price (LAK)" class="p-3 bg-gray-50 rounded-xl outline-none focus:ring-2 focus:ring-emerald-500 border-none" required>
-                    <select id="pCategory" class="p-3 bg-gray-50 rounded-xl outline-none focus:ring-2 focus:ring-emerald-500 border-none">
-                        <option value="coffee">Coffee</option>
-                        <option value="tents">Tents</option>
-                        <option value="cooking">Cooking</option>
-                        <option value="lighting">Lighting</option>
-                        <option value="furniture">Furniture</option>
-                    </select>
-                </div>
-                <input type="url" id="pImage" placeholder="Direct Image URL (Link to photo)" class="w-full p-3 bg-gray-50 rounded-xl outline-none focus:ring-2 focus:ring-emerald-500 border-none" required>
-                <textarea id="pDesc" placeholder="Write a short description..." class="w-full p-3 bg-gray-50 rounded-xl outline-none focus:ring-2 focus:ring-emerald-500 border-none h-20" required></textarea>
-                <button type="submit" id="submitBtn" class="w-full bg-black text-white py-4 rounded-xl font-bold hover:bg-gray-800 transition shadow-lg flex items-center justify-center gap-2">
-                    <span id="btnText">Add Product to Shop</span>
-                </button>
-            </form>
-
-            <div class="border-t pt-4">
-                <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Current Products</h3>
-                <div id="adminList" class="max-h-48 overflow-y-auto space-y-2">
-                    <!-- Products appear here for deletion -->
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Footer -->
+    <!-- ส่วนท้าย (Footer) -->
     <footer class="bg-white border-t py-12 px-4 text-center mt-auto">
         <div class="flex justify-center items-center gap-4 mb-6 relative">
             <a href="https://facebook.com" target="_blank" class="text-gray-300 hover:text-blue-600 transition"><i class="fa-brands fa-facebook-f text-xl"></i></a>
             <a href="https://tiktok.com" target="_blank" class="text-gray-300 hover:text-black transition"><i class="fa-brands fa-tiktok text-xl"></i></a>
-            
-            <!-- Management Trigger (Faint icon in footer) -->
-            <div id="adminAccess" onclick="toggleAdmin()" class="opacity-[0.25] hover:opacity-100 transition-opacity cursor-pointer p-2 ml-2">
-                <i class="fa-solid fa-gear text-lg text-gray-400"></i>
-            </div>
         </div>
         <div class="mb-4">
             <span class="font-bold uppercase tracking-[0.3em] text-[10px] text-gray-900">TheSale3 Camping Store</span>
@@ -210,32 +169,180 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, addDoc, onSnapshot, doc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // Requested Tent to pre-add as a featured product
-        const REQUESTED_TENT = {
-            id: 'featured-tent',
-            name: 'TheSale3 Premium Tent',
-            price: 1250000,
-            category: 'tents',
-            image: 'https://i.postimg.cc/qv0hwyZz/471874894-1103166361597493-1459129778683580847-n.jpg',
-            description: 'Professional grade waterproof tent designed for the Lao adventurer. Spacious interior, durable outer shell, and quality tested for humidity and rain.',
-            featured: true
-        };
+        // รายการสินค้าแนะนำ (Featured Items)
+        const SYSTEM_PRODUCTS = [
+            {
+                id: 'featured-tent',
+                name: `ເຕັ້ນ QUECHUA (ບໍ່ແມ່ນເຕັ້ນກາງໂອໂຕ້)
+ສຳລັບ 2 ຄົນ TheSale3 Premium Tent`,
+                price: 1450000,
+                category: 'tents',
+                image: 'https://i.postimg.cc/qv0hwyZz/471874894-1103166361597493-1459129778683580847-n.jpg',
+                description: 'Professional grade waterproof tent designed for the Lao adventurer. Spacious interior and durable outer shell.',
+                featured: true
+            },
+            {
+                id: 'featured-auto-tent-premium',
+                name: `ເຕັ້ນກາງອັດຕະໂນມັດ (3-4 ທ່ານ) ລະບາຍອາກາດດີ`,
+                price: 885000,
+                category: 'tents',
+                image: 'https://i.postimg.cc/6pCRNRQF/124951381-118420500072089-6079077613874319164-n.jpg',
+                description: `เต็นท์กางอัตโนมัติ ขนาด 3-4 ท่าน กางง่ายและรวดเร็ว
+                
+                รายละเอียด:
+                - ขนาด: ประมาณ 215x215x142 cm
+                - วัสดุ: 210D Oxford กันรังสียูวีได้ดี
+                - ประตู 2 ด้าน หน้าต่าง 2 บาน ระบายอากาศได้ดีเยี่ยม
+                - มีมุ้งตาข่ายกันยุงและแมลงทุกด้าน
+                - พับเก็บง่าย มาพร้อมกระเป๋าถือ พกพาสะดวก
+                - กันหมอกและกันฝนปรอยๆ ได้`,
+                featured: true
+            },
+            {
+                id: 'featured-spring-tent',
+                name: `ເຕັ້ນສະປິງກາງອັດຕະໂນມັດ ລຸ້ນທຳມະດາ (3-4 ທ່ານ)`,
+                price: 650000,
+                category: 'tents',
+                image: 'https://i.postimg.cc/NGWkqQ4R/127859284-131667258747413-3464652703126584755-n.jpg',
+                description: `เต็นท์สปริงกางอัตโนมัติ ติดตั้งง่ายในไม่กี่วินาที
+                
+                รายละเอียด:
+                - ขนาดสำหรับ 3-4 ท่าน (ขึ้นอยู่กับขนาดตัวผู้ใช้)
+                - น้ำหนักเบา พกพาง่าย เหมาะสำหรับนอนป่าหรือแคมป์ปิ้ง
+                - กันน้ำค้าง กันละอองฝนปรอยๆ และป้องกันรังสียูวี
+                - กางและพับเก็บได้รวดเร็ว ทนทานต่อการใช้งาน`,
+                featured: true
+            },
+            {
+                id: 'featured-led-lamp',
+                name: 'ຕະກຽງ LED (HOMFUL LED Lantern)',
+                price: 320000,
+                category: 'lighting',
+                image: 'https://i.postimg.cc/YS7Vz1V8/470138708-1091427639438032-4054288834215141234-n.jpg',
+                description: `ຕະກຽງ LED ຍີ່ຫໍ້ HOMFUL (ສິນຄ້ານຳເຂົ້າຈາກຈີນ)
+                
+                ຄຸນສົມບັດ:
+                - ນ້ຳໜັກ: 380g
+                - ແສງສະຫວ່າງຕໍ່ເນື່ອງ: 24 ຊົ່ວໂມງ
+                - ຄວາມສະຫວ່າງ: 5W
+                - ປະເພດຫຼອດໄຟ: LED
+                - ແບັດເຕີລີ່: 1200 mAh
+                - ໃຊ້ງານໄດ້ດົນ: 4 ຊົ່ວໂມງ (ໃນຄວາມສະຫວ່າງສູງສຸດ)`,
+                featured: true
+            },
+            {
+                id: 'featured-cup-set',
+                name: `ຈອກແຄ້ມປີ້ງ Cool Camp (4 ໃບ + ກະເປົ໋າ)`,
+                price: 260000,
+                category: 'coffee',
+                image: 'https://i.postimg.cc/L5yDLPPw/202323323-277134600867344-8457321312918561749-n.jpg',
+                description: `ชุดแก้วสแตนเลสสำหรับแคมป์ปิ้ง ยี่ห้อ fghgf (Cool Camp)
+                
+                รายละเอียด:
+                - วัสดุ: สแตนเลสสตีล แข็งแรง ทนทาน
+                - ความจุ: 350ML ต่อใบ
+                - ในชุดประกอบด้วย: แก้ว 4 ใบ พร้อมกระเป๋าเก็บของพกพาสะดวก
+                - สินค้านำเข้าจากจีน เหมาะสำหรับกิจกรรมกลางแจ้ง`,
+                featured: true
+            },
+            {
+                id: 'featured-auto-tent',
+                name: 'ເຕັ້ນກາງອັດຕະໂນມັດ (Automatic Pop-up Tent)',
+                price: 890000,
+                category: 'tents',
+                image: 'https://i.postimg.cc/7LQ62Yt4/481250252-1394483935280395-2343742065073889579-n.jpg',
+                description: `ເຕັ້ນກາງອັດຕະໂນມັດ ກັນຫມອກໄດ້ ແຕ່ບໍ່ກັນຝົນ
+                
+                คุณสมบัติเต็นท์:
+                - กางอัตโนมัติ กางง่าย เก็บง่าย คนเดียวก็กางได้
+                - มีชั้นมุ้งตาข่าย สำหรับป้องกันยุง หรือ แมลงต่างๆ
+                - เป็นแบบ 2 ประตู 2 หน้าต่าง มีมุ้งตาข่ายกันแมลง
+                - มีกระเป๋าสำหรับใส่เต็นท์ พกพาสะดวก
+                - น้ำหนักเบา เหมาะสำหรับนำไปตั้งแคมป์ นอนป่า
+                - คุณภาพดีและทนทาน กันน้ำค้าง`,
+                featured: true
+            },
+            {
+                id: 'featured-coffee-grinder',
+                name: 'ເຄື່ອງບົດກາເຟ (Coffee Bean Grinder)',
+                price: 195000,
+                category: 'coffee',
+                image: 'https://i.postimg.cc/vZNN0NDm/138558955_160501135864025_1071256138491929297_n.jpg',
+                description: `ເຄື່ອງບົດກາເຟວິນເທຈ ແບບມືໝູນ Deemrt
+                
+                ວັດສະດຸ: ສແຕນເລດ + ເຊລາມິກ + ຊິລິໂຄນ + ແກ້ວ
+                ຂະໜາດ: ເສັ້ນຜ່ານສູນກາງ 9.2 ຊມ, ສູງ 16 ຊມ
+                ຄວາມຈຸ: ບົດເມັດໄດ້ 75g, ໃສ່ຜົງໄດ້ 120g
+                ໃນຊຸດປະກອບມີ: ເຄື່ອງບົດ, ກວດແກ້ວສຳຮອງ, ຄູ່ມືພາສາອັງກິດ`,
+                featured: true
+            },
+            {
+                id: 'featured-cooking-set',
+                name: 'ຊຸດໝໍ້ສຳລັບ 3 ຫາ 4 ຄົນ (DS-308)',
+                price: 430000,
+                category: 'cooking',
+                image: 'https://i.postimg.cc/bw8m2q4T/150739603-186271443286994-1875422230249930637-n.jpg',
+                description: `DS-308 ชุดหม้อสนามแคมป์ปิ้ง สำหรับ 3-4 คน (ชุดใหญ่)
+                
+                ***ประกอบด้วย ***
+                1. กระทะ ขนาด 17.8 x 3.9 ຊມ. 1 ໃບ
+                2. ໝໍ້ຂະໜາດໃຫຍ່ 16.6 x 8.9 ຊມ. 1 ໃບ
+                3. ກາຕົ້ມນ້ຳ 1 ໃບ
+                4. ຖ້ວຍຢາງ 3 ໃບ
+                5. ກະບວຍແບບພັບ
+                6. ທັບພີໄມ້ 1 ອັນ
+                7. ໃຍບົວທຳຄວາມສະอາດ
+                8. ຖົງຜ້າຕາໜ່າງສີດຳ`,
+                featured: true
+            },
+            {
+                id: 'featured-picnic-stove',
+                name: 'ເຕົາແກັດຂະຫນາດນ້ອຍ (Small Picnic Stove K-202)',
+                price: 165000,
+                category: 'cooking',
+                image: 'https://i.postimg.cc/3RfYqSQJ/150468425-186271443286994-1875422230249930637-n.jpg',
+                description: `เตาแก๊สปิกนิค K-202 เตาแก๊สพกพา เตาแก๊สพับได้ เตาแก๊สมินิ
+                
+                คูณสมบัติ:
+                - ระบบจุดไฟแบบแม็กนีโตร ไม่ต้องใช้ไฟแช็ก
+                - สามารถปรับระดับความแรงของเปลวไฟได้
+                - กำลังไฟ (Power): 2800w
+                - ขนาด: 112 * 112 * 95 mm
+                - บรรจุในกล่องพร้อมกระเป๋าใส่เตาแก๊สและคู่มือ`,
+                featured: true
+            },
+            {
+                id: 'featured-waist-bag',
+                name: 'ກະເປົ໋ານ້ອຍຫ້ອຍແອວ (Tactical Waist Bag)',
+                price: 100000,
+                category: 'furniture',
+                image: 'https://i.postimg.cc/7PpfY6j0/476359221-1130686925512103-8223380318275171227-n.jpg',
+                description: `กระเป๋าคาดเอวยุทธวิธี Multi-Purpose Tactical Molle EDC Pouch
+                
+                คุณสมบัติ:
+                - สำหรับเดินป่า หรือกิจกรรม Outdoor
+                - ดีไซน์ Molle EDC Pouch แข็งแรง ทนทาน
+                - มีช่องสำหรับใส่โทรศัพท์มือถือ (Cell Phone Holster)
+                - สามารถใช้ร่วมกับเข็มขัดหรือเป้สนามได้
+                - เหมาะสำหรับสุภาพบุรุษและสุภาพสตรี`,
+                featured: true
+            }
+        ];
 
-        let products = [REQUESTED_TENT]; // Always start with the requested tent
+        let products = [...SYSTEM_PRODUCTS];
         let currentCat = 'all';
         let currentUser = null;
         let productCol = null;
 
-        // Firebase Setup
+        // การตั้งค่า Firebase (Firebase Setup)
         let db, auth;
         const setupFirebase = async () => {
-            const statusEl = document.getElementById('adminConnStatus');
             try {
                 const configStr = typeof __firebase_config !== 'undefined' ? __firebase_config : null;
                 if (!configStr) {
-                    statusEl.innerText = "Demo Mode (Local)";
+                    applyFilters();
                     return;
                 }
                 
@@ -247,81 +354,29 @@
 
                 productCol = collection(db, 'artifacts', appId, 'public', 'data', 'products');
 
-                // RULE 3: Auth First
-                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                    await signInWithCustomToken(auth, __initial_auth_token);
-                } else {
-                    await signInAnonymously(auth);
-                }
+                const performAuth = async () => {
+                    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                        await signInWithCustomToken(auth, __initial_auth_token);
+                    } else {
+                        await signInAnonymously(auth);
+                    }
+                };
+                
+                await performAuth();
                 
                 onAuthStateChanged(auth, (user) => {
                     currentUser = user;
                     if (user) {
-                        statusEl.innerHTML = '<i class="fa-solid fa-circle text-[8px] mr-1 text-emerald-500"></i> Cloud Active';
                         onSnapshot(productCol, (snap) => {
                             const dbProducts = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-                            // Combine hardcoded featured items with database items
-                            products = [REQUESTED_TENT, ...dbProducts.filter(p => p.id !== REQUESTED_TENT.id)];
+                            const systemIds = SYSTEM_PRODUCTS.map(p => p.id);
+                            products = [...SYSTEM_PRODUCTS, ...dbProducts.filter(p => !systemIds.includes(p.id))];
                             applyFilters();
                         }, (err) => {
-                            statusEl.innerHTML = '<i class="fa-solid fa-circle text-[8px] mr-1 text-red-500"></i> Permissions Issue';
-                            console.error("Firestore error:", err);
+                            console.error(err);
                         });
                     }
                 });
-
-                // Management Panel Form
-                const adminForm = document.getElementById('adminForm');
-                const submitBtn = document.getElementById('submitBtn');
-                const btnText = document.getElementById('btnText');
-
-                adminForm.onsubmit = async (e) => {
-                    e.preventDefault();
-                    
-                    if (!currentUser || !productCol) {
-                        alert("Cloud connection is pending. Try again in 5 seconds.");
-                        return;
-                    }
-
-                    submitBtn.disabled = true;
-                    btnText.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Saving to Cloud...';
-
-                    const p = {
-                        name: document.getElementById('pName').value,
-                        price: Number(document.getElementById('pPrice').value),
-                        category: document.getElementById('pCategory').value,
-                        image: document.getElementById('pImage').value,
-                        description: document.getElementById('pDesc').value,
-                        createdAt: new Date().toISOString()
-                    };
-
-                    try {
-                        await addDoc(productCol, p);
-                        adminForm.reset();
-                        window.closeModals();
-                    } catch (err) {
-                        console.error("Save error:", err);
-                        alert("Could not add product: " + err.message);
-                    } finally {
-                        submitBtn.disabled = false;
-                        btnText.innerText = 'Add Product to Shop';
-                    }
-                };
-
-                window.removeItem = async (id) => {
-                    if (id === 'featured-tent') {
-                        alert("The main featured product cannot be deleted from demo mode.");
-                        return;
-                    }
-                    if (!currentUser) return;
-                    if(confirm("Delete this product permanently?")) {
-                        try {
-                            await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'products', id));
-                        } catch (err) {
-                            alert("Delete failed: " + err.message);
-                        }
-                    }
-                };
 
             } catch (err) {
                 console.error("Setup failed:", err);
@@ -329,19 +384,9 @@
         };
 
         setupFirebase();
-        applyFilters(); // Initial render
-
-        // UI Functions
-        window.toggleAdmin = () => {
-            const m = document.getElementById('adminModal');
-            const isHidden = window.getComputedStyle(m).display === 'none';
-            m.style.display = isHidden ? 'flex' : 'none';
-            document.body.style.overflow = isHidden ? 'hidden' : 'auto';
-        };
 
         window.closeModals = () => {
             document.getElementById('modal').style.display = 'none';
-            document.getElementById('adminModal').style.display = 'none';
             document.body.style.overflow = 'auto';
         };
 
@@ -372,15 +417,15 @@
         function applyFilters() {
             const search = document.getElementById('searchInput').value.toLowerCase();
             const filtered = products.filter(p => {
-                return (currentCat === 'all' || p.category === currentCat) && 
-                       p.name.toLowerCase().includes(search);
+                const matchesCat = (currentCat === 'all' || p.category === currentCat);
+                const matchesSearch = p.name.toLowerCase().includes(search);
+                return matchesCat && matchesSearch;
             });
             render(filtered);
         }
 
         function render(items) {
             const grid = document.getElementById('productGrid');
-            const adminList = document.getElementById('adminList');
             
             grid.innerHTML = items.map(p => `
                 <div class="product-card group overflow-hidden flex flex-col cursor-pointer fade-in" onclick="openDetails('${p.id}')">
@@ -393,23 +438,15 @@
                         <h3 class="font-bold text-lg mb-1 text-gray-900 tracking-tight">${p.name}</h3>
                         <p class="text-base font-bold text-emerald-600 mb-6 italic">LAK ${Number(p.price).toLocaleString()}</p>
                         <div class="mt-auto flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-gray-900">
-                            View Product <i class="fa-solid fa-arrow-right-long text-emerald-600 group-hover:translate-x-1 transition"></i>
+                            Check Gear <i class="fa-solid fa-arrow-right-long text-emerald-600 group-hover:translate-x-1 transition"></i>
                         </div>
                     </div>
                 </div>
             `).join('');
 
-            if(items.length === 0) grid.innerHTML = '<div class="col-span-full py-20 text-center text-gray-400 italic">No gear found matching that search.</div>';
-
-            // Management Panel List
-            adminList.innerHTML = products.map(p => `
-                <div class="flex items-center justify-between p-3 bg-gray-50 rounded-xl mb-2">
-                    <span class="text-[11px] font-bold truncate pr-4">${p.name} ${p.featured ? '(System)' : ''}</span>
-                    <button onclick="removeItem('${p.id}')" class="text-red-400 hover:text-red-600 transition p-2">
-                        <i class="fa-solid fa-trash-can"></i>
-                    </button>
-                </div>
-            `).join('');
+            if(items.length === 0) {
+                grid.innerHTML = '<div class="col-span-full py-20 text-center text-gray-400 italic">No gear matches that filter.</div>';
+            }
         }
     </script>
 </body>
