@@ -30,10 +30,20 @@
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .fade-in { animation: fadeIn 0.5s ease forwards; }
+
+        /* Cart Animations */
+        .cart-badge {
+            animation: pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        @keyframes pop {
+            0% { transform: scale(0.5); }
+            100% { transform: scale(1); }
+        }
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
 
+    <!-- Navigation -->
     <nav class="nav-blur sticky top-0 z-50 border-b border-gray-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6">
             <div class="flex justify-between items-center h-16 sm:h-20">
@@ -41,10 +51,15 @@
                     <span class="font-black text-xl leading-none tracking-tight text-black uppercase">THESALE3</span>
                     <span class="text-[9px] font-bold text-emerald-600 tracking-[0.2em] uppercase">Camping Store</span>
                 </div>
-                <div class="flex items-center gap-4">
+                <div class="flex items-center gap-6">
+                    <!-- Cart Trigger -->
+                    <button onclick="openCart()" class="relative group p-2">
+                        <i class="fa-solid fa-cart-shopping text-2xl text-gray-800 group-hover:text-emerald-600 transition"></i>
+                        <span id="cartCount" class="cart-badge absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-black w-5 h-5 flex items-center justify-center rounded-full border-2 border-white hidden">0</span>
+                    </button>
                     <a href="https://wa.me/8562054849393" target="_blank" class="flex items-center gap-2 group">
                         <i class="fa-brands fa-whatsapp text-2xl text-emerald-500 group-hover:scale-110 transition"></i>
-                        <span class="hidden sm:block text-[11px] font-bold uppercase tracking-widest text-gray-900">Chat with us</span>
+                        <span class="hidden sm:block text-[11px] font-bold uppercase tracking-widest text-gray-900">Contact</span>
                     </a>
                 </div>
             </div>
@@ -59,6 +74,7 @@
         </div>
     </header>
 
+    <!-- Catalog -->
     <main id="catalog" class="max-w-7xl mx-auto px-4 sm:px-6 py-10 flex-grow w-full">
         <div class="flex flex-col lg:flex-row justify-between items-center mb-10 gap-6">
             <div id="categoryContainer" class="flex gap-2 overflow-x-auto no-scrollbar w-full lg:w-auto pb-4">
@@ -82,17 +98,53 @@
         <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
     </main>
 
+    <!-- Product Details Modal -->
     <div id="modal" style="display: none;" class="fixed inset-0 z-[100] modal-overlay items-center justify-center p-4" onclick="if(event.target === this) closeModals()">
         <div class="bg-white rounded-[32px] max-w-4xl w-full overflow-hidden shadow-2xl relative flex flex-col md:flex-row max-h-[90vh]">
             <button onclick="closeModals()" class="absolute top-4 right-4 text-gray-400 hover:text-black z-20 bg-white/80 w-10 h-10 rounded-full flex items-center justify-center shadow-sm"><i class="fa-solid fa-xmark"></i></button>
-            <div class="md:w-1/2 bg-gray-50 h-64 md:h-auto overflow-hidden"><img id="modalImage" src="" alt="" class="w-full h-full object-cover"></div>
+            <div class="md:w-1/2 bg-gray-50 h-64 md:h-auto overflow-hidden">
+                <img id="modalImage" src="" alt="" class="w-full h-full object-cover">
+            </div>
             <div class="p-8 md:p-12 md:w-1/2 flex flex-col overflow-y-auto">
                 <span id="modalCategory" class="text-emerald-700 text-[10px] font-bold uppercase tracking-[0.3em] mb-4"></span>
                 <h2 id="modalTitle" class="text-3xl font-black text-gray-900 mb-4 tracking-tighter"></h2>
                 <p id="modalPrice" class="text-2xl font-bold text-emerald-600 mb-6 italic"></p>
                 <div class="h-1 w-12 bg-emerald-600 mb-6"></div>
                 <p id="modalDescription" class="text-gray-500 text-sm leading-relaxed mb-8 flex-grow whitespace-pre-line"></p>
-                <a id="whatsappBtn" href="#" target="_blank" class="whatsapp-btn text-white py-4 rounded-2xl font-black flex items-center justify-center gap-3 shadow-lg uppercase tracking-widest text-xs"><i class="fa-brands fa-whatsapp text-2xl"></i> Chat to Purchase</a>
+                
+                <div class="flex gap-4">
+                    <button id="addToCartBtn" class="bg-black text-white px-8 py-4 rounded-2xl font-black flex-grow flex items-center justify-center gap-3 shadow-lg uppercase tracking-widest text-xs hover:bg-gray-800 transition">
+                        <i class="fa-solid fa-cart-plus text-xl"></i> Add to Cart
+                    </button>
+                    <a id="whatsappBtn" href="#" target="_blank" class="whatsapp-btn text-white p-4 rounded-2xl font-black flex items-center justify-center shadow-lg transition">
+                        <i class="fa-brands fa-whatsapp text-2xl"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Modal -->
+    <div id="cartModal" style="display: none;" class="fixed inset-0 z-[110] modal-overlay items-center justify-end" onclick="if(event.target === this) closeCart()">
+        <div class="bg-white h-full max-w-lg w-full shadow-2xl flex flex-col fade-in">
+            <div class="p-8 border-b flex justify-between items-center">
+                <h2 class="text-2xl font-black uppercase tracking-tight">Shopping Cart</h2>
+                <button onclick="closeCart()" class="text-gray-400 hover:text-black"><i class="fa-solid fa-xmark text-2xl"></i></button>
+            </div>
+            
+            <div id="cartItems" class="flex-grow overflow-y-auto p-8 space-y-6">
+                <!-- Cart items will be rendered here -->
+                <div class="text-center py-20 text-gray-400">Your cart is empty</div>
+            </div>
+
+            <div class="p-8 border-t bg-gray-50">
+                <div class="flex justify-between items-center mb-6">
+                    <span class="font-bold text-gray-500 uppercase tracking-widest text-xs">Total Amount</span>
+                    <span id="cartTotal" class="text-2xl font-black text-emerald-600 italic">0 LAK</span>
+                </div>
+                <button onclick="sendOrderWhatsApp()" class="whatsapp-btn w-full text-white py-5 rounded-2xl font-black flex items-center justify-center gap-4 shadow-xl uppercase tracking-widest text-sm hover:brightness-110 transition">
+                    <i class="fa-brands fa-whatsapp text-2xl"></i> Complete Order via WhatsApp
+                </button>
             </div>
         </div>
     </div>
@@ -161,8 +213,119 @@
         ];
 
         let products = [...SYSTEM_PRODUCTS];
+        let cart = [];
         let currentCat = 'all';
 
+        // Cart Functions
+        window.openCart = () => {
+            renderCart();
+            document.getElementById('cartModal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        };
+
+        window.closeCart = () => {
+            document.getElementById('cartModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        };
+
+        window.addToCart = (productId) => {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            const existing = cart.find(item => item.id === productId);
+            if (existing) {
+                existing.quantity += 1;
+            } else {
+                cart.push({ ...product, quantity: 1 });
+            }
+            updateCartUI();
+        };
+
+        window.updateCartQuantity = (productId, delta) => {
+            const item = cart.find(i => i.id === productId);
+            if (!item) return;
+            item.quantity += delta;
+            if (item.quantity <= 0) {
+                cart = cart.filter(i => i.id !== productId);
+            }
+            updateCartUI();
+            renderCart();
+        };
+
+        function updateCartUI() {
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const badge = document.getElementById('cartCount');
+            if (count > 0) {
+                badge.innerText = count;
+                badge.classList.remove('hidden');
+            } else {
+                badge.classList.add('hidden');
+            }
+            localStorage.setItem('thesale3_cart', JSON.stringify(cart));
+        }
+
+        function renderCart() {
+            const container = document.getElementById('cartItems');
+            const totalEl = document.getElementById('cartTotal');
+            
+            if (cart.length === 0) {
+                container.innerHTML = `<div class="text-center py-20 text-gray-400">
+                    <i class="fa-solid fa-cart-arrow-down text-5xl mb-4 opacity-20"></i>
+                    <p class="font-bold uppercase tracking-widest text-xs">Your cart is empty</p>
+                </div>`;
+                totalEl.innerText = '0 LAK';
+                return;
+            }
+
+            let total = 0;
+            container.innerHTML = cart.map(item => {
+                total += item.price * item.quantity;
+                return `
+                <div class="flex items-center gap-4 bg-white p-4 rounded-2xl border border-gray-100 shadow-sm fade-in">
+                    <img src="${item.image}" class="w-20 h-20 object-cover rounded-xl shadow-sm">
+                    <div class="flex-grow">
+                        <h4 class="font-bold text-sm text-gray-900 leading-tight mb-1">${item.name}</h4>
+                        <p class="text-emerald-600 font-bold text-xs">${Number(item.price).toLocaleString()} LAK</p>
+                    </div>
+                    <div class="flex flex-col items-end gap-2">
+                        <div class="flex items-center bg-gray-50 rounded-lg border border-gray-100 p-1">
+                            <button onclick="updateCartQuantity('${item.id}', -1)" class="w-6 h-6 flex items-center justify-center text-gray-400 hover:text-black transition"><i class="fa-solid fa-minus text-[10px]"></i></button>
+                            <span class="w-8 text-center text-xs font-black">${item.quantity}</span>
+                            <button onclick="updateCartQuantity('${item.id}', 1)" class="w-6 h-6 flex items-center justify-center text-gray-400 hover:text-black transition"><i class="fa-solid fa-plus text-[10px]"></i></button>
+                        </div>
+                        <span class="text-[10px] font-black text-gray-400">${(item.price * item.quantity).toLocaleString()} LAK</span>
+                    </div>
+                </div>`;
+            }).join('');
+            totalEl.innerText = `${total.toLocaleString()} LAK`;
+        }
+
+        window.sendOrderWhatsApp = () => {
+            if (cart.length === 0) return;
+            
+            let message = "Sabaidee! I would like to order the following items:\n\n";
+            let total = 0;
+            
+            cart.forEach((item, index) => {
+                const subtotal = item.price * item.quantity;
+                total += subtotal;
+                message += `${index + 1}. ${item.name}\n`;
+                message += `   Quantity: ${item.quantity}\n`;
+                message += `   Price: ${item.price.toLocaleString()} LAK\n`;
+                message += `   Subtotal: ${subtotal.toLocaleString()} LAK\n`;
+                message += `   Product Link: ${item.image}\n\n`;
+            });
+
+            message += `--------------------------\n`;
+            message += `GRAND TOTAL: ${total.toLocaleString()} LAK\n`;
+            message += `--------------------------\n`;
+            message += `Please confirm my order. Thank you!`;
+
+            const encoded = encodeURIComponent(message);
+            window.open(`https://wa.me/8562054849393?text=${encoded}`, '_blank');
+        };
+
+        // Navigation & Filter Functions
         window.filterBy = (cat, btn) => {
             currentCat = cat;
             document.querySelectorAll('.category-pill').forEach(b => b.className = 'category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600');
@@ -189,7 +352,10 @@
                         <span class="text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-2">${p.category.replace('_', ' ')}</span>
                         <h3 class="font-bold text-lg mb-1 text-gray-900 tracking-tight">${p.name}</h3>
                         <p class="text-base font-bold text-emerald-600 mb-6 italic">LAK ${Number(p.price).toLocaleString()}</p>
-                        <div class="mt-auto flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-gray-900">Check Gear <i class="fa-solid fa-arrow-right-long text-emerald-600 group-hover:translate-x-1 transition"></i></div>
+                        <div class="mt-auto flex items-center justify-between">
+                            <span class="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-gray-900">Check Gear <i class="fa-solid fa-arrow-right-long text-emerald-600 group-hover:translate-x-1 transition"></i></span>
+                            <button onclick="event.stopPropagation(); addToCart('${p.id}')" class="bg-gray-100 p-2 rounded-lg text-gray-800 hover:bg-emerald-600 hover:text-white transition"><i class="fa-solid fa-plus"></i></button>
+                        </div>
                     </div>
                 </div>`).join('');
         }
@@ -202,7 +368,20 @@
             document.getElementById('modalPrice').innerText = `LAK ${Number(p.price).toLocaleString()}`;
             document.getElementById('modalDescription').innerText = p.description;
             document.getElementById('modalImage').src = p.image;
-            document.getElementById('whatsappBtn').href = `https://wa.me/8562054849393?text=Sabaidee! I want to buy: ${p.name}`;
+            
+            // Single item WhatsApp button
+            document.getElementById('whatsappBtn').href = `https://wa.me/8562054849393?text=${encodeURIComponent("Sabaidee! I'm interested in: " + p.name + " (" + Number(p.price).toLocaleString() + " LAK)\nImage: " + p.image)}`;
+            
+            // Add to Cart Button Logic
+            const addBtn = document.getElementById('addToCartBtn');
+            addBtn.onclick = () => {
+                addToCart(p.id);
+                addBtn.innerHTML = '<i class="fa-solid fa-check text-xl"></i> Added to Cart';
+                setTimeout(() => {
+                    addBtn.innerHTML = '<i class="fa-solid fa-cart-plus text-xl"></i> Add to Cart';
+                }, 1500);
+            };
+
             document.getElementById('modal').style.display = 'flex';
             document.body.style.overflow = 'hidden';
         };
@@ -210,6 +389,13 @@
         window.closeModals = () => { document.getElementById('modal').style.display = 'none'; document.body.style.overflow = 'auto'; };
 
         document.addEventListener('DOMContentLoaded', () => {
+            // Load cart from local storage
+            const savedCart = localStorage.getItem('thesale3_cart');
+            if (savedCart) {
+                cart = JSON.parse(savedCart);
+                updateCartUI();
+            }
+
             applyFilters();
             try {
                 const configStr = typeof __firebase_config !== 'undefined' ? __firebase_config : null;
