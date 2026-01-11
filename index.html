@@ -75,11 +75,6 @@
 </head>
 <body class="flex flex-col min-h-screen">
 
-    <!-- Admin Hidden Trigger (Bottom Right Corner) -->
-    <div id="adminAccess" onclick="toggleAdmin()" class="fixed bottom-4 right-4 z-[200] opacity-[0.05] hover:opacity-100 transition-opacity cursor-pointer p-2">
-        <i class="fa-solid fa-gear text-xl text-gray-500"></i>
-    </div>
-
     <!-- Navigation -->
     <nav class="nav-blur sticky top-0 z-50 border-b border-gray-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6">
@@ -189,9 +184,14 @@
 
     <!-- Footer -->
     <footer class="bg-white border-t py-12 px-4 text-center mt-auto">
-        <div class="flex justify-center items-center gap-4 mb-6">
+        <div class="flex justify-center items-center gap-4 mb-6 relative">
             <a href="https://facebook.com" target="_blank" class="text-gray-300 hover:text-blue-600 transition"><i class="fa-brands fa-facebook-f text-xl"></i></a>
             <a href="https://tiktok.com" target="_blank" class="text-gray-300 hover:text-black transition"><i class="fa-brands fa-tiktok text-xl"></i></a>
+            
+            <!-- Management Trigger (Subtle Icon in Footer) -->
+            <div id="adminAccess" onclick="toggleAdmin()" class="opacity-[0.2] hover:opacity-100 transition-opacity cursor-pointer p-2 ml-2">
+                <i class="fa-solid fa-gear text-lg text-gray-400"></i>
+            </div>
         </div>
         <div class="mb-4">
             <span class="font-bold uppercase tracking-[0.3em] text-[10px] text-gray-900">TheSale3 Camping Store</span>
@@ -265,7 +265,7 @@
 
             } catch (err) {
                 console.error("Firebase Error:", err);
-                document.getElementById('loadingStatus').innerText = "Syncing available shortly...";
+                document.getElementById('loadingStatus').innerText = "Inventory sync temporarily unavailable.";
             }
         };
 
@@ -274,8 +274,10 @@
         // UI Functions
         window.toggleAdmin = () => {
             const m = document.getElementById('adminModal');
-            m.style.display = (m.style.display === 'none') ? 'flex' : 'none';
-            document.body.style.overflow = (m.style.display === 'flex') ? 'hidden' : 'auto';
+            // Force display toggle based on current state
+            const isHidden = window.getComputedStyle(m).display === 'none';
+            m.style.display = isHidden ? 'flex' : 'none';
+            document.body.style.overflow = isHidden ? 'hidden' : 'auto';
         };
 
         window.closeModals = () => {
