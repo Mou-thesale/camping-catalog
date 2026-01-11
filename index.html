@@ -1,387 +1,367 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2685.2">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; color: #4689cc; -webkit-text-stroke: #4689cc}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; color: #8cd3fe; -webkit-text-stroke: #8cd3fe}
-    p.p3 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; color: #c27e65; -webkit-text-stroke: #c27e65}
-    p.p4 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; color: #cacaca; -webkit-text-stroke: #cacaca}
-    p.p5 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; color: #71c083; -webkit-text-stroke: #71c083}
-    p.p6 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; color: #cacaca; -webkit-text-stroke: #cacaca; min-height: 16.0px}
-    p.p7 {margin: 0.0px 0.0px 0.0px 0.0px; font: 14.0px Menlo; color: #6d7378; -webkit-text-stroke: #6d7378}
-    span.s1 {font-kerning: none; background-color: #171818}
-    span.s2 {font-kerning: none; color: #8cd3fe; background-color: #171818; -webkit-text-stroke: 0px #8cd3fe}
-    span.s3 {font-kerning: none; color: #6d6d6d; background-color: #171818; -webkit-text-stroke: 0px #6d6d6d}
-    span.s4 {font-kerning: none; color: #cacaca; background-color: #171818; -webkit-text-stroke: 0px #cacaca}
-    span.s5 {font-kerning: none; color: #c27e65; background-color: #171818; -webkit-text-stroke: 0px #c27e65}
-    span.s6 {font-kerning: none; color: #4689cc; background-color: #171818; -webkit-text-stroke: 0px #4689cc}
-    span.s7 {font-kerning: none; color: #b76ff7; background-color: #171818; -webkit-text-stroke: 0px #b76ff7}
-    span.s8 {font-kerning: none; color: #d4d4d4; background-color: #171818; -webkit-text-stroke: 0px #d4d4d4}
-    span.s9 {font-kerning: none}
-    span.s10 {font-kerning: none; color: #a7c598; background-color: #171818; -webkit-text-stroke: 0px #a7c598}
-    span.s11 {font-kerning: none; color: #71c083; background-color: #171818; -webkit-text-stroke: 0px #71c083}
-    span.s12 {font-kerning: none; color: #36c0a0; background-color: #171818; -webkit-text-stroke: 0px #36c0a0}
-    span.s13 {font-kerning: none; color: #f67c30; background-color: #171818; -webkit-text-stroke: 0px #f67c30}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO TAGS (Search Engine Optimization) -->
+    <title>TheSale3 Camping Store | Premium Outdoor Gear Laos</title>
+    <meta name="description" content="Premium outdoor equipment for the Lao adventurer. Shop portable stoves, tents, coffee gear, and furniture. Quality tested for Laos terrain. Contact +8562054849393.">
+    <meta name="keywords" content="Camping Laos, TheSale3, Vientiane Camping, Outdoor Gear Laos, Portable Stove Laos, Tent Shop Laos">
+    <meta name="author" content="TheSale3">
+    
+    <!-- Open Graph Tags (For Facebook/WhatsApp Sharing) -->
+    <meta property="og:title" content="TheSale3 Camping Store | Cloud Powered">
+    <meta property="og:description" content="Premium outdoor equipment for the Lao adventurer. Click to browse our catalog.">
+    <meta property="og:image" content="https://i.postimg.cc/FKL5Q4JW/489751506-1424454392283349-8154752889413656228-n.jpg">
+    <meta property="og:url" content="https://thesale3.github.io/">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+        
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #fcfcfc;
+            color: #111827;
+        }
+
+        .hero-banner {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://i.postimg.cc/FKL5Q4JW/489751506-1424454392283349-8154752889413656228-n.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .nav-blur {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .product-card {
+            background: #ffffff;
+            border: 1px solid #f3f4f6;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 24px;
+        }
+
+        .product-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+            border-color: #e5e7eb;
+        }
+
+        .category-pill.active {
+            background-color: #059669;
+            color: white;
+            border-color: #059669;
+        }
+
+        .modal-container {
+            display: none;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(8px);
+        }
+
+        .whatsapp-btn {
+            background: #25D366;
+            transition: all 0.3s ease;
+        }
+
+        .whatsapp-btn:hover {
+            background: #1eb956;
+            transform: scale(1.02);
+        }
+
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in { animation: fadeIn 0.5s ease forwards; }
+    </style>
 </head>
-<body>
-<p class="p1"><span class="s1">&lt;!DOCTYPE</span><span class="s2"> html</span><span class="s1">&gt;</span></p>
-<p class="p1"><span class="s3">&lt;</span><span class="s1">html</span><span class="s4"> </span><span class="s2">lang</span><span class="s3">=</span><span class="s5">"en"</span><span class="s3">&gt;</span></p>
-<p class="p1"><span class="s3">&lt;</span><span class="s1">head</span><span class="s3">&gt;</span></p>
-<p class="p2"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s6">meta</span><span class="s4"> </span><span class="s1">charset</span><span class="s3">=</span><span class="s5">"UTF-8"</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s6">meta</span><span class="s4"> </span><span class="s2">name</span><span class="s3">=</span><span class="s1">"viewport"</span><span class="s4"> </span><span class="s2">content</span><span class="s3">=</span><span class="s1">"width=device-width, initial-scale=1.0"</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s6">title</span><span class="s3">&gt;</span><span class="s1">TheSale3 Camping Store | Cloud Powered</span><span class="s3">&lt;/</span><span class="s6">title</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s6">script</span><span class="s4"> </span><span class="s2">src</span><span class="s3">=</span><span class="s1">"https://cdn.tailwindcss.com"</span><span class="s3">&gt;&lt;/</span><span class="s6">script</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s6">link</span><span class="s4"> </span><span class="s2">href</span><span class="s3">=</span><span class="s1">"https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"</span><span class="s4"> </span><span class="s2">rel</span><span class="s3">=</span><span class="s1">"stylesheet"</span><span class="s3">&gt;</span></p>
-<p class="p1"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s1">style</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s7">@import</span><span class="s4"> </span><span class="s5">url</span><span class="s8">(</span><span class="s1">'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&amp;display=swap'</span><span class="s8">);</span></p>
-<p class="p6"><span class="s1"><span class="Apple-converted-space">        </span></span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s6">body</span><span class="s1"> </span><span class="s8">{</span></p>
-<p class="p5"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s2">font-family:</span><span class="s4"> </span><span class="s1">'Plus Jakarta Sans'</span><span class="s8">,</span><span class="s4"> </span><span class="s5">sans-serif</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">background-color:</span><span class="s1"> #fcfcfc</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">color:</span><span class="s1"> #111827</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s8">}</span></p>
-<p class="p6"><span class="s9"></span><br></p>
-<p class="p1"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s1">.hero-banner</span><span class="s4"> </span><span class="s8">{</span></p>
-<p class="p5"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s2">background:</span><span class="s4"> </span><span class="s5">linear-gradient(rgba(</span><span class="s10">0</span><span class="s8">,</span><span class="s10">0</span><span class="s8">,</span><span class="s10">0</span><span class="s8">,</span><span class="s10">0.5</span><span class="s5">)</span><span class="s8">,</span><span class="s4"> </span><span class="s5">rgba(</span><span class="s10">0</span><span class="s8">,</span><span class="s10">0</span><span class="s8">,</span><span class="s10">0</span><span class="s8">,</span><span class="s10">0.5</span><span class="s5">))</span><span class="s8">,</span><span class="s4"> </span><span class="s5">url</span><span class="s8">(</span><span class="s1">'https://i.postimg.cc/FKL5Q4JW/489751506-1424454392283349-8154752889413656228-n.jpg'</span><span class="s8">);</span></p>
-<p class="p2"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s1">background-size:</span><span class="s4"> </span><span class="s5">cover</span><span class="s8">;</span></p>
-<p class="p2"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s1">background-position:</span><span class="s4"> </span><span class="s5">center</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s8">}</span></p>
-<p class="p6"><span class="s9"></span><br></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s6">.nav-blur</span><span class="s1"> </span><span class="s8">{</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">background:</span><span class="s1"> </span><span class="s5">rgba(</span><span class="s10">255</span><span class="s8">,</span><span class="s1"> </span><span class="s10">255</span><span class="s8">,</span><span class="s1"> </span><span class="s10">255</span><span class="s8">,</span><span class="s1"> </span><span class="s10">0.95</span><span class="s5">)</span><span class="s8">;</span></p>
-<p class="p2"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s1">backdrop-filter:</span><span class="s4"> </span><span class="s5">blur(</span><span class="s10">12px</span><span class="s5">)</span><span class="s8">;</span></p>
-<p class="p2"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s1">-webkit-backdrop-filter:</span><span class="s4"> </span><span class="s5">blur(</span><span class="s10">12px</span><span class="s5">)</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s8">}</span></p>
-<p class="p6"><span class="s9"></span><br></p>
-<p class="p1"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s1">.product-card</span><span class="s4"> </span><span class="s8">{</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">background:</span><span class="s1"> #ffffff</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">border:</span><span class="s1"> </span><span class="s10">1px</span><span class="s1"> </span><span class="s5">solid</span><span class="s1"> #f3f4f6</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">transition:</span><span class="s1"> </span><span class="s5">all</span><span class="s1"> </span><span class="s10">0.4s</span><span class="s1"> </span><span class="s5">cubic-bezier(</span><span class="s10">0.4</span><span class="s8">,</span><span class="s1"> </span><span class="s10">0</span><span class="s8">,</span><span class="s1"> </span><span class="s10">0.2</span><span class="s8">,</span><span class="s1"> </span><span class="s10">1</span><span class="s5">)</span><span class="s8">;</span></p>
-<p class="p2"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s1">border-radius:</span><span class="s4"> </span><span class="s10">24px</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s8">}</span></p>
-<p class="p6"><span class="s9"></span><br></p>
-<p class="p1"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s1">.product-card:hover</span><span class="s4"> </span><span class="s8">{</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">transform:</span><span class="s1"> </span><span class="s5">translateY(</span><span class="s10">-6px</span><span class="s5">)</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">box-shadow:</span><span class="s1"> </span><span class="s10">0</span><span class="s1"> </span><span class="s10">20px</span><span class="s1"> </span><span class="s10">25px</span><span class="s1"> </span><span class="s10">-5px</span><span class="s1"> </span><span class="s5">rgba(</span><span class="s10">0</span><span class="s8">,</span><span class="s1"> </span><span class="s10">0</span><span class="s8">,</span><span class="s1"> </span><span class="s10">0</span><span class="s8">,</span><span class="s1"> </span><span class="s10">0.1</span><span class="s5">)</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">border-color:</span><span class="s1"> #e5e7eb</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s8">}</span></p>
-<p class="p6"><span class="s9"></span><br></p>
-<p class="p1"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s1">.category-pill.active</span><span class="s4"> </span><span class="s8">{</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">background-color:</span><span class="s1"> #059669</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">color:</span><span class="s1"> </span><span class="s5">white</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">border-color:</span><span class="s1"> #059669</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s8">}</span></p>
-<p class="p6"><span class="s9"></span><br></p>
-<p class="p1"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s1">.modal-container</span><span class="s4"> </span><span class="s8">{</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">display:</span><span class="s1"> </span><span class="s5">none</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">background:</span><span class="s1"> </span><span class="s5">rgba(</span><span class="s10">0</span><span class="s8">,</span><span class="s10">0</span><span class="s8">,</span><span class="s10">0</span><span class="s8">,</span><span class="s10">0.7</span><span class="s5">)</span><span class="s8">;</span></p>
-<p class="p2"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s1">backdrop-filter:</span><span class="s4"> </span><span class="s5">blur(</span><span class="s10">8px</span><span class="s5">)</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s8">}</span></p>
-<p class="p6"><span class="s9"></span><br></p>
-<p class="p1"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s1">.whatsapp-btn</span><span class="s4"> </span><span class="s8">{</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">background:</span><span class="s1"> #25D366</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">transition:</span><span class="s1"> </span><span class="s5">all</span><span class="s1"> </span><span class="s10">0.3s</span><span class="s1"> </span><span class="s5">ease</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s8">}</span></p>
-<p class="p6"><span class="s9"></span><br></p>
-<p class="p1"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s1">.whatsapp-btn:hover</span><span class="s4"> </span><span class="s8">{</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">background:</span><span class="s1"> #1eb956</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s2">transform:</span><span class="s1"> </span><span class="s5">scale(</span><span class="s10">1.02</span><span class="s5">)</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s8">}</span></p>
-<p class="p6"><span class="s9"></span><br></p>
-<p class="p1"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s1">.no-scrollbar::-webkit-scrollbar</span><span class="s4"> </span><span class="s8">{</span><span class="s4"> </span><span class="s2">display:</span><span class="s4"> </span><span class="s5">none</span><span class="s8">;</span><span class="s4"> </span><span class="s8">}</span></p>
-<p class="p2"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s6">.no-scrollbar</span><span class="s4"> </span><span class="s8">{</span><span class="s4"> </span><span class="s1">-ms-overflow-style:</span><span class="s4"> </span><span class="s5">none</span><span class="s8">;</span><span class="s4"> </span><span class="s1">scrollbar-width:</span><span class="s4"> </span><span class="s5">none</span><span class="s8">;</span><span class="s4"> </span><span class="s8">}</span></p>
-<p class="p6"><span class="s9"></span><br></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s7">@keyframes</span><span class="s1"> </span><span class="s5">fadeIn</span><span class="s1"> </span><span class="s8">{</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s5">from</span><span class="s1"> </span><span class="s8">{</span><span class="s1"> </span><span class="s2">opacity:</span><span class="s1"> </span><span class="s10">0</span><span class="s8">;</span><span class="s1"> </span><span class="s2">transform:</span><span class="s1"> </span><span class="s5">translateY(</span><span class="s10">10px</span><span class="s5">)</span><span class="s8">;</span><span class="s1"> </span><span class="s8">}</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s5">to</span><span class="s1"> </span><span class="s8">{</span><span class="s1"> </span><span class="s2">opacity:</span><span class="s1"> </span><span class="s10">1</span><span class="s8">;</span><span class="s1"> </span><span class="s2">transform:</span><span class="s1"> </span><span class="s5">translateY(</span><span class="s10">0</span><span class="s5">)</span><span class="s8">;</span><span class="s1"> </span><span class="s8">}</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s8">}</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s6">.fade-in</span><span class="s4"> </span><span class="s8">{</span><span class="s4"> </span><span class="s2">animation:</span><span class="s4"> </span><span class="s1">fadeIn</span><span class="s4"> </span><span class="s10">0.5s</span><span class="s4"> </span><span class="s1">ease</span><span class="s4"> </span><span class="s1">forwards</span><span class="s8">;</span><span class="s4"> </span><span class="s8">}</span></p>
-<p class="p1"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;/</span><span class="s1">style</span><span class="s3">&gt;</span></p>
-<p class="p1"><span class="s3">&lt;/</span><span class="s1">head</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s3">&lt;</span><span class="s6">body</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"flex flex-col min-h-screen"</span><span class="s3">&gt;</span></p>
-<p class="p6"><span class="s9"></span><br></p>
-<p class="p7"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s1">&lt;!-- Navigation --&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s6">nav</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"nav-blur sticky top-0 z-50 border-b border-gray-100"</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"max-w-7xl mx-auto px-4 sm:px-6"</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"flex justify-between items-center h-16 sm:h-20"</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"flex items-center gap-3"</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">                    </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"bg-black w-10 h-10 flex items-center justify-center rounded-xl cursor-pointer"</span><span class="s4"> </span><span class="s2">onclick</span><span class="s3">=</span><span class="s1">"toggleAdmin()"</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">                        </span></span><span class="s3">&lt;</span><span class="s6">i</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"fa-solid fa-mountain-sun text-white text-lg"</span><span class="s3">&gt;&lt;/</span><span class="s6">i</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s1"> </span><span class="s2">class</span><span class="s3">=</span><span class="s5">"flex flex-col"</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">                        </span></span><span class="s3">&lt;</span><span class="s6">span</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"font-black text-lg leading-none tracking-tight text-black uppercase"</span><span class="s3">&gt;</span><span class="s4">THESALE3</span><span class="s3">&lt;/</span><span class="s6">span</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">                        </span></span><span class="s3">&lt;</span><span class="s6">span</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"text-[9px] font-bold text-emerald-600 tracking-[0.2em] uppercase"</span><span class="s3">&gt;</span><span class="s4">Camping Store</span><span class="s3">&lt;/</span><span class="s6">span</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p6"><span class="s9"></span><br></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"flex items-center gap-6"</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">                    </span></span><span class="s3">&lt;</span><span class="s6">a</span><span class="s4"> </span><span class="s2">href</span><span class="s3">=</span><span class="s1">"https://wa.me/8562054849393"</span><span class="s4"> </span><span class="s2">target</span><span class="s3">=</span><span class="s1">"_blank"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"flex items-center gap-2 group"</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">                        </span></span><span class="s3">&lt;</span><span class="s6">i</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"fa-brands fa-whatsapp text-2xl text-emerald-500 group-hover:scale-110 transition"</span><span class="s3">&gt;&lt;/</span><span class="s6">i</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">                        </span></span><span class="s3">&lt;</span><span class="s6">span</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"hidden sm:block text-[11px] font-bold uppercase tracking-widest text-gray-900"</span><span class="s3">&gt;</span><span class="s4">Contact Shop</span><span class="s3">&lt;/</span><span class="s6">span</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s3">&lt;/</span><span class="s6">a</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;/</span><span class="s6">nav</span><span class="s3">&gt;</span></p>
-<p class="p6"><span class="s9"></span><br></p>
-<p class="p7"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s1">&lt;!-- Hero --&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s6">header</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"hero-banner h-[400px] sm:h-[500px] flex items-center justify-center text-center px-4"</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"max-w-3xl"</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s3">&lt;</span><span class="s6">h1</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"text-5xl sm:text-7xl font-black text-white mb-6 tracking-tighter drop-shadow-2xl"</span><span class="s3">&gt;</span><span class="s4">TheSale3 Store</span><span class="s3">&lt;/</span><span class="s6">h1</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s3">&lt;</span><span class="s6">p</span><span class="s1"> </span><span class="s2">class</span><span class="s3">=</span><span class="s5">"text-gray-100 text-base sm:text-xl mb-10 font-medium drop-shadow-md max-w-xl mx-auto"</span><span class="s3">&gt;</span><span class="s1">Premium outdoor equipment for the Lao adventurer. Quality tested for our unique terrain.</span><span class="s3">&lt;/</span><span class="s6">p</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s3">&lt;</span><span class="s6">a</span><span class="s4"> </span><span class="s2">href</span><span class="s3">=</span><span class="s1">"#catalog"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"bg-emerald-600 text-white px-10 py-4 rounded-full font-bold text-sm uppercase tracking-widest hover:bg-emerald-700 transition shadow-2xl inline-block"</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>Start Exploring</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s3">&lt;/</span><span class="s6">a</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p1"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;/</span><span class="s1">header</span><span class="s3">&gt;</span></p>
-<p class="p6"><span class="s9"></span><br></p>
-<p class="p7"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s1">&lt;!-- Catalog --&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s6">main</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"catalog"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"max-w-7xl mx-auto px-4 sm:px-6 py-12 flex-grow w-full"</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"flex flex-col lg:flex-row justify-between items-center mb-12 gap-6"</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"categoryContainer"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"flex gap-2 overflow-x-auto no-scrollbar w-full lg:w-auto pb-2"</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;</span><span class="s6">button</span><span class="s4"> </span><span class="s2">onclick</span><span class="s3">=</span><span class="s1">"filterBy('all', this)"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"category-pill active bg-emerald-600 text-white px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest border border-transparent"</span><span class="s3">&gt;</span><span class="s4">All Gear</span><span class="s3">&lt;/</span><span class="s6">button</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;</span><span class="s6">button</span><span class="s4"> </span><span class="s2">onclick</span><span class="s3">=</span><span class="s1">"filterBy('coffee', this)"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600"</span><span class="s3">&gt;</span><span class="s4">Coffee</span><span class="s3">&lt;/</span><span class="s6">button</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;</span><span class="s6">button</span><span class="s4"> </span><span class="s2">onclick</span><span class="s3">=</span><span class="s1">"filterBy('tents', this)"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600"</span><span class="s3">&gt;</span><span class="s4">Tents</span><span class="s3">&lt;/</span><span class="s6">button</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;</span><span class="s6">button</span><span class="s4"> </span><span class="s2">onclick</span><span class="s3">=</span><span class="s1">"filterBy('cooking', this)"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600"</span><span class="s3">&gt;</span><span class="s4">Cooking</span><span class="s3">&lt;/</span><span class="s6">button</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p6"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"relative w-full lg:w-72"</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;</span><span class="s6">i</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm"</span><span class="s3">&gt;&lt;/</span><span class="s6">i</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;</span><span class="s6">input</span><span class="s4"> </span><span class="s2">type</span><span class="s3">=</span><span class="s1">"text"</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"searchInput"</span><span class="s4"> </span><span class="s2">oninput</span><span class="s3">=</span><span class="s1">"searchItems()"</span><span class="s4"> </span><span class="s2">placeholder</span><span class="s3">=</span><span class="s1">"Search gear..."</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"w-full pl-12 pr-4 py-3 rounded-2xl border-none ring-1 ring-gray-200 focus:ring-2 focus:ring-emerald-500 shadow-sm transition"</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p6"><span class="s9"></span><br></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"productGrid"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"col-span-full py-20 text-center text-gray-400"</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;</span><span class="s6">i</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"fa-solid fa-spinner fa-spin text-3xl mb-4"</span><span class="s3">&gt;&lt;/</span><span class="s6">i</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;</span><span class="s6">p</span><span class="s3">&gt;</span><span class="s1">Syncing with cloud...</span><span class="s3">&lt;/</span><span class="s6">p</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;/</span><span class="s6">main</span><span class="s3">&gt;</span></p>
-<p class="p6"><span class="s9"></span><br></p>
-<p class="p7"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s1">&lt;!-- Product Details Modal --&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"modal"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"modal-container fixed inset-0 z-[100] flex items-center justify-center p-4"</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"bg-white rounded-[32px] max-w-4xl w-full overflow-hidden shadow-2xl relative flex flex-col md:flex-row max-h-[90vh]"</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s3">&lt;</span><span class="s6">button</span><span class="s4"> </span><span class="s2">onclick</span><span class="s3">=</span><span class="s1">"closeModals()"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"absolute top-4 right-4 text-gray-400 hover:text-black z-20 bg-white/80 w-10 h-10 rounded-full flex items-center justify-center shadow-sm"</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;</span><span class="s6">i</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"fa-solid fa-xmark"</span><span class="s3">&gt;&lt;/</span><span class="s6">i</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s3">&lt;/</span><span class="s6">button</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"md:w-1/2 bg-gray-50 h-64 md:h-auto overflow-hidden"</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;</span><span class="s6">img</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"modalImage"</span><span class="s4"> </span><span class="s2">src</span><span class="s3">=</span><span class="s1">""</span><span class="s4"> </span><span class="s2">alt</span><span class="s3">=</span><span class="s1">""</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"w-full h-full object-cover"</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"p-8 md:p-12 md:w-1/2 flex flex-col overflow-y-auto"</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;</span><span class="s6">span</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"modalCategory"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"text-emerald-700 text-[10px] font-bold uppercase tracking-[0.3em] mb-4"</span><span class="s3">&gt;&lt;/</span><span class="s6">span</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;</span><span class="s6">h2</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"modalTitle"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"text-3xl font-black text-gray-900 mb-4 tracking-tighter"</span><span class="s3">&gt;&lt;/</span><span class="s6">h2</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;</span><span class="s6">p</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"modalPrice"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"text-2xl font-bold text-emerald-600 mb-6 italic"</span><span class="s3">&gt;&lt;/</span><span class="s6">p</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"h-1 w-12 bg-emerald-600 mb-6"</span><span class="s3">&gt;&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;</span><span class="s6">p</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"modalDescription"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"text-gray-500 text-sm leading-relaxed mb-8 flex-grow"</span><span class="s3">&gt;&lt;/</span><span class="s6">p</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;</span><span class="s6">a</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"whatsappBtn"</span><span class="s4"> </span><span class="s2">href</span><span class="s3">=</span><span class="s1">"#"</span><span class="s4"> </span><span class="s2">target</span><span class="s3">=</span><span class="s1">"_blank"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"whatsapp-btn text-white py-4 rounded-2xl font-black flex items-center justify-center gap-3 shadow-lg uppercase tracking-widest text-xs"</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s3">&lt;</span><span class="s6">i</span><span class="s1"> </span><span class="s2">class</span><span class="s3">=</span><span class="s5">"fa-brands fa-whatsapp text-2xl"</span><span class="s3">&gt;&lt;/</span><span class="s6">i</span><span class="s3">&gt;</span><span class="s1"> Chat to Buy</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;/</span><span class="s6">a</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p6"><span class="s9"></span><br></p>
-<p class="p7"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s1">&lt;!-- Admin Panel Modal --&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"adminModal"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"modal-container fixed inset-0 z-[110] flex items-center justify-center p-4"</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"bg-white rounded-3xl max-w-lg w-full p-8 shadow-2xl relative"</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s3">&lt;</span><span class="s6">button</span><span class="s4"> </span><span class="s2">onclick</span><span class="s3">=</span><span class="s1">"closeModals()"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"absolute top-6 right-6 text-gray-400 hover:text-black"</span><span class="s3">&gt;&lt;</span><span class="s6">i</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"fa-solid fa-xmark text-xl"</span><span class="s3">&gt;&lt;/</span><span class="s6">i</span><span class="s3">&gt;&lt;/</span><span class="s6">button</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s3">&lt;</span><span class="s6">h2</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"text-2xl font-black mb-6"</span><span class="s3">&gt;</span><span class="s4">Admin Panel</span><span class="s3">&lt;/</span><span class="s6">h2</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s3">&lt;</span><span class="s6">form</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"adminForm"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"space-y-4 mb-8"</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;</span><span class="s6">input</span><span class="s4"> </span><span class="s2">type</span><span class="s3">=</span><span class="s1">"text"</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"pName"</span><span class="s4"> </span><span class="s2">placeholder</span><span class="s3">=</span><span class="s1">"Product Name"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"w-full p-3 bg-gray-50 rounded-xl outline-none focus:ring-2 focus:ring-emerald-500 border-none"</span><span class="s4"> </span><span class="s2">required</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"grid grid-cols-2 gap-4"</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">                    </span></span><span class="s3">&lt;</span><span class="s6">input</span><span class="s4"> </span><span class="s2">type</span><span class="s3">=</span><span class="s1">"number"</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"pPrice"</span><span class="s4"> </span><span class="s2">placeholder</span><span class="s3">=</span><span class="s1">"Price (LAK)"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"p-3 bg-gray-50 rounded-xl outline-none focus:ring-2 focus:ring-emerald-500 border-none"</span><span class="s4"> </span><span class="s2">required</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">                    </span></span><span class="s3">&lt;</span><span class="s6">select</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"pCategory"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"p-3 bg-gray-50 rounded-xl outline-none focus:ring-2 focus:ring-emerald-500 border-none"</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                        </span></span><span class="s3">&lt;</span><span class="s6">option</span><span class="s1"> </span><span class="s2">value</span><span class="s3">=</span><span class="s5">"coffee"</span><span class="s3">&gt;</span><span class="s1">Coffee</span><span class="s3">&lt;/</span><span class="s6">option</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                        </span></span><span class="s3">&lt;</span><span class="s6">option</span><span class="s1"> </span><span class="s2">value</span><span class="s3">=</span><span class="s5">"tents"</span><span class="s3">&gt;</span><span class="s1">Tents</span><span class="s3">&lt;/</span><span class="s6">option</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                        </span></span><span class="s3">&lt;</span><span class="s6">option</span><span class="s1"> </span><span class="s2">value</span><span class="s3">=</span><span class="s5">"cooking"</span><span class="s3">&gt;</span><span class="s1">Cooking</span><span class="s3">&lt;/</span><span class="s6">option</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                        </span></span><span class="s3">&lt;</span><span class="s6">option</span><span class="s1"> </span><span class="s2">value</span><span class="s3">=</span><span class="s5">"lighting"</span><span class="s3">&gt;</span><span class="s1">Lighting</span><span class="s3">&lt;/</span><span class="s6">option</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s3">&lt;/</span><span class="s6">select</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;</span><span class="s6">input</span><span class="s4"> </span><span class="s2">type</span><span class="s3">=</span><span class="s1">"url"</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"pImage"</span><span class="s4"> </span><span class="s2">placeholder</span><span class="s3">=</span><span class="s1">"Image URL (PostImg direct link)"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"w-full p-3 bg-gray-50 rounded-xl outline-none focus:ring-2 focus:ring-emerald-500 border-none"</span><span class="s4"> </span><span class="s2">required</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;</span><span class="s6">textarea</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"pDesc"</span><span class="s4"> </span><span class="s2">placeholder</span><span class="s3">=</span><span class="s1">"Product Description..."</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"w-full p-3 bg-gray-50 rounded-xl outline-none focus:ring-2 focus:ring-emerald-500 border-none h-20"</span><span class="s4"> </span><span class="s2">required</span><span class="s3">&gt;&lt;/</span><span class="s6">textarea</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;</span><span class="s6">button</span><span class="s4"> </span><span class="s2">type</span><span class="s3">=</span><span class="s1">"submit"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"w-full bg-black text-white py-3 rounded-xl font-bold hover:bg-gray-800 transition shadow-lg"</span><span class="s3">&gt;</span><span class="s4">Save Product</span><span class="s3">&lt;/</span><span class="s6">button</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s3">&lt;/</span><span class="s6">form</span><span class="s3">&gt;</span></p>
-<p class="p6"><span class="s9"></span><br></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"border-t pt-4"</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;</span><span class="s6">h3</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"text-xs font-bold text-gray-400 uppercase tracking-widest mb-4"</span><span class="s3">&gt;</span><span class="s4">Live Inventory</span><span class="s3">&lt;/</span><span class="s6">h3</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">id</span><span class="s3">=</span><span class="s1">"adminList"</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"max-h-48 overflow-y-auto space-y-2 pr-2"</span><span class="s3">&gt;</span></p>
-<p class="p7"><span class="s4"><span class="Apple-converted-space">                    </span></span><span class="s1">&lt;!-- Delete list items here --&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p6"><span class="s9"></span><br></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s6">footer</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"bg-white border-t py-12 px-4 text-center mt-auto"</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s3">&lt;</span><span class="s6">div</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"flex justify-center items-center gap-2 mb-4 text-gray-300"</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s3">&lt;</span><span class="s6">i</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"fa-solid fa-mountain-sun"</span><span class="s3">&gt;&lt;/</span><span class="s6">i</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s3">&lt;</span><span class="s6">span</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"font-bold uppercase tracking-widest text-[10px]"</span><span class="s3">&gt;</span><span class="s4">TheSale3 Camping Laos</span><span class="s3">&lt;/</span><span class="s6">span</span><span class="s3">&gt;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s3">&lt;/</span><span class="s6">div</span><span class="s3">&gt;</span></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s3">&lt;</span><span class="s6">p</span><span class="s4"> </span><span class="s2">class</span><span class="s3">=</span><span class="s1">"text-[10px] text-gray-400 uppercase tracking-widest"</span><span class="s3">&gt;</span><span class="s4">Premium Outdoor Solutions</span><span class="s3">&lt;/</span><span class="s6">p</span><span class="s3">&gt;</span></p>
-<p class="p1"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;/</span><span class="s1">footer</span><span class="s3">&gt;</span></p>
-<p class="p6"><span class="s9"></span><br></p>
-<p class="p3"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;</span><span class="s6">script</span><span class="s4"> </span><span class="s2">type</span><span class="s3">=</span><span class="s1">"module"</span><span class="s3">&gt;</span></p>
-<p class="p5"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s7">import</span><span class="s4"> </span><span class="s8">{</span><span class="s4"> initializeApp </span><span class="s8">}</span><span class="s4"> </span><span class="s7">from</span><span class="s4"> </span><span class="s1">"https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js"</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s7">import</span><span class="s1"> </span><span class="s8">{</span><span class="s1"> getAuth</span><span class="s8">,</span><span class="s1"> signInAnonymously</span><span class="s8">,</span><span class="s1"> signInWithCustomToken</span><span class="s8">,</span><span class="s1"> onAuthStateChanged </span><span class="s8">}</span><span class="s1"> </span><span class="s7">from</span><span class="s1"> </span><span class="s11">"https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js"</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s7">import</span><span class="s1"> </span><span class="s8">{</span><span class="s1"> getFirestore</span><span class="s8">,</span><span class="s1"> collection</span><span class="s8">,</span><span class="s1"> addDoc</span><span class="s8">,</span><span class="s1"> onSnapshot</span><span class="s8">,</span><span class="s1"> doc</span><span class="s8">,</span><span class="s1"> deleteDoc </span><span class="s8">}</span><span class="s1"> </span><span class="s7">from</span><span class="s1"> </span><span class="s11">"https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js"</span><span class="s8">;</span></p>
-<p class="p6"><span class="s9"></span><br></p>
-<p class="p7"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s1">// Global State</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s7">let</span><span class="s1"> products </span><span class="s8">=</span><span class="s1"> </span><span class="s8">[];</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s7">let</span><span class="s1"> filteredProducts </span><span class="s8">=</span><span class="s1"> </span><span class="s8">[];</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s7">let</span><span class="s1"> currentCat </span><span class="s8">=</span><span class="s1"> </span><span class="s11">'all'</span><span class="s8">;</span></p>
-<p class="p6"><span class="s9"></span><br></p>
-<p class="p7"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s1">// Initialize Firebase</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s7">const</span><span class="s1"> firebaseConfig </span><span class="s8">=</span><span class="s1"> </span><span class="s12">JSON</span><span class="s8">.</span><span class="s1">parse</span><span class="s8">(</span><span class="s1">__firebase_config</span><span class="s8">);</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s7">const</span><span class="s1"> appId </span><span class="s8">=</span><span class="s1"> </span><span class="s7">typeof</span><span class="s1"> __app_id </span><span class="s8">!==</span><span class="s1"> </span><span class="s11">'undefined'</span><span class="s1"> </span><span class="s8">?</span><span class="s1"> __app_id </span><span class="s8">:</span><span class="s1"> </span><span class="s11">'thesale3-camping'</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s7">const</span><span class="s1"> app </span><span class="s8">=</span><span class="s1"> initializeApp</span><span class="s8">(</span><span class="s1">firebaseConfig</span><span class="s8">);</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s7">const</span><span class="s1"> auth </span><span class="s8">=</span><span class="s1"> getAuth</span><span class="s8">(</span><span class="s1">app</span><span class="s8">);</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s7">const</span><span class="s1"> db </span><span class="s8">=</span><span class="s1"> getFirestore</span><span class="s8">(</span><span class="s1">app</span><span class="s8">);</span></p>
-<p class="p6"><span class="s9"></span><br></p>
-<p class="p7"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s1">// Path Rule 1</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s7">const</span><span class="s1"> productCollection </span><span class="s8">=</span><span class="s1"> collection</span><span class="s8">(</span><span class="s1">db</span><span class="s8">,</span><span class="s1"> </span><span class="s11">'artifacts'</span><span class="s8">,</span><span class="s1"> appId</span><span class="s8">,</span><span class="s1"> </span><span class="s11">'public'</span><span class="s8">,</span><span class="s1"> </span><span class="s11">'data'</span><span class="s8">,</span><span class="s1"> </span><span class="s11">'products'</span><span class="s8">);</span></p>
-<p class="p6"><span class="s9"></span><br></p>
-<p class="p7"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s1">// Functions exposed to window for HTML onclick handlers</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span>window</span><span class="s8">.</span><span class="s1">toggleAdmin </span><span class="s8">=</span><span class="s1"> </span><span class="s8">()</span><span class="s1"> </span><span class="s8">=&gt;</span><span class="s1"> </span><span class="s8">{</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">const</span><span class="s1"> m </span><span class="s8">=</span><span class="s1"> document</span><span class="s8">.</span><span class="s1">getElementById</span><span class="s8">(</span><span class="s11">'adminModal'</span><span class="s8">);</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>m</span><span class="s8">.</span><span class="s1">style</span><span class="s8">.</span><span class="s1">display </span><span class="s8">=</span><span class="s1"> m</span><span class="s8">.</span><span class="s1">style</span><span class="s8">.</span><span class="s1">display </span><span class="s8">===</span><span class="s1"> </span><span class="s11">'flex'</span><span class="s1"> </span><span class="s8">?</span><span class="s1"> </span><span class="s11">'none'</span><span class="s1"> </span><span class="s8">:</span><span class="s1"> </span><span class="s11">'flex'</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s8">};</span></p>
-<p class="p6"><span class="s9"></span><br></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span>window</span><span class="s8">.</span><span class="s1">closeModals </span><span class="s8">=</span><span class="s1"> </span><span class="s8">()</span><span class="s1"> </span><span class="s8">=&gt;</span><span class="s1"> </span><span class="s8">{</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>document</span><span class="s8">.</span><span class="s1">getElementById</span><span class="s8">(</span><span class="s11">'modal'</span><span class="s8">).</span><span class="s1">style</span><span class="s8">.</span><span class="s1">display </span><span class="s8">=</span><span class="s1"> </span><span class="s11">'none'</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>document</span><span class="s8">.</span><span class="s1">getElementById</span><span class="s8">(</span><span class="s11">'adminModal'</span><span class="s8">).</span><span class="s1">style</span><span class="s8">.</span><span class="s1">display </span><span class="s8">=</span><span class="s1"> </span><span class="s11">'none'</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>document</span><span class="s8">.</span><span class="s1">body</span><span class="s8">.</span><span class="s1">style</span><span class="s8">.</span><span class="s1">overflow </span><span class="s8">=</span><span class="s1"> </span><span class="s11">'auto'</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s8">};</span></p>
-<p class="p6"><span class="s9"></span><br></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span>window</span><span class="s8">.</span><span class="s1">filterBy </span><span class="s8">=</span><span class="s1"> </span><span class="s8">(</span><span class="s1">cat</span><span class="s8">,</span><span class="s1"> btn</span><span class="s8">)</span><span class="s1"> </span><span class="s8">=&gt;</span><span class="s1"> </span><span class="s8">{</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>currentCat </span><span class="s8">=</span><span class="s1"> cat</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>document</span><span class="s8">.</span><span class="s1">querySelectorAll</span><span class="s8">(</span><span class="s11">'.category-pill'</span><span class="s8">).</span><span class="s1">forEach</span><span class="s8">(</span><span class="s1">b </span><span class="s8">=&gt;</span><span class="s1"> </span><span class="s8">{</span></p>
-<p class="p5"><span class="s4"><span class="Apple-converted-space">                </span>b</span><span class="s8">.</span><span class="s4">classList</span><span class="s8">.</span><span class="s4">remove</span><span class="s8">(</span><span class="s1">'active'</span><span class="s8">,</span><span class="s4"> </span><span class="s1">'bg-emerald-600'</span><span class="s8">,</span><span class="s4"> </span><span class="s1">'text-white'</span><span class="s8">);</span></p>
-<p class="p5"><span class="s4"><span class="Apple-converted-space">                </span>b</span><span class="s8">.</span><span class="s4">classList</span><span class="s8">.</span><span class="s4">add</span><span class="s8">(</span><span class="s1">'bg-white'</span><span class="s8">,</span><span class="s4"> </span><span class="s1">'text-gray-400'</span><span class="s8">,</span><span class="s4"> </span><span class="s1">'border-gray-100'</span><span class="s8">);</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s8">});</span></p>
-<p class="p5"><span class="s4"><span class="Apple-converted-space">            </span>btn</span><span class="s8">.</span><span class="s4">classList</span><span class="s8">.</span><span class="s4">add</span><span class="s8">(</span><span class="s1">'active'</span><span class="s8">,</span><span class="s4"> </span><span class="s1">'bg-emerald-600'</span><span class="s8">,</span><span class="s4"> </span><span class="s1">'text-white'</span><span class="s8">);</span></p>
-<p class="p5"><span class="s4"><span class="Apple-converted-space">            </span>btn</span><span class="s8">.</span><span class="s4">classList</span><span class="s8">.</span><span class="s4">remove</span><span class="s8">(</span><span class="s1">'bg-white'</span><span class="s8">,</span><span class="s4"> </span><span class="s1">'text-gray-400'</span><span class="s8">,</span><span class="s4"> </span><span class="s1">'border-gray-100'</span><span class="s8">);</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>applyFilters</span><span class="s8">();</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s8">};</span></p>
-<p class="p6"><span class="s9"></span><br></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span>window</span><span class="s8">.</span><span class="s1">searchItems </span><span class="s8">=</span><span class="s1"> </span><span class="s8">()</span><span class="s1"> </span><span class="s8">=&gt;</span><span class="s1"> </span><span class="s8">{</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>applyFilters</span><span class="s8">();</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s8">};</span></p>
-<p class="p6"><span class="s9"></span><br></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span>window</span><span class="s8">.</span><span class="s1">openDetails </span><span class="s8">=</span><span class="s1"> </span><span class="s8">(</span><span class="s1">id</span><span class="s8">)</span><span class="s1"> </span><span class="s8">=&gt;</span><span class="s1"> </span><span class="s8">{</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">const</span><span class="s1"> p </span><span class="s8">=</span><span class="s1"> products</span><span class="s8">.</span><span class="s1">find</span><span class="s8">(</span><span class="s1">x </span><span class="s8">=&gt;</span><span class="s1"> x</span><span class="s8">.</span><span class="s1">id </span><span class="s8">===</span><span class="s1"> id</span><span class="s8">);</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">if</span><span class="s1"> </span><span class="s8">(!</span><span class="s1">p</span><span class="s8">)</span><span class="s1"> </span><span class="s7">return</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>document</span><span class="s8">.</span><span class="s1">getElementById</span><span class="s8">(</span><span class="s11">'modalTitle'</span><span class="s8">).</span><span class="s1">innerText </span><span class="s8">=</span><span class="s1"> p</span><span class="s8">.</span><span class="s1">name</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>document</span><span class="s8">.</span><span class="s1">getElementById</span><span class="s8">(</span><span class="s11">'modalCategory'</span><span class="s8">).</span><span class="s1">innerText </span><span class="s8">=</span><span class="s1"> p</span><span class="s8">.</span><span class="s1">category</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>document</span><span class="s8">.</span><span class="s1">getElementById</span><span class="s8">(</span><span class="s11">'modalPrice'</span><span class="s8">).</span><span class="s1">innerText </span><span class="s8">=</span><span class="s1"> </span><span class="s11">`LAK </span><span class="s8">${</span><span class="s12">Number</span><span class="s8">(</span><span class="s1">p</span><span class="s8">.</span><span class="s1">price</span><span class="s8">).</span><span class="s1">toLocaleString</span><span class="s8">()}</span><span class="s11">`</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>document</span><span class="s8">.</span><span class="s1">getElementById</span><span class="s8">(</span><span class="s11">'modalDescription'</span><span class="s8">).</span><span class="s1">innerText </span><span class="s8">=</span><span class="s1"> p</span><span class="s8">.</span><span class="s1">description</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>document</span><span class="s8">.</span><span class="s1">getElementById</span><span class="s8">(</span><span class="s11">'modalImage'</span><span class="s8">).</span><span class="s1">src </span><span class="s8">=</span><span class="s1"> p</span><span class="s8">.</span><span class="s1">image</span><span class="s8">;</span></p>
-<p class="p5"><span class="s4"><span class="Apple-converted-space">            </span>document</span><span class="s8">.</span><span class="s4">getElementById</span><span class="s8">(</span><span class="s1">'whatsappBtn'</span><span class="s8">).</span><span class="s4">href </span><span class="s8">=</span><span class="s4"> </span><span class="s1">`https://wa.me/8562054849393?text=Sabaidee! I am interested in: </span><span class="s8">${</span><span class="s4">p</span><span class="s8">.</span><span class="s4">name</span><span class="s8">}</span><span class="s1">`</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>document</span><span class="s8">.</span><span class="s1">getElementById</span><span class="s8">(</span><span class="s11">'modal'</span><span class="s8">).</span><span class="s1">style</span><span class="s8">.</span><span class="s1">display </span><span class="s8">=</span><span class="s1"> </span><span class="s11">'flex'</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>document</span><span class="s8">.</span><span class="s1">body</span><span class="s8">.</span><span class="s1">style</span><span class="s8">.</span><span class="s1">overflow </span><span class="s8">=</span><span class="s1"> </span><span class="s11">'hidden'</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s8">};</span></p>
-<p class="p6"><span class="s9"></span><br></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span>window</span><span class="s8">.</span><span class="s1">removeItem </span><span class="s8">=</span><span class="s1"> </span><span class="s7">async</span><span class="s1"> </span><span class="s8">(</span><span class="s1">id</span><span class="s8">)</span><span class="s1"> </span><span class="s8">=&gt;</span><span class="s1"> </span><span class="s8">{</span></p>
-<p class="p5"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s7">if</span><span class="s8">(!</span><span class="s4">confirm</span><span class="s8">(</span><span class="s1">"Delete this product?"</span><span class="s8">))</span><span class="s4"> </span><span class="s7">return</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">try</span><span class="s1"> </span><span class="s8">{</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">await</span><span class="s1"> deleteDoc</span><span class="s8">(</span><span class="s1">doc</span><span class="s8">(</span><span class="s1">db</span><span class="s8">,</span><span class="s1"> </span><span class="s11">'artifacts'</span><span class="s8">,</span><span class="s1"> appId</span><span class="s8">,</span><span class="s1"> </span><span class="s11">'public'</span><span class="s8">,</span><span class="s1"> </span><span class="s11">'data'</span><span class="s8">,</span><span class="s1"> </span><span class="s11">'products'</span><span class="s8">,</span><span class="s1"> id</span><span class="s8">));</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s8">}</span><span class="s1"> </span><span class="s7">catch</span><span class="s1"> </span><span class="s8">(</span><span class="s1">e</span><span class="s8">)</span><span class="s1"> </span><span class="s8">{</span><span class="s1"> console</span><span class="s8">.</span><span class="s1">error</span><span class="s8">(</span><span class="s11">"Delete failed:"</span><span class="s8">,</span><span class="s1"> e</span><span class="s8">);</span><span class="s1"> </span><span class="s8">}</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s8">};</span></p>
-<p class="p6"><span class="s9"></span><br></p>
-<p class="p7"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s1">// UI Logic</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s7">function</span><span class="s1"> applyFilters</span><span class="s8">()</span><span class="s1"> </span><span class="s8">{</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">const</span><span class="s1"> search </span><span class="s8">=</span><span class="s1"> document</span><span class="s8">.</span><span class="s1">getElementById</span><span class="s8">(</span><span class="s11">'searchInput'</span><span class="s8">).</span><span class="s1">value</span><span class="s8">.</span><span class="s1">toLowerCase</span><span class="s8">();</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>filteredProducts </span><span class="s8">=</span><span class="s1"> products</span><span class="s8">.</span><span class="s1">filter</span><span class="s8">(</span><span class="s1">p </span><span class="s8">=&gt;</span><span class="s1"> </span><span class="s8">{</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">const</span><span class="s1"> matchesSearch </span><span class="s8">=</span><span class="s1"> p</span><span class="s8">.</span><span class="s1">name</span><span class="s8">.</span><span class="s1">toLowerCase</span><span class="s8">().</span><span class="s1">includes</span><span class="s8">(</span><span class="s1">search</span><span class="s8">);</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">const</span><span class="s1"> matchesCat </span><span class="s8">=</span><span class="s1"> currentCat </span><span class="s8">===</span><span class="s1"> </span><span class="s11">'all'</span><span class="s1"> </span><span class="s8">||</span><span class="s1"> p</span><span class="s8">.</span><span class="s1">category </span><span class="s8">===</span><span class="s1"> currentCat</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">return</span><span class="s1"> matchesSearch </span><span class="s8">&amp;&amp;</span><span class="s1"> matchesCat</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s8">});</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>render</span><span class="s8">();</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s8">}</span></p>
-<p class="p6"><span class="s9"></span><br></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s7">function</span><span class="s1"> render</span><span class="s8">()</span><span class="s1"> </span><span class="s8">{</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">const</span><span class="s1"> grid </span><span class="s8">=</span><span class="s1"> document</span><span class="s8">.</span><span class="s1">getElementById</span><span class="s8">(</span><span class="s11">'productGrid'</span><span class="s8">);</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">const</span><span class="s1"> adminList </span><span class="s8">=</span><span class="s1"> document</span><span class="s8">.</span><span class="s1">getElementById</span><span class="s8">(</span><span class="s11">'adminList'</span><span class="s8">);</span></p>
-<p class="p6"><span class="s1"><span class="Apple-converted-space">            </span></span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>grid</span><span class="s8">.</span><span class="s1">innerHTML </span><span class="s8">=</span><span class="s1"> filteredProducts</span><span class="s8">.</span><span class="s1">map</span><span class="s8">(</span><span class="s1">p </span><span class="s8">=&gt;</span><span class="s1"> </span><span class="s11">`</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div class="product-card group overflow-hidden flex flex-col cursor-pointer fade-in" onclick="openDetails('</span><span class="s8">${</span><span class="s4">p</span><span class="s8">.</span><span class="s4">id</span><span class="s8">}</span><span class="s1">')"&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;div class="h-64 overflow-hidden relative bg-gray-50"&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;img src="</span><span class="s8">${</span><span class="s4">p</span><span class="s8">.</span><span class="s4">image</span><span class="s8">}</span><span class="s1">" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;div class="p-8 flex flex-col flex-grow text-left"&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;span class="text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-2"&gt;</span><span class="s8">${</span><span class="s4">p</span><span class="s8">.</span><span class="s4">category</span><span class="s8">}</span><span class="s1">&lt;/span&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;h3 class="font-bold text-lg mb-1 text-gray-900 group-hover:text-emerald-700 transition-colors tracking-tight"&gt;</span><span class="s8">${</span><span class="s4">p</span><span class="s8">.</span><span class="s4">name</span><span class="s8">}</span><span class="s1">&lt;/h3&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;p class="text-base font-bold text-emerald-600 mb-6 italic"&gt;LAK </span><span class="s8">${</span><span class="s12">Number</span><span class="s8">(</span><span class="s4">p</span><span class="s8">.</span><span class="s4">price</span><span class="s8">).</span><span class="s4">toLocaleString</span><span class="s8">()}</span><span class="s1">&lt;/p&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;div class="mt-auto flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-gray-900"&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                            </span>Check Details &lt;i class="fa-solid fa-arrow-right-long text-emerald-600 group-hover:translate-x-1 transition"&gt;&lt;/i&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;/div&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;/div&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>`</span><span class="s8">).</span><span class="s4">join</span><span class="s8">(</span><span class="s1">''</span><span class="s8">);</span></p>
-<p class="p6"><span class="s9"></span><br></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">if</span><span class="s8">(</span><span class="s1">filteredProducts</span><span class="s8">.</span><span class="s1">length </span><span class="s8">===</span><span class="s1"> </span><span class="s13">0</span><span class="s8">)</span><span class="s1"> </span><span class="s8">{</span></p>
-<p class="p5"><span class="s4"><span class="Apple-converted-space">                </span>grid</span><span class="s8">.</span><span class="s4">innerHTML </span><span class="s8">=</span><span class="s4"> </span><span class="s1">'&lt;div class="col-span-full py-20 text-gray-400 italic"&gt;No equipment found matching your criteria.&lt;/div&gt;'</span><span class="s8">;</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s8">}</span></p>
-<p class="p6"><span class="s9"></span><br></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>adminList</span><span class="s8">.</span><span class="s1">innerHTML </span><span class="s8">=</span><span class="s1"> products</span><span class="s8">.</span><span class="s1">map</span><span class="s8">(</span><span class="s1">p </span><span class="s8">=&gt;</span><span class="s1"> </span><span class="s11">`</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>&lt;div class="flex items-center justify-between p-2 bg-gray-50 rounded-lg text-[11px]"&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;span class="font-bold truncate w-32"&gt;</span><span class="s8">${</span><span class="s4">p</span><span class="s8">.</span><span class="s4">name</span><span class="s8">}</span><span class="s1">&lt;/span&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;button onclick="removeItem('</span><span class="s8">${</span><span class="s4">p</span><span class="s8">.</span><span class="s4">id</span><span class="s8">}</span><span class="s1">')" class="text-red-400 hover:text-red-600 transition p-2"&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                        </span>&lt;i class="fa-solid fa-trash-can"&gt;&lt;/i&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                    </span>&lt;/button&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</span></p>
-<p class="p5"><span class="s1"><span class="Apple-converted-space">            </span>`</span><span class="s8">).</span><span class="s4">join</span><span class="s8">(</span><span class="s1">''</span><span class="s8">);</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s8">}</span></p>
-<p class="p6"><span class="s9"></span><br></p>
-<p class="p7"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s1">// Firebase Auth &amp; Data</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s7">const</span><span class="s1"> init </span><span class="s8">=</span><span class="s1"> </span><span class="s7">async</span><span class="s1"> </span><span class="s8">()</span><span class="s1"> </span><span class="s8">=&gt;</span><span class="s1"> </span><span class="s8">{</span></p>
-<p class="p7"><span class="s4"><span class="Apple-converted-space">            </span></span><span class="s1">// Rule 3: Auth First</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">try</span><span class="s1"> </span><span class="s8">{</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">if</span><span class="s1"> </span><span class="s8">(</span><span class="s7">typeof</span><span class="s1"> __initial_auth_token </span><span class="s8">!==</span><span class="s1"> </span><span class="s11">'undefined'</span><span class="s1"> </span><span class="s8">&amp;&amp;</span><span class="s1"> __initial_auth_token</span><span class="s8">)</span><span class="s1"> </span><span class="s8">{</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s7">await</span><span class="s1"> signInWithCustomToken</span><span class="s8">(</span><span class="s1">auth</span><span class="s8">,</span><span class="s1"> __initial_auth_token</span><span class="s8">);</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s8">}</span><span class="s1"> </span><span class="s7">else</span><span class="s1"> </span><span class="s8">{</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s7">await</span><span class="s1"> signInAnonymously</span><span class="s8">(</span><span class="s1">auth</span><span class="s8">);</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s8">}</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s8">}</span><span class="s1"> </span><span class="s7">catch</span><span class="s1"> </span><span class="s8">(</span><span class="s1">e</span><span class="s8">)</span><span class="s1"> </span><span class="s8">{</span><span class="s1"> console</span><span class="s8">.</span><span class="s1">error</span><span class="s8">(</span><span class="s11">"Auth Error:"</span><span class="s8">,</span><span class="s1"> e</span><span class="s8">);</span><span class="s1"> </span><span class="s8">}</span></p>
-<p class="p6"><span class="s9"></span><br></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>onAuthStateChanged</span><span class="s8">(</span><span class="s1">auth</span><span class="s8">,</span><span class="s1"> </span><span class="s8">(</span><span class="s1">user</span><span class="s8">)</span><span class="s1"> </span><span class="s8">=&gt;</span><span class="s1"> </span><span class="s8">{</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">if</span><span class="s1"> </span><span class="s8">(</span><span class="s1">user</span><span class="s8">)</span><span class="s1"> </span><span class="s8">{</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                    </span>onSnapshot</span><span class="s8">(</span><span class="s1">productCollection</span><span class="s8">,</span><span class="s1"> </span><span class="s8">(</span><span class="s1">snapshot</span><span class="s8">)</span><span class="s1"> </span><span class="s8">=&gt;</span><span class="s1"> </span><span class="s8">{</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                        </span>products </span><span class="s8">=</span><span class="s1"> snapshot</span><span class="s8">.</span><span class="s1">docs</span><span class="s8">.</span><span class="s1">map</span><span class="s8">(</span><span class="s1">d </span><span class="s8">=&gt;</span><span class="s1"> </span><span class="s8">({</span><span class="s1"> id</span><span class="s8">:</span><span class="s1"> d</span><span class="s8">.</span><span class="s1">id</span><span class="s8">,</span><span class="s1"> </span><span class="s8">...</span><span class="s1">d</span><span class="s8">.</span><span class="s1">data</span><span class="s8">()</span><span class="s1"> </span><span class="s8">}));</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                        </span>applyFilters</span><span class="s8">();</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                    </span></span><span class="s8">},</span><span class="s1"> </span><span class="s8">(</span><span class="s1">err</span><span class="s8">)</span><span class="s1"> </span><span class="s8">=&gt;</span><span class="s1"> console</span><span class="s8">.</span><span class="s1">error</span><span class="s8">(</span><span class="s11">"Firestore Error:"</span><span class="s8">,</span><span class="s1"> err</span><span class="s8">));</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s8">}</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s8">});</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s8">};</span></p>
-<p class="p6"><span class="s9"></span><br></p>
-<p class="p7"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s1">// Form Submission</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span>document</span><span class="s8">.</span><span class="s1">getElementById</span><span class="s8">(</span><span class="s11">'adminForm'</span><span class="s8">).</span><span class="s1">onsubmit </span><span class="s8">=</span><span class="s1"> </span><span class="s7">async</span><span class="s1"> </span><span class="s8">(</span><span class="s1">e</span><span class="s8">)</span><span class="s1"> </span><span class="s8">=&gt;</span><span class="s1"> </span><span class="s8">{</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span>e</span><span class="s8">.</span><span class="s1">preventDefault</span><span class="s8">();</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">const</span><span class="s1"> payload </span><span class="s8">=</span><span class="s1"> </span><span class="s8">{</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>name</span><span class="s8">:</span><span class="s1"> document</span><span class="s8">.</span><span class="s1">getElementById</span><span class="s8">(</span><span class="s11">'pName'</span><span class="s8">).</span><span class="s1">value</span><span class="s8">,</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>price</span><span class="s8">:</span><span class="s1"> </span><span class="s12">Number</span><span class="s8">(</span><span class="s1">document</span><span class="s8">.</span><span class="s1">getElementById</span><span class="s8">(</span><span class="s11">'pPrice'</span><span class="s8">).</span><span class="s1">value</span><span class="s8">),</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>category</span><span class="s8">:</span><span class="s1"> document</span><span class="s8">.</span><span class="s1">getElementById</span><span class="s8">(</span><span class="s11">'pCategory'</span><span class="s8">).</span><span class="s1">value</span><span class="s8">,</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>image</span><span class="s8">:</span><span class="s1"> document</span><span class="s8">.</span><span class="s1">getElementById</span><span class="s8">(</span><span class="s11">'pImage'</span><span class="s8">).</span><span class="s1">value</span><span class="s8">,</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>description</span><span class="s8">:</span><span class="s1"> document</span><span class="s8">.</span><span class="s1">getElementById</span><span class="s8">(</span><span class="s11">'pDesc'</span><span class="s8">).</span><span class="s1">value</span><span class="s8">,</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>createdAt</span><span class="s8">:</span><span class="s1"> </span><span class="s7">new</span><span class="s1"> </span><span class="s12">Date</span><span class="s8">().</span><span class="s1">toISOString</span><span class="s8">()</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s8">};</span></p>
-<p class="p6"><span class="s9"></span><br></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s7">try</span><span class="s1"> </span><span class="s8">{</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span></span><span class="s7">await</span><span class="s1"> addDoc</span><span class="s8">(</span><span class="s1">productCollection</span><span class="s8">,</span><span class="s1"> payload</span><span class="s8">);</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>document</span><span class="s8">.</span><span class="s1">getElementById</span><span class="s8">(</span><span class="s11">'adminForm'</span><span class="s8">).</span><span class="s1">reset</span><span class="s8">();</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">                </span>window</span><span class="s8">.</span><span class="s1">toggleAdmin</span><span class="s8">();</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">            </span></span><span class="s8">}</span><span class="s1"> </span><span class="s7">catch</span><span class="s1"> </span><span class="s8">(</span><span class="s1">err</span><span class="s8">)</span><span class="s1"> </span><span class="s8">{</span><span class="s1"> console</span><span class="s8">.</span><span class="s1">error</span><span class="s8">(</span><span class="s11">"Save Error:"</span><span class="s8">,</span><span class="s1"> err</span><span class="s8">);</span><span class="s1"> </span><span class="s8">}</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span></span><span class="s8">};</span></p>
-<p class="p6"><span class="s9"></span><br></p>
-<p class="p7"><span class="s4"><span class="Apple-converted-space">        </span></span><span class="s1">// Start everything</span></p>
-<p class="p4"><span class="s1"><span class="Apple-converted-space">        </span>init</span><span class="s8">();</span></p>
-<p class="p6"><span class="s9"></span><br></p>
-<p class="p1"><span class="s4"><span class="Apple-converted-space">    </span></span><span class="s3">&lt;/</span><span class="s1">script</span><span class="s3">&gt;</span></p>
-<p class="p1"><span class="s3">&lt;/</span><span class="s1">body</span><span class="s3">&gt;</span></p>
-<p class="p1"><span class="s3">&lt;/</span><span class="s1">html</span><span class="s3">&gt;</span></p>
+<body class="flex flex-col min-h-screen">
+
+    <!-- Navigation -->
+    <nav class="nav-blur sticky top-0 z-50 border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="flex justify-between items-center h-16 sm:h-20">
+                <div class="flex items-center gap-3">
+                    <div class="bg-black w-10 h-10 flex items-center justify-center rounded-xl cursor-pointer" onclick="toggleAdmin()">
+                        <i class="fa-solid fa-mountain-sun text-white text-lg"></i>
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-black text-lg leading-none tracking-tight text-black uppercase">THESALE3</span>
+                        <span class="text-[9px] font-bold text-emerald-600 tracking-[0.2em] uppercase">Camping Store</span>
+                    </div>
+                </div>
+
+                <div class="flex items-center gap-6">
+                    <a href="https://wa.me/8562054849393" target="_blank" class="flex items-center gap-2 group">
+                        <i class="fa-brands fa-whatsapp text-2xl text-emerald-500 group-hover:scale-110 transition"></i>
+                        <span class="hidden sm:block text-[11px] font-bold uppercase tracking-widest text-gray-900">Contact Shop</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <header class="hero-banner h-[400px] sm:h-[500px] flex items-center justify-center text-center px-4">
+        <div class="max-w-3xl">
+            <h1 class="text-5xl sm:text-7xl font-black text-white mb-6 tracking-tighter drop-shadow-2xl">TheSale3 Store</h1>
+            <p class="text-gray-100 text-base sm:text-xl mb-10 font-medium drop-shadow-md max-w-xl mx-auto">Premium outdoor equipment for the Lao adventurer. Quality tested for our unique terrain.</p>
+            <a href="#catalog" class="bg-emerald-600 text-white px-10 py-4 rounded-full font-bold text-sm uppercase tracking-widest hover:bg-emerald-700 transition shadow-2xl inline-block">
+                Start Exploring
+            </a>
+        </div>
+    </header>
+
+    <!-- Catalog -->
+    <main id="catalog" class="max-w-7xl mx-auto px-4 sm:px-6 py-12 flex-grow w-full">
+        <div class="flex flex-col lg:flex-row justify-between items-center mb-12 gap-6">
+            <div id="categoryContainer" class="flex gap-2 overflow-x-auto no-scrollbar w-full lg:w-auto pb-2">
+                <button onclick="filterBy('all', this)" class="category-pill active bg-emerald-600 text-white px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest border border-transparent">All Gear</button>
+                <button onclick="filterBy('coffee', this)" class="category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600">Coffee</button>
+                <button onclick="filterBy('tents', this)" class="category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600">Tents</button>
+                <button onclick="filterBy('cooking', this)" class="category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600">Cooking</button>
+                <button onclick="filterBy('furniture', this)" class="category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600">Furniture</button>
+            </div>
+            
+            <div class="relative w-full lg:w-72">
+                <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
+                <input type="text" id="searchInput" oninput="searchItems()" placeholder="Search gear..." class="w-full pl-12 pr-4 py-3 rounded-2xl border-none ring-1 ring-gray-200 focus:ring-2 focus:ring-emerald-500 shadow-sm transition">
+            </div>
+        </div>
+
+        <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <div class="col-span-full py-20 text-center text-gray-400">
+                <i class="fa-solid fa-spinner fa-spin text-3xl mb-4"></i>
+                <p>Syncing with cloud...</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Product Details Modal -->
+    <div id="modal" class="modal-container fixed inset-0 z-[100] flex items-center justify-center p-4">
+        <div class="bg-white rounded-[32px] max-w-4xl w-full overflow-hidden shadow-2xl relative flex flex-col md:flex-row max-h-[90vh]">
+            <button onclick="closeModals()" class="absolute top-4 right-4 text-gray-400 hover:text-black z-20 bg-white/80 w-10 h-10 rounded-full flex items-center justify-center shadow-sm">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="md:w-1/2 bg-gray-50 h-64 md:h-auto overflow-hidden">
+                <img id="modalImage" src="" alt="" class="w-full h-full object-cover">
+            </div>
+            <div class="p-8 md:p-12 md:w-1/2 flex flex-col overflow-y-auto">
+                <span id="modalCategory" class="text-emerald-700 text-[10px] font-bold uppercase tracking-[0.3em] mb-4"></span>
+                <h2 id="modalTitle" class="text-3xl font-black text-gray-900 mb-4 tracking-tighter"></h2>
+                <p id="modalPrice" class="text-2xl font-bold text-emerald-600 mb-6 italic"></p>
+                <div class="h-1 w-12 bg-emerald-600 mb-6"></div>
+                <p id="modalDescription" class="text-gray-500 text-sm leading-relaxed mb-8 flex-grow"></p>
+                <a id="whatsappBtn" href="#" target="_blank" class="whatsapp-btn text-white py-4 rounded-2xl font-black flex items-center justify-center gap-3 shadow-lg uppercase tracking-widest text-xs">
+                    <i class="fa-brands fa-whatsapp text-2xl"></i> Chat to Buy
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Panel Modal -->
+    <div id="adminModal" class="modal-container fixed inset-0 z-[110] flex items-center justify-center p-4">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-8 shadow-2xl relative">
+            <button onclick="closeModals()" class="absolute top-6 right-6 text-gray-400 hover:text-black"><i class="fa-solid fa-xmark text-xl"></i></button>
+            <h2 class="text-2xl font-black mb-6">Admin Panel</h2>
+            <form id="adminForm" class="space-y-4 mb-8">
+                <input type="text" id="pName" placeholder="Product Name" class="w-full p-3 bg-gray-50 rounded-xl outline-none focus:ring-2 focus:ring-emerald-500 border-none" required>
+                <div class="grid grid-cols-2 gap-4">
+                    <input type="number" id="pPrice" placeholder="Price (LAK)" class="p-3 bg-gray-50 rounded-xl outline-none focus:ring-2 focus:ring-emerald-500 border-none" required>
+                    <select id="pCategory" class="p-3 bg-gray-50 rounded-xl outline-none focus:ring-2 focus:ring-emerald-500 border-none">
+                        <option value="coffee">Coffee</option>
+                        <option value="tents">Tents</option>
+                        <option value="cooking">Cooking</option>
+                        <option value="lighting">Lighting</option>
+                        <option value="furniture">Furniture</option>
+                    </select>
+                </div>
+                <input type="url" id="pImage" placeholder="Image URL (PostImg direct link)" class="w-full p-3 bg-gray-50 rounded-xl outline-none focus:ring-2 focus:ring-emerald-500 border-none" required>
+                <textarea id="pDesc" placeholder="Product Description..." class="w-full p-3 bg-gray-50 rounded-xl outline-none focus:ring-2 focus:ring-emerald-500 border-none h-20" required></textarea>
+                <button type="submit" class="w-full bg-black text-white py-3 rounded-xl font-bold hover:bg-gray-800 transition shadow-lg">Save Product</button>
+            </form>
+
+            <div class="border-t pt-4">
+                <h3 class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-4">Live Inventory</h3>
+                <div id="adminList" class="max-h-48 overflow-y-auto space-y-2 pr-2">
+                    <!-- Delete list items here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-white border-t py-12 px-4 text-center mt-auto">
+        <div class="flex justify-center items-center gap-2 mb-4 text-gray-300">
+            <i class="fa-solid fa-mountain-sun"></i>
+            <span class="font-bold uppercase tracking-widest text-[10px]">TheSale3 Camping Laos</span>
+        </div>
+        <p class="text-[10px] text-gray-400 uppercase tracking-widest">Premium Outdoor Solutions</p>
+    </footer>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, onSnapshot, doc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Global State
+        let products = [];
+        let filteredProducts = [];
+        let currentCat = 'all';
+
+        // Initialize Firebase
+        const firebaseConfig = JSON.parse(__firebase_config);
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'thesale3-camping';
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        // Path Rule 1
+        const productCollection = collection(db, 'artifacts', appId, 'public', 'data', 'products');
+
+        // Functions exposed to window for HTML onclick handlers
+        window.toggleAdmin = () => {
+            const m = document.getElementById('adminModal');
+            m.style.display = m.style.display === 'flex' ? 'none' : 'flex';
+        };
+
+        window.closeModals = () => {
+            document.getElementById('modal').style.display = 'none';
+            document.getElementById('adminModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        };
+
+        window.filterBy = (cat, btn) => {
+            currentCat = cat;
+            document.querySelectorAll('.category-pill').forEach(b => {
+                b.classList.remove('active', 'bg-emerald-600', 'text-white');
+                b.classList.add('bg-white', 'text-gray-400', 'border-gray-100');
+            });
+            btn.classList.add('active', 'bg-emerald-600', 'text-white');
+            btn.classList.remove('bg-white', 'text-gray-400', 'border-gray-100');
+            applyFilters();
+        };
+
+        window.searchItems = () => {
+            applyFilters();
+        };
+
+        window.openDetails = (id) => {
+            const p = products.find(x => x.id === id);
+            if (!p) return;
+            document.getElementById('modalTitle').innerText = p.name;
+            document.getElementById('modalCategory').innerText = p.category;
+            document.getElementById('modalPrice').innerText = `LAK ${Number(p.price).toLocaleString()}`;
+            document.getElementById('modalDescription').innerText = p.description;
+            document.getElementById('modalImage').src = p.image;
+            document.getElementById('whatsappBtn').href = `https://wa.me/8562054849393?text=Sabaidee! I am interested in: ${p.name}`;
+            document.getElementById('modal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        };
+
+        window.removeItem = async (id) => {
+            if(!confirm("Delete this product?")) return;
+            try {
+                await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'products', id));
+            } catch (e) { console.error("Delete failed:", e); }
+        };
+
+        // UI Logic
+        function applyFilters() {
+            const search = document.getElementById('searchInput').value.toLowerCase();
+            filteredProducts = products.filter(p => {
+                const matchesSearch = p.name.toLowerCase().includes(search);
+                const matchesCat = currentCat === 'all' || p.category === currentCat;
+                return matchesSearch && matchesCat;
+            });
+            render();
+        }
+
+        function render() {
+            const grid = document.getElementById('productGrid');
+            const adminList = document.getElementById('adminList');
+            
+            grid.innerHTML = filteredProducts.map(p => `
+                <div class="product-card group overflow-hidden flex flex-col cursor-pointer fade-in" onclick="openDetails('${p.id}')">
+                    <div class="h-64 overflow-hidden relative bg-gray-50">
+                        <img src="${p.image}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                    </div>
+                    <div class="p-8 flex flex-col flex-grow text-left">
+                        <span class="text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-2">${p.category}</span>
+                        <h3 class="font-bold text-lg mb-1 text-gray-900 group-hover:text-emerald-700 transition-colors tracking-tight">${p.name}</h3>
+                        <p class="text-base font-bold text-emerald-600 mb-6 italic">LAK ${Number(p.price).toLocaleString()}</p>
+                        <div class="mt-auto flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-gray-900">
+                            Check Details <i class="fa-solid fa-arrow-right-long text-emerald-600 group-hover:translate-x-1 transition"></i>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            if(filteredProducts.length === 0) {
+                grid.innerHTML = '<div class="col-span-full py-20 text-center text-gray-400 italic">No equipment found matching your criteria.</div>';
+            }
+
+            adminList.innerHTML = products.map(p => `
+                <div class="flex items-center justify-between p-2 bg-gray-50 rounded-lg text-[11px]">
+                    <span class="font-bold truncate w-32">${p.name}</span>
+                    <button onclick="removeItem('${p.id}')" class="text-red-400 hover:text-red-600 transition p-2">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                </div>
+            `).join('');
+        }
+
+        // Firebase Auth & Data
+        const init = async () => {
+            // Rule 3: Auth First
+            try {
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                    await signInWithCustomToken(auth, __initial_auth_token);
+                } else {
+                    await signInAnonymously(auth);
+                }
+            } catch (e) { console.error("Auth Error:", e); }
+
+            onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    onSnapshot(productCollection, (snapshot) => {
+                        products = snapshot.docs.map(d => ({ id: d.id, ...d.data() }));
+                        applyFilters();
+                    }, (err) => console.error("Firestore Error:", err));
+                }
+            });
+        };
+
+        // Form Submission
+        document.getElementById('adminForm').onsubmit = async (e) => {
+            e.preventDefault();
+            const payload = {
+                name: document.getElementById('pName').value,
+                price: Number(document.getElementById('pPrice').value),
+                category: document.getElementById('pCategory').value,
+                image: document.getElementById('pImage').value,
+                description: document.getElementById('pDesc').value,
+                createdAt: new Date().toISOString()
+            };
+
+            try {
+                await addDoc(productCollection, payload);
+                document.getElementById('adminForm').reset();
+                window.toggleAdmin();
+            } catch (err) { console.error("Save Error:", err); }
+        };
+
+        // Start everything
+        init();
+
+    </script>
 </body>
 </html>
