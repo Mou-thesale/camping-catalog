@@ -78,20 +78,20 @@
     <main id="catalog" class="max-w-7xl mx-auto px-4 sm:px-6 py-10 flex-grow w-full">
         <div class="flex flex-col lg:flex-row justify-between items-center mb-10 gap-6">
             <div id="categoryContainer" class="flex gap-2 overflow-x-auto no-scrollbar w-full lg:w-auto pb-4">
-                <button onclick="filterBy('all', this)" class="category-pill active bg-emerald-600 text-white px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest border border-transparent">All Gear</button>
-                <button onclick="filterBy('tents', this)" class="category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600">Tents</button>
-                <button onclick="filterBy('cooking', this)" class="category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600">Cooking</button>
-                <button onclick="filterBy('coffee', this)" class="category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600">Coffee</button>
-                <button onclick="filterBy('lighting', this)" class="category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600">Lighting</button>
-                <button onclick="filterBy('sleeping_gear', this)" class="category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600">Sleeping</button>
-                <button onclick="filterBy('furniture', this)" class="category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600">Furniture</button>
-                <button onclick="filterBy('backpack', this)" class="category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600">Backpack</button>
-                <button onclick="filterBy('trekking_poles', this)" class="category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600">Poles</button>
+                <button onclick="filterBy('all', this)" class="category-pill active bg-emerald-600 text-white px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest border border-transparent">All / ທັງໝົດ</button>
+                <button onclick="filterBy('tents', this)" class="category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600">Tents / ເຕັ້ນ</button>
+                <button onclick="filterBy('cooking', this)" class="category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600">Cooking / ເຄື່ອງຄົວ</button>
+                <button onclick="filterBy('coffee', this)" class="category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600">Coffee / ກາເຟ</button>
+                <button onclick="filterBy('lighting', this)" class="category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600">Lighting / ໄຟ</button>
+                <button onclick="filterBy('sleeping_gear', this)" class="category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600">Sleeping / ເຄື່ອງນອນ</button>
+                <button onclick="filterBy('furniture', this)" class="category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600">Furniture / ເຟີນີເຈີ</button>
+                <button onclick="filterBy('backpack', this)" class="category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600">Backpack / ກະເປົ໋າ</button>
+                <button onclick="filterBy('trekking_poles', this)" class="category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600">Poles / ໄມ້ເທົ້າ</button>
             </div>
             
             <div class="relative w-full lg:w-72">
                 <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
-                <input type="text" id="searchInput" oninput="searchItems()" placeholder="Search..." class="w-full pl-12 pr-4 py-3 rounded-2xl border-none ring-1 ring-gray-200 focus:ring-2 focus:ring-emerald-500 shadow-sm transition">
+                <input type="text" id="searchInput" oninput="searchItems()" placeholder="Search / ຄົ້ນຫາ..." class="w-full pl-12 pr-4 py-3 rounded-2xl border-none ring-1 ring-gray-200 focus:ring-2 focus:ring-emerald-500 shadow-sm transition">
             </div>
         </div>
 
@@ -128,22 +128,21 @@
     <div id="cartModal" style="display: none;" class="fixed inset-0 z-[110] modal-overlay items-center justify-end" onclick="if(event.target === this) closeCart()">
         <div class="bg-white h-full max-w-lg w-full shadow-2xl flex flex-col fade-in">
             <div class="p-8 border-b flex justify-between items-center">
-                <h2 class="text-2xl font-black uppercase tracking-tight">Shopping Cart</h2>
+                <h2 class="text-2xl font-black uppercase tracking-tight text-emerald-800">Shopping Cart / ກະຕ່າ</h2>
                 <button onclick="closeCart()" class="text-gray-400 hover:text-black"><i class="fa-solid fa-xmark text-2xl"></i></button>
             </div>
             
             <div id="cartItems" class="flex-grow overflow-y-auto p-8 space-y-6">
-                <!-- Cart items will be rendered here -->
-                <div class="text-center py-20 text-gray-400">Your cart is empty</div>
+                <div class="text-center py-20 text-gray-400">Your cart is empty / ບໍ່ມີສິນຄ້າໃນກະຕ່າ</div>
             </div>
 
             <div class="p-8 border-t bg-gray-50">
                 <div class="flex justify-between items-center mb-6">
-                    <span class="font-bold text-gray-500 uppercase tracking-widest text-xs">Total Amount</span>
+                    <span class="font-bold text-gray-500 uppercase tracking-widest text-xs">Total Amount / ລວມທັງໝົດ</span>
                     <span id="cartTotal" class="text-2xl font-black text-emerald-600 italic">0 LAK</span>
                 </div>
                 <button onclick="sendOrderWhatsApp()" class="whatsapp-btn w-full text-white py-5 rounded-2xl font-black flex items-center justify-center gap-4 shadow-xl uppercase tracking-widest text-sm hover:brightness-110 transition">
-                    <i class="fa-brands fa-whatsapp text-2xl"></i> Complete Order via WhatsApp
+                    <i class="fa-brands fa-whatsapp text-2xl"></i> Order via WhatsApp / ສັ່ງຊື້ຜ່ານວອດແອບ
                 </button>
             </div>
         </div>
@@ -151,8 +150,8 @@
 
     <footer class="bg-white border-t py-12 px-4 text-center mt-auto">
         <div class="flex justify-center items-center gap-4 mb-6 relative">
-            <a href="#" class="text-gray-300 hover:text-blue-600 transition"><i class="fa-brands fa-facebook-f text-xl"></i></a>
-            <a href="#" class="text-gray-300 hover:text-black transition"><i class="fa-brands fa-tiktok text-xl"></i></a>
+            <a href="https://www.facebook.com/Clicktobuy333333333" target="_blank" class="text-gray-300 hover:text-blue-600 transition"><i class="fa-brands fa-facebook-f text-xl"></i></a>
+            <a href="https://www.tiktok.com/@thesale3camping" target="_blank" class="text-gray-300 hover:text-black transition"><i class="fa-brands fa-tiktok text-xl"></i></a>
         </div>
         <div class="mb-4"><span class="font-bold uppercase tracking-[0.3em] text-[10px] text-gray-900">TheSale3 Camping Store</span></div>
         <p class="text-[9px] text-gray-300 uppercase tracking-[0.2em] select-none">&copy; 2024 All Rights Reserved. Premium Gear Shop.</p>
@@ -162,6 +161,19 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Mapping for Bilingual Categories
+        const catMap = {
+            'all': 'All Gear / ສິນຄ້າທັງໝົດ',
+            'tents': 'Tents / ເຕັ້ນ',
+            'cooking': 'Cooking / ເຄື່ອງຄົວ',
+            'coffee': 'Coffee / ກາເຟ',
+            'lighting': 'Lighting / ໄຟສ່ອງສະຫວ່າງ',
+            'sleeping_gear': 'Sleeping / ເຄື່ອງນອນ',
+            'furniture': 'Furniture / ເຟີນີເຈີ',
+            'backpack': 'Backpack / ກະເປົ໋າ',
+            'trekking_poles': 'Poles / ໄມ້ເທົ້າ'
+        };
 
         const SYSTEM_PRODUCTS = [
             // --- TENTS ---
@@ -181,7 +193,7 @@
             { id: 'master-12', name: 'ຊຸດໝໍ້ສຳລັບ 3 ຫາ 4 ຄົນ (DS-308)', price: 430000, category: 'cooking', image: 'https://i.postimg.cc/bw8m2q4T/150739603-186271443286994-1875422230249930637-n.jpg', description: 'DS-308 Outdoor Cooking Set. Includes pan, pot, and kettle.' },
             { id: 'master-13', name: 'ເຕົາແກັດນ້ອຍມີສາຍ (Hose Stove)', price: 200000, category: 'cooking', image: 'https://i.postimg.cc/kgvtYbwk/476775570-1132392825341513-296684994834635171-n.jpg', description: 'Portable mini gas stove with hose for stability.' },
             { id: 'master-14', name: 'ເຕົາແກັດນ້ອຍມີອັນບັງລົມ (Windproof Stove)', price: 180000, category: 'cooking', image: 'https://i.postimg.cc/mrd1BWvN/470235034-1091427629438033-3849741322793284301-n-(2).jpg', description: 'Portable Stove with foldable windshield. Weighs only 400g.' },
-            { id: 'master-15', name: 'ເຕົາແກັດຂະຫນາດນ້ອຍ (Picnic Stove K-202)', price: 165000, category: 'cooking', image: 'https://i.postimg.cc/3RfYqSQJ/150468425-186271443286994-1875422230249930637-n.jpg', description: 'Small Picnic Stove K-202 with piezo ignition.' },
+            { id: 'master-15', name: 'ເຕົາແກັດຂະຫນﺎດນ້ອຍ (Picnic Stove K-202)', price: 165000, category: 'cooking', image: 'https://i.postimg.cc/3RfYqSQJ/150468425-186271443286994-1875422230249930637-n.jpg', description: 'Small Picnic Stove K-202 with piezo ignition.' },
             { id: 'master-16', name: 'ໝໍ້ຂຽວທະຫານ (Army Military Pot)', price: 300000, category: 'cooking', image: 'https://i.postimg.cc/63x4bQwN/470161529-1091427636104699-6870152323458159947-n-(1).jpg', description: 'Army Green Military Pot. 1.8L Aluminum construction.' },
 
             // --- COFFEE ---
@@ -271,7 +283,7 @@
             if (cart.length === 0) {
                 container.innerHTML = `<div class="text-center py-20 text-gray-400">
                     <i class="fa-solid fa-cart-arrow-down text-5xl mb-4 opacity-20"></i>
-                    <p class="font-bold uppercase tracking-widest text-xs">Your cart is empty</p>
+                    <p class="font-bold uppercase tracking-widest text-xs">Your cart is empty / ບໍ່ມີສິນຄ້າໃນກະຕ່າ</p>
                 </div>`;
                 totalEl.innerText = '0 LAK';
                 return;
@@ -303,21 +315,21 @@
         window.sendOrderWhatsApp = () => {
             if (cart.length === 0) return;
             
-            let message = "Sabaidee! I would like to order the following items:\n\n";
+            let message = "Sabaidee! ຂ້ອຍຕ້ອງການສັ່ງຊື້ສິນຄ້າລຸ່ມນີ້ / I would like to order:\n\n";
             let total = 0;
             
             cart.forEach((item, index) => {
                 const subtotal = item.price * item.quantity;
                 total += subtotal;
                 message += `${index + 1}. ${item.name}\n`;
-                message += `   Quantity: ${item.quantity}\n`;
-                message += `   Price: ${item.price.toLocaleString()} LAK\n`;
-                message += `   Subtotal: ${subtotal.toLocaleString()} LAK\n`;
-                message += `   Product Link: ${item.image}\n\n`;
+                message += `   ຈຳນວນ / Qty: ${item.quantity}\n`;
+                message += `   ລາຄາ / Price: ${item.price.toLocaleString()} LAK\n`;
+                message += `   ລວມ / Subtotal: ${subtotal.toLocaleString()} LAK\n`;
+                message += `   ຮູບ / Image: ${item.image}\n\n`;
             });
 
             message += `--------------------------\n`;
-            message += `GRAND TOTAL: ${total.toLocaleString()} LAK\n`;
+            message += `GRAND TOTAL / ລວມທັງໝົດ: ${total.toLocaleString()} LAK\n`;
             message += `--------------------------\n`;
             message += `Please confirm my order. Thank you!`;
 
@@ -349,11 +361,11 @@
                 <div class="product-card group overflow-hidden flex flex-col cursor-pointer fade-in" onclick="openDetails('${p.id}')">
                     <div class="h-64 bg-gray-50 overflow-hidden relative"><img src="${p.image}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"></div>
                     <div class="p-8 flex flex-col flex-grow text-left">
-                        <span class="text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-2">${p.category.replace('_', ' ')}</span>
+                        <span class="text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-2">${catMap[p.category] || p.category}</span>
                         <h3 class="font-bold text-lg mb-1 text-gray-900 tracking-tight">${p.name}</h3>
                         <p class="text-base font-bold text-emerald-600 mb-6 italic">LAK ${Number(p.price).toLocaleString()}</p>
                         <div class="mt-auto flex items-center justify-between">
-                            <span class="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-gray-900">Check Gear <i class="fa-solid fa-arrow-right-long text-emerald-600 group-hover:translate-x-1 transition"></i></span>
+                            <span class="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-gray-900">Check Gear / ເບິ່ງເພີ່ມ <i class="fa-solid fa-arrow-right-long text-emerald-600 group-hover:translate-x-1 transition"></i></span>
                             <button onclick="event.stopPropagation(); addToCart('${p.id}')" class="bg-gray-100 p-2 rounded-lg text-gray-800 hover:bg-emerald-600 hover:text-white transition"><i class="fa-solid fa-plus"></i></button>
                         </div>
                     </div>
@@ -364,21 +376,20 @@
             const p = products.find(x => x.id === id);
             if (!p) return;
             document.getElementById('modalTitle').innerText = p.name;
-            document.getElementById('modalCategory').innerText = p.category.replace('_', ' ');
+            document.getElementById('modalCategory').innerText = catMap[p.category] || p.category;
             document.getElementById('modalPrice').innerText = `LAK ${Number(p.price).toLocaleString()}`;
             document.getElementById('modalDescription').innerText = p.description;
             document.getElementById('modalImage').src = p.image;
             
             // Single item WhatsApp button
-            document.getElementById('whatsappBtn').href = `https://wa.me/8562054849393?text=${encodeURIComponent("Sabaidee! I'm interested in: " + p.name + " (" + Number(p.price).toLocaleString() + " LAK)\nImage: " + p.image)}`;
+            document.getElementById('whatsappBtn').href = `https://wa.me/8562054849393?text=${encodeURIComponent("Sabaidee! ຂ້ອຍສົນໃຈ: " + p.name + " (" + Number(p.price).toLocaleString() + " LAK)\nຮູບ: " + p.image)}`;
             
-            // Add to Cart Button Logic
             const addBtn = document.getElementById('addToCartBtn');
             addBtn.onclick = () => {
                 addToCart(p.id);
-                addBtn.innerHTML = '<i class="fa-solid fa-check text-xl"></i> Added to Cart';
+                addBtn.innerHTML = '<i class="fa-solid fa-check text-xl"></i> Added / ເພີ່ມແລ້ວ';
                 setTimeout(() => {
-                    addBtn.innerHTML = '<i class="fa-solid fa-cart-plus text-xl"></i> Add to Cart';
+                    addBtn.innerHTML = '<i class="fa-solid fa-cart-plus text-xl"></i> Add to Cart / ໃສ່ກະຕ່າ';
                 }, 1500);
             };
 
@@ -389,12 +400,8 @@
         window.closeModals = () => { document.getElementById('modal').style.display = 'none'; document.body.style.overflow = 'auto'; };
 
         document.addEventListener('DOMContentLoaded', () => {
-            // Load cart from local storage
             const savedCart = localStorage.getItem('thesale3_cart');
-            if (savedCart) {
-                cart = JSON.parse(savedCart);
-                updateCartUI();
-            }
+            if (savedCart) { cart = JSON.parse(savedCart); updateCartUI(); }
 
             applyFilters();
             try {
