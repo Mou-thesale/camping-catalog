@@ -75,6 +75,13 @@
         #adminTrigger {
             animation: fadeIn 0.3s ease;
         }
+
+        /* Feedback for the secret click */
+        .click-pulse {
+            color: #059669 !important;
+            transform: scale(1.05);
+            transition: all 0.1s ease;
+        }
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
@@ -200,7 +207,7 @@
         
         <div class="flex flex-col items-center gap-2">
             <!-- CLICK THIS 5 TIMES -->
-            <p id="copyrightText" class="text-[9px] text-gray-300 uppercase tracking-[0.2em] cursor-pointer select-none py-2 px-4">
+            <p id="copyrightText" class="text-[9px] text-gray-300 uppercase tracking-[0.2em] cursor-pointer select-none py-2 px-4 transition-all duration-200">
                 &copy; 2024 All Rights Reserved. Premium Gear Shop.
             </p>
             
@@ -216,80 +223,89 @@
         import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, collection, addDoc, onSnapshot, doc, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        let products = [];
-        let currentCat = 'all';
-        let currentUser = null;
+        // Secret Reveal Logic (Outside of main try block for robustness)
         let secretClicks = 0;
-
-        // Firebase Setup
-        let db, auth;
-        try {
-            const firebaseConfig = JSON.parse(__firebase_config);
-            const appId = typeof __app_id !== 'undefined' ? __app_id : 'thesale3-camping';
-            const app = initializeApp(firebaseConfig);
-            auth = getAuth(app);
-            db = getFirestore(app);
-
-            const productCol = collection(db, 'artifacts', appId, 'public', 'data', 'products');
-
-            // Secret Reveal Logic
-            document.getElementById('copyrightText').addEventListener('click', () => {
+        const secretEl = document.getElementById('copyrightText');
+        if (secretEl) {
+            secretEl.addEventListener('click', function() {
                 secretClicks++;
+                // Visual feedback
+                this.classList.add('click-pulse');
+                setTimeout(() => this.classList.remove('click-pulse'), 150);
+                
                 if (secretClicks >= 5) {
                     document.getElementById('adminTrigger').style.display = 'inline-block';
                     secretClicks = 0;
                 }
             });
-
-            // Auth & Data
-            const startApp = async () => {
-                try {
-                    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                        await signInWithCustomToken(auth, __initial_auth_token);
-                    } else {
-                        await signInAnonymously(auth);
-                    }
-                    
-                    onAuthStateChanged(auth, (user) => {
-                        currentUser = user;
-                        if (user) {
-                            onSnapshot(productCol, (snap) => {
-                                products = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-                                applyFilters();
-                            });
-                        }
-                    });
-                } catch (e) { console.error(e); }
-            };
-            startApp();
-
-            // Admin Actions
-            document.getElementById('adminForm').onsubmit = async (e) => {
-                e.preventDefault();
-                if (!currentUser) return;
-                const p = {
-                    name: document.getElementById('pName').value,
-                    price: Number(document.getElementById('pPrice').value),
-                    category: document.getElementById('pCategory').value,
-                    image: document.getElementById('pImage').value,
-                    description: document.getElementById('pDesc').value,
-                    createdAt: new Date().toISOString()
-                };
-                await addDoc(productCol, p);
-                document.getElementById('adminForm').reset();
-                window.closeModals();
-            };
-
-            window.removeItem = async (id) => {
-                if(confirm("Delete product?")) await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'products', id));
-            };
-
-        } catch (err) {
-            console.error("Firebase Config Missing", err);
-            document.getElementById('loadingStatus').innerText = "Connecting to catalog...";
         }
 
-        // UI Functions
+        let products = [];
+        let currentCat = 'all';
+        let currentUser = null;
+
+        // Firebase Setup
+        let db, auth;
+        const setupFirebase = async () => {
+            try {
+                const configStr = typeof __firebase_config !== 'undefined' ? __firebase_config : null;
+                if (!configStr) throw new Error("Missing config");
+                
+                const firebaseConfig = JSON.parse(configStr);
+                const appId = typeof __app_id !== 'undefined' ? __app_id : 'thesale3-camping';
+                const app = initializeApp(firebaseConfig);
+                auth = getAuth(app);
+                db = getFirestore(app);
+
+                const productCol = collection(db, 'artifacts', appId, 'public', 'data', 'products');
+
+                // Auth & Data
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                    await signInWithCustomToken(auth, __initial_auth_token);
+                } else {
+                    await signInAnonymously(auth);
+                }
+                
+                onAuthStateChanged(auth, (user) => {
+                    currentUser = user;
+                    if (user) {
+                        onSnapshot(productCol, (snap) => {
+                            products = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+                            applyFilters();
+                        });
+                    }
+                });
+
+                // Admin Form Handler
+                document.getElementById('adminForm').onsubmit = async (e) => {
+                    e.preventDefault();
+                    if (!currentUser) return;
+                    const p = {
+                        name: document.getElementById('pName').value,
+                        price: Number(document.getElementById('pPrice').value),
+                        category: document.getElementById('pCategory').value,
+                        image: document.getElementById('pImage').value,
+                        description: document.getElementById('pDesc').value,
+                        createdAt: new Date().toISOString()
+                    };
+                    await addDoc(productCol, p);
+                    document.getElementById('adminForm').reset();
+                    window.closeModals();
+                };
+
+                window.removeItem = async (id) => {
+                    if(confirm("Delete product?")) await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'products', id));
+                };
+
+            } catch (err) {
+                console.error("Firebase Error:", err);
+                document.getElementById('loadingStatus').innerText = "Inventory sync temporarily unavailable.";
+            }
+        };
+
+        setupFirebase();
+
+        // UI Functions attached to window
         window.toggleAdmin = () => {
             document.getElementById('adminModal').style.display = 'flex';
             document.body.style.overflow = 'hidden';
