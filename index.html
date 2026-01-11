@@ -7,7 +7,7 @@
     <title>TheSale3 Camping Store | Premium Outdoor Gear Laos</title>
     <meta name="description" content="Premium outdoor equipment for the Lao adventurer. Shop portable stoves, tents, coffee gear, and furniture. Quality tested for Laos terrain. Contact +8562054849393.">
     
-    <!-- Open Graph Tags (For Facebook/WhatsApp Sharing) -->
+    <!-- Open Graph Tags -->
     <meta property="og:title" content="TheSale3 Camping Store | Cloud Powered">
     <meta property="og:description" content="Premium outdoor equipment for the Lao adventurer. Click to browse our catalog.">
     <meta property="og:image" content="https://i.postimg.cc/FKL5Q4JW/489751506-1424454392283349-8154752889413656228-n.jpg">
@@ -17,65 +17,23 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
         
-        body {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #fcfcfc;
-            color: #111827;
-        }
-
-        .hero-banner {
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.4)), url('https://i.postimg.cc/FKL5Q4JW/489751506-1424454392283349-8154752889413656228-n.jpg');
-            background-size: cover;
-            background-position: center;
-        }
-
-        .nav-blur {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-        }
-
-        .product-card {
-            background: #ffffff;
-            border: 1px solid #f3f4f6;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            border-radius: 24px;
-        }
-
-        .product-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-        }
-
-        .category-pill.active {
-            background-color: #059669;
-            color: white;
-            border-color: #059669;
-        }
-
-        .modal-overlay {
-            background: rgba(0,0,0,0.8);
-            backdrop-filter: blur(8px);
-        }
-
-        .whatsapp-btn {
-            background: #25D366;
-            transition: all 0.3s ease;
-        }
-
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #fcfcfc; color: #111827; }
+        .hero-banner { background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.4)), url('https://i.postimg.cc/FKL5Q4JW/489751506-1424454392283349-8154752889413656228-n.jpg'); background-size: cover; background-position: center; }
+        .nav-blur { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+        .product-card { background: #ffffff; border: 1px solid #f3f4f6; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); border-radius: 24px; }
+        .product-card:hover { transform: translateY(-6px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); }
+        .category-pill { transition: all 0.3s ease; white-space: nowrap; }
+        .category-pill.active { background-color: #059669; color: white; border-color: #059669; }
+        .modal-overlay { background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); }
+        .whatsapp-btn { background: #25D366; transition: all 0.3s ease; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .fade-in { animation: fadeIn 0.5s ease forwards; }
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
 
-    <!-- การนำทาง (Navigation) -->
     <nav class="nav-blur sticky top-0 z-50 border-b border-gray-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6">
             <div class="flex justify-between items-center h-16 sm:h-20">
@@ -93,27 +51,26 @@
         </div>
     </nav>
 
-    <!-- ส่วนหัว (Hero) -->
     <header class="hero-banner h-[300px] sm:h-[400px] flex items-center justify-center text-center px-4">
         <div class="max-w-3xl">
             <h1 class="text-4xl sm:text-6xl font-black text-white mb-4 tracking-tighter drop-shadow-2xl">TheSale3 Store</h1>
             <p class="text-gray-200 text-sm sm:text-lg mb-8 font-medium drop-shadow-md max-w-lg mx-auto uppercase tracking-widest">Premium Camping Gear Laos</p>
-            <a href="#catalog" class="bg-emerald-600 text-white px-8 py-3.5 rounded-full font-bold text-[10px] uppercase tracking-[0.2em] hover:bg-emerald-700 transition shadow-2xl inline-block">
-                Browse Collection
-            </a>
+            <a href="#catalog" class="bg-emerald-600 text-white px-8 py-3.5 rounded-full font-bold text-[10px] uppercase tracking-[0.2em] hover:bg-emerald-700 transition shadow-2xl inline-block">Browse Collection</a>
         </div>
     </header>
 
-    <!-- รายการสินค้า (Catalog) -->
     <main id="catalog" class="max-w-7xl mx-auto px-4 sm:px-6 py-10 flex-grow w-full">
         <div class="flex flex-col lg:flex-row justify-between items-center mb-10 gap-6">
-            <div id="categoryContainer" class="flex gap-2 overflow-x-auto no-scrollbar w-full lg:w-auto pb-2">
+            <div id="categoryContainer" class="flex gap-2 overflow-x-auto no-scrollbar w-full lg:w-auto pb-4">
                 <button onclick="filterBy('all', this)" class="category-pill active bg-emerald-600 text-white px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest border border-transparent">All Gear</button>
-                <button onclick="filterBy('coffee', this)" class="category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600">Coffee</button>
                 <button onclick="filterBy('tents', this)" class="category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600">Tents</button>
-                <button onclick="filterBy('lighting', this)" class="category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600">Lighting</button>
                 <button onclick="filterBy('cooking', this)" class="category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600">Cooking</button>
+                <button onclick="filterBy('coffee', this)" class="category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600">Coffee</button>
+                <button onclick="filterBy('lighting', this)" class="category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600">Lighting</button>
+                <button onclick="filterBy('sleeping_gear', this)" class="category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600">Sleeping</button>
                 <button onclick="filterBy('furniture', this)" class="category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600">Furniture</button>
+                <button onclick="filterBy('backpack', this)" class="category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600">Backpack</button>
+                <button onclick="filterBy('trekking_poles', this)" class="category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600">Poles</button>
             </div>
             
             <div class="relative w-full lg:w-72">
@@ -122,48 +79,31 @@
             </div>
         </div>
 
-        <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            <div class="col-span-full py-20 text-center text-gray-400">
-                <i class="fa-solid fa-spinner fa-spin text-3xl mb-4"></i>
-                <p id="loadingStatus">Syncing with cloud catalog...</p>
-            </div>
-        </div>
+        <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
     </main>
 
-    <!-- รายละเอียดสินค้า (Product Details Modal) -->
     <div id="modal" style="display: none;" class="fixed inset-0 z-[100] modal-overlay items-center justify-center p-4" onclick="if(event.target === this) closeModals()">
         <div class="bg-white rounded-[32px] max-w-4xl w-full overflow-hidden shadow-2xl relative flex flex-col md:flex-row max-h-[90vh]">
-            <button onclick="closeModals()" class="absolute top-4 right-4 text-gray-400 hover:text-black z-20 bg-white/80 w-10 h-10 rounded-full flex items-center justify-center shadow-sm">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-            <div class="md:w-1/2 bg-gray-50 h-64 md:h-auto overflow-hidden">
-                <img id="modalImage" src="" alt="" class="w-full h-full object-cover">
-            </div>
+            <button onclick="closeModals()" class="absolute top-4 right-4 text-gray-400 hover:text-black z-20 bg-white/80 w-10 h-10 rounded-full flex items-center justify-center shadow-sm"><i class="fa-solid fa-xmark"></i></button>
+            <div class="md:w-1/2 bg-gray-50 h-64 md:h-auto overflow-hidden"><img id="modalImage" src="" alt="" class="w-full h-full object-cover"></div>
             <div class="p-8 md:p-12 md:w-1/2 flex flex-col overflow-y-auto">
                 <span id="modalCategory" class="text-emerald-700 text-[10px] font-bold uppercase tracking-[0.3em] mb-4"></span>
                 <h2 id="modalTitle" class="text-3xl font-black text-gray-900 mb-4 tracking-tighter"></h2>
                 <p id="modalPrice" class="text-2xl font-bold text-emerald-600 mb-6 italic"></p>
                 <div class="h-1 w-12 bg-emerald-600 mb-6"></div>
                 <p id="modalDescription" class="text-gray-500 text-sm leading-relaxed mb-8 flex-grow whitespace-pre-line"></p>
-                <a id="whatsappBtn" href="#" target="_blank" class="whatsapp-btn text-white py-4 rounded-2xl font-black flex items-center justify-center gap-3 shadow-lg uppercase tracking-widest text-xs">
-                    <i class="fa-brands fa-whatsapp text-2xl"></i> Chat to Purchase
-                </a>
+                <a id="whatsappBtn" href="#" target="_blank" class="whatsapp-btn text-white py-4 rounded-2xl font-black flex items-center justify-center gap-3 shadow-lg uppercase tracking-widest text-xs"><i class="fa-brands fa-whatsapp text-2xl"></i> Chat to Purchase</a>
             </div>
         </div>
     </div>
 
-    <!-- ส่วนท้าย (Footer) -->
     <footer class="bg-white border-t py-12 px-4 text-center mt-auto">
         <div class="flex justify-center items-center gap-4 mb-6 relative">
-            <a href="https://facebook.com" target="_blank" class="text-gray-300 hover:text-blue-600 transition"><i class="fa-brands fa-facebook-f text-xl"></i></a>
-            <a href="https://tiktok.com" target="_blank" class="text-gray-300 hover:text-black transition"><i class="fa-brands fa-tiktok text-xl"></i></a>
+            <a href="#" class="text-gray-300 hover:text-blue-600 transition"><i class="fa-brands fa-facebook-f text-xl"></i></a>
+            <a href="#" class="text-gray-300 hover:text-black transition"><i class="fa-brands fa-tiktok text-xl"></i></a>
         </div>
-        <div class="mb-4">
-            <span class="font-bold uppercase tracking-[0.3em] text-[10px] text-gray-900">TheSale3 Camping Store</span>
-        </div>
-        <p class="text-[9px] text-gray-300 uppercase tracking-[0.2em] select-none">
-            &copy; 2024 All Rights Reserved. Premium Gear Shop.
-        </p>
+        <div class="mb-4"><span class="font-bold uppercase tracking-[0.3em] text-[10px] text-gray-900">TheSale3 Camping Store</span></div>
+        <p class="text-[9px] text-gray-300 uppercase tracking-[0.2em] select-none">&copy; 2024 All Rights Reserved. Premium Gear Shop.</p>
     </footer>
 
     <script type="module">
@@ -171,241 +111,94 @@
         import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // รายการสินค้าแนะนำ (Featured Items)
         const SYSTEM_PRODUCTS = [
-            {
-                id: 'featured-tent',
-                name: `ເຕັ້ນ QUECHUA (ບໍ່ແມ່ນເຕັ້ນກາງໂອໂຕ້)
-ສຳລັບ 2 ຄົນ TheSale3 Premium Tent`,
-                price: 1450000,
-                category: 'tents',
-                image: 'https://i.postimg.cc/qv0hwyZz/471874894-1103166361597493-1459129778683580847-n.jpg',
-                description: 'Professional grade waterproof tent designed for the Lao adventurer. Spacious interior and durable outer shell.',
-                featured: true
-            },
-            {
-                id: 'featured-auto-tent-premium',
-                name: `ເຕັ້ນກາງອັດຕະໂນມັດ (3-4 ທ່ານ) ລະບາຍອາກາດດີ`,
-                price: 885000,
-                category: 'tents',
-                image: 'https://i.postimg.cc/6pCRNRQF/124951381-118420500072089-6079077613874319164-n.jpg',
-                description: `เต็นท์กางอัตโนมัติ ขนาด 3-4 ท่าน กางง่ายและรวดเร็ว
-                
-                รายละเอียด:
-                - ขนาด: ประมาณ 215x215x142 cm
-                - วัสดุ: 210D Oxford กันรังสียูวีได้ดี
-                - ประตู 2 ด้าน หน้าต่าง 2 บาน ระบายอากาศได้ดีเยี่ยม
-                - มีมุ้งตาข่ายกันยุงและแมลงทุกด้าน
-                - พับเก็บง่าย มาพร้อมกระเป๋าถือ พกพาสะดวก
-                - กันหมอกและกันฝนปรอยๆ ได้`,
-                featured: true
-            },
-            {
-                id: 'featured-spring-tent',
-                name: `ເຕັ້ນສະປິງກາງອັດຕະໂນມັດ ລຸ້ນທຳມະດາ (3-4 ທ່ານ)`,
-                price: 650000,
-                category: 'tents',
-                image: 'https://i.postimg.cc/NGWkqQ4R/127859284-131667258747413-3464652703126584755-n.jpg',
-                description: `เต็นท์สปริงกางอัตโนมัติ ติดตั้งง่ายในไม่กี่วินาที
-                
-                รายละเอียด:
-                - ขนาดสำหรับ 3-4 ท่าน (ขึ้นอยู่กับขนาดตัวผู้ใช้)
-                - น้ำหนักเบา พกพาง่าย เหมาะสำหรับนอนป่าหรือแคมป์ปิ้ง
-                - กันน้ำค้าง กันละอองฝนปรอยๆ และป้องกันรังสียูวี
-                - กางและพับเก็บได้รวดเร็ว ทนทานต่อการใช้งาน`,
-                featured: true
-            },
-            {
-                id: 'featured-led-lamp',
-                name: 'ຕະກຽງ LED (HOMFUL LED Lantern)',
-                price: 320000,
-                category: 'lighting',
-                image: 'https://i.postimg.cc/YS7Vz1V8/470138708-1091427639438032-4054288834215141234-n.jpg',
-                description: `ຕະກຽງ LED ຍີ່ຫໍ້ HOMFUL (ສິນຄ້ານຳເຂົ້າຈາກຈີນ)
-                
-                ຄຸນສົມບັດ:
-                - ນ້ຳໜັກ: 380g
-                - ແສງສະຫວ່າງຕໍ່ເນື່ອງ: 24 ຊົ່ວໂມງ
-                - ຄວາມສະຫວ່າງ: 5W
-                - ປະເພດຫຼອດໄຟ: LED
-                - ແບັດເຕີລີ່: 1200 mAh
-                - ໃຊ້ງານໄດ້ດົນ: 4 ຊົ່ວໂມງ (ໃນຄວາມສະຫວ່າງສູງສຸດ)`,
-                featured: true
-            },
-            {
-                id: 'featured-cup-set',
-                name: `ຈອກແຄ້ມປີ້ງ Cool Camp (4 ໃບ + ກະເປົ໋າ)`,
-                price: 260000,
-                category: 'coffee',
-                image: 'https://i.postimg.cc/L5yDLPPw/202323323-277134600867344-8457321312918561749-n.jpg',
-                description: `ชุดแก้วสแตนเลสสำหรับแคมป์ปิ้ง ยี่ห้อ fghgf (Cool Camp)
-                
-                รายละเอียด:
-                - วัสดุ: สแตนเลสสตีล แข็งแรง ทนทาน
-                - ความจุ: 350ML ต่อใบ
-                - ในชุดประกอบด้วย: แก้ว 4 ใบ พร้อมกระเป๋าเก็บของพกพาสะดวก
-                - สินค้านำเข้าจากจีน เหมาะสำหรับกิจกรรมกลางแจ้ง`,
-                featured: true
-            },
-            {
-                id: 'featured-auto-tent',
-                name: 'ເຕັ້ນກາງອັດຕະໂນມັດ (Automatic Pop-up Tent)',
-                price: 890000,
-                category: 'tents',
-                image: 'https://i.postimg.cc/7LQ62Yt4/481250252-1394483935280395-2343742065073889579-n.jpg',
-                description: `ເຕັ້ນກາງອັດຕະໂນມັດ ກັນຫມອກໄດ້ ແຕ່ບໍ່ກັນຝົນ
-                
-                คุณสมบัติเต็นท์:
-                - กางอัตโนมัติ กางง่าย เก็บง่าย คนเดียวก็กางได้
-                - มีชั้นมุ้งตาข่าย สำหรับป้องกันยุง หรือ แมลงต่างๆ
-                - เป็นแบบ 2 ประตู 2 หน้าต่าง มีมุ้งตาข่ายกันแมลง
-                - มีกระเป๋าสำหรับใส่เต็นท์ พกพาสะดวก
-                - น้ำหนักเบา เหมาะสำหรับนำไปตั้งแคมป์ นอนป่า
-                - คุณภาพดีและทนทาน กันน้ำค้าง`,
-                featured: true
-            },
-            {
-                id: 'featured-coffee-grinder',
-                name: 'ເຄື່ອງບົດກາເຟ (Coffee Bean Grinder)',
-                price: 195000,
-                category: 'coffee',
-                image: 'https://i.postimg.cc/vZNN0NDm/138558955_160501135864025_1071256138491929297_n.jpg',
-                description: `ເຄື່ອງບົດກາເຟວິນເທຈ ແບບມືໝູນ Deemrt
-                
-                ວັດສະດຸ: ສແຕນເລດ + ເຊລາມິກ + ຊິລິໂຄນ + ແກ້ວ
-                ຂະໜາດ: ເສັ້ນຜ່ານສູນກາງ 9.2 ຊມ, ສູງ 16 ຊມ
-                ຄວາມຈຸ: ບົດເມັດໄດ້ 75g, ໃສ່ຜົງໄດ້ 120g
-                ໃນຊຸດປະກອບມີ: ເຄື່ອງບົດ, ກວດແກ້ວສຳຮອງ, ຄູ່ມືພາສາອັງກິດ`,
-                featured: true
-            },
-            {
-                id: 'featured-cooking-set',
-                name: 'ຊຸດໝໍ້ສຳລັບ 3 ຫາ 4 ຄົນ (DS-308)',
-                price: 430000,
-                category: 'cooking',
-                image: 'https://i.postimg.cc/bw8m2q4T/150739603-186271443286994-1875422230249930637-n.jpg',
-                description: `DS-308 ชุดหม้อสนามแคมป์ปิ้ง สำหรับ 3-4 คน (ชุดใหญ่)
-                
-                ***ประกอบด้วย ***
-                1. กระทะ ขนาด 17.8 x 3.9 ຊມ. 1 ໃບ
-                2. ໝໍ້ຂະໜາດໃຫຍ່ 16.6 x 8.9 ຊມ. 1 ໃບ
-                3. ກາຕົ້ມນ້ຳ 1 ໃບ
-                4. ຖ້ວຍຢາງ 3 ໃບ
-                5. ກະບວຍແບບພັບ
-                6. ທັບພີໄມ້ 1 ອັນ
-                7. ໃຍບົວທຳຄວາມສະอາດ
-                8. ຖົງຜ້າຕາໜ່າງສີດຳ`,
-                featured: true
-            },
-            {
-                id: 'featured-picnic-stove',
-                name: 'ເຕົາແກັດຂະຫນາດນ້ອຍ (Small Picnic Stove K-202)',
-                price: 165000,
-                category: 'cooking',
-                image: 'https://i.postimg.cc/3RfYqSQJ/150468425-186271443286994-1875422230249930637-n.jpg',
-                description: `เตาแก๊สปิกนิค K-202 เตาแก๊สพกพา เตาแก๊สพับได้ เตาแก๊สมินิ
-                
-                คูณสมบัติ:
-                - ระบบจุดไฟแบบแม็กนีโตร ไม่ต้องใช้ไฟแช็ก
-                - สามารถปรับระดับความแรงของเปลวไฟได้
-                - กำลังไฟ (Power): 2800w
-                - ขนาด: 112 * 112 * 95 mm
-                - บรรจุในกล่องพร้อมกระเป๋าใส่เตาแก๊สและคู่มือ`,
-                featured: true
-            },
-            {
-                id: 'featured-waist-bag',
-                name: 'ກະເປົ໋ານ້ອຍຫ້ອຍແອວ (Tactical Waist Bag)',
-                price: 100000,
-                category: 'furniture',
-                image: 'https://i.postimg.cc/7PpfY6j0/476359221-1130686925512103-8223380318275171227-n.jpg',
-                description: `กระเป๋าคาดเอวยุทธวิธี Multi-Purpose Tactical Molle EDC Pouch
-                
-                คุณสมบัติ:
-                - สำหรับเดินป่า หรือกิจกรรม Outdoor
-                - ดีไซน์ Molle EDC Pouch แข็งแรง ทนทาน
-                - มีช่องสำหรับใส่โทรศัพท์มือถือ (Cell Phone Holster)
-                - สามารถใช้ร่วมกับเข็มขัดหรือเป้สนามได้
-                - เหมาะสำหรับสุภาพบุรุษและสุภาพสตรี`,
-                featured: true
-            }
+            // --- TENTS ---
+            { id: 'master-01', name: 'ເຕັ້ນ QUECHUA MH100 Fresh & Black (2 ຄົນ)', price: 1460000, category: 'tents', image: 'https://i.postimg.cc/qv0hwyZz/471874894-1103166361597493-1459129778683580847-n.jpg', description: 'ເຕັ້ນ QUECHUA MH100 Fresh & Black (ບໍ່ແມ່ນເຕັ້ນກາງໂອໂຕ້) ສຳລັບ 2 ຄົນ.\n- Fresh & Black technology ensures darkness inside.\n- Tested for 200L/sqm/hr waterproof rating.' },
+            { id: 'master-02', name: 'ເຕັ້ນ QUECHUA MH100 (ສີເທົາ)', price: 1100000, category: 'tents', image: 'https://i.postimg.cc/YCzbNjFr/156657757-198686858712119-7425055041363166372-n.jpg', description: 'Standard QUECHUA MH100 dome tent. Easy to pitch and freestanding structure.' },
+            { id: 'master-03', name: 'ເຕັ້ນກາງອັດຕະໂນມັດ Premium (3-4 ທ່ານ)', price: 885000, category: 'tents', image: 'https://i.postimg.cc/6pCRNRQF/124951381-118420500072089-6079077613874319164-n.jpg', description: 'Automatic pop-up mechanism for 3-4 persons. Water and mist resistant.' },
+            { id: 'master-04', name: 'ເຕັ້ນກາງອັດຕະໂນມັດ (Pop-up)', price: 890000, category: 'tents', image: 'https://i.postimg.cc/7LQ62Yt4/481250252-1394483935280395-2343742065073889579-n.jpg', description: 'Automatic Pop-up Tent. Quick auto setup. Mist resistant.' },
+            { id: 'master-05', name: 'ເຕັ້ນສະປິງກາງອັດຕະໂນມັດ', price: 650000, category: 'tents', image: 'https://i.postimg.cc/NGWkqQ4R/127859284-131667258747413-3464652703126584755-n.jpg', description: 'Standard Automatic Spring Tent. Simple and fast setup.' },
+            { id: 'master-06', name: 'ຜ້າກັ້ງກັນຝົນ Flysheet (3x3 ແມັດ)', price: 340000, category: 'tents', image: 'https://i.postimg.cc/fW6VCK77/509364307-1482014006527387-4608802055488310889-n.jpg', description: 'Changleyou Flysheet 3x3m with 2 poles. Waterproof: 2000-3000mm.' },
+            { id: 'master-07', name: 'ຜ້າຢາງຮອງເຕັ້ນ (Groundsheet)', price: 200000, category: 'tents', image: 'https://i.postimg.cc/fTzmhkdX/471871594-1103166028264193-3080110264274826660-n.jpg', description: 'GS SPORT Groundsheet 2.1m x 2m. Rain and sun protection.' },
+            { id: 'master-08', name: 'ສະໝໍບົກ (Tent Pegs 20cm)', price: 50000, category: 'tents', image: 'https://i.postimg.cc/B6PqPrzQ/472186338-1103166364930826-8197764758286830200-n.jpg', description: 'Heavy duty 20cm tent pegs.\n- 50,000 LAK per unit.\n- 140,000 LAK for 4 units.' },
+
+            // --- COOKING ---
+            { id: 'master-09', name: 'ເຕົາແກັດພົກພາ AOTU', price: 285000, category: 'cooking', image: 'https://i.postimg.cc/HLsDXqV6/470820202-1095258122388317-6701559630283280350-n.jpg', description: 'AOTU high-power portable gas stove. Average boiling time: 3-5 min.' },
+            { id: 'master-10', name: 'ການ້ຳ (Outdoor Kettle 800ml)', price: 240000, category: 'cooking', image: 'https://i.postimg.cc/SxcCCPwR/124985548-118420480072091-5504697490990489685-n.jpg', description: '800ml aluminum alloy kettle. Scratch and corrosion resistant.' },
+            { id: 'master-11', name: 'ເຫຼັກຢຶດຂາຕັ້ງສາມຂາ (Tripod Bracket)', price: 160000, category: 'cooking', image: 'https://i.postimg.cc/XqZyJ1fj/470195754-1095096232404506-5723296061682898594-n.jpg', description: 'Shandike Stainless steel tripod bracket for campfire cooking.' },
+            { id: 'master-12', name: 'ຊຸດໝໍ້ສຳລັບ 3 ຫາ 4 ຄົນ (DS-308)', price: 430000, category: 'cooking', image: 'https://i.postimg.cc/bw8m2q4T/150739603-186271443286994-1875422230249930637-n.jpg', description: 'DS-308 Outdoor Cooking Set. Includes pan, pot, and kettle.' },
+            { id: 'master-13', name: 'ເຕົາແກັດນ້ອຍມີສາຍ (Hose Stove)', price: 200000, category: 'cooking', image: 'https://i.postimg.cc/kgvtYbwk/476775570-1132392825341513-296684994834635171-n.jpg', description: 'Portable mini gas stove with hose for stability.' },
+            { id: 'master-14', name: 'ເຕົາແກັດນ້ອຍມີອັນບັງລົມ (Windproof Stove)', price: 180000, category: 'cooking', image: 'https://i.postimg.cc/mrd1BWvN/470235034-1091427629438033-3849741322793284301-n-(2).jpg', description: 'Portable Stove with foldable windshield. Weighs only 400g.' },
+            { id: 'master-15', name: 'ເຕົາແກັດຂະຫນາດນ້ອຍ (Picnic Stove K-202)', price: 165000, category: 'cooking', image: 'https://i.postimg.cc/3RfYqSQJ/150468425-186271443286994-1875422230249930637-n.jpg', description: 'Small Picnic Stove K-202 with piezo ignition.' },
+            { id: 'master-16', name: 'ໝໍ້ຂຽວທະຫານ (Army Military Pot)', price: 300000, category: 'cooking', image: 'https://i.postimg.cc/63x4bQwN/470161529-1091427636104699-6870152323458159947-n-(1).jpg', description: 'Army Green Military Pot. 1.8L Aluminum construction.' },
+
+            // --- COFFEE ---
+            { id: 'master-17', name: 'ຈອກແແຄ້ມປີ້ງ Cool Camp (4 ໃບ)', price: 260000, category: 'coffee', image: 'https://i.postimg.cc/L5yDLPPw/202323323-277134600867344-8457321312918561749-n.jpg', description: 'Set of 4 stainless steel cups (350ml) with bag.' },
+            { id: 'master-18', name: 'ໝໍ້ຕົ້ມກາເຟ Espresso Maker (300ml)', price: 200000, category: 'coffee', image: 'https://i.postimg.cc/zDbXHNr1/472106912-1101699191744210-325644103738198928-n-(1).jpg', description: 'Moka Pot Espresso Maker 300ml Aluminum.' },
+            { id: 'master-19', name: 'ເຄື່ອງບົດກາເຟ (Coffee Grinder)', price: 195000, category: 'coffee', image: 'https://i.postimg.cc/vZNN0NDm/138558955_160501135864025_1071256138491929297_n.jpg', description: 'Manual vintage coffee bean grinder with ceramic burr.' },
+
+            // --- LIGHTING ---
+            { id: 'master-20', name: 'ຕະກຽງ LED (HOMFUL Lantern)', price: 320000, category: 'lighting', image: 'https://i.postimg.cc/YS7Vz1V8/470138708-1091427639438032-4054288834215141234-n.jpg', description: 'Rechargeable LED Lantern by HOMFUL. 1200 mAh.' },
+            { id: 'master-21', name: 'ເສົາຫ້ອຍໂຄມໄຟ (Lantern Stand)', price: 250000, category: 'lighting', image: 'https://i.postimg.cc/Mp0CfPHz/470580274-1094729429107853-518082534720816909-n.jpg', description: 'LK＆VS Metal Lantern Stand. Adjustable height.' },
+            { id: 'master-22', name: 'ເຫຼັກຫ້ອຍດອກໄຟ (Lantern Hook)', price: 70000, category: 'lighting', image: 'https://i.postimg.cc/FKyCB7cG/471590824-1101698975077565-9125211727583692069-n.jpg', description: 'Metal lantern hook for gear or lights.' },
+
+            // --- SLEEPING ---
+            { id: 'master-23', name: 'ເຊື່ອນອນເປົ່າລົມ Naturehike Air', price: 600000, category: 'sleeping_gear', image: 'https://i.postimg.cc/C5cQ41XF/476403930-1129881948925934-1365118939146447544-n.jpg', description: 'Naturehike Air moisture-proof ultralight mat.' },
+            { id: 'master-24', name: 'ເຊື່ອນອນເປົ່າລົມອັດຕະໂນມັດ', price: 330000, category: 'sleeping_gear', image: 'https://i.postimg.cc/8cXZ6Yft/138639462-160500882530717-1634793276813040683-n.jpg', description: 'Self-inflatable mattress with pillow. 186x57x2.5cm.' },
+            { id: 'master-25', name: 'ຖົງນອນ MUZENT (5°C)', price: 420000, category: 'sleeping_gear', image: 'https://i.postimg.cc/SQH8nqJr/470732130-1095258142388315-6675372278210325168-n.jpg', description: 'MUZENT Sleeping bag for cold weather (5°C).' },
+            { id: 'master-26', name: 'ຖົງນອນ Naturehike Premium', price: 550000, category: 'sleeping_gear', image: 'https://i.postimg.cc/28xJzH5Y/483101086-1400042418057880-8967539400801900911-n-(1).jpg', description: 'Premium Naturehike sleeping bag.' },
+            { id: 'master-27', name: 'ຖົງນອນ ແບບພົກພາ (Portable Bag)', price: 215000, category: 'sleeping_gear', image: 'https://i.postimg.cc/T2bjqp8S/125315138-118420533405419-8079952364573550993-n.jpg', description: 'Portable outdoor sleeping bag (700g). 4 colors.' },
+            { id: 'master-28', name: 'ໝອນນອນເປົ່າລົມ (Inflatable Pillow)', price: 40000, category: 'sleeping_gear', image: 'https://i.postimg.cc/kgj91M3M/138786732-160501152530690-3533211310814187676-n.jpg', description: 'Portable pillow: 40,000 LAK per unit or 65,000 LAK for 2.' },
+
+            // --- FURNITURE & OTHERS ---
+            { id: 'master-29', name: 'ໂຕະແຄ້ມປິ້ງ (Camping Table M)', price: 390000, category: 'furniture', image: 'https://i.postimg.cc/MG8JHcSH/470180269-1091456466101816-3503156836293091321-n.jpg', description: 'Foldable Aluminum Table M (56x41x41cm). Includes bag.' },
+            { id: 'master-30', name: 'ຕັ່ງແແຄ້ມປີ້ງ ShineTrip', price: 285000, category: 'furniture', image: 'https://i.postimg.cc/0jSsW7Gc/470209749-1091969312717198-8585518212376997562-n.jpg', description: 'ShineTrip Aluminum folding chair. Portable and comfortable.' },
+            { id: 'master-31', name: 'ກະເປົ໋າເປ້ 65L Camel', price: 1350000, category: 'backpack', image: 'https://i.postimg.cc/8P7KVyMZ/471164242-1095570065690456-156288641806394470-n-(1).jpg', description: 'Professional Camel 65L Hiking Backpack. Size: 36x25x62cm.' },
+            { id: 'master-32', name: 'ຜ້າກັນຝົນສຳລັບກະເປົ໋າ (Rain Cover)', price: 70000, category: 'backpack', image: 'https://i.postimg.cc/ZKkc16FY/139180898-160501215864017-905798667929076806-n.jpg', description: 'Waterproof covers: 70,000 LAK (35L) / 80,000 LAK (70L).' },
+            { id: 'master-33', name: 'ໄມ້ເທົ້າຢ່າງປ່າ Naturehike', price: 335000, category: 'trekking_poles', image: 'https://i.postimg.cc/8PgDFr4N/488790917-1423518039043651-721068063865014396-n-(1).jpg', description: 'Strong and light Naturehike Hiking Pole.' },
+            { id: 'master-34', name: 'ໄມ້ກັນເທົ້າຢ່າງປ່າ (Standard Pole)', price: 140000, category: 'trekking_poles', image: 'https://i.postimg.cc/L65784Kh/189756927-258928419354629-5324966725450305500-n-(1).jpg', description: 'Standard Trekking Pole. Adjustable and foldable. Ergonomic grip.' },
+            { id: 'master-35', name: 'ກະເປົ໋ານ້ອຍຫ້ອຍແອວ (Waist Bag)', price: 100000, category: 'backpack', image: 'https://i.postimg.cc/7PpfY6j0/476359221-1130686925512103-8223380318275171227-n.jpg', description: 'Tactical Waist Bag. Durable gadget belt bag.' }
         ];
 
         let products = [...SYSTEM_PRODUCTS];
         let currentCat = 'all';
-        let currentUser = null;
-        let productCol = null;
-
-        // การตั้งค่า Firebase (Firebase Setup)
-        let db, auth;
-        const setupFirebase = async () => {
-            try {
-                const configStr = typeof __firebase_config !== 'undefined' ? __firebase_config : null;
-                if (!configStr) {
-                    applyFilters();
-                    return;
-                }
-                
-                const firebaseConfig = JSON.parse(configStr);
-                const appId = typeof __app_id !== 'undefined' ? __app_id : 'thesale3-camping';
-                const app = initializeApp(firebaseConfig);
-                auth = getAuth(app);
-                db = getFirestore(app);
-
-                productCol = collection(db, 'artifacts', appId, 'public', 'data', 'products');
-
-                const performAuth = async () => {
-                    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                        await signInWithCustomToken(auth, __initial_auth_token);
-                    } else {
-                        await signInAnonymously(auth);
-                    }
-                };
-                
-                await performAuth();
-                
-                onAuthStateChanged(auth, (user) => {
-                    currentUser = user;
-                    if (user) {
-                        onSnapshot(productCol, (snap) => {
-                            const dbProducts = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-                            const systemIds = SYSTEM_PRODUCTS.map(p => p.id);
-                            products = [...SYSTEM_PRODUCTS, ...dbProducts.filter(p => !systemIds.includes(p.id))];
-                            applyFilters();
-                        }, (err) => {
-                            console.error(err);
-                        });
-                    }
-                });
-
-            } catch (err) {
-                console.error("Setup failed:", err);
-            }
-        };
-
-        setupFirebase();
-
-        window.closeModals = () => {
-            document.getElementById('modal').style.display = 'none';
-            document.body.style.overflow = 'auto';
-        };
 
         window.filterBy = (cat, btn) => {
             currentCat = cat;
-            document.querySelectorAll('.category-pill').forEach(b => {
-                b.className = 'category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600';
-            });
+            document.querySelectorAll('.category-pill').forEach(b => b.className = 'category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600');
             btn.className = 'category-pill active bg-emerald-600 text-white px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest border border-transparent';
             applyFilters();
         };
 
         window.searchItems = () => applyFilters();
 
+        function applyFilters() {
+            const search = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = products.filter(p => (currentCat === 'all' || p.category === currentCat) && p.name.toLowerCase().includes(search));
+            render(filtered);
+        }
+
+        function render(items) {
+            const grid = document.getElementById('productGrid');
+            if(!grid) return;
+            if(items.length === 0) { grid.innerHTML = '<div class="col-span-full py-20 text-center text-gray-400 italic">No gear matches that filter.</div>'; return; }
+            grid.innerHTML = items.map(p => `
+                <div class="product-card group overflow-hidden flex flex-col cursor-pointer fade-in" onclick="openDetails('${p.id}')">
+                    <div class="h-64 bg-gray-50 overflow-hidden relative"><img src="${p.image}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"></div>
+                    <div class="p-8 flex flex-col flex-grow text-left">
+                        <span class="text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-2">${p.category.replace('_', ' ')}</span>
+                        <h3 class="font-bold text-lg mb-1 text-gray-900 tracking-tight">${p.name}</h3>
+                        <p class="text-base font-bold text-emerald-600 mb-6 italic">LAK ${Number(p.price).toLocaleString()}</p>
+                        <div class="mt-auto flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-gray-900">Check Gear <i class="fa-solid fa-arrow-right-long text-emerald-600 group-hover:translate-x-1 transition"></i></div>
+                    </div>
+                </div>`).join('');
+        }
+
         window.openDetails = (id) => {
             const p = products.find(x => x.id === id);
             if (!p) return;
             document.getElementById('modalTitle').innerText = p.name;
-            document.getElementById('modalCategory').innerText = p.category;
+            document.getElementById('modalCategory').innerText = p.category.replace('_', ' ');
             document.getElementById('modalPrice').innerText = `LAK ${Number(p.price).toLocaleString()}`;
             document.getElementById('modalDescription').innerText = p.description;
             document.getElementById('modalImage').src = p.image;
@@ -414,40 +207,36 @@
             document.body.style.overflow = 'hidden';
         };
 
-        function applyFilters() {
-            const search = document.getElementById('searchInput').value.toLowerCase();
-            const filtered = products.filter(p => {
-                const matchesCat = (currentCat === 'all' || p.category === currentCat);
-                const matchesSearch = p.name.toLowerCase().includes(search);
-                return matchesCat && matchesSearch;
-            });
-            render(filtered);
-        }
+        window.closeModals = () => { document.getElementById('modal').style.display = 'none'; document.body.style.overflow = 'auto'; };
 
-        function render(items) {
-            const grid = document.getElementById('productGrid');
-            
-            grid.innerHTML = items.map(p => `
-                <div class="product-card group overflow-hidden flex flex-col cursor-pointer fade-in" onclick="openDetails('${p.id}')">
-                    <div class="h-64 bg-gray-50 overflow-hidden relative">
-                        <img src="${p.image}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" onerror="this.src='https://via.placeholder.com/400x300?text=Gear+Photo'">
-                        ${p.featured ? '<div class="absolute top-4 left-4 bg-emerald-600 text-white text-[8px] font-bold uppercase tracking-widest px-3 py-1 rounded-full shadow-lg">Featured</div>' : ''}
-                    </div>
-                    <div class="p-8 flex flex-col flex-grow text-left">
-                        <span class="text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-2">${p.category}</span>
-                        <h3 class="font-bold text-lg mb-1 text-gray-900 tracking-tight">${p.name}</h3>
-                        <p class="text-base font-bold text-emerald-600 mb-6 italic">LAK ${Number(p.price).toLocaleString()}</p>
-                        <div class="mt-auto flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-gray-900">
-                            Check Gear <i class="fa-solid fa-arrow-right-long text-emerald-600 group-hover:translate-x-1 transition"></i>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-
-            if(items.length === 0) {
-                grid.innerHTML = '<div class="col-span-full py-20 text-center text-gray-400 italic">No gear matches that filter.</div>';
-            }
-        }
+        document.addEventListener('DOMContentLoaded', () => {
+            applyFilters();
+            try {
+                const configStr = typeof __firebase_config !== 'undefined' ? __firebase_config : null;
+                if (!configStr) return;
+                const firebaseConfig = JSON.parse(configStr);
+                const appId = typeof __app_id !== 'undefined' ? __app_id : 'thesale3-camping';
+                const app = initializeApp(firebaseConfig);
+                const auth = getAuth(app);
+                const db = getFirestore(app);
+                const initAuth = async () => {
+                    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) await signInWithCustomToken(auth, __initial_auth_token);
+                    else await signInAnonymously(auth);
+                };
+                initAuth();
+                onAuthStateChanged(auth, (user) => {
+                    if (user) {
+                        const productCol = collection(db, 'artifacts', appId, 'public', 'data', 'products');
+                        onSnapshot(productCol, (snap) => {
+                            const dbProducts = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+                            const systemIds = SYSTEM_PRODUCTS.map(p => p.id);
+                            products = [...SYSTEM_PRODUCTS, ...dbProducts.filter(p => !systemIds.includes(p.id))];
+                            applyFilters();
+                        });
+                    }
+                });
+            } catch (err) { console.warn("Firebase not loaded:", err); }
+        });
     </script>
 </body>
 </html>
