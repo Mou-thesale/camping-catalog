@@ -58,8 +58,7 @@
             border-color: #059669;
         }
 
-        .modal-container {
-            display: none;
+        .modal-overlay {
             background: rgba(0,0,0,0.7);
             backdrop-filter: blur(8px);
         }
@@ -107,7 +106,7 @@
         </div>
     </nav>
 
-    <!-- Hero (Reduced height to show products "first") -->
+    <!-- Hero -->
     <header class="hero-banner h-[300px] sm:h-[400px] flex items-center justify-center text-center px-4">
         <div class="max-w-3xl">
             <h1 class="text-4xl sm:text-6xl font-black text-white mb-4 tracking-tighter drop-shadow-2xl">TheSale3 Store</h1>
@@ -144,7 +143,7 @@
     </main>
 
     <!-- Product Details Modal -->
-    <div id="modal" class="modal-container fixed inset-0 z-[100] flex items-center justify-center p-4" onclick="if(event.target === this) closeModals()">
+    <div id="modal" class="hidden fixed inset-0 z-[100] modal-overlay flex items-center justify-center p-4" onclick="if(event.target === this) closeModals()">
         <div class="bg-white rounded-[32px] max-w-4xl w-full overflow-hidden shadow-2xl relative flex flex-col md:flex-row max-h-[90vh]">
             <button onclick="closeModals()" class="absolute top-4 right-4 text-gray-400 hover:text-black z-20 bg-white/80 w-10 h-10 rounded-full flex items-center justify-center shadow-sm">
                 <i class="fa-solid fa-xmark"></i>
@@ -165,8 +164,8 @@
         </div>
     </div>
 
-    <!-- Admin Panel Modal -->
-    <div id="adminModal" class="modal-container fixed inset-0 z-[110] flex items-center justify-center p-4" onclick="if(event.target === this) closeModals()">
+    <!-- Admin Panel Modal (Starts HIDDEN) -->
+    <div id="adminModal" class="hidden fixed inset-0 z-[110] modal-overlay flex items-center justify-center p-4" onclick="if(event.target === this) closeModals()">
         <div class="bg-white rounded-3xl max-w-lg w-full p-8 shadow-2xl relative">
             <button onclick="closeModals()" class="absolute top-6 right-6 text-gray-400 hover:text-black">
                 <i class="fa-solid fa-xmark text-xl"></i>
@@ -198,20 +197,23 @@
         </div>
     </div>
 
-    <!-- Footer with Hidden Admin Access -->
+    <!-- Footer -->
     <footer class="bg-white border-t py-12 px-4 text-center mt-auto">
         <div class="flex justify-center items-center gap-4 mb-6">
             <a href="https://facebook.com" target="_blank" class="text-gray-300 hover:text-blue-600 transition"><i class="fa-brands fa-facebook-f"></i></a>
             <a href="https://tiktok.com" target="_blank" class="text-gray-300 hover:text-black transition"><i class="fa-brands fa-tiktok"></i></a>
-            <!-- Admin Button Moved Here -->
-            <div class="text-gray-200 hover:text-emerald-600 cursor-pointer transition ml-4" onclick="toggleAdmin()">
-                <i class="fa-solid fa-mountain-sun"></i>
+            
+            <!-- Admin Button: Starts HIDDEN -->
+            <div id="adminTrigger" class="text-emerald-600 cursor-pointer transition ml-4 hidden" onclick="toggleAdmin()">
+                <i class="fa-solid fa-mountain-sun text-lg"></i>
             </div>
         </div>
         <div class="mb-4">
-            <span class="font-bold uppercase tracking-[0.3em] text-[10px] text-gray-900">TheSale3 Camping Laos</span>
+            <span class="font-bold uppercase tracking-[0.3em] text-[10px] text-gray-900">TheSale3 Camping Store</span>
         </div>
-        <p class="text-[9px] text-gray-400 uppercase tracking-[0.2em]">&copy; 2024 All Rights Reserved. Premium Gear Shop.</p>
+        
+        <!-- Secret Revealer -->
+        <p onclick="handleSecretClick()" class="text-[9px] text-gray-400 uppercase tracking-[0.2em] cursor-default select-none">&copy; 2024 All Rights Reserved. Premium Gear Shop.</p>
     </footer>
 
     <script type="module">
@@ -224,6 +226,7 @@
         let filteredProducts = [];
         let currentCat = 'all';
         let currentUser = null;
+        let secretCount = 0;
 
         // Configuration
         const firebaseConfig = JSON.parse(__firebase_config);
@@ -232,23 +235,31 @@
         const auth = getAuth(app);
         const db = getFirestore(app);
 
-        // Path (MANDATORY RULE 1)
         const productCollection = collection(db, 'artifacts', appId, 'public', 'data', 'products');
+
+        // Secret Click Handler
+        window.handleSecretClick = () => {
+            secretCount++;
+            if (secretCount >= 5) {
+                document.getElementById('adminTrigger').classList.remove('hidden');
+                secretCount = 0; 
+            }
+        };
 
         // Functions exposed to window
         window.toggleAdmin = () => {
             const m = document.getElementById('adminModal');
-            if (m.style.display === 'flex') {
-                closeModals();
-            } else {
-                m.style.display = 'flex';
+            if (m.classList.contains('hidden')) {
+                m.classList.remove('hidden');
                 document.body.style.overflow = 'hidden';
+            } else {
+                closeModals();
             }
         };
 
         window.closeModals = () => {
-            document.getElementById('modal').style.display = 'none';
-            document.getElementById('adminModal').style.display = 'none';
+            document.getElementById('modal').classList.add('hidden');
+            document.getElementById('adminModal').classList.add('hidden');
             document.body.style.overflow = 'auto';
         };
 
@@ -276,7 +287,7 @@
             document.getElementById('modalDescription').innerText = p.description;
             document.getElementById('modalImage').src = p.image;
             document.getElementById('whatsappBtn').href = `https://wa.me/8562054849393?text=Sabaidee! I am interested in: ${p.name}`;
-            document.getElementById('modal').style.display = 'flex';
+            document.getElementById('modal').classList.remove('hidden');
             document.body.style.overflow = 'hidden';
         };
 
@@ -332,7 +343,6 @@
             `).join('');
         }
 
-        // Firebase Auth & Initial Data Loading (RULE 3)
         const init = async () => {
             try {
                 if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
@@ -359,7 +369,6 @@
             });
         };
 
-        // Form Submission
         document.getElementById('adminForm').onsubmit = async (e) => {
             e.preventDefault();
             if (!currentUser) return;
