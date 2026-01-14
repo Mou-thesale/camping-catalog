@@ -178,8 +178,31 @@
         const SYSTEM_PRODUCTS = [
             // --- TENTS ---
             { id: 'master-01', name: 'ເຕັ້ນ QUECHUA MH100 Fresh & Black (2 ຄົນ)', price: 1460000, category: 'tents', image: 'https://i.postimg.cc/qv0hwyZz/471874894-1103166361597493-1459129778683580847-n.jpg', description: 'ເຕັ້ນ QUECHUA MH100 Fresh & Black (ບໍ່ແມ່ນເຕັ້ນກາງໂອໂຕ້) ສຳລັບ 2 ຄົນ.\n- Fresh & Black technology ensures darkness inside.\n- Tested for 200L/sqm/hr waterproof rating.' },
-            { id: 'master-02', name: 'ເຕັ້ນ QUECHUA MH100 (ສີເທົາ)', price: 1100000, category: 'tents', image: 'https://i.postimg.cc/YCzbNjFr/156657757-198686858712119-7425055041363166372-n.jpg', description: 'Standard QUECHUA MH100 dome tent. Easy to pitch and freestanding structure.' },
-            { id: 'master-03', name: 'ເຕັ້ນກາງອັດຕະໂນມັດ Premium (3-4 ທ່ານ)', price: 885000, category: 'tents', image: 'https://i.postimg.cc/6pCRNRQF/124951381-118420500072089-6079077613874319164-n.jpg', description: 'Automatic pop-up mechanism for 3-4 persons. Water and mist resistant.' },
+            // Fixed master-02 with multiple images support
+            { 
+              id: 'master-02', 
+              name: 'ເຕັ້ນ QUECHUA MH100 (ສີເທົາ)', 
+              price: 1100000, 
+              category: 'tents', 
+              image: 'https://i.postimg.cc/YCzbNjFr/156657757-198686858712119-7425055041363166372-n.jpg',
+              images: [
+                'https://i.postimg.cc/YCzbNjFr/156657757-198686858712119-7425055041363166372-n.jpg',
+                'https://i.postimg.cc/nM8f7LYc/Screenshot-2026-01-14-at-18-55-51.png'
+              ],
+              description: 'Standard QUECHUA MH100 dome tent. Easy to pitch and freestanding structure.' 
+            },
+
+            // Fixed master-03 with multiple images support
+            { id: 'master-03', 
+              name: 'ເຕັ້ນກາງອັດຕະໂນມັດ Premium (3-4 ທ່ານ)', 
+              price: 885000, 
+              category: 'tents', 
+              image: 'https://i.postimg.cc/6pCRNRQF/124951381-118420500072089-6079077613874319164-n.jpg', 
+              images: [
+                'https://i.postimg.cc/6pCRNRQF/124951381-118420500072089-6079077613874319164-n.jpg',
+                'https://i.postimg.cc/GpR7DyWZ/Screenshot-2026-01-14-at-19-17-53.png'
+              ],
+              description: 'Automatic pop-up mechanism for 3-4 persons. Water and mist resistant.' },
             { id: 'master-04', name: 'ເຕັ້ນກາງອັດຕະໂນມັດ (Pop-up)', price: 890000, category: 'tents', image: 'https://i.postimg.cc/7LQ62Yt4/481250252-1394483935280395-2343742065073889579-n.jpg', description: 'Automatic Pop-up Tent. Quick auto setup. Mist resistant.' },
             { id: 'master-05', name: 'ເຕັ້ນສະປິງກາງອັດຕະໂນມັດ', price: 650000, category: 'tents', image: 'https://i.postimg.cc/NGWkqQ4R/127859284-131667258747413-3464652703126584755-n.jpg', description: 'Standard Automatic Spring Tent. Simple and fast setup.' },
             { id: 'master-06', name: 'ຜ້າກັ້ງກັນຝົນ Flysheet (3x3 ແມັດ)', price: 340000, category: 'tents', image: 'https://i.postimg.cc/fW6VCK77/509364307-1482014006527387-4608802055488310889-n.jpg', description: 'Changleyou Flysheet 3x3m with 2 poles. Waterproof: 2000-3000mm.' },
