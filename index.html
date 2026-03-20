@@ -51,6 +51,7 @@
                     <span class="text-[9px] font-bold text-emerald-600 tracking-[0.2em] uppercase">Camping Store</span>
                 </div>
                 <div class="flex items-center gap-6">
+                    <!-- Cart Trigger -->
                     <button onclick="openCart()" class="relative group p-2">
                         <i class="fa-solid fa-cart-shopping text-2xl text-gray-800 group-hover:text-emerald-600 transition"></i>
                         <span id="cartCount" class="cart-badge absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-black w-5 h-5 flex items-center justify-center rounded-full border-2 border-white hidden">0</span>
@@ -161,6 +162,7 @@
         import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
+        // Mapping for Bilingual Categories
         const catMap = {
             'all': 'All Gear / ສິນຄ້າທັງໝົດ',
             'tents': 'Tents / ເຕັ້ນ',
@@ -190,7 +192,11 @@
             { id: 'master-10', name: 'ການ້ຳ (Outdoor Kettle 800ml)', price: 240000, category: 'cooking', image: 'https://i.postimg.cc/SxcCCPwR/124985548-118420480072091-5504697490990489685-n.jpg', description: '800ml aluminum alloy kettle. Scratch and corrosion resistant.' },
             { id: 'master-11', name: 'ເຫຼັກຢຶດຂາຕັ້ງສາມຂາ (Tripod Bracket)', price: 160000, category: 'cooking', image: 'https://i.postimg.cc/XqZyJ1fj/470195754-1095096232404506-5723296061682898594-n.jpg', description: 'Shandike Stainless steel tripod bracket for campfire cooking.' },
             { id: 'master-12', name: 'ຊຸດໝໍ້ສຳລັບ 3 ຫາ 4 ຄົນ (DS-308)', price: 430000, category: 'cooking', image: 'https://i.postimg.cc/bw8m2q4T/150739603-186271443286994-1875422230249930637-n.jpg', description: 'DS-308 Outdoor Cooking Set. Includes pan, pot, and kettle.' },
+            { id: 'master-13', name: 'ເຕົາແກັດນ້ອຍມີສາຍ (Hose Stove)', price: 200000, category: 'cooking', image: 'https://i.postimg.cc/kgvtYbwk/476775570-1132392825341513-296684994834635171-n.jpg', description: 'Portable mini gas stove with hose for stability.' },
+            { id: 'master-14', name: 'ເຕົາແກັດນ້ອຍມີອັນບັງລົມ (Windproof Stove)', price: 180000, category: 'cooking', image: 'https://i.postimg.cc/mrd1BWvN/470235034-1091427629438033-3849741322793284301-n-(2).jpg', description: 'Portable Stove with foldable windshield. Weighs only 400g.' },
             { id: 'master-14.1', name: 'ເຕົາແກັດນ້ອຍມີອັນບັງລົມມີສາຍແກັດ', price: 225000, category: 'cooking', image: 'https://i.postimg.cc/g2Hh5pdV/Screenshot-2026-03-19-at-22-54-51.png', description: 'ເຕົາແກັສແບບພົກພາ ແມ່ເຫຼັກພັບໄດ້ ເໝາະສຳລັບຕົ້ມນ້ຳ ແລະ ຊົງຊາ.' },
+            { id: 'master-15', name: 'ເຕົາແກັດຂະຫນາດນ້ອຍ (Picnic Stove K-202)', price: 165000, category: 'cooking', image: 'https://i.postimg.cc/3RfYqSQJ/150468425-186271443286994-1875422230249930637-n.jpg', description: 'Small Picnic Stove K-202 with piezo ignition.' },
+            { id: 'master-16', name: 'ໝໍ້ຂຽວທະຫານ (Army Military Pot)', price: 300000, category: 'cooking', image: 'https://i.postimg.cc/63x4bQwN/470161529-1091427636104699-6870152323458159947-n-(1).jpg', description: 'Army Green Military Pot. 1.8L Aluminum construction.' },
 
             // --- COFFEE ---
             { id: 'master-17', name: 'ຈອກແແຄ້ມປີ້ງ Cool Camp (4 ໃບ)', price: 260000, category: 'coffee', image: 'https://i.postimg.cc/L5yDLPPw/202323323-277134600867344-8457321312918561749-n.jpg', description: 'Set of 4 stainless steel cups (350ml) with bag.' },
@@ -199,29 +205,29 @@
 
             // --- LIGHTING ---
             { id: 'master-20', name: 'ຕະກຽງ LED (HOMFUL Lantern)', price: 320000, category: 'lighting', image: 'https://i.postimg.cc/YS7Vz1V8/470138708-1091427639438032-4054288834215141234-n.jpg', description: 'Rechargeable LED Lantern by HOMFUL. 1200 mAh.' },
+            { id: 'master-21', name: 'ເສົາຫ້ອຍໂຄມໄຟ (Lantern Stand)', price: 250000, category: 'lighting', image: 'https://i.postimg.cc/Mp0CfPHz/470580274-1094729429107853-518082534720816909-n.jpg', description: 'Adjustable height metal lantern stand.' },
+            { id: 'master-22', name: 'ເຫຼັກຫ້ອຍດອກໄຟ (Lantern Hook)', price: 70000, category: 'lighting', image: 'https://i.postimg.cc/FKyCB7cG/471590824-1101698975077565-9125211727583692069-n.jpg', description: 'Metal lantern hook for gear or lights.' },
             { id: 'master-22.1', name: 'ດອກໄຟນ້ອຍ (Small Lantern)', price: 200000, category: 'lighting', image: 'https://i.postimg.cc/nh0WJs5N/125376115_118420463405426_551614310193011105_n.jpg', description: 'Rechargeable USB Small Lantern. 1800mAh. 3 modes.' },
 
             // --- SLEEPING ---
             { id: 'master-23', name: 'ເຊື່ອນອນເປົ່າລົມ Naturehike Air', price: 600000, category: 'sleeping_gear', image: 'https://i.postimg.cc/C5cQ41XF/476403930-1129881948925934-1365118939146447544-n.jpg', description: 'Naturehike Air moisture-proof ultralight mat.' },
+            { id: 'master-24', name: 'ເຊື່ອນອນເປົ່າລົມອັດຕະໂນມັດ', price: 330000, category: 'sleeping_gear', image: 'https://i.postimg.cc/8cXZ6Yft/138639462-160500882530717-1634793276813040683-n.jpg', description: 'Self-inflatable mattress with pillow. 186x57x2.5cm.' },
             { id: 'master-25', name: 'ຖົງນອນ MUZENT (5°C)', price: 420000, category: 'sleeping_gear', image: 'https://i.postimg.cc/SQH8nqJr/470732130-1095258142388315-6675372278210325168-n.jpg', description: 'MUZENT Sleeping bag for cold weather (5°C).' },
+            { id: 'master-26', name: 'ຖົງນອນ Naturehike Premium', price: 550000, category: 'sleeping_gear', image: 'https://i.postimg.cc/28xJzH5Y/483101086-1400042418057880-8967539400801900911-n-(1).jpg', description: 'Premium Naturehike sleeping bag.' },
+            { id: 'master-27', name: 'ຖົງນອນ ແບບພົກພາ (Portable Bag)', price: 225000, category: 'sleeping_gear', image: 'https://i.postimg.cc/T2bjqp8S/125315138-118420533405419-8079952364573550993-n.jpg', description: 'Portable outdoor sleeping bag (700g). 4 colors.' },
+            { id: 'master-28', name: 'ໝອນນອນເປົ່າລົມ (Inflatable Pillow)', price: 50000, category: 'sleeping_gear', image: 'https://i.postimg.cc/kgj91M3M/138786732-160501152530690-3533211310814187676-n.jpg', description: 'Portable pillow: 40,000 LAK per unit or 65,000 LAK for 2.' },
 
             // --- FURNITURE & OTHERS ---
             { id: 'master-29', name: 'ໂຕະແຄ້ມປິ້ງ (Camping Table M)', price: 390000, category: 'furniture', image: 'https://i.postimg.cc/MG8JHcSH/470180269-1091456466101816-3503156836293091321-n.jpg', description: 'Foldable Aluminum Table M (56x41x41cm). Includes bag.' },
             { id: 'master-30', name: 'ຕັ່ງແແຄ້ມປີ້ງ ShineTrip', price: 285000, category: 'furniture', image: 'https://i.postimg.cc/0jSsW7Gc/470209749-1091969312717198-8585518212376997562-n.jpg', description: 'ShineTrip Aluminum folding chair. Portable and comfortable.' },
             { id: 'master-31', name: 'ກະເປົ໋າເປ້ 65L Camel', price: 1350000, category: 'backpack', image: 'https://i.postimg.cc/8P7KVyMZ/471164242-1095570065690456-156288641806394470-n-(1).jpg', description: 'Professional Camel 65L Hiking Backpack. Size: 36x25x62cm.' },
+            { id: 'master-32', name: 'ຜ້າກັນຝົນສຳລັບກະເປົ໋າ (Rain Cover)', price: 70000, category: 'backpack', image: 'https://i.postimg.cc/ZKkc16FY/139180898-160501215864017-905798667929076806-n.jpg', description: 'Waterproof covers: 70,000 LAK (35L) / 80,000 LAK (70L).' },
             { id: 'master-33', name: 'ໄມ້ເທົ້າຢ່າງປ່າ Naturehike', price: 335000, category: 'trekking_poles', image: 'https://i.postimg.cc/8PgDFr4N/488790917-1423518039043651-721068063865014396-n-(1).jpg', description: 'Strong and light Naturehike Hiking Pole.' },
             { id: 'master-34', name: 'ໄມ້ກັນເທົ້າຢ່າງປ່າ (Standard Pole)', price: 140000, category: 'trekking_poles', image: 'https://i.postimg.cc/L65784Kh/189756927-258928419354629-5324966725450305500-n-(1).jpg', description: 'Standard Trekking Pole. Adjustable and foldable.' },
             { id: 'master-35', name: 'ກະເປົ໋ານ້ອຍຫ້ອຍແອວ (Waist Bag)', price: 100000, category: 'backpack', image: 'https://i.postimg.cc/7PpfY6j0/476359221-1130686925512103-8223380318275171227-n.jpg', description: 'Tactical Waist Bag. Durable gadget belt bag.' },
 
             // --- SHOES ---
-            { 
-                id: 'shoe-01', 
-                name: 'ເກີບຍ່າງປ່າ ລຸຍນ້ຳ ແບບລະບາຍອາກາດ (Water Hiking Shoes)', 
-                price: 285000, 
-                category: 'shoes', 
-                image: 'https://i.postimg.cc/sfBG9SLs/138610223-160501245864014-7027706613102300070-n.jpg', 
-                description: 'ເກີບຍ່າງປ່າ (ສິນຄ້າມາແຕ່ຈີນ) DOLWIS. ເກີບກິລາຜ້າຕາຂ່າຍ ລະບາຍອາກາດໄດ້ດີ ເໝາະສຳລັບປີ້ນເຂົາ ແລະ ກິດຈະກຳກາງແຈ້ງ.\nສີ: ດຳ, ເທົາ, ນ້ຳຕານ, ຂຽວ.\nຂະໜາດ: 40-47.' 
-            },
+            { id: 'shoe-01', name: 'ເກີບຍ່າງປ່າ ລຸຍນ້ຳ ແບບລະບາຍອາກາດ (Water Hiking Shoes)', price: 285000, category: 'shoes', image: 'https://i.postimg.cc/sfBG9SLs/138610223-160501245864014-7027706613102300070-n.jpg', description: 'ເກີບຍ່າງປ່າ (ສິນຄ້າມາແຕ່ຈີນ) DOLWIS. ເກີບກິລາຜ້າຕາຂ່າຍ ລະບາຍອາກາດໄດ້ດີ ເໝາະສຳລັບປີ້ນເຂົາ ແລະ ກິດຈະກຳກາງແຈ້ງ.\nສີ: ດຳ, ເທົາ, ນ້ຳຕານ, ຂຽວ.\nຂະໜາດ: 40-47.'  },
             { 
                 id: 'shoe-02', 
                 name: 'ເກີບຍ່າງປ່າ Camel Outdoor (LT-633)', 
@@ -260,7 +266,7 @@
         let cart = [];
         let currentCat = 'all';
 
-        // UI State
+        // Cart Logic
         window.openCart = () => {
             renderCart();
             document.getElementById('cartModal').style.display = 'flex';
@@ -312,14 +318,15 @@
             const totalEl = document.getElementById('cartTotal');
             
             if (cart.length === 0) {
-                container.innerHTML = `<div class="text-center py-20 text-gray-400">Your cart is empty</div>`;
+                container.innerHTML = `<div class="text-center py-20 text-gray-400">Your cart is empty / ບໍ່ມີສິນຄ້າໃນກະຕ່າ</div>`;
                 totalEl.innerText = '0 LAK';
                 return;
             }
 
             let total = 0;
             container.innerHTML = cart.map(item => {
-                total += item.price * item.quantity;
+                const subtotal = item.price * item.quantity;
+                total += subtotal;
                 return `
                 <div class="flex items-center gap-4 bg-white p-4 rounded-2xl border border-gray-100 shadow-sm fade-in">
                     <img src="${item.image}" class="w-20 h-20 object-cover rounded-xl shadow-sm">
@@ -333,6 +340,7 @@
                             <span class="w-8 text-center text-xs font-black">${item.quantity}</span>
                             <button onclick="updateCartQuantity('${item.id}', 1)" class="w-6 h-6 flex items-center justify-center text-gray-400 hover:text-black"><i class="fa-solid fa-plus text-[10px]"></i></button>
                         </div>
+                        <span class="text-[9px] font-black text-gray-400">${subtotal.toLocaleString()} LAK</span>
                     </div>
                 </div>`;
             }).join('');
@@ -341,20 +349,24 @@
 
         window.sendOrderWhatsApp = () => {
             if (cart.length === 0) return;
-            let message = "Sabaidee! I would like to order:\n\n";
+            let message = "Sabaidee! ຂ້ອຍຕ້ອງການສັ່ງຊື້ສິນຄ້າລຸ່ມນີ້ / I would like to order:\n\n";
             let total = 0;
             cart.forEach((item, index) => {
-                total += item.price * item.quantity;
-                message += `${index + 1}. ${item.name} (Qty: ${item.quantity})\n`;
+                const subtotal = item.price * item.quantity;
+                total += subtotal;
+                message += `${index + 1}. ${item.name}\n   Qty: ${item.quantity}\n   Price: ${item.price.toLocaleString()} LAK\n\n`;
             });
-            message += `\nTotal: ${total.toLocaleString()} LAK`;
+            message += `Total Amount / ລວມທັງໝົດ: ${total.toLocaleString()} LAK`;
             window.open(`https://wa.me/8562054849393?text=${encodeURIComponent(message)}`, '_blank');
         };
 
+        // Navigation
         window.filterBy = (cat, btn) => {
             currentCat = cat;
-            document.querySelectorAll('.category-pill').forEach(b => b.className = 'category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest');
-            btn.className = 'category-pill active bg-emerald-600 text-white px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest';
+            document.querySelectorAll('.category-pill').forEach(b => {
+                b.className = 'category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600';
+            });
+            btn.className = 'category-pill active bg-emerald-600 text-white px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest border border-transparent';
             applyFilters();
         };
 
@@ -369,6 +381,10 @@
         function render(items) {
             const grid = document.getElementById('productGrid');
             if(!grid) return;
+            if(items.length === 0) {
+                grid.innerHTML = '<div class="col-span-full py-20 text-center text-gray-400 italic">No gear found / ບໍ່ພົບສິນຄ້າ</div>';
+                return;
+            }
             grid.innerHTML = items.map(p => `
                 <div class="product-card group overflow-hidden flex flex-col cursor-pointer fade-in" onclick="openDetails('${p.id}')">
                     <div class="h-64 bg-gray-50 overflow-hidden relative"><img src="${p.image}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"></div>
@@ -377,8 +393,8 @@
                         <h3 class="font-bold text-lg mb-1 text-gray-900 tracking-tight">${p.name}</h3>
                         <p class="text-base font-bold text-emerald-600 mb-6 italic">LAK ${Number(p.price).toLocaleString()}</p>
                         <div class="mt-auto flex items-center justify-between">
-                            <span class="text-[10px] font-bold uppercase tracking-widest text-gray-900">Check Gear <i class="fa-solid fa-arrow-right-long text-emerald-600 ml-2"></i></span>
-                            <button onclick="event.stopPropagation(); addToCart('${p.id}')" class="bg-gray-100 p-2 rounded-lg text-gray-800 hover:bg-emerald-600 hover:text-white transition"><i class="fa-solid fa-plus"></i></button>
+                            <span class="text-[10px] font-bold uppercase tracking-widest text-gray-900">Check Gear <i class="fa-solid fa-arrow-right-long text-emerald-600 ml-2 group-hover:translate-x-1 transition"></i></span>
+                            <button onclick="event.stopPropagation(); addToCart('${p.id}')" class="bg-gray-100 p-2 rounded-lg text-gray-800 hover:bg-emerald-600 hover:text-white transition shadow-sm"><i class="fa-solid fa-plus"></i></button>
                         </div>
                     </div>
                 </div>`).join('');
@@ -392,7 +408,7 @@
             document.getElementById('modalPrice').innerText = `LAK ${Number(p.price).toLocaleString()}`;
             document.getElementById('modalDescription').innerText = p.description;
             document.getElementById('modalImage').src = p.image;
-            document.getElementById('whatsappBtn').href = `https://wa.me/8562054849393?text=${encodeURIComponent("Interested in: " + p.name)}`;
+            document.getElementById('whatsappBtn').href = `https://wa.me/8562054849393?text=${encodeURIComponent("Interested in: " + p.name + " (" + p.price.toLocaleString() + " LAK)")}`;
             document.getElementById('modal').style.display = 'flex';
             document.body.style.overflow = 'hidden';
         };
