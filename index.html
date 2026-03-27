@@ -31,6 +31,8 @@
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .fade-in { animation: fadeIn 0.5s ease forwards; }
 
+        .thumbnail-active { border: 2px solid #059669; }
+
         .cart-badge {
             animation: pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
@@ -51,7 +53,6 @@
                     <span class="text-[9px] font-bold text-emerald-600 tracking-[0.2em] uppercase">Camping Store</span>
                 </div>
                 <div class="flex items-center gap-6">
-                    <!-- Cart Trigger -->
                     <button onclick="openCart()" class="relative group p-2">
                         <i class="fa-solid fa-cart-shopping text-2xl text-gray-800 group-hover:text-emerald-600 transition"></i>
                         <span id="cartCount" class="cart-badge absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-black w-5 h-5 flex items-center justify-center rounded-full border-2 border-white hidden">0</span>
@@ -87,6 +88,9 @@
                 <button onclick="filterBy('backpack', this)" class="category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600">Backpack / ກະເປົ໋າ</button>
                 <button onclick="filterBy('trekking_poles', this)" class="category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600">Poles / ໄມ້ເທົ້າ</button>
                 <button onclick="filterBy('shoes', this)" class="category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600">Shoes / ເກີບ</button>
+                <button onclick="filterBy('cloth', this)" class="category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600">Cloth / ເຄື່ອງນຸ່ງ</button>
+                <button onclick="filterBy('Glasses', this)" class="category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600">Glasses / ແວ່ນຕາ</button>
+                <button onclick="filterBy('survival', this)" class="category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600">Survival / ເອົາຕົວລອດ</button>
             </div>
             
             <div class="relative w-full lg:w-72">
@@ -100,14 +104,22 @@
 
     <!-- Product Details Modal -->
     <div id="modal" style="display: none;" class="fixed inset-0 z-[100] modal-overlay items-center justify-center p-4" onclick="if(event.target === this) closeModals()">
-        <div class="bg-white rounded-[32px] max-w-4xl w-full overflow-hidden shadow-2xl relative flex flex-col md:flex-row max-h-[90vh]">
+        <div class="bg-white rounded-[32px] max-w-5xl w-full overflow-hidden shadow-2xl relative flex flex-col md:flex-row max-h-[90vh]">
             <button onclick="closeModals()" class="absolute top-4 right-4 text-gray-400 hover:text-black z-20 bg-white/80 w-10 h-10 rounded-full flex items-center justify-center shadow-sm"><i class="fa-solid fa-xmark"></i></button>
-            <div class="md:w-1/2 bg-gray-50 h-64 md:h-auto overflow-hidden">
-                <img id="modalImage" src="" alt="" class="w-full h-full object-cover">
+            
+            <div class="md:w-1/2 bg-gray-50 flex flex-col h-full overflow-hidden border-r">
+                <div class="flex-grow flex items-center justify-center bg-gray-100 overflow-hidden min-h-[300px]">
+                    <img id="modalImage" src="" alt="" class="w-full h-full object-contain">
+                </div>
+                <div id="modalThumbnails" class="p-4 flex gap-3 overflow-x-auto no-scrollbar bg-white"></div>
             </div>
+
             <div class="p-8 md:p-12 md:w-1/2 flex flex-col overflow-y-auto">
                 <span id="modalCategory" class="text-emerald-700 text-[10px] font-bold uppercase tracking-[0.3em] mb-4"></span>
-                <h2 id="modalTitle" class="text-3xl font-black text-gray-900 mb-4 tracking-tighter"></h2>
+                <div class="flex justify-between items-start mb-4">
+                    <h2 id="modalTitle" class="text-3xl font-black text-gray-900 tracking-tighter"></h2>
+                    <button id="adminDeleteBtn" class="text-red-500 hover:text-red-700 hidden" title="Delete Product"><i class="fa-solid fa-trash"></i></button>
+                </div>
                 <p id="modalPrice" class="text-2xl font-bold text-emerald-600 mb-6 italic"></p>
                 <div class="h-1 w-12 bg-emerald-600 mb-6"></div>
                 <p id="modalDescription" class="text-gray-500 text-sm leading-relaxed mb-8 flex-grow whitespace-pre-line"></p>
@@ -148,21 +160,73 @@
         </div>
     </div>
 
+    <!-- Admin Panel Modal -->
+    <div id="adminModal" style="display: none;" class="fixed inset-0 z-[120] modal-overlay items-center justify-center p-4" onclick="if(event.target === this) toggleAdminModal()">
+        <div class="bg-white rounded-[32px] max-w-2xl w-full p-8 shadow-2xl overflow-y-auto max-h-[90vh]">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-2xl font-black uppercase tracking-tight">Add New Gear / ເພີ່ມສິນຄ້າໃໝ່</h2>
+                <button onclick="toggleAdminModal()" class="text-gray-400 hover:text-black"><i class="fa-solid fa-xmark text-2xl"></i></button>
+            </div>
+            <form id="adminForm" class="space-y-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Product Name / ຊື່ສິນຄ້າ</label>
+                        <input type="text" name="name" required class="w-full p-3 rounded-xl bg-gray-50 border-none ring-1 ring-gray-100 focus:ring-2 focus:ring-emerald-500 outline-none">
+                    </div>
+                    <div>
+                        <label class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Price / ລາຄາ (LAK)</label>
+                        <input type="number" name="price" required class="w-full p-3 rounded-xl bg-gray-50 border-none ring-1 ring-gray-100 focus:ring-2 focus:ring-emerald-500 outline-none">
+                    </div>
+                </div>
+                <div>
+                    <label class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Category / ໝວດໝູ່</label>
+                    <select name="category" class="w-full p-3 rounded-xl bg-gray-50 border-none ring-1 ring-gray-100 focus:ring-2 focus:ring-emerald-500 outline-none">
+                        <option value="tents">Tents / ເຕັ້ນ</option>
+                        <option value="cooking">Cooking / ເຄື່ອງຄົວ</option>
+                        <option value="coffee">Coffee / ກາເຟ</option>
+                        <option value="lighting">Lighting / ໄຟ</option>
+                        <option value="sleeping_gear">Sleeping / ເຄື່ອງນອນ</option>
+                        <option value="furniture">Furniture / ເຟີນີເຈີ</option>
+                        <option value="backpack">Backpack / ກະເປົ໋າ</option>
+                        <option value="trekking_poles">Poles / ໄມ້ເທົ້າ</option>
+                        <option value="shoes">Shoes / ເກີບ</option>
+                        <option value="cloth">Cloth / ເຄື່ອງນຸ່ງ</option>
+                        <option value="Glasses">Glasses / ແວ່ນຕາ</option>
+                        <option value="survival">Survival / ເອົາຕົວລອດ</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Main Image URL / ລິ້ງຮູບຫຼັກ</label>
+                    <input type="url" name="image" required class="w-full p-3 rounded-xl bg-gray-50 border-none ring-1 ring-gray-100 focus:ring-2 focus:ring-emerald-500 outline-none" placeholder="https://i.postimg.cc/...">
+                </div>
+                <div>
+                    <label class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Extra Images (Optional) / ຮູບເພີ່ມເຕີມ (ຂັ້ນດ້ວຍຈຸດ , )</label>
+                    <textarea name="images" class="w-full p-3 rounded-xl bg-gray-50 border-none ring-1 ring-gray-100 focus:ring-2 focus:ring-emerald-500 outline-none" placeholder="URL1, URL2, URL3"></textarea>
+                </div>
+                <div>
+                    <label class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Description / ລາຍລະອຽດ</label>
+                    <textarea name="description" required class="w-full p-3 h-32 rounded-xl bg-gray-50 border-none ring-1 ring-gray-100 focus:ring-2 focus:ring-emerald-500 outline-none"></textarea>
+                </div>
+                <button type="submit" class="w-full bg-emerald-600 text-white py-4 rounded-xl font-black uppercase tracking-widest text-sm shadow-xl hover:bg-emerald-700 transition">Save Gear / ບັນທຶກສິນຄ້າ</button>
+            </form>
+        </div>
+    </div>
+
     <footer class="bg-white border-t py-12 px-4 text-center mt-auto">
         <div class="flex justify-center items-center gap-4 mb-6 relative">
             <a href="https://www.facebook.com/Clicktobuy333333333" target="_blank" class="text-gray-300 hover:text-blue-600 transition"><i class="fa-brands fa-facebook-f text-xl"></i></a>
             <a href="https://www.tiktok.com/@thesale3camping" target="_blank" class="text-gray-300 hover:text-black transition"><i class="fa-brands fa-tiktok text-xl"></i></a>
         </div>
         <div class="mb-4"><span class="font-bold uppercase tracking-[0.3em] text-[10px] text-gray-900">TheSale3 Camping Store</span></div>
-        <p class="text-[9px] text-gray-300 uppercase tracking-[0.2em] select-none">&copy; 2024 All Rights Reserved. Premium Gear Shop.</p>
+        <p class="text-[9px] text-gray-300 uppercase tracking-[0.2em] select-none mb-4">&copy; 2024 All Rights Reserved. Premium Gear Shop.</p>
+        <button onclick="promptAdmin()" class="text-[8px] text-gray-200 uppercase tracking-widest hover:text-emerald-500 transition">Admin / ຜູ້ດູແລ</button>
     </footer>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getFirestore, collection, onSnapshot, addDoc, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // Mapping for Bilingual Categories
         const catMap = {
             'all': 'All Gear / ສິນຄ້າທັງໝົດ',
             'tents': 'Tents / ເຕັ້ນ',
@@ -173,9 +237,11 @@
             'furniture': 'Furniture / ເຟີນີເຈີ',
             'backpack': 'Backpack / ກະເປົ໋າ',
             'trekking_poles': 'Poles / ໄມ້ເທົ້າ',
-            'shoes': 'Shoes / ເກີບ'
+            'shoes': 'Shoes / ເກີບ',
+            'cloth': 'Cloth / ເຄື່ອງນຸ່ງ',
+            'Glasses': 'Glasses / ແວ່ນຕາ',
+            'survival': 'Survival / ເອົາຕົວລອດ'
         };
-
         const SYSTEM_PRODUCTS = [
             // --- TENTS ---
             { id: 'master-01', name: 'ເຕັ້ນ QUECHUA MH100 Fresh & Black (2 ຄົນ)', price: 1460000, category: 'tents', image: 'https://i.postimg.cc/qv0hwyZz/471874894-1103166361597493-1459129778683580847-n.jpg', description: 'ເຕັ້ນ QUECHUA MH100 Fresh & Black (ບໍ່ແມ່ນເຕັ້ນກາງໂອໂຕ້) ສຳລັບ 2 ຄົນ.\n- Fresh & Black technology ensures darkness inside.\n- Tested for 200L/sqm/hr waterproof rating.' },
@@ -236,87 +302,77 @@
             { id: 'shoe-03', name: 'ເກີບຄອມແບັດ Tactical OKIY (High Cut)', price: 430000, category: 'shoes', image: 'https://i.postimg.cc/9fMZ6kLR/138641699-160501209197351-6659600786465323988-n.jpg', description: 'ເກີບ Tactical OKIY ແບບຫຸ້ມຂໍ້.\n- ດີໄຊສຳລັບສາຍລຸຍ ປ້ອງກັນຂໍ້ຕີນໄດ້ດີ.\n- ລະບາຍອາກາດໄດ້ດີ ບໍ່ເໝັນອັບ ເໝາະສຳລັບຍ່າງປ່າໄກ.' },
             { id: 'shoe-04', name: 'ເກີບລຸຍນ້ຳ ແບບລະບາຍອາກາດ (Water Shoes)', price: 245000, category: 'shoes', image: 'https://i.postimg.cc/mD8zH6C3/Screenshot-2026-03-19-at-23-11-13.jpg', description: 'ເກີບລຸຍນ້ຳ ສາຍແຄ້ມປີ້ງ ລະບາຍອາກາດໄດ້ດີ ແຫ້ງໄວ. ພື້ນເກີບກັນເລື່ອນ ຍຶດເກາະໄດ້ດີ.' },
             { id: 'shoe-05', name: 'ເກີບແຕະຫຸ້ມຫົວ ໜັງແທ້ (Brown Leather)', price: 295000, category: 'shoes', image: 'https://i.postimg.cc/7Z9Y3q1L/image-d2bf20.png', description: 'ເກີບແຕະຫຸ້ມຫົວ ດີໄຊທັນສະໄໝ. ເຮັດຈາກໜັງຄຸນນະພາບດີ ທົນທານ ໃສ່ສະບາຍ.' }
+           
+            // --- CLOTH ---
+            { id: 'cloth-01', name: 'ເສື້ອຍືດກິລາ (Sport Shirt)', price: 185000, category: 'cloth', image: 'https://i.postimg.cc/fK0h3q0s/489751506-1424454392283349-8154752889413656228-n.jpg', description: 'Quick-dry outdoor shirt.' },
+            { id: 'cloth-02', name: 'ໂສ້ງຍ່າງປ່າ (Hiking Pants)', price: 325000, category: 'cloth', image: 'https://i.postimg.cc/fK0h3q0s/489751506-1424454392283349-8154752889413656228-n.jpg', description: 'Durable trekking pants.' },
+
+            // --- GLASSES ---
+            { id: 'glass-01', name: 'ແວ່ນຕາກັນແດດ Tactical', price: 215000, category: 'Glasses', image: 'https://i.postimg.cc/fK0h3q0s/489751506-1424454392283349-8154752889413656228-n.jpg', description: 'Polarized sunglasses.' }
         ];
 
         let products = [...SYSTEM_PRODUCTS];
         let cart = [];
         let currentCat = 'all';
+        let isAdmin = false;
+        let db, auth, productCol, appId;
 
-        // Cart Logic
-        window.openCart = () => {
-            renderCart();
-            document.getElementById('cartModal').style.display = 'flex';
-            document.body.style.overflow = 'hidden';
+        window.promptAdmin = () => {
+            const pass = prompt("Enter Admin Password:");
+            if (pass === "1234") { isAdmin = true; toggleAdminModal(); alert("Admin Access Granted!"); }
+            else { alert("Wrong password!"); }
         };
 
-        window.closeCart = () => {
-            document.getElementById('cartModal').style.display = 'none';
-            document.body.style.overflow = 'auto';
+        window.toggleAdminModal = () => {
+            const m = document.getElementById('adminModal');
+            m.style.display = m.style.display === 'none' ? 'flex' : 'none';
         };
 
+        window.openCart = () => { renderCart(); document.getElementById('cartModal').style.display = 'flex'; document.body.style.overflow = 'hidden'; };
+        window.closeCart = () => { document.getElementById('cartModal').style.display = 'none'; document.body.style.overflow = 'auto'; };
+        
         window.addToCart = (productId) => {
-            const product = products.find(p => p.id === productId);
-            if (!product) return;
-            const existing = cart.find(item => item.id === productId);
-            if (existing) {
-                existing.quantity += 1;
-            } else {
-                cart.push({ ...product, quantity: 1 });
-            }
+            const p = products.find(x => x.id === productId);
+            if (!p) return;
+            const existing = cart.find(i => i.id === productId);
+            if (existing) existing.quantity += 1;
+            else cart.push({ ...p, quantity: 1 });
             updateCartUI();
         };
 
-        window.updateCartQuantity = (productId, delta) => {
-            const item = cart.find(i => i.id === productId);
+        window.updateCartQuantity = (id, delta) => {
+            const item = cart.find(i => i.id === id);
             if (!item) return;
             item.quantity += delta;
-            if (item.quantity <= 0) {
-                cart = cart.filter(i => i.id !== productId);
-            }
-            updateCartUI();
-            renderCart();
+            if (item.quantity <= 0) cart = cart.filter(i => i.id !== id);
+            updateCartUI(); renderCart();
         };
 
         function updateCartUI() {
-            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
-            const badge = document.getElementById('cartCount');
-            if (count > 0) {
-                badge.innerText = count;
-                badge.classList.remove('hidden');
-            } else {
-                badge.classList.add('hidden');
-            }
+            const count = cart.reduce((s, i) => s + i.quantity, 0);
+            const b = document.getElementById('cartCount');
+            if (count > 0) { b.innerText = count; b.classList.remove('hidden'); }
+            else b.classList.add('hidden');
             localStorage.setItem('thesale3_cart', JSON.stringify(cart));
         }
 
         function renderCart() {
             const container = document.getElementById('cartItems');
             const totalEl = document.getElementById('cartTotal');
-            
-            if (cart.length === 0) {
-                container.innerHTML = `<div class="text-center py-20 text-gray-400">Your cart is empty / ບໍ່ມີສິນຄ້າໃນກະຕ່າ</div>`;
-                totalEl.innerText = '0 LAK';
-                return;
-            }
-
+            if (cart.length === 0) { container.innerHTML = '<div class="text-center py-20 text-gray-400">Your cart is empty</div>'; totalEl.innerText = '0 LAK'; return; }
             let total = 0;
             container.innerHTML = cart.map(item => {
-                const subtotal = item.price * item.quantity;
-                total += subtotal;
-                return `
-                <div class="flex items-center gap-4 bg-white p-4 rounded-2xl border border-gray-100 shadow-sm fade-in">
-                    <img src="${item.image}" class="w-20 h-20 object-cover rounded-xl shadow-sm">
+                total += item.price * item.quantity;
+                return `<div class="flex items-center gap-4 bg-white p-4 rounded-2xl border border-gray-100 shadow-sm">
+                    <img src="${item.image}" class="w-16 h-16 object-cover rounded-xl shadow-sm">
                     <div class="flex-grow">
-                        <h4 class="font-bold text-sm text-gray-900 leading-tight mb-1">${item.name}</h4>
-                        <p class="text-emerald-600 font-bold text-xs">${Number(item.price).toLocaleString()} LAK</p>
+                        <h4 class="font-bold text-xs text-gray-900 leading-tight">${item.name}</h4>
+                        <p class="text-emerald-600 font-bold text-[10px]">${item.price.toLocaleString()} LAK</p>
                     </div>
-                    <div class="flex flex-col items-end gap-2">
-                        <div class="flex items-center bg-gray-50 rounded-lg border border-gray-100 p-1">
-                            <button onclick="updateCartQuantity('${item.id}', -1)" class="w-6 h-6 flex items-center justify-center text-gray-400 hover:text-black"><i class="fa-solid fa-minus text-[10px]"></i></button>
-                            <span class="w-8 text-center text-xs font-black">${item.quantity}</span>
-                            <button onclick="updateCartQuantity('${item.id}', 1)" class="w-6 h-6 flex items-center justify-center text-gray-400 hover:text-black"><i class="fa-solid fa-plus text-[10px]"></i></button>
-                        </div>
-                        <span class="text-[9px] font-black text-gray-400">${subtotal.toLocaleString()} LAK</span>
+                    <div class="flex items-center bg-gray-50 rounded-lg p-1">
+                        <button onclick="updateCartQuantity('${item.id}', -1)" class="w-6 h-6 flex items-center justify-center"><i class="fa-solid fa-minus text-[8px]"></i></button>
+                        <span class="w-8 text-center text-xs font-black">${item.quantity}</span>
+                        <button onclick="updateCartQuantity('${item.id}', 1)" class="w-6 h-6 flex items-center justify-center"><i class="fa-solid fa-plus text-[8px]"></i></button>
                     </div>
                 </div>`;
             }).join('');
@@ -325,23 +381,14 @@
 
         window.sendOrderWhatsApp = () => {
             if (cart.length === 0) return;
-            let message = "Sabaidee! ຂ້ອຍຕ້ອງການສັ່ງຊື້ສິນຄ້າລຸ່ມນີ້ / I would like to order:\n\n";
-            let total = 0;
-            cart.forEach((item, index) => {
-                const subtotal = item.price * item.quantity;
-                total += subtotal;
-                message += `${index + 1}. ${item.name}\n   Qty: ${item.quantity}\n   Price: ${item.price.toLocaleString()} LAK\n\n`;
-            });
-            message += `Total Amount / ລວມທັງໝົດ: ${total.toLocaleString()} LAK`;
-            window.open(`https://wa.me/8562054849393?text=${encodeURIComponent(message)}`, '_blank');
+            let msg = "Sabaidee! ຂ້ອຍຕ້ອງການສັ່ງຊື້ສິນຄ້າລຸ່ມນີ້:\n\n";
+            cart.forEach((i, idx) => msg += `${idx+1}. ${i.name} x${i.quantity}\n`);
+            window.open(`https://wa.me/8562054849393?text=${encodeURIComponent(msg)}`, '_blank');
         };
 
-        // Navigation
         window.filterBy = (cat, btn) => {
             currentCat = cat;
-            document.querySelectorAll('.category-pill').forEach(b => {
-                b.className = 'category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600';
-            });
+            document.querySelectorAll('.category-pill').forEach(b => b.className = 'category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600');
             btn.className = 'category-pill active bg-emerald-600 text-white px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest border border-transparent';
             applyFilters();
         };
@@ -349,18 +396,14 @@
         window.searchItems = () => applyFilters();
 
         function applyFilters() {
-            const search = document.getElementById('searchInput').value.toLowerCase();
-            const filtered = products.filter(p => (currentCat === 'all' || p.category === currentCat) && p.name.toLowerCase().includes(search));
-            render(filtered);
+            const s = document.getElementById('searchInput').value.toLowerCase();
+            const f = products.filter(p => (currentCat === 'all' || p.category === currentCat) && p.name.toLowerCase().includes(s));
+            render(f);
         }
 
         function render(items) {
             const grid = document.getElementById('productGrid');
             if(!grid) return;
-            if(items.length === 0) {
-                grid.innerHTML = '<div class="col-span-full py-20 text-center text-gray-400 italic">No gear found / ບໍ່ພົບສິນຄ້າ</div>';
-                return;
-            }
             grid.innerHTML = items.map(p => `
                 <div class="product-card group overflow-hidden flex flex-col cursor-pointer fade-in" onclick="openDetails('${p.id}')">
                     <div class="h-64 bg-gray-50 overflow-hidden relative"><img src="${p.image}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"></div>
@@ -369,32 +412,87 @@
                         <h3 class="font-bold text-lg mb-1 text-gray-900 tracking-tight">${p.name}</h3>
                         <p class="text-base font-bold text-emerald-600 mb-6 italic">LAK ${Number(p.price).toLocaleString()}</p>
                         <div class="mt-auto flex items-center justify-between">
-                            <span class="text-[10px] font-bold uppercase tracking-widest text-gray-900">Check Gear <i class="fa-solid fa-arrow-right-long text-emerald-600 ml-2 group-hover:translate-x-1 transition"></i></span>
-                            <button onclick="event.stopPropagation(); addToCart('${p.id}')" class="bg-gray-100 p-2 rounded-lg text-gray-800 hover:bg-emerald-600 hover:text-white transition shadow-sm"><i class="fa-solid fa-plus"></i></button>
+                            <span class="text-[10px] font-bold uppercase tracking-widest text-gray-900">Check Gear <i class="fa-solid fa-arrow-right-long text-emerald-600"></i></span>
+                            <button onclick="event.stopPropagation(); addToCart('${p.id}')" class="bg-gray-100 p-2 rounded-lg hover:bg-emerald-600 hover:text-white transition"><i class="fa-solid fa-plus"></i></button>
                         </div>
                     </div>
                 </div>`).join('');
         }
 
+        window.changeModalImage = (src) => {
+            document.getElementById('modalImage').src = src;
+            document.querySelectorAll('#modalThumbnails img').forEach(img => {
+                if (img.src === src) img.classList.add('thumbnail-active');
+                else img.classList.remove('thumbnail-active');
+            });
+        };
+
         window.openDetails = (id) => {
             const p = products.find(x => x.id === id);
             if (!p) return;
+            const imgs = p.images && p.images.length > 0 ? p.images : [p.image];
+            document.getElementById('modalImage').src = imgs[0];
+            const tc = document.getElementById('modalThumbnails');
+            if (imgs.length > 1) {
+                tc.innerHTML = imgs.map(src => `<img src="${src}" class="w-16 h-16 object-cover rounded-lg cursor-pointer border-2 border-transparent hover:border-emerald-200 transition ${src === imgs[0] ? 'thumbnail-active' : ''}" onclick="changeModalImage('${src}')">`).join('');
+                tc.style.display = 'flex';
+            } else { tc.style.display = 'none'; }
             document.getElementById('modalTitle').innerText = p.name;
             document.getElementById('modalCategory').innerText = catMap[p.category] || p.category;
             document.getElementById('modalPrice').innerText = `LAK ${Number(p.price).toLocaleString()}`;
             document.getElementById('modalDescription').innerText = p.description;
-            document.getElementById('modalImage').src = p.image;
-            document.getElementById('whatsappBtn').href = `https://wa.me/8562054849393?text=${encodeURIComponent("Interested in: " + p.name + " (" + p.price.toLocaleString() + " LAK)")}`;
-            document.getElementById('modal').style.display = 'flex';
-            document.body.style.overflow = 'hidden';
+            const delBtn = document.getElementById('adminDeleteBtn');
+            if (isAdmin && !id.startsWith('master-')) {
+                delBtn.classList.remove('hidden');
+                delBtn.onclick = async () => { if (confirm("Delete product?")) { await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'products', id)); closeModals(); } };
+            } else { delBtn.classList.add('hidden'); }
+            document.getElementById('whatsappBtn').href = `https://wa.me/8562054849393?text=${encodeURIComponent("Interested in: " + p.name)}`;
+            const addBtn = document.getElementById('addToCartBtn');
+            addBtn.onclick = () => { addToCart(p.id); addBtn.innerText = 'Added!'; setTimeout(() => addBtn.innerText = 'Add to Cart', 1500); };
+            document.getElementById('modal').style.display = 'flex'; document.body.style.overflow = 'hidden';
         };
-
         window.closeModals = () => { document.getElementById('modal').style.display = 'none'; document.body.style.overflow = 'auto'; };
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const savedCart = localStorage.getItem('thesale3_cart');
-            if (savedCart) { cart = JSON.parse(savedCart); updateCartUI(); }
+        document.addEventListener('DOMContentLoaded', async () => {
+            const sc = localStorage.getItem('thesale3_cart');
+            if (sc) { cart = JSON.parse(sc); updateCartUI(); }
             applyFilters();
+            try {
+                const cs = typeof __firebase_config !== 'undefined' ? __firebase_config : null;
+                if (!cs) return;
+                const fc = JSON.parse(cs);
+                appId = typeof __app_id !== 'undefined' ? __app_id : 'thesale3-camping';
+                const app = initializeApp(fc);
+                auth = getAuth(app); db = getFirestore(app);
+                const ia = async () => {
+                    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) await signInWithCustomToken(auth, __initial_auth_token);
+                    else await signInAnonymously(auth);
+                };
+                await ia();
+                onAuthStateChanged(auth, (u) => {
+                    if (u) {
+                        productCol = collection(db, 'artifacts', appId, 'public', 'data', 'products');
+                        onSnapshot(productCol, (snap) => {
+                            const dbP = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+                            const sIds = SYSTEM_PRODUCTS.map(p => p.id);
+                            products = [...SYSTEM_PRODUCTS, ...dbP.filter(p => !sIds.includes(p.id))];
+                            applyFilters();
+                        });
+                    }
+                });
+                document.getElementById('adminForm').addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const fd = new FormData(e.target);
+                    const iS = fd.get('images');
+                    const eI = iS ? iS.split(',').map(s => s.trim()).filter(s => s) : [];
+                    const nP = {
+                        name: fd.get('name'), price: Number(fd.get('price')),
+                        category: fd.get('category'), image: fd.get('image'),
+                        images: [fd.get('image'), ...eI], description: fd.get('description')
+                    };
+                    await addDoc(productCol, nP); e.target.reset(); toggleAdminModal(); alert("Added!");
+                });
+            } catch (err) { console.warn("Firebase limited."); }
         });
     </script>
 </body>
