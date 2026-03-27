@@ -136,6 +136,19 @@
         </div>
     </div>
 
+    <!-- Admin Password Modal -->
+    <div id="passwordModal" style="display: none;" class="fixed inset-0 z-[130] modal-overlay items-center justify-center p-4" onclick="if(event.target === this) closePasswordModal()">
+        <div class="bg-white rounded-[24px] max-w-sm w-full p-8 shadow-2xl">
+            <h3 class="text-xl font-bold mb-4 uppercase tracking-tight">Admin Access</h3>
+            <p class="text-[10px] text-gray-400 uppercase tracking-widest mb-4">Please enter your management password</p>
+            <input type="password" id="adminPassInput" placeholder="Password" class="w-full p-3 rounded-xl bg-gray-50 border-none ring-1 ring-gray-100 focus:ring-2 focus:ring-emerald-500 mb-6 outline-none">
+            <div class="flex gap-3">
+                <button onclick="checkAdminPassword()" class="bg-emerald-600 text-white flex-grow py-3 rounded-xl font-bold uppercase tracking-widest text-[10px]">Login</button>
+                <button onclick="closePasswordModal()" class="bg-gray-100 px-6 py-3 rounded-xl font-bold uppercase tracking-widest text-[10px]">Cancel</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Cart Modal -->
     <div id="cartModal" style="display: none;" class="fixed inset-0 z-[110] modal-overlay items-center justify-end" onclick="if(event.target === this) closeCart()">
         <div class="bg-white h-full max-w-lg w-full shadow-2xl flex flex-col fade-in">
@@ -204,7 +217,7 @@
                     <textarea name="images" class="w-full p-3 rounded-xl bg-gray-50 border-none ring-1 ring-gray-100 focus:ring-2 focus:ring-emerald-500 outline-none" placeholder="URL1, URL2, URL3"></textarea>
                 </div>
                 <div>
-                    <label class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Description / ລາຍລະອຽด</label>
+                    <label class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Description / ລາຍລະອຽດ</label>
                     <textarea name="description" required class="w-full p-3 h-32 rounded-xl bg-gray-50 border-none ring-1 ring-gray-100 focus:ring-2 focus:ring-emerald-500 outline-none"></textarea>
                 </div>
                 <button type="submit" class="w-full bg-emerald-600 text-white py-4 rounded-xl font-black uppercase tracking-widest text-sm shadow-xl hover:bg-emerald-700 transition">Save Gear / ບັນທຶກສິນຄ້າ</button>
@@ -245,65 +258,65 @@
 
         const SYSTEM_PRODUCTS = [
             // --- TENTS ---
-            { id: 'master-01', name: 'ເຕັ້ນ QUECHUA MH100 Fresh & Black (2 ຄົນ)', price: 1460000, category: 'tents', image: 'https://i.postimg.cc/qv0hwyZz/471874894-1103166361597493-1459129778683580847-n.jpg', description: 'ເຕັ້ນ QUECHUA MH100 Fresh & Black ສຳລັບ 2 ຄົນ.\n- Fresh & Black technology ensures darkness inside.\n- Tested for 200L/sqm/hr waterproof rating.' },
-            { id: 'master-02', name: 'ເຕັ້ນ QUECHUA MH100 (ສີເທົາ)', price: 1100000, category: 'tents', image: 'https://i.postimg.cc/YCzbNjFr/156657757-198686858712119-7425055041363166372-n.jpg', images: ['https://i.postimg.cc/YCzbNjFr/156657757-198686858712119-7425055041363166372-n.jpg', 'https://i.postimg.cc/nM8f7LYc/Screenshot-2026-01-14-at-18-55-51.png'], description: 'Standard QUECHUA MH100 dome tent. Easy to pitch and freestanding structure.' },
-            { id: 'master-03', name: 'ເຕັ້ນກາງອັດຕະໂນມັດ Premium (3-4 ທ່ານ)', price: 885000, category: 'tents', image: 'https://i.postimg.cc/6pCRNRQF/124951381-118420500072089-6079077613874319164-n.jpg', description: 'Automatic pop-up mechanism for 3-4 persons. Water and mist resistant.' },
-            { id: 'master-04', name: 'ເຕັ້ນກາງອັດຕະໂນມັດ (Pop-up)', price: 890000, category: 'tents', image: 'https://i.postimg.cc/7LQ62Yt4/481250252-1394483935280395-2343742065073889579-n.jpg', description: 'ເຕັ້ນກາງອັດຕະໂນມັດກັນຫມອກໄດ້ ແຕ່ບໍ່ກັນຝົນ. ກາງງ່າຍ ເກັບງ່າຍ. Automatic Pop-up Tent.' },
-            { id: 'master-05', name: 'ເຕັ້ນສະປິງກາງອັດຕະໂນມັດ', price: 650000, category: 'tents', image: 'https://i.postimg.cc/NGWkqQ4R/127859284-131667258747413-3464652703126584755-n.jpg', description: 'Standard Automatic Spring Tent. Simple and fast setup.' },
-            { id: 'master-06', name: 'ຜ້າກັ້ງກັນຝົນ Flysheet (3x3 ແມັດ)', price: 380000, category: 'tents', image: 'https://i.postimg.cc/4dqkTKK7/489751506-1424454392283349-8154752889413656228-n.jpg', description: 'Changleyou Flysheet 3x3m with 2 poles. Waterproof: 2000-3000mm.' },
-            { id: 'master-07', name: 'ຜ້າຢາງຮອງເຕັ້ນ (Groundsheet)', price: 200000, category: 'tents', image: 'https://i.postimg.cc/fTzmhkdX/471871594-1103166028264193-3080110264274826660-n.jpg', description: 'GS SPORT Groundsheet 2.1m x 2m. Rain and sun protection.' },
+            { id: 'master-01', name: 'ເຕັ້ນ QUECHUA MH100 Fresh & Black (2 ຄົນ)', price: 1460000, category: 'tents', image: 'https://i.postimg.cc/qv0hwyZz/471874894-1103166361597493-1459129778683580847-n.jpg', description: 'ເຕັ້ນ QUECHUA MH100 Fresh & Black ສຳລັບ 2 ຄົນ.' },
+            { id: 'master-02', name: 'ເຕັ້ນ QUECHUA MH100 (ສີເທົາ)', price: 1100000, category: 'tents', image: 'https://i.postimg.cc/YCzbNjFr/156657757-198686858712119-7425055041363166372-n.jpg', images: ['https://i.postimg.cc/YCzbNjFr/156657757-198686858712119-7425055041363166372-n.jpg', 'https://i.postimg.cc/nM8f7LYc/Screenshot-2026-01-14-at-18-55-51.png'], description: 'Standard QUECHUA MH100 dome tent.' },
+            { id: 'master-03', name: 'ເຕັ້ນກາງອັດຕະໂນມັດ Premium (3-4 ທ່ານ)', price: 885000, category: 'tents', image: 'https://i.postimg.cc/6pCRNRQF/124951381-118420500072089-6079077613874319164-n.jpg', description: 'Automatic pop-up mechanism.' },
+            { id: 'master-04', name: 'ເຕັ້ນກາງອັດຕະໂນມັດ (Pop-up)', price: 890000, category: 'tents', image: 'https://i.postimg.cc/7LQ62Yt4/481250252-1394483935280395-2343742065073889579-n.jpg', description: 'Automatic Pop-up Tent.' },
+            { id: 'master-05', name: 'ເຕັ້ນສະປິງກາງອັດຕະໂນມັດ', price: 650000, category: 'tents', image: 'https://i.postimg.cc/NGWkqQ4R/127859284-131667258747413-3464652703126584755-n.jpg', description: 'Standard Automatic Spring Tent.' },
+            { id: 'master-06', name: 'ຜ້າກັ້ງກັນຝົນ Flysheet (3x3 ແມັດ)', price: 380000, category: 'tents', image: 'https://i.postimg.cc/4dqkTKK7/489751506-1424454392283349-8154752889413656228-n.jpg', description: 'Flysheet 3x3m with 2 poles.' },
+            { id: 'master-07', name: 'ຜ້າຢາງຮອງເຕັ້ນ (Groundsheet)', price: 200000, category: 'tents', image: 'https://i.postimg.cc/fTzmhkdX/471871594-1103166028264193-3080110264274826660-n.jpg', description: 'Groundsheet 2.1m x 2m.' },
             { id: 'master-08', name: 'ສະໝໍບົກ (Tent Pegs 20cm)', price: 50000, category: 'tents', image: 'https://i.postimg.cc/B6PqPrzQ/472186338-1103166364930826-8197764758286830200-n.jpg', description: 'Heavy duty 20cm tent pegs.' },
 
             // --- COOKING ---
-            { id: 'master-09', name: 'ເຕົາແກັດພົກພາ AOTU', price: 285000, category: 'cooking', image: 'https://i.postimg.cc/HLsDXqV6/470820202-1095258122388317-6701559630283280350-n.jpg', description: 'AOTU high-power portable gas stove. Average boiling time: 3-5 min.' },
-            { id: 'master-10', name: 'ການ້ຳ (Outdoor Kettle 800ml)', price: 240000, category: 'cooking', image: 'https://i.postimg.cc/SxcCCPwR/124985548-118420480072091-5504697490990489685-n.jpg', description: '800ml aluminum alloy kettle. Scratch and corrosion resistant.' },
-            { id: 'master-11', name: 'ເຫຼັກຢຶດຂາຕັ້ງສາມຂา (Tripod Bracket)', price: 160000, category: 'cooking', image: 'https://i.postimg.cc/XqZyJ1fj/470195754-1095096232404506-5723296061682898594-n.jpg', description: 'Shandike Stainless steel tripod bracket for campfire cooking.' },
-            { id: 'master-12', name: 'ຊຸດໝໍ້ສຳລັບ 3 ຫາ 4 ຄົນ (DS-308)', price: 430000, category: 'cooking', image: 'https://i.postimg.cc/bw8m2q4T/150739603-186271443286994-1875422230249930637-n.jpg', description: 'DS-308 Outdoor Cooking Set. Includes pan, pot, and kettle.' },
-            { id: 'master-12small', name: 'ຊຸດໝໍ້ສຳລັບ 1 ຫາ 2 ຄົນ (SY200)', price: 265000, category: 'cooking', image: 'https://i.postimg.cc/sgMq0fcf/Screenshot-2026-03-25-at-18-58-10.png', description: 'SY200 Outdoor Cooking Set. Includes pan, pot.' },
-            { id: 'master-13', name: 'ເຕົາແກັດນ້ອຍມີສາຍ (Hose Stove)', price: 200000, category: 'cooking', image: 'https://i.postimg.cc/kgvtYbwk/476775570-1132392825341513-296684994834635171-n.jpg', description: 'Portable mini gas stove with hose for stability.' },
-            { id: 'master-14', name: 'ເຕົາແກັດນ້ອຍມີອັນບັງລົມ (Windproof Stove)', price: 180000, category: 'cooking', image: 'https://i.postimg.cc/mrd1BWvN/470235034-1091427629438033-3849741322793284301-n-(2).jpg', description: 'Portable Stove with foldable windshield. Weighs only 400g.' },
-            { id: 'master-14.1', name: 'ເຕົາແກັດນ້ອຍມີອັນບັງລົມມີສາຍແກັດ', price: 225000, category: 'cooking', image: 'https://i.postimg.cc/g2Hh5pdV/Screenshot-2026-03-19-at-22-54-51.png', description: 'ເຕົາແກັສແບບພົກພາ ແມ່ເຫຼັກພັບໄດ້ ເໝາะສຳລັບຕົ້ມນ້ຳ ແລະ ຊົງຊາ.' },
-            { id: 'master-15', name: 'ເຕົາແກັດຂະຫນาดນ້ອຍ (Picnic Stove K-202)', price: 165000, category: 'cooking', image: 'https://i.postimg.cc/3RfYqSQJ/150468425-186271443286994-1875422230249930637-n.jpg', description: 'Small Picnic Stove K-202 with piezo ignition.' },
-            { id: 'master-16', name: 'ໝໍ້ຂຽວທະຫານ (Army Military Pot)', price: 300000, category: 'cooking', image: 'https://i.postimg.cc/63x4bQwN/470161529-1091427636104699-6870152323458159947-n-(1).jpg', description: 'Army Green Military Pot. 1.8L Aluminum construction.' },
-            { id: 'master-16.fork', name: 'ຊຸດບ່ວງ-ສ້ອມອະເນກປະສົງ 4-in-1 Selpa', price: 115000, category: 'cooking', image: 'https://i.postimg.cc/nh58jy7Q/Screenshot_2026_03_22_at_13_19_56.png', description: 'ຄຸນສົມບັດ: ມີບ່ວງ, ສ້ອມ, ມີດ, ທີ່ເປີດຝາຕຸກ, ສາມາດແຍກອອກເປັນ 2 ສ່ວນເພື່ອໃຊ້ງານພ້ອມກັນ.' },
+            { id: 'master-09', name: 'ເຕົາແກັດພົກພາ AOTU', price: 285000, category: 'cooking', image: 'https://i.postimg.cc/HLsDXqV6/470820202-1095258122388317-6701559630283280350-n.jpg', description: 'AOTU portable gas stove.' },
+            { id: 'master-10', name: 'ການ້ຳ (Outdoor Kettle 800ml)', price: 240000, category: 'cooking', image: 'https://i.postimg.cc/SxcCCPwR/124985548-118420480072091-5504697490990489685-n.jpg', description: '800ml aluminum kettle.' },
+            { id: 'master-11', name: 'ເຫຼັກຢຶດຂາຕັ້ງສາມຂາ', price: 160000, category: 'cooking', image: 'https://i.postimg.cc/XqZyJ1fj/470195754-1095096232404506-5723296061682898594-n.jpg', description: 'Tripod bracket.' },
+            { id: 'master-12', name: 'ຊຸດໝໍ້ສຳລັບ 3 ຫາ 4 ຄົນ (DS-308)', price: 430000, category: 'cooking', image: 'https://i.postimg.cc/bw8m2q4T/150739603-186271443286994-1875422230249930637-n.jpg', description: 'DS-308 Cooking Set.' },
+            { id: 'master-12small', name: 'ຊຸດໝໍ້ສຳລັບ 1 ຫາ 2 ຄົນ (SY200)', price: 265000, category: 'cooking', image: 'https://i.postimg.cc/sgMq0fcf/Screenshot-2026-03-25-at-18-58-10.png', description: 'SY200 Cooking Set.' },
+            { id: 'master-13', name: 'ເຕົາແກັດນ້ອຍມີສາຍ', price: 200000, category: 'cooking', image: 'https://i.postimg.cc/kgvtYbwk/476775570-1132392825341513-296684994834635171-n.jpg', description: 'Hose stove.' },
+            { id: 'master-14', name: 'ເຕົາແກັດນ້ອຍມີອັນບັງລົມ', price: 180000, category: 'cooking', image: 'https://i.postimg.cc/mrd1BWvN/470235034-1091427629438033-3849741322793284301-n-(2).jpg', description: 'Windproof Stove.' },
+            { id: 'master-14.1', name: 'ເຕົາແກັດນ້ອຍມີອັນບັງລົມມີສາຍແກັດ', price: 225000, category: 'cooking', image: 'https://i.postimg.cc/g2Hh5pdV/Screenshot-2026-03-19-at-22-54-51.png', description: 'Advanced portable stove.' },
+            { id: 'master-15', name: 'ເຕົາແກັດ (Picnic Stove K-202)', price: 165000, category: 'cooking', image: 'https://i.postimg.cc/3RfYqSQJ/150468425-186271443286994-1875422230249930637-n.jpg', description: 'Small Picnic Stove.' },
+            { id: 'master-16', name: 'ໝໍ້ຂຽວທະຫານ', price: 300000, category: 'cooking', image: 'https://i.postimg.cc/63x4bQwN/470161529-1091427636104699-6870152323458159947-n-(1).jpg', description: 'Military Pot 1.8L.' },
+            { id: 'master-16.fork', name: 'ຊຸດບ່ວງ-ສ້ອມ 4-in-1 Selpa', price: 115000, category: 'cooking', image: 'https://i.postimg.cc/nh58jy7Q/Screenshot_2026_03_22_at_13_19_56.png', description: 'Multi-tool set.' },
 
             // --- SURVIVAL ---
-            { id: 'master-16.Survival Kit', name: 'Survival Kit 18-in-1 Tactical Gear Set', price: 475000, category: 'survival', image: 'https://i.postimg.cc/HnKKc5cP/Screenshot-2026-03-22-at-14-09-46.png', description: 'Professional 18-in-1 emergency survival kit.' },
+            { id: 'master-16.Survival Kit', name: 'Survival Kit 18-in-1 Tactical Set', price: 475000, category: 'survival', image: 'https://i.postimg.cc/HnKKc5cP/Screenshot-2026-03-22-at-14-09-46.png', description: 'Emergency gear kit.' },
 
             // --- COFFEE ---
-            { id: 'master-17', name: 'จອກ Cool Camp (4 ໃບ)', price: 260000, category: 'coffee', image: 'https://i.postimg.cc/L5yDLPPw/202323323-277134600867344-8457321312918561749-n.jpg', description: 'Set of 4 stainless steel cups (350ml) with bag.' },
-            { id: 'master-18', name: 'Espresso Maker (300ml)', price: 210000, category: 'coffee', image: 'https://i.postimg.cc/zDbXHNr1/472106912-1101699191744210-325644103738198928-n-(1).jpg', description: 'Moka Pot Espresso Maker 300ml Aluminum.' },
-            { id: 'master-18Frother', name: 'ໄມ້ຕີຟອງນົມໄຟຟ້າ', price: 125000, category: 'coffee', image: 'https://i.postimg.cc/J7gzfLT2/Screenshot_2026_03_27_at_21_28_56.png', description: 'ໄມ້ຕີຟອງນົມລະບົບສາກ USB (ແບັດເຕີຣີ 1200mAh) ມາພ້ອມຫົວປ່ຽນ 2 ແບບ.' },
-            { id: 'master-19', name: 'ເຄື່ອງບົດกາເຟ (Coffee Grinder)', price: 195000, category: 'coffee', image: 'https://i.postimg.cc/vZNN0NDm/138558955_160501135864025_1071256138491929297_n.jpg', description: 'Manual vintage coffee bean grinder with ceramic burr.' },
+            { id: 'master-17', name: 'ຈອກ Cool Camp (4 ໃບ)', price: 260000, category: 'coffee', image: 'https://i.postimg.cc/L5yDLPPw/202323323-277134600867344-8457321312918561749-n.jpg', description: 'Stainless steel cups.' },
+            { id: 'master-18', name: 'Espresso Maker (300ml)', price: 210000, category: 'coffee', image: 'https://i.postimg.cc/zDbXHNr1/472106912-1101699191744210-325644103738198928-n-(1).jpg', description: 'Moka Pot.' },
+            { id: 'master-18Frother', name: 'ໄມ້ຕີຟອງນົມໄຟຟ້າ', price: 125000, category: 'coffee', image: 'https://i.postimg.cc/J7gzfLT2/Screenshot_2026_03_27_at_21_28_56.png', description: 'Electric frother.' },
+            { id: 'master-19', name: 'ເຄື່ອງບົດກາເຟ (Coffee Grinder)', price: 195000, category: 'coffee', image: 'https://i.postimg.cc/vZNN0NDm/138558955_160501135864025_1071256138491929297_n.jpg', description: 'Manual grinder.' },
 
             // --- LIGHTING ---
-            { id: 'master-20', name: 'ຕະກຽງ LED (HOMFUL Lantern)', price: 320000, category: 'lighting', image: 'https://i.postimg.cc/YS7Vz1V8/470138708-1091427639438032-4054288834215141234-n.jpg', description: 'Rechargeable LED Lantern by HOMFUL. 1200 mAh.' },
-            { id: 'master-21', name: 'ເສົາຫ້ອຍໂຄມໄຟ (Lantern Stand)', price: 250000, category: 'lighting', image: 'https://i.postimg.cc/Mp0CfPHz/470580274-1094729429107853-518082534720816909-n.jpg', description: 'Adjustable height metal lantern stand.' },
-            { id: 'master-22', name: 'ເຫຼັກຫ້ອຍດອກໄຟ (Lantern Hook)', price: 70000, category: 'lighting', image: 'https://i.postimg.cc/FKyCB7cG/471590824-1101698975077565-9125211727583692069-n.jpg', description: 'Metal lantern hook for gear or lights.' },
-            { id: 'master-22.1', name: 'ດອກໄຟນ້ອຍ (Small Lantern)', price: 200000, category: 'lighting', image: 'https://i.postimg.cc/nh0WJs5N/125376115_118420463405426_551614310193011105_n.jpg', description: 'Rechargeable USB Small Lantern. 1800mAh. 3 modes.' },
+            { id: 'master-20', name: 'ຕະກຽງ LED HOMFUL', price: 320000, category: 'lighting', image: 'https://i.postimg.cc/YS7Vz1V8/470138708-1091427639438032-4054288834215141234-n.jpg', description: 'Rechargeable lantern.' },
+            { id: 'master-21', name: 'ເສົາຫ້ອຍໂຄມໄຟ', price: 250000, category: 'lighting', image: 'https://i.postimg.cc/Mp0CfPHz/470580274-1094729429107853-518082534720816909-n.jpg', description: 'Adjustable stand.' },
+            { id: 'master-22', name: 'ເຫຼັກຫ້ອຍດອກໄຟ', price: 70000, category: 'lighting', image: 'https://i.postimg.cc/FKyCB7cG/471590824-1101698975077565-9125211727583692069-n.jpg', description: 'Lantern hook.' },
+            { id: 'master-22.1', name: 'ດອກໄຟນ້ອຍ (Small Lantern)', price: 200000, category: 'lighting', image: 'https://i.postimg.cc/nh0WJs5N/125376115_118420463405426_551614310193011105_n.jpg', description: 'USB small lantern.' },
 
             // --- SLEEPING ---
-            { id: 'master-23', name: 'ເຊື່ອນອນ Naturehike Air', price: 600000, category: 'sleeping_gear', image: 'https://i.postimg.cc/C5cQ41XF/476403930-1129881948925934-1365118939146447544-n.jpg', description: 'Naturehike Air moisture-proof ultralight mat.' },
-            { id: 'master-24', name: 'ເຊື່ອນອນເປົ່າລົມອັດຕະໂນມັດ', price: 330000, category: 'sleeping_gear', image: 'https://i.postimg.cc/1RT3kQCz/Screenshot_2026_03_27_at_21_30_41.png', description: 'Self-inflatable mattress with pillow. 185x57x2.5cm.' },
-            { id: 'master-25', name: 'ຖົງນອນ MUZENT (5°C)', price: 420000, category: 'sleeping_gear', image: 'https://i.postimg.cc/SQH8nqJr/470732130-1095258142388315-6675372278210325168-n.jpg', description: 'MUZENT Sleeping bag for cold weather (5°C).' },
-            { id: 'master-26', name: 'ຖົງນອນ Naturehike Premium', price: 550000, category: 'sleeping_gear', image: 'https://i.postimg.cc/28xJzH5Y/483101086-1400042418057880-8967539400801900911-n-(1).jpg', description: 'Premium Naturehike sleeping bag.' },
-            { id: 'master-27', name: 'ຖົງນອນ ແບບພົກພາ (Portable Bag)', price: 225000, category: 'sleeping_gear', image: 'https://i.postimg.cc/T2bjqp8S/125315138-118420533405419-8079952364573550993-n.jpg', description: 'Portable outdoor sleeping bag (700g). 4 colors.' },
-            { id: 'master-28', name: 'ໝອນນອນເປົ່າລົມ (Inflatable Pillow)', price: 50000, category: 'sleeping_gear', image: 'https://i.postimg.cc/kgj91M3M/138786732-160501152530690-3533211310814187676-n.jpg', description: 'Portable pillow: 40,000 LAK per unit.' },
+            { id: 'master-23', name: 'ເຊື່ອນອນ Naturehike Air', price: 600000, category: 'sleeping_gear', image: 'https://i.postimg.cc/C5cQ41XF/476403930-1129881948925934-1365118939146447544-n.jpg', description: 'Ultralight mat.' },
+            { id: 'master-24', name: 'ເຊື່ອນອນເປົ່າລົມອັດຕະໂນມັດ', price: 330000, category: 'sleeping_gear', image: 'https://i.postimg.cc/1RT3kQCz/Screenshot_2026_03_27_at_21_30_41.png', description: 'Self-inflatable.' },
+            { id: 'master-25', name: 'ຖົງນອນ MUZENT (5°C)', price: 420000, category: 'sleeping_gear', image: 'https://i.postimg.cc/SQH8nqJr/470732130-1095258142388315-6675372278210325168-n.jpg', description: 'Sleeping bag.' },
+            { id: 'master-26', name: 'ຖົງນອນ Naturehike Premium', price: 550000, category: 'sleeping_gear', image: 'https://i.postimg.cc/28xJzH5Y/483101086-1400042418057880-8967539400801900911-n-(1).jpg', description: 'Premium bag.' },
+            { id: 'master-27', name: 'ຖົງນອນ ແບບພົກພາ', price: 225000, category: 'sleeping_gear', image: 'https://i.postimg.cc/T2bjqp8S/125315138-118420533405419-8079952364573550993-n.jpg', description: 'Portable bag.' },
+            { id: 'master-28', name: 'ໝອນນອນເປົ່າລົມ', price: 50000, category: 'sleeping_gear', image: 'https://i.postimg.cc/kgj91M3M/138786732-160501152530690-3533211310814187676-n.jpg', description: 'Inflatable pillow.' },
 
             // --- FURNITURE & OTHERS ---
-            { id: 'master-29', name: 'ໂຕະແຄ້ມປິ້ງ (Camping Table M)', price: 390000, category: 'furniture', image: 'https://i.postimg.cc/MG8JHcSH/470180269-1091456466101816-3503156836293091321-n.jpg', description: 'Foldable Aluminum Table M (56x41x41cm). Includes bag.' },
-            { id: 'master-30', name: 'ຕັ່ງແແຄ້ມປີ້ງ ShineTrip', price: 285000, category: 'furniture', image: 'https://i.postimg.cc/0jSsW7Gc/470209749-1091969312717198-8585518212376997562-n.jpg', description: 'ShineTrip Aluminum folding chair. Portable and comfortable.' },
-            { id: 'master-31', name: 'ກະເປົ໋າເປ້ 65L Camel', price: 1350000, category: 'backpack', image: 'https://i.postimg.cc/8P7KVyMZ/471164242-1095570065690456-156288641806394470-n-(1).jpg', description: 'Professional Camel 65L Hiking Backpack.' },
+            { id: 'master-29', name: 'ໂຕະແຄ້ມປິ້ງ Table M', price: 390000, category: 'furniture', image: 'https://i.postimg.cc/MG8JHcSH/470180269-1091456466101816-3503156836293091321-n.jpg', description: 'Aluminum Table.' },
+            { id: 'master-30', name: 'ຕັ່ງແແຄ້ມປີ້ງ ShineTrip', price: 285000, category: 'furniture', image: 'https://i.postimg.cc/0jSsW7Gc/470209749-1091969312717198-8585518212376997562-n.jpg', description: 'Folding chair.' },
+            { id: 'master-31', name: 'ກະເປົ໋າເປ້ 65L Camel', price: 1350000, category: 'backpack', image: 'https://i.postimg.cc/8P7KVyMZ/471164242-1095570065690456-156288641806394470-n-(1).jpg', description: 'Hiking Backpack.' },
             { id: 'master-32', name: 'ຜ້າກັນຝົນ Rain Cover', price: 70000, category: 'backpack', image: 'https://i.postimg.cc/ZKkc16FY/139180898-160501215864017-905798667929076806-n.jpg', description: 'Waterproof cover.' },
-            { id: 'master-33', name: 'ໄມ້ເທົ້າຢ່າງປ່າ Naturehike', price: 335000, category: 'trekking_poles', image: 'https://i.postimg.cc/8PgDFr4N/488790917-1423518039043651-721068063865014396-n-(1).jpg', description: 'Strong and light Naturehike Hiking Pole.' },
-            { id: 'master-34', name: 'ໄມ້ກັນເທົ້າ Standard Pole', price: 140000, category: 'trekking_poles', image: 'https://i.postimg.cc/L65784Kh/189756927-258928419354629-5324966725450305500-n-(1).jpg', description: 'Standard Trekking Pole. Adjustable and foldable.' },
-            { id: 'master-35', name: 'ກະເປົ໋ານ້ອຍຫ້ອຍແອວ', price: 100000, category: 'backpack', image: 'https://i.postimg.cc/7PpfY6j0/476359221-1130686925512103-8223380318275171227-n.jpg', description: 'Tactical Waist Bag. Durable gadget belt bag.' },
+            { id: 'master-33', name: 'ໄມ້ເທົ້າ Naturehike', price: 335000, category: 'trekking_poles', image: 'https://i.postimg.cc/8PgDFr4N/488790917-1423518039043651-721068063865014396-n-(1).jpg', description: 'Hiking Pole.' },
+            { id: 'master-34', name: 'ໄມ້ກັນເທົ້າ Standard', price: 140000, category: 'trekking_poles', image: 'https://i.postimg.cc/L65784Kh/189756927-258928419354629-5324966725450305500-n-(1).jpg', description: 'Adjustable pole.' },
+            { id: 'master-35', name: 'ກະເປົ໋າຫ້ອຍແອວ', price: 100000, category: 'backpack', image: 'https://i.postimg.cc/7PpfY6j0/476359221-1130686925512103-8223380318275171227-n.jpg', description: 'Waist Bag.' },
 
             // --- SHOES ---
             { id: 'shoe-01', name: 'ເກີບຍ່າງປ່າ DOLWIS', price: 285000, category: 'shoes', image: 'https://i.postimg.cc/sfBG9SLs/138610223-160501245864014-7027706613102300070-n.jpg', description: 'Water Hiking Shoes.' },
-            { id: 'shoe-02', name: 'ເກີບຍ່າງປ່າ Camel Outdoor', price: 480000, category: 'shoes', image: 'https://i.postimg.cc/x8dRtdWr/156504538-198686892045449-5804187784067538216-n.jpg', description: 'Genuine Camel Outdoor shoes.' },
+            { id: 'shoe-02', name: 'ເກີບ Camel Outdoor', price: 480000, category: 'shoes', image: 'https://i.postimg.cc/x8dRtdWr/156504538-198686892045449-5804187784067538216-n.jpg', description: 'Genuine Camel shoes.' },
             { id: 'shoe-03', name: 'ເກີບ Tactical OKIY', price: 430000, category: 'shoes', image: 'https://i.postimg.cc/9fMZ6kLR/138641699-160501209197351-6659600786465323988-n.jpg', description: 'High cut tactical boots.' },
-            { id: 'shoe-04', name: 'ເກີບລຸຍນ້ຳ Water Shoes', price: 245000, category: 'shoes', image: 'https://i.postimg.cc/mD8zH6C3/Screenshot-2026-03-19-at-23-11-13.jpg', description: 'Breathable and quick dry.' },
+            { id: 'shoe-04', name: 'ເກີບລຸຍນ້ຳ Water Shoes', price: 245000, category: 'shoes', image: 'https://i.postimg.cc/mD8zH6C3/Screenshot-2026-03-19-at-23-11-13.jpg', description: 'Breathable water shoes.' },
             { id: 'shoe-05', name: 'ເກີບແຕະຫຸ້ມຫົວ ໜັງແທ້', price: 295000, category: 'shoes', image: 'https://i.postimg.cc/7Z9Y3q1L/image-d2bf20.png', description: 'Brown Leather sandals.' },
 
             // --- CLOTH ---
@@ -321,9 +334,31 @@
         let db, auth, productCol, appId;
 
         window.promptAdmin = () => {
-            const pass = prompt("Enter Admin Password:");
-            if (pass === "1234") { isAdmin = true; toggleAdminModal(); alert("Admin Access Granted!"); }
-            else { alert("Wrong password!"); }
+            document.getElementById('passwordModal').style.display = 'flex';
+            document.getElementById('adminPassInput').focus();
+        };
+
+        window.closePasswordModal = () => {
+            document.getElementById('passwordModal').style.display = 'none';
+            document.getElementById('adminPassInput').value = '';
+        };
+
+        window.checkAdminPassword = () => {
+            const pass = document.getElementById('adminPassInput').value;
+            if (pass === "Mou54849393") { 
+                isAdmin = true; 
+                closePasswordModal();
+                toggleAdminModal(); 
+            } else { 
+                const input = document.getElementById('adminPassInput');
+                input.value = '';
+                input.placeholder = "Wrong password!";
+                input.classList.add('ring-red-500');
+                setTimeout(() => {
+                    input.placeholder = "Password";
+                    input.classList.remove('ring-red-500');
+                }, 2000);
+            }
         };
 
         window.toggleAdminModal = () => {
@@ -496,6 +531,11 @@
                     await addDoc(productCol, nP); e.target.reset(); toggleAdminModal(); alert("Added!");
                 });
             } catch (err) { console.warn("Firebase limited."); }
+        });
+
+        // Add Enter key support for password modal
+        document.getElementById('adminPassInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') checkAdminPassword();
         });
     </script>
 </body>
