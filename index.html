@@ -220,7 +220,7 @@
                     <label class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Description / ລາຍລະອຽດ</label>
                     <textarea name="description" required class="w-full p-3 h-32 rounded-xl bg-gray-50 border-none ring-1 ring-gray-100 focus:ring-2 focus:ring-emerald-500 outline-none"></textarea>
                 </div>
-                <button type="submit" class="w-full bg-emerald-600 text-white py-4 rounded-xl font-black uppercase tracking-widest text-sm shadow-xl hover:bg-emerald-700 transition">Save Gear / ບັນທຶກສິນຄ້າ</button>
+                <button id="saveGearBtn" type="submit" class="w-full bg-emerald-600 text-white py-4 rounded-xl font-black uppercase tracking-widest text-sm shadow-xl hover:bg-emerald-700 transition">Save Gear / ບັນທຶກສິນຄ້າ</button>
             </form>
         </div>
     </div>
@@ -502,11 +502,16 @@
                 appId = typeof __app_id !== 'undefined' ? __app_id : 'thesale3-camping';
                 const app = initializeApp(fc);
                 auth = getAuth(app); db = getFirestore(app);
-                const ia = async () => {
-                    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) await signInWithCustomToken(auth, __initial_auth_token);
-                    else await signInAnonymously(auth);
+                
+                const initAuth = async () => {
+                    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                        await signInWithCustomToken(auth, __initial_auth_token);
+                    } else {
+                        await signInAnonymously(auth);
+                    }
                 };
-                await ia();
+                await initAuth();
+
                 onAuthStateChanged(auth, (u) => {
                     if (u) {
                         productCol = collection(db, 'artifacts', appId, 'public', 'data', 'products');
@@ -515,22 +520,55 @@
                             const sIds = SYSTEM_PRODUCTS.map(p => p.id);
                             products = [...SYSTEM_PRODUCTS, ...dbP.filter(p => !sIds.includes(p.id))];
                             applyFilters();
-                        });
+                        }, (err) => console.error("Firestore Listen Error:", err));
                     }
                 });
+
                 document.getElementById('adminForm').addEventListener('submit', async (e) => {
                     e.preventDefault();
-                    const fd = new FormData(e.target);
-                    const iS = fd.get('images');
-                    const eI = iS ? iS.split(',').map(s => s.trim()).filter(s => s) : [];
-                    const nP = {
-                        name: fd.get('name'), price: Number(fd.get('price')),
-                        category: fd.get('category'), image: fd.get('image'),
-                        images: [fd.get('image'), ...eI], description: fd.get('description')
-                    };
-                    await addDoc(productCol, nP); e.target.reset(); toggleAdminModal(); alert("Added!");
+                    
+                    const saveBtn = document.getElementById('saveGearBtn');
+                    if (!auth.currentUser || !productCol) {
+                        saveBtn.innerText = "Error: System not ready";
+                        return;
+                    }
+
+                    const originalText = saveBtn.innerText;
+                    saveBtn.innerText = "Saving...";
+                    saveBtn.disabled = true;
+
+                    try {
+                        const fd = new FormData(e.target);
+                        const iS = fd.get('images');
+                        const eI = iS ? iS.split(',').map(s => s.trim()).filter(s => s) : [];
+                        
+                        const nP = {
+                            name: fd.get('name'), 
+                            price: Number(fd.get('price')),
+                            category: fd.get('category'), 
+                            image: fd.get('image'),
+                            images: [fd.get('image'), ...eI], 
+                            description: fd.get('description'),
+                            createdAt: new Date().toISOString()
+                        };
+
+                        await addDoc(productCol, nP);
+                        
+                        e.target.reset();
+                        saveBtn.innerText = "Success / ບັນທຶກແລ້ວ!";
+                        setTimeout(() => {
+                            saveBtn.innerText = originalText;
+                            saveBtn.disabled = false;
+                            toggleAdminModal();
+                        }, 1500);
+                    } catch (err) {
+                        console.error("Save Error:", err);
+                        saveBtn.innerText = "Save Failed / ຜິດພາດ";
+                        saveBtn.disabled = false;
+                        setTimeout(() => saveBtn.innerText = originalText, 3000);
+                    }
                 });
-            } catch (err) { console.warn("Firebase limited."); }
+            } catch (err) { console.warn("Firebase limited.", err); }
         });
 
         // Add Enter key support for password modal
