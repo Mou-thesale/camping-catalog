@@ -128,9 +128,8 @@
 </head>
 <body class="flex flex-col min-h-screen">
 
-    <!-- CRITICAL: UI Scripts moved to the top of body to prevent "function not found" errors -->
     <script>
-        // Global State defined early
+        // Global State
         window.state = {
             products: [],
             places: [],
@@ -154,13 +153,83 @@
             if(btn) btn.classList.add('active-link');
             window.scrollTo({ top: 0, behavior: 'smooth' });
             
-            // Trigger data loads which are defined in the module script below
-            if(pageId === 'products' && window.state.products.length === 0) window.loadProducts?.();
-            if(pageId === 'places' && window.state.places.length === 0) window.loadPlaces?.();
-            if(pageId === 'blogs' && window.state.blogs.length === 0) window.loadBlogs?.();
+            // Trigger load if empty, otherwise render existing state
+            if(pageId === 'products') {
+                if(window.state.products.length === 0) window.loadProducts?.();
+                else window.renderProducts(window.state.products);
+            }
+            if(pageId === 'places') {
+                if(window.state.places.length === 0) window.loadPlaces?.();
+                else window.renderPlaces(window.state.places);
+            }
+            if(pageId === 'blogs') {
+                if(window.state.blogs.length === 0) window.loadBlogs?.();
+                else window.renderBlogs(window.state.blogs);
+            }
         };
 
-        // Other UI Functions
+        // --- UI Rendering Functions ---
+        window.renderProducts = (items) => {
+            const grid = document.getElementById('productGrid');
+            if(!grid) return;
+            grid.innerHTML = items.map(p => `
+                <div class="card-modern group p-10 flex flex-col fade-in" onclick="window.openDetails('${p.id}')">
+                    <div class="h-60 rounded-[40px] bg-emerald-100/30 overflow-hidden mb-8 relative">
+                        <img src="${p.img}" class="w-full h-full object-cover group-hover:scale-125 transition duration-[1500ms]" onerror="this.src='https://placehold.co/400x400?text=Gear'">
+                        <span class="absolute top-5 right-5 text-[9px] font-black uppercase px-5 py-2.5 rounded-full shadow-2xl ${p.status.toLowerCase().includes('pre') ? 'status-pre-order' : 'status-in-stock'}">${p.status}</span>
+                    </div>
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="h-[2px] w-6 bg-amber-500"></div>
+                        <span class="text-[11px] font-black text-emerald-500 uppercase tracking-widest">${p.category}</span>
+                    </div>
+                    <h3 class="font-black text-xl text-emerald-950 mb-6 flex-grow uppercase italic tracking-tighter leading-tight">${p.name}</h3>
+                    <div class="mt-auto flex justify-between items-center pt-8 border-t border-emerald-100/50">
+                        <p class="font-black text-emerald-700 italic text-lg tracking-tighter">${p.price.toLocaleString()} LAK</p>
+                        <button onclick="event.stopPropagation(); window.addToCart('${p.id}')" class="w-14 h-14 rounded-[22px] bg-emerald-950 text-white flex items-center justify-center hover:bg-amber-500 transition-all shadow-2xl"><i class="fa-solid fa-plus text-lg"></i></button>
+                    </div>
+                </div>`).join('');
+        };
+
+        window.renderPlaces = (items) => {
+            const grid = document.getElementById('placesGrid');
+            if(!grid) return;
+            if(items.length === 0) {
+                grid.innerHTML = '<p class="col-span-full text-center text-emerald-200">ກຳລັງໂຫລດຂໍ້ມູນສະຖານທີ່...</p>';
+                return;
+            }
+            grid.innerHTML = items.map(place => `
+                <div class="card-modern overflow-hidden fade-in p-0 shadow-lg" onclick="window.openPlaceDetails('${place.name}')">
+                    <div class="h-72 bg-emerald-100 overflow-hidden relative">
+                        <img src="${place.img}" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/600x400?text=Camp'">
+                        <div class="absolute top-6 left-6 px-4 py-2 bg-white/20 backdrop-blur-md rounded-full border border-white/30 text-white font-black text-[9px] uppercase tracking-widest italic">${place.price}</div>
+                    </div>
+                    <div class="p-10 text-emerald-950">
+                        <h3 class="font-black text-2xl tracking-tighter italic uppercase mb-4 leading-none">${place.name}</h3>
+                        <div class="flex items-center gap-2 text-[11px] font-black text-emerald-400 uppercase tracking-widest mb-6"><i class="fa-solid fa-location-dot text-amber-500"></i> ${place.loc}</div>
+                        <p class="text-gray-500 text-sm font-medium line-clamp-2">${place.desc}</p>
+                    </div>
+                </div>`).join('');
+        };
+
+        window.renderBlogs = (items) => {
+            const grid = document.getElementById('blogsGrid');
+            if(!grid) return;
+            if(items.length === 0) {
+                grid.innerHTML = '<p class="col-span-full text-center text-emerald-200">ກຳລັງໂຫລດບົດຄວາມ...</p>';
+                return;
+            }
+            grid.innerHTML = items.map(blog => `
+                <div class="flex flex-col lg:flex-row gap-10 items-center fade-in bg-white/80 backdrop-blur-md p-10 rounded-[50px] border border-white card-modern group p-0" onclick="window.openBlogDetails('${blog.title}')">
+                    <div class="w-full lg:w-2/5 h-72 rounded-[40px] overflow-hidden shadow-2xl flex-shrink-0"><img src="${blog.img}" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x300?text=Blog'"></div>
+                    <div class="w-full lg:w-3/5 p-4 lg:p-0 text-emerald-950">
+                        <span class="text-[11px] font-black text-amber-500 uppercase italic mb-6 block">${blog.date}</span>
+                        <h3 class="text-3xl font-black mb-6 tracking-tighter uppercase italic leading-tight">${blog.title}</h3>
+                        <p class="text-gray-500 text-base leading-relaxed line-clamp-3 font-medium">${blog.content}</p>
+                    </div>
+                </div>`).join('');
+        };
+
+        // --- Other Global Logic ---
         window.openCart = () => {
             const container = document.getElementById('cartItems');
             const totalEl = document.getElementById('cartTotal');
@@ -172,16 +241,13 @@
                 let total = 0;
                 container.innerHTML = window.state.cart.map(item => {
                     total += item.price * item.qty;
-                    return `
-                    <div class="flex gap-4 p-4 bg-emerald-50 rounded-2xl text-emerald-950">
+                    return `<div class="flex gap-4 p-4 bg-emerald-50 rounded-2xl text-emerald-950">
                         <img src="${item.img}" class="w-16 h-16 rounded-xl object-cover">
                         <div class="flex-grow">
                             <h4 class="font-black text-xs uppercase leading-tight">${item.name}</h4>
                             <p class="text-emerald-700 font-bold text-[10px]">${item.price.toLocaleString()} LAK</p>
                         </div>
-                        <div class="flex items-center gap-2">
-                             <span class="font-black">x${item.qty}</span>
-                        </div>
+                        <div class="font-black">x${item.qty}</div>
                     </div>`;
                 }).join('');
                 if(totalEl) totalEl.innerText = total.toLocaleString() + ' LAK';
@@ -252,27 +318,6 @@
                 return matchesSearch && matchesCategory;
             });
             window.renderProducts(filtered);
-        };
-
-        window.renderProducts = (items) => {
-            const grid = document.getElementById('productGrid');
-            if(!grid) return;
-            grid.innerHTML = items.map(p => `
-                <div class="card-modern group p-10 flex flex-col fade-in" onclick="window.openDetails('${p.id}')">
-                    <div class="h-60 rounded-[40px] bg-emerald-100/30 overflow-hidden mb-8 relative">
-                        <img src="${p.img}" class="w-full h-full object-cover group-hover:scale-125 transition duration-[1500ms]" onerror="this.src='https://placehold.co/400x400?text=Gear'">
-                        <span class="absolute top-5 right-5 text-[9px] font-black uppercase px-5 py-2.5 rounded-full shadow-2xl ${p.status.toLowerCase().includes('pre') ? 'status-pre-order' : 'status-in-stock'}">${p.status}</span>
-                    </div>
-                    <div class="flex items-center gap-3 mb-3">
-                        <div class="h-[2px] w-6 bg-amber-500"></div>
-                        <span class="text-[11px] font-black text-emerald-500 uppercase tracking-widest">${p.category}</span>
-                    </div>
-                    <h3 class="font-black text-xl text-emerald-950 mb-6 flex-grow uppercase italic tracking-tighter leading-tight">${p.name}</h3>
-                    <div class="mt-auto flex justify-between items-center pt-8 border-t border-emerald-100/50">
-                        <p class="font-black text-emerald-700 italic text-lg tracking-tighter">${p.price.toLocaleString()} LAK</p>
-                        <button onclick="event.stopPropagation(); window.addToCart('${p.id}')" class="w-14 h-14 rounded-[22px] bg-emerald-950 text-white flex items-center justify-center hover:bg-amber-500 transition-all shadow-2xl"><i class="fa-solid fa-plus text-lg"></i></button>
-                    </div>
-                </div>`).join('');
         };
 
         window.openPlaceDetails = (name) => {
@@ -438,7 +483,7 @@
         </div>
     </div>
 
-    <!-- Additional Modals (Places, Blogs, Cart) -->
+    <!-- Additional Modals -->
     <div id="placeModal" class="modal-overlay" onclick="if(event.target === this) window.closePlaceModal()">
         <div class="bg-white rounded-[48px] max-w-4xl w-full mx-4 overflow-hidden shadow-2xl flex flex-col md:flex-row fade-in relative max-h-[90vh] border-4 border-emerald-900/50">
             <button onclick="window.closePlaceModal()" class="absolute top-8 right-8 bg-white/90 w-14 h-14 rounded-2xl flex items-center justify-center text-emerald-950 hover:bg-emerald-950 hover:text-white z-10 shadow-xl transition-all"><i class="fa-solid fa-xmark text-2xl"></i></button>
@@ -569,24 +614,20 @@
             return 'assets/products/' + url;
         };
 
-        // Attach Data Loading to Window for the UI functions to call
+        // Attach Data Loading Logic
         window.loadProducts = async () => {
             try {
                 const res = await fetch(CSV_PRODUCTS);
                 const rows = parseCSV(await res.text()).slice(1);
-                const items = rows.map((cols, i) => ({
+                window.state.products = rows.map((cols, i) => ({
                     id: 'google-prod-' + i,
-                    name: cols[1],
-                    price: parseInt(cols[2].replace(/\D/g,'')) || 0,
-                    category: cols[3],
-                    img: formatImgUrl(cols[4]),
-                    status: cols[5] || 'In Stock',
-                    desc: cols[6] || 'Premium outdoor equipment.'
+                    name: cols[1], price: parseInt(cols[2].replace(/\D/g,'')) || 0,
+                    category: cols[3], img: formatImgUrl(cols[4]),
+                    status: cols[5] || 'In Stock', desc: cols[6] || 'Premium gear.'
                 })).filter(x => x.name);
-                window.state.products = items;
-                window.applyProductFilters();
+                window.renderProducts(window.state.products);
                 window.renderCategoryFilters();
-            } catch (e) { console.error("Product load failed:", e); }
+            } catch (e) {}
         };
 
         window.loadPlaces = async () => {
@@ -596,9 +637,7 @@
                 window.state.places = rows.map(cols => ({
                     name: cols[0], loc: cols[1], price: cols[2], img: formatImgUrl(cols[3]), desc: cols[4] || ''
                 })).filter(x => x.name);
-                if (document.getElementById('page-places').classList.contains('hidden') === false) {
-                    window.switchPage('places'); // Force refresh
-                }
+                window.renderPlaces(window.state.places);
             } catch (e) {}
         };
 
@@ -609,9 +648,7 @@
                 window.state.blogs = rows.map(cols => ({
                     title: cols[0], date: cols[1], img: formatImgUrl(cols[2]), content: cols[3] || ''
                 })).filter(x => x.title);
-                if (document.getElementById('page-blogs').classList.contains('hidden') === false) {
-                    window.switchPage('blogs');
-                }
+                window.renderBlogs(window.state.blogs);
             } catch (e) {}
         };
 
@@ -623,7 +660,7 @@
                 } else {
                     await signInAnonymously(auth);
                 }
-            } catch (err) { console.error("Auth init failed:", err); }
+            } catch (err) {}
         };
 
         onAuthStateChanged(auth, async (user) => {
@@ -632,13 +669,12 @@
                 onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'products'), (s) => {
                     if (s.docs.length > 0) {
                         window.state.products = s.docs.map(d => ({ id: d.id, ...d.data() }));
-                        window.applyProductFilters();
+                        window.renderProducts(window.state.products);
                     }
                 });
             }
         });
 
-        // Start Auth process
         initAuth();
     </script>
 </body>
