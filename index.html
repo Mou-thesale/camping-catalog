@@ -13,71 +13,76 @@
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
         
         :root {
-            --adventure-green: #10b981;
-            --forest-deep: #064e3b;
+            --adventure-green: #064e3b;
+            --forest-mid: #065f46;
+            --emerald-vibrant: #10b981;
             --accent-amber: #f59e0b;
-            --midnight-bg: #020617;
-            --glass-white: rgba(255, 255, 255, 0.05);
-            --glass-border: rgba(255, 255, 255, 0.1);
+            --forest-bg: #042f2e; /* Deep Forest Base */
+            --glass-white: rgba(255, 255, 255, 0.95);
         }
 
         body { 
             font-family: 'Plus Jakarta Sans', sans-serif; 
-            background: radial-gradient(circle at top right, #064e3b, #020617 60%);
+            /* Forest Green Gradient Background */
+            background: radial-gradient(circle at top right, #065f46, #022c22 70%);
             background-attachment: fixed;
             color: #f8fafc; 
             scroll-behavior: smooth;
+            position: relative;
         }
 
-        /* Topography Overlay - White for visibility on dark */
+        /* Topographical background pattern - Inverted for dark green visibility */
         body::before {
             content: "";
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
             background-image: url("https://www.transparenttextures.com/patterns/topography.png");
-            opacity: 0.15;
+            opacity: 0.1;
             filter: invert(1);
             pointer-events: none;
             z-index: -1;
         }
         
         .nav-blur { 
-            background: rgba(2, 6, 23, 0.8); 
+            background: rgba(4, 47, 46, 0.8); 
             backdrop-filter: blur(20px); 
             -webkit-backdrop-filter: blur(20px); 
-            border-bottom: 1px solid var(--glass-border);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
-        
+
         .hero-banner { 
-            background: linear-gradient(to bottom, rgba(2, 6, 23, 0.2), rgba(2, 6, 23, 0.9)), url('https://i.postimg.cc/FKL5Q4JW/489751506-1424454392283349-8154752889413656228-n.jpg'); 
+            background: linear-gradient(to bottom, rgba(4, 47, 46, 0.2), rgba(2, 44, 34, 0.9)), url('https://i.postimg.cc/FKL5Q4JW/489751506-1424454392283349-8154752889413656228-n.jpg'); 
             background-size: cover; 
             background-position: center; 
+            border-bottom: 8px solid var(--accent-amber);
         }
         
         .card-modern { 
-            background: rgba(255, 255, 255, 0.03); 
-            backdrop-filter: blur(16px);
-            border: 1px solid var(--glass-border); 
+            background: var(--glass-white); 
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.3); 
             border-radius: 32px; 
             transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1); 
             height: 100%; 
             display: flex; 
             flex-direction: column; 
             cursor: pointer;
-            box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.2);
+            color: #1f2937; /* Dark text inside cards for contrast */
         }
+
         .card-modern:hover { 
             transform: translateY(-12px); 
-            box-shadow: 0 30px 60px -15px rgba(16, 185, 129, 0.2);
-            background: rgba(255, 255, 255, 0.08);
-            border-color: var(--adventure-green);
+            box-shadow: 0 30px 50px -15px rgba(16, 185, 129, 0.3);
+            border-color: var(--emerald-vibrant);
+            background: #ffffff;
         }
         
         .no-scrollbar::-webkit-scrollbar { display: none; }
-        .active-link { color: var(--adventure-green); border-bottom: 3px solid var(--adventure-green); }
+        .active-link { color: var(--emerald-vibrant) !important; border-bottom: 4px solid var(--accent-amber); }
 
         .modal-overlay { 
-            background: rgba(0, 0, 0, 0.92); 
+            background: rgba(2, 44, 34, 0.9); 
             backdrop-filter: blur(15px); 
             display: none; 
             position: fixed; 
@@ -90,52 +95,47 @@
         .category-pill { 
             transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
             white-space: nowrap; 
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--glass-border);
-            color: #94a3b8;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+            color: #cbd5e1;
         }
+
         .category-pill.active { 
-            background-color: var(--adventure-green); 
+            background-color: var(--accent-amber); 
             color: white; 
             transform: scale(1.05); 
-            box-shadow: 0 15px 20px -5px rgba(16, 185, 129, 0.4); 
-            border-color: var(--adventure-green);
-        }
-        .category-pill:not(.active):hover { 
-            background: rgba(255, 255, 255, 0.1); 
-            color: white;
-            border-color: var(--adventure-green);
+            box-shadow: 0 15px 20px -5px rgba(245, 158, 11, 0.4); 
+            border-color: var(--accent-amber);
         }
 
-        .status-in-stock { background: rgba(16, 185, 129, 0.15); color: #10b981; border: 1px solid rgba(16, 185, 129, 0.3); }
-        .status-pre-order { background: rgba(245, 158, 11, 0.15); color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.3); }
+        .category-pill:not(.active):hover { 
+            border-color: var(--emerald-vibrant); 
+            color: white; 
+            background: rgba(255, 255, 255, 0.1); 
+        }
+
+        .status-in-stock { background: #d1fae5; color: #065f46; border: 1px solid #a7f3d0; }
+        .status-pre-order { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
 
         .btn-adventure {
-            background: linear-gradient(135deg, var(--adventure-green) 0%, #059669 100%);
+            background: linear-gradient(135deg, var(--adventure-green) 0%, var(--forest-mid) 100%);
             transition: all 0.3s ease;
         }
+
         .btn-adventure:hover {
-            filter: brightness(1.1);
-            transform: scale(1.02);
-            box-shadow: 0 15px 30px -5px rgba(16, 185, 129, 0.5);
+            filter: brightness(1.2);
+            box-shadow: 0 10px 20px rgba(6, 95, 70, 0.3);
+            transform: translateY(-2px);
         }
 
-        /* Ambient background glow */
-        .ambient-glow {
-            position: fixed;
-            width: 50vw; height: 50vw;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(16, 185, 129, 0.08) 0%, transparent 70%);
-            z-index: -2;
-            pointer-events: none;
+        /* Section Headings */
+        .section-title {
+            color: #ffffff;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
-
-    <!-- Ambient Decorative Elements -->
-    <div class="ambient-glow top-[-10%] right-[-10%]"></div>
-    <div class="ambient-glow bottom-[-10%] left-[-10%]"></div>
 
     <!-- Navigation -->
     <nav class="nav-blur sticky top-0 z-50">
@@ -145,22 +145,22 @@
                     <span class="font-black text-2xl leading-none tracking-tighter text-white uppercase">THESALE3</span>
                     <div class="flex items-center gap-1.5">
                         <span class="text-[9px] font-bold text-emerald-400 tracking-[0.25em] uppercase">Camping Store</span>
-                        <div class="h-1 w-1 rounded-full bg-amber-500"></div>
+                        <div class="h-1 w-4 bg-amber-500 rounded-full"></div>
                     </div>
                 </div>
 
-                <div class="hidden md:flex items-center gap-10 font-bold text-[10px] uppercase tracking-[0.25em] text-slate-400">
+                <div class="hidden md:flex items-center gap-10 font-bold text-[10px] uppercase tracking-[0.2em] text-slate-300">
                     <button onclick="switchPage('products')" class="nav-btn py-2 hover:text-white transition" id="btn-products">Products</button>
                     <button onclick="switchPage('places')" class="nav-btn py-2 hover:text-white transition" id="btn-places">Camping Places</button>
                     <button onclick="switchPage('blogs')" class="nav-btn py-2 hover:text-white transition" id="btn-blogs">Blogs</button>
                 </div>
 
                 <div class="flex items-center gap-4 sm:gap-6">
-                    <button onclick="openCart()" class="relative p-2.5 bg-white/5 rounded-2xl border border-white/10 hover:bg-white/10 transition">
-                        <i class="fa-solid fa-cart-shopping text-lg text-white"></i>
-                        <span id="cartCount" class="absolute -top-1.5 -right-1.5 bg-amber-500 text-white text-[9px] font-black w-5 h-5 flex items-center justify-center rounded-full border-2 border-slate-900 hidden">0</span>
+                    <button onclick="openCart()" class="relative p-2.5 bg-white/10 rounded-2xl border border-white/10 hover:bg-white/20 transition">
+                        <i class="fa-solid fa-cart-shopping text-xl text-white"></i>
+                        <span id="cartCount" class="absolute -top-1.5 -right-1.5 bg-amber-500 text-white text-[9px] font-black w-5 h-5 flex items-center justify-center rounded-full border-2 border-emerald-950 hidden">0</span>
                     </button>
-                    <a href="https://wa.me/8562054849393" target="_blank" class="bg-emerald-500 text-white px-7 py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest hidden sm:flex items-center gap-2 btn-adventure shadow-xl">
+                    <a href="https://wa.me/8562054849393" target="_blank" class="bg-emerald-600 text-white px-7 py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest hidden sm:flex items-center gap-2 btn-adventure shadow-xl">
                         <i class="fa-brands fa-whatsapp text-base"></i> WhatsApp
                     </a>
                 </div>
@@ -173,37 +173,37 @@
 
         <!-- Home Section -->
         <section id="page-home" class="page-section">
-            <header class="hero-banner h-[650px] flex items-center justify-center text-center px-4 relative overflow-hidden">
+            <header class="hero-banner h-[600px] flex items-center justify-center text-center px-4 relative overflow-hidden">
                 <div class="max-w-3xl fade-in z-10 px-6">
-                    <div class="inline-flex items-center gap-3 px-5 py-2 bg-emerald-500/10 backdrop-blur-md border border-emerald-500/20 rounded-full mb-8">
-                        <i class="fa-solid fa-fire-flame-curved text-amber-500"></i>
-                        <span class="text-emerald-400 text-[9px] font-black uppercase tracking-[0.4em]">Fuel Your Adventure</span>
+                    <div class="inline-flex items-center gap-3 px-5 py-2 bg-emerald-950/30 backdrop-blur-md border border-white/20 rounded-full mb-8">
+                        <i class="fa-solid fa-mountain-sun text-amber-400"></i>
+                        <span class="text-white text-[9px] font-black uppercase tracking-[0.4em]">Forest Adventure calls</span>
                     </div>
-                    <h1 class="text-6xl sm:text-8xl font-black text-white mb-8 tracking-tighter drop-shadow-2xl italic leading-[1.1]">The Wild<br><span class="text-emerald-500">Is Waiting.</span></h1>
-                    <p class="text-slate-300 text-xs sm:text-sm font-medium uppercase tracking-[0.5em] mb-14 opacity-90 max-w-lg mx-auto leading-loose">Premium Gear for the Bold Explorer</p>
+                    <h1 class="text-6xl sm:text-8xl font-black text-white mb-8 tracking-tighter drop-shadow-2xl italic leading-[1.1]">The Forest<br><span class="text-amber-500">Starts Here.</span></h1>
+                    <p class="text-emerald-50 text-xs sm:text-sm font-medium uppercase tracking-[0.5em] mb-14 drop-shadow-lg opacity-90 leading-loose max-w-lg mx-auto">Premium Gear for the Bold Explorer Across Laos</p>
                     <div class="flex flex-wrap gap-5 justify-center">
-                        <button onclick="switchPage('products')" class="bg-amber-500 text-white px-12 py-4.5 rounded-[22px] font-black text-[11px] uppercase tracking-[0.2em] hover:bg-amber-600 transition shadow-2xl shadow-amber-500/20 scale-105">Shop Catalog</button>
-                        <button onclick="switchPage('places')" class="bg-white/10 backdrop-blur-xl border border-white/20 text-white px-12 py-4.5 rounded-[22px] font-black text-[11px] uppercase tracking-[0.2em] hover:bg-white hover:text-emerald-950 transition">Discover Spots</button>
+                        <button onclick="switchPage('products')" class="bg-amber-500 text-white px-12 py-4.5 rounded-[22px] font-black text-[11px] uppercase tracking-[0.2em] hover:bg-amber-600 transition shadow-2xl scale-105">Shop Catalog</button>
+                        <button onclick="switchPage('places')" class="bg-white/10 backdrop-blur-xl border border-white/40 text-white px-12 py-4.5 rounded-[22px] font-black text-[11px] uppercase tracking-[0.2em] hover:bg-white hover:text-emerald-950 transition">Explore Spots</button>
                     </div>
                 </div>
                 <!-- Transition -->
-                <div class="absolute bottom-[-1px] left-0 w-full h-32 bg-gradient-to-t from-slate-950 to-transparent"></div>
+                <div class="absolute bottom-[-1px] left-0 w-full h-24 bg-gradient-to-t from-[#022c22] to-transparent"></div>
             </header>
         </section>
 
         <!-- Products Section -->
-        <section id="page-products" class="page-section hidden py-24 px-4 max-w-7xl mx-auto w-full">
+        <section id="page-products" class="page-section hidden py-20 px-4 max-w-7xl mx-auto w-full">
             <div class="flex flex-col lg:flex-row justify-between items-end mb-16 gap-8">
                 <div class="fade-in">
                     <div class="flex items-center gap-3 mb-3">
-                        <div class="h-1.5 w-10 bg-emerald-500 rounded-full"></div>
-                        <span class="text-[11px] font-black text-emerald-400 uppercase tracking-[0.3em]">Gear Selection</span>
+                        <div class="h-1.5 w-10 bg-amber-500 rounded-full"></div>
+                        <span class="text-[11px] font-black text-emerald-400 uppercase tracking-[0.3em]">Gear Collection</span>
                     </div>
-                    <h2 class="text-5xl sm:text-6xl font-black uppercase italic tracking-tighter text-white">Equipment</h2>
+                    <h2 class="text-5xl sm:text-6xl font-black uppercase italic tracking-tighter section-title">Catalog</h2>
                 </div>
                 <div class="relative w-full md:w-[400px] group fade-in">
-                    <i class="fa-solid fa-magnifying-glass absolute left-6 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-emerald-400 transition"></i>
-                    <input type="text" id="searchInput" oninput="applyProductFilters()" placeholder="Find your gear..." class="w-full pl-16 pr-8 py-5 rounded-[26px] bg-white/5 border border-white/10 focus:border-emerald-500 outline-none shadow-2xl transition-all text-sm font-medium text-white placeholder-slate-500">
+                    <i class="fa-solid fa-magnifying-glass absolute left-6 top-1/2 -translate-y-1/2 text-emerald-300 group-focus-within:text-emerald-600 transition"></i>
+                    <input type="text" id="searchInput" oninput="applyProductFilters()" placeholder="Search gear..." class="w-full pl-16 pr-8 py-5 rounded-[26px] bg-white/10 border border-white/20 focus:border-emerald-500 outline-none shadow-2xl transition-all text-sm font-medium text-white placeholder-slate-400">
                 </div>
             </div>
 
@@ -220,8 +220,8 @@
         <!-- Places Section -->
         <section id="page-places" class="page-section hidden py-24 px-4 max-w-7xl mx-auto w-full">
             <div class="text-center mb-20 fade-in">
-                <span class="text-amber-500 font-black text-[11px] uppercase tracking-[0.5em] mb-4 block">Exploration</span>
-                <h2 class="text-5xl sm:text-7xl font-black uppercase italic tracking-tighter text-white">Camping Spots</h2>
+                <span class="text-amber-500 font-black text-[11px] uppercase tracking-[0.5em] mb-4 block">Destinations</span>
+                <h2 class="text-5xl sm:text-7xl font-black uppercase italic tracking-tighter section-title">Adventure Spots</h2>
             </div>
             <div id="placesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
                 <!-- Places load here -->
@@ -231,8 +231,8 @@
         <!-- Blogs Section -->
         <section id="page-blogs" class="page-section hidden py-24 px-4 max-w-7xl mx-auto w-full">
             <div class="text-center mb-20 fade-in">
-                <span class="text-emerald-400 font-black text-[11px] uppercase tracking-[0.5em] mb-4 block">Stories</span>
-                <h2 class="text-5xl sm:text-7xl font-black uppercase italic tracking-tighter text-white">The Logbook</h2>
+                <span class="text-emerald-400 font-black text-[11px] uppercase tracking-[0.5em] mb-4 block">Knowledge</span>
+                <h2 class="text-5xl sm:text-7xl font-black uppercase italic tracking-tighter section-title">Outdoor Journal</h2>
             </div>
             <div id="blogsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-14">
                 <!-- Blogs load here -->
@@ -245,31 +245,31 @@
 
     <!-- Product Details Modal -->
     <div id="detailsModal" class="modal-overlay" onclick="if(event.target === this) closeDetails()">
-        <div class="bg-slate-900 rounded-[48px] max-w-5xl w-full mx-4 overflow-hidden shadow-2xl flex flex-col md:flex-row fade-in relative max-h-[92vh] border border-white/10">
-            <button onclick="closeDetails()" class="absolute top-8 right-8 bg-white/10 backdrop-blur-md w-14 h-14 rounded-2xl flex items-center justify-center text-white hover:bg-emerald-500 transition-all z-10 shadow-xl"><i class="fa-solid fa-xmark text-2xl"></i></button>
+        <div class="bg-white rounded-[48px] max-w-5xl w-full mx-4 overflow-hidden shadow-2xl flex flex-col md:flex-row fade-in relative max-h-[92vh] border-[12px] border-emerald-950/30">
+            <button onclick="closeDetails()" class="absolute top-8 right-8 bg-emerald-50 w-14 h-14 rounded-2xl flex items-center justify-center text-emerald-950 hover:bg-emerald-950 hover:text-white z-10 shadow-xl transition-all"><i class="fa-solid fa-xmark text-2xl"></i></button>
             
-            <div class="md:w-1/2 bg-slate-800/50 flex items-center justify-center p-12">
-                <img id="detailsImage" src="" class="max-w-full max-h-[500px] object-contain drop-shadow-3xl" onerror="this.src='https://placehold.co/600x600?text=Gear+Photo'">
+            <div class="md:w-1/2 bg-emerald-50/50 flex items-center justify-center p-12">
+                <img id="detailsImage" src="" class="max-w-full max-h-[500px] object-contain drop-shadow-3xl transition duration-700" onerror="this.src='https://placehold.co/600x600?text=Gear+Photo'">
             </div>
             
-            <div class="md:w-1/2 p-12 md:p-16 flex flex-col overflow-y-auto">
+            <div class="md:w-1/2 p-12 md:p-16 flex flex-col overflow-y-auto bg-white">
                 <div class="flex items-center gap-3 mb-6">
-                    <span id="detailsCategory" class="text-[11px] font-black text-emerald-400 uppercase tracking-[0.3em]">Category</span>
-                    <div class="h-1.5 w-10 bg-amber-500 rounded-full"></div>
+                    <span id="detailsCategory" class="text-[11px] font-black text-emerald-600 uppercase tracking-[0.3em]">Category</span>
+                    <div class="h-1.5 w-10 bg-amber-400 rounded-full"></div>
                 </div>
-                <h2 id="detailsTitle" class="text-4xl sm:text-5xl font-black text-white tracking-tighter mb-8 leading-tight italic uppercase">Product Name</h2>
+                <h2 id="detailsTitle" class="text-4xl sm:text-5xl font-black text-emerald-950 tracking-tighter mb-8 leading-tight italic uppercase">Product Name</h2>
                 <div class="flex items-center gap-8 mb-12">
-                    <p id="detailsPrice" class="text-4xl font-black text-emerald-400 italic tracking-tighter">0 LAK</p>
-                    <span id="detailsStatus" class="text-[10px] font-black uppercase px-5 py-2.5 rounded-full shadow-sm border">Status</span>
+                    <p id="detailsPrice" class="text-4xl font-black text-emerald-700 italic tracking-tighter">0 LAK</p>
+                    <span id="detailsStatus" class="text-[10px] font-black uppercase px-5 py-2.5 rounded-full shadow-sm border-2">Status</span>
                 </div>
                 
-                <div class="prose prose-invert mb-16">
-                    <p id="detailsDesc" class="whitespace-pre-line text-slate-400 leading-relaxed text-base font-medium">Description details...</p>
+                <div class="prose prose-emerald mb-16">
+                    <p id="detailsDesc" class="whitespace-pre-line text-gray-500 leading-relaxed text-base font-medium">Description details go here...</p>
                 </div>
 
-                <div class="mt-auto pt-10 border-t border-white/5 flex gap-5">
-                    <button id="detailsAddBtn" class="flex-grow btn-adventure text-white py-6 rounded-[24px] font-black uppercase text-xs tracking-[0.3em] shadow-2xl">Add to Bag</button>
-                    <a id="detailsWaBtn" href="#" target="_blank" class="w-20 h-20 bg-[#25D366] text-white rounded-[24px] flex items-center justify-center text-4xl hover:scale-110 transition shadow-xl"><i class="fa-brands fa-whatsapp"></i></a>
+                <div class="mt-auto pt-10 border-t border-emerald-50 flex gap-5">
+                    <button id="detailsAddBtn" class="flex-grow btn-adventure text-white py-6 rounded-[24px] font-black uppercase text-xs tracking-[0.3em] shadow-2xl shadow-emerald-900/20">Add to Bag</button>
+                    <a id="detailsWaBtn" href="#" target="_blank" class="w-20 h-20 bg-[#25D366] text-white rounded-[24px] flex items-center justify-center text-4xl hover:rotate-12 transition shadow-xl"><i class="fa-brands fa-whatsapp"></i></a>
                 </div>
             </div>
         </div>
@@ -277,21 +277,21 @@
 
     <!-- Place Details Modal -->
     <div id="placeModal" class="modal-overlay" onclick="if(event.target === this) closePlaceModal()">
-        <div class="bg-slate-900 rounded-[48px] max-w-4xl w-full mx-4 overflow-hidden shadow-2xl flex flex-col md:flex-row fade-in relative max-h-[90vh] border border-white/10">
-            <button onclick="closePlaceModal()" class="absolute top-8 right-8 bg-black/40 backdrop-blur-md w-14 h-14 rounded-2xl flex items-center justify-center text-white hover:bg-amber-500 transition-all z-10 shadow-xl"><i class="fa-solid fa-xmark text-2xl"></i></button>
+        <div class="bg-white rounded-[48px] max-w-4xl w-full mx-4 overflow-hidden shadow-2xl flex flex-col md:flex-row fade-in relative max-h-[90vh] border-4 border-emerald-900/50">
+            <button onclick="closePlaceModal()" class="absolute top-8 right-8 bg-white/90 w-14 h-14 rounded-2xl flex items-center justify-center text-emerald-950 hover:bg-emerald-950 hover:text-white z-10 shadow-xl transition-all"><i class="fa-solid fa-xmark text-2xl"></i></button>
             <div class="md:w-1/2 h-80 md:h-auto overflow-hidden relative">
                 <img id="placeDetailsImage" src="" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/600x600?text=Camp+Spot'">
-                <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent"></div>
+                <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/40 to-transparent"></div>
             </div>
-            <div class="md:w-1/2 p-12 md:p-16 flex flex-col overflow-y-auto">
-                <span class="text-[11px] font-black text-amber-500 uppercase tracking-[0.4em] mb-4">Site Guide</span>
-                <h2 id="placeDetailsTitle" class="text-4xl font-black text-white tracking-tighter mb-8 leading-none italic uppercase">Location</h2>
+            <div class="md:w-1/2 p-12 md:p-16 flex flex-col overflow-y-auto text-emerald-950">
+                <span class="text-[11px] font-black text-emerald-600 uppercase tracking-[0.4em] mb-4">Location Reveal</span>
+                <h2 id="placeDetailsTitle" class="text-4xl font-black text-emerald-950 tracking-tighter mb-8 leading-none italic uppercase">Location</h2>
                 <div class="flex flex-wrap gap-5 mb-12">
-                    <div class="flex items-center gap-2 text-xs font-black text-slate-400 uppercase tracking-widest"><i class="fa-solid fa-location-dot text-amber-500"></i> <span id="placeDetailsLoc">Location</span></div>
-                    <div id="placeDetailsPrice" class="text-xs font-black text-emerald-400 bg-emerald-500/10 px-5 py-2.5 rounded-[15px] italic">Price</div>
+                    <div class="flex items-center gap-2 text-xs font-black text-gray-400 uppercase tracking-widest"><i class="fa-solid fa-location-dot text-amber-500"></i> <span id="placeDetailsLoc">Location</span></div>
+                    <div id="placeDetailsPrice" class="text-xs font-black text-emerald-800 bg-emerald-50 px-5 py-2.5 rounded-[15px] italic">Price</div>
                 </div>
-                <p id="placeDetailsDesc" class="text-slate-400 text-base leading-relaxed whitespace-pre-line mb-14 font-medium">Description text...</p>
-                <div class="mt-auto pt-10 border-t border-white/5">
+                <p id="placeDetailsDesc" class="text-gray-500 text-base leading-relaxed whitespace-pre-line mb-14 font-medium">Description text...</p>
+                <div class="mt-auto pt-10 border-t border-emerald-50">
                     <a id="placeDetailsWaBtn" href="#" target="_blank" class="w-full bg-[#25D366] text-white py-6 rounded-[24px] font-black uppercase text-xs tracking-[0.2em] flex items-center justify-center gap-4 hover:scale-[1.03] transition shadow-2xl">
                         <i class="fa-brands fa-whatsapp text-2xl"></i> Inquire via WhatsApp
                     </a>
@@ -300,19 +300,19 @@
         </div>
     </div>
 
-    <!-- Blog Modal -->
+    <!-- Blog Details Modal -->
     <div id="blogModal" class="modal-overlay" onclick="if(event.target === this) closeBlogModal()">
-        <div class="bg-slate-900 rounded-[48px] max-w-4xl w-full mx-4 overflow-hidden shadow-2xl flex flex-col fade-in relative max-h-[92vh] border border-white/10">
-            <button onclick="closeBlogModal()" class="absolute top-8 right-8 bg-black/40 backdrop-blur-md w-14 h-14 rounded-2xl flex items-center justify-center text-white hover:bg-emerald-500 transition-all z-10 shadow-xl"><i class="fa-solid fa-xmark text-2xl"></i></button>
+        <div class="bg-white rounded-[48px] max-w-4xl w-full mx-4 overflow-hidden shadow-2xl flex flex-col fade-in relative max-h-[92vh]">
+            <button onclick="closeBlogModal()" class="absolute top-8 right-8 bg-white/90 w-14 h-14 rounded-2xl flex items-center justify-center text-emerald-950 hover:bg-emerald-950 hover:text-white z-10 shadow-xl transition-all"><i class="fa-solid fa-xmark text-2xl"></i></button>
             <div class="h-96 overflow-hidden relative">
                 <img id="blogDetailsImage" src="" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/1200x600?text=Blog+Image'">
-                <div class="absolute bottom-0 left-0 w-full p-12 bg-gradient-to-t from-slate-900 to-transparent">
+                <div class="absolute bottom-0 left-0 w-full p-12 bg-gradient-to-t from-white via-white/80 to-transparent">
                     <span id="blogDetailsDate" class="text-[11px] font-black text-amber-500 uppercase tracking-[0.5em]">Date Published</span>
                 </div>
             </div>
-            <div class="p-12 md:p-16 flex flex-col overflow-y-auto">
-                <h2 id="blogDetailsTitle" class="text-4xl sm:text-5xl font-black text-white tracking-tighter mb-12 leading-tight uppercase italic">Title</h2>
-                <div class="prose prose-invert leading-relaxed max-w-none text-slate-400 text-base font-medium">
+            <div class="p-12 md:p-16 flex flex-col overflow-y-auto text-emerald-950">
+                <h2 id="blogDetailsTitle" class="text-4xl sm:text-5xl font-black text-emerald-950 tracking-tighter mb-12 leading-tight uppercase italic">Title</h2>
+                <div class="prose prose-emerald leading-relaxed max-w-none text-gray-600 text-base font-medium">
                     <p id="blogDetailsContent" class="whitespace-pre-line">Content body...</p>
                 </div>
             </div>
@@ -321,46 +321,48 @@
 
     <!-- Cart Modal -->
     <div id="cartModal" class="modal-overlay" onclick="if(event.target === this) closeCart()">
-        <div class="bg-slate-900 h-full max-w-md w-full shadow-2xl ml-auto flex flex-col p-12 cart-slide border-l border-white/10">
-            <div class="flex justify-between items-center mb-12 border-b border-white/5 pb-8">
+        <div class="bg-white h-full max-w-md w-full shadow-2xl ml-auto flex flex-col p-12 cart-slide">
+            <div class="flex justify-between items-center mb-12 border-b border-emerald-50 pb-8 text-emerald-950">
                 <div class="flex flex-col">
-                    <h3 class="text-3xl font-black uppercase tracking-tighter text-white">Your Bag</h3>
-                    <span class="text-[11px] font-bold text-slate-500 uppercase tracking-[0.3em] mt-2">Gearing Up</span>
+                    <h3 class="text-3xl font-black uppercase tracking-tighter leading-none">Your Bag</h3>
+                    <span class="text-[11px] font-bold text-emerald-300 uppercase tracking-[0.3em] mt-2">The Explorer's Choice</span>
                 </div>
-                <button onclick="closeCart()" class="text-slate-700 hover:text-white text-4xl transition"><i class="fa-solid fa-xmark"></i></button>
+                <button onclick="closeCart()" class="text-emerald-100 hover:text-emerald-950 text-4xl transition"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div id="cartItems" class="flex-grow overflow-y-auto space-y-8 pr-2 no-scrollbar"></div>
-            <div class="border-t border-white/5 pt-10 mt-10">
+            <div class="border-t border-emerald-50 pt-10 mt-10">
                 <div class="flex justify-between items-center mb-12 px-2">
-                    <span class="font-black text-slate-600 uppercase text-[10px] tracking-[0.5em]">Total Amount</span>
-                    <span id="cartTotal" class="text-3xl font-black text-emerald-400 italic tracking-tighter">0 LAK</span>
+                    <span class="font-black text-gray-400 uppercase text-[10px] tracking-[0.5em]">Total Amount</span>
+                    <span id="cartTotal" class="text-3xl font-black text-emerald-700 italic tracking-tighter">0 LAK</span>
                 </div>
-                <button onclick="checkoutWhatsApp()" class="w-full bg-[#25D366] text-white py-6 rounded-[24px] font-black uppercase text-xs tracking-[0.3em] flex items-center justify-center gap-4 hover:brightness-105 transition shadow-2xl shadow-[#25D366]/20">
-                    <i class="fa-brands fa-whatsapp text-2xl"></i> WhatsApp Checkout
+                <button onclick="checkoutWhatsApp()" class="w-full bg-[#25D366] text-white py-6 rounded-[24px] font-black uppercase text-xs tracking-[0.3em] flex items-center justify-center gap-4 hover:brightness-105 transition shadow-2xl">
+                    <i class="fa-brands fa-whatsapp text-2xl"></i> Checkout via WhatsApp
                 </button>
             </div>
         </div>
     </div>
 
     <!-- Footer -->
-    <footer class="bg-slate-950 py-24 px-4 text-center mt-auto border-t border-white/5">
+    <footer class="bg-emerald-950 py-24 px-4 text-center mt-auto border-t-8 border-amber-500 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10 pointer-events-none bg-repeat" style="background-image: url('https://www.transparenttextures.com/patterns/topography.png');"></div>
+        
         <div class="max-w-7xl mx-auto z-10 relative">
             <div class="flex justify-center gap-14 mb-16">
-                <a href="https://www.facebook.com/Clicktobuy333333333" target="_blank" class="text-slate-700 hover:text-emerald-500 transition transform hover:scale-125"><i class="fa-brands fa-facebook text-4xl"></i></a>
-                <a href="https://www.tiktok.com/@thesale3camping" target="_blank" class="text-slate-700 hover:text-amber-500 transition transform hover:scale-125"><i class="fa-brands fa-tiktok text-4xl"></i></a>
+                <a href="https://www.facebook.com/Clicktobuy333333333" target="_blank" class="text-emerald-500 hover:text-white transition transform hover:scale-125 hover:-rotate-12"><i class="fa-brands fa-facebook text-4xl"></i></a>
+                <a href="https://www.tiktok.com/@thesale3camping" target="_blank" class="text-emerald-500 hover:text-white transition transform hover:scale-125 hover:rotate-12"><i class="fa-brands fa-tiktok text-4xl"></i></a>
             </div>
             <div class="max-w-md mx-auto mb-16">
                 <div class="flex items-center justify-center gap-4 mb-6">
-                    <div class="h-[1px] w-12 bg-slate-900"></div>
+                    <div class="h-[1px] w-12 bg-emerald-900"></div>
                     <h4 class="text-white font-black text-3xl uppercase tracking-tighter italic">THESALE3</h4>
-                    <div class="h-[1px] w-12 bg-slate-900"></div>
+                    <div class="h-[1px] w-12 bg-emerald-900"></div>
                 </div>
-                <p class="text-slate-500 text-[11px] font-bold uppercase tracking-[0.4em] mb-12 leading-loose">Premium Gear for Bold Explorers Across Laos since 2024.</p>
-                <div class="inline-flex items-center gap-6 px-8 py-3 bg-white/5 rounded-full border border-white/10">
-                    <button onclick="adminLogin()" class="text-[10px] font-black text-slate-700 uppercase tracking-widest hover:text-emerald-500 transition">Management</button>
-                </div>
+                <p class="text-emerald-400 text-[11px] font-bold uppercase tracking-[0.4em] mb-12 leading-loose">Premium Gear for Bold Explorers Across Laos since 2024.</p>
             </div>
-            <p class="text-[9px] text-slate-800 font-bold uppercase tracking-[0.6em]">© TheSale3 Business / Established for Adventure</p>
+            <!-- Secret Admin Trigger: Click "TheSale3 Business" 5 times -->
+            <p class="text-[9px] text-emerald-900 font-bold uppercase tracking-[0.6em] cursor-default select-none">
+                © <span onclick="handleAdminClick()" class="hover:text-emerald-800 transition-colors">TheSale3 Business</span> / Established for Adventure
+            </p>
         </div>
     </footer>
 
@@ -434,13 +436,13 @@
                         category: cols[3],
                         img: imgSource,
                         status: cols[5] || 'In Stock',
-                        desc: cols[6] || 'Elite tactical gear by TheSale3.'
+                        desc: cols[6] || 'ພົບກັບອຸປະກອນແຄ້ມປິ້ງຄຸນນະພາບສູງຈາກ TheSale3.'
                     };
                 }).filter(x => x);
                 renderCategoryFilters();
                 applyProductFilters();
             } catch (e) {
-                document.getElementById('productGrid').innerHTML = "<div class='col-span-full py-24 text-center text-slate-500 font-black uppercase text-xs tracking-widest'>Encryption error connecting to catalog.</div>";
+                document.getElementById('productGrid').innerHTML = "<div class='col-span-full py-20 text-center text-white font-bold uppercase tracking-widest'>Unable to load catalog</div>";
             }
         }
 
@@ -453,10 +455,10 @@
                     if(cols.length < 4) return null;
                     let imgSource = cols[3];
                     if (!imgSource.startsWith('http')) imgSource = IMAGE_BASE_PATH + imgSource;
-                    return { name: cols[0], loc: cols[1], price: cols[2], img: imgSource, desc: cols[4] || 'Adventure awaits at this mysterious location.' };
+                    return { name: cols[0], loc: cols[1], price: cols[2], img: imgSource, desc: cols[4] || 'No description available for this beautiful spot.' };
                 }).filter(x => x);
                 renderPlaces();
-            } catch (e) { document.getElementById('placesGrid').innerHTML = "<div class='col-span-full py-24 text-center text-slate-500 font-black uppercase text-xs tracking-widest'>Grid failed to sync map data.</div>"; }
+            } catch (e) { document.getElementById('placesGrid').innerHTML = "<div class='col-span-full py-20 text-center text-white font-bold'>Error loading map data</div>"; }
         }
 
         async function loadBlogs() {
@@ -468,17 +470,17 @@
                     if(cols.length < 3) return null;
                     let imgSource = cols[2];
                     if (!imgSource.startsWith('http')) imgSource = IMAGE_BASE_PATH + imgSource;
-                    return { title: cols[0], date: cols[1], img: imgSource, content: cols[3] || 'More details in the full article.' };
+                    return { title: cols[0], date: cols[1], img: imgSource, content: cols[3] || 'Content coming soon...' };
                 }).filter(x => x);
                 renderBlogs();
-            } catch (e) { document.getElementById('blogsGrid').innerHTML = "<div class='col-span-full py-24 text-center text-slate-500 font-black uppercase text-xs tracking-widest'>Syncing journal logs failed.</div>"; }
+            } catch (e) { document.getElementById('blogsGrid').innerHTML = "<div class='col-span-full py-20 text-center text-white font-bold'>Journal unreachable</div>"; }
         }
 
         // --- 4. CATEGORY LOGIC ---
         function renderCategoryFilters() {
             const container = document.getElementById('categoryFilter');
             container.innerHTML = categories.map(cat => `
-                <button onclick="setCategory('${cat}')" class="category-pill ${state.currentCategory === cat ? 'active' : ''} px-10 py-4 rounded-[22px] text-[10px] font-black uppercase tracking-[0.3em] shadow-lg">
+                <button onclick="setCategory('${cat}')" class="category-pill ${state.currentCategory === cat ? 'active' : ''} px-10 py-4 rounded-[22px] text-[10px] font-black uppercase tracking-[0.3em] shadow-sm">
                     ${cat}
                 </button>
             `).join('');
@@ -504,25 +506,25 @@
         function renderProducts(items) {
             const grid = document.getElementById('productGrid');
             if (items.length === 0) {
-                grid.innerHTML = "<div class='col-span-full py-32 text-center text-slate-600 uppercase text-xs font-black tracking-widest bg-white/5 rounded-[48px] border-2 border-dashed border-white/5'>No gear matching your search</div>";
+                grid.innerHTML = "<div class='col-span-full py-24 text-center text-emerald-400 uppercase text-xs font-black tracking-widest bg-white/10 rounded-[48px] border-4 border-dashed border-white/20'>No gear found matching that search</div>";
                 return;
             }
             grid.innerHTML = items.map(p => {
                 const isPre = p.status.toLowerCase().includes('pre');
                 return `
                 <div class="card-modern group p-10 flex flex-col fade-in" onclick="openDetails('${p.id}')">
-                    <div class="h-60 rounded-[40px] bg-slate-900 overflow-hidden mb-8 relative">
-                        <img src="${p.img}" class="w-full h-full object-cover group-hover:scale-125 transition duration-[1500ms] opacity-80 group-hover:opacity-100" onerror="this.src='https://placehold.co/400x400?text=Gear+Photo'">
+                    <div class="h-60 rounded-[40px] bg-emerald-100/30 overflow-hidden mb-8 relative">
+                        <img src="${p.img}" class="w-full h-full object-cover group-hover:scale-125 transition duration-[1500ms]" onerror="this.src='https://placehold.co/400x400?text=Gear+Photo'">
                         <span class="absolute top-5 right-5 text-[9px] font-black uppercase px-5 py-2.5 rounded-full shadow-2xl ${isPre ? 'status-pre-order' : 'status-in-stock'}">${p.status}</span>
                     </div>
                     <div class="flex items-center gap-3 mb-3">
-                        <div class="h-[2px] w-6 bg-emerald-500"></div>
+                        <div class="h-[2px] w-6 bg-amber-500"></div>
                         <span class="text-[11px] font-black text-emerald-500 uppercase tracking-widest">${p.category}</span>
                     </div>
-                    <h3 class="font-black text-xl text-white mb-6 leading-tight flex-grow uppercase italic tracking-tighter">${p.name}</h3>
-                    <div class="mt-auto flex justify-between items-center pt-8 border-t border-white/5">
-                        <p class="font-black text-emerald-400 italic text-lg tracking-tighter">${p.price.toLocaleString('en-US')} LAK</p>
-                        <button onclick="event.stopPropagation(); addToCart('${p.id}')" class="w-14 h-14 rounded-[22px] bg-white/10 text-white flex items-center justify-center hover:bg-emerald-500 transition-all shadow-2xl active:scale-90"><i class="fa-solid fa-plus text-lg"></i></button>
+                    <h3 class="font-black text-xl text-emerald-950 mb-6 leading-tight flex-grow uppercase italic tracking-tighter">${p.name}</h3>
+                    <div class="mt-auto flex justify-between items-center pt-8 border-t border-emerald-100/50">
+                        <p class="font-black text-emerald-700 italic text-lg tracking-tighter">${p.price.toLocaleString('en-US')} LAK</p>
+                        <button onclick="event.stopPropagation(); addToCart('${p.id}')" class="w-14 h-14 rounded-[22px] bg-emerald-950 text-white flex items-center justify-center hover:bg-amber-500 transition-all shadow-2xl active:scale-90"><i class="fa-solid fa-plus text-lg"></i></button>
                     </div>
                 </div>`;
             }).join('');
@@ -531,20 +533,17 @@
         function renderPlaces() {
             const grid = document.getElementById('placesGrid');
             grid.innerHTML = state.places.map(place => `
-                <div class="card-modern overflow-hidden fade-in p-0" onclick="openPlaceDetails('${place.name}')">
-                    <div class="h-72 bg-slate-900 overflow-hidden relative">
-                        <img src="${place.img}" class="w-full h-full object-cover group-hover:scale-110 transition duration-[2000ms] opacity-70 group-hover:opacity-100" onerror="this.src='https://placehold.co/600x400?text=Camp+Spot'">
-                        <div class="absolute top-6 left-6 px-4 py-2 bg-emerald-500 text-white font-black text-[9px] uppercase tracking-widest italic rounded-full shadow-xl">${place.price}</div>
+                <div class="card-modern overflow-hidden fade-in p-0 shadow-lg" onclick="openPlaceDetails('${place.name}')">
+                    <div class="h-72 bg-emerald-100 overflow-hidden relative">
+                        <img src="${place.img}" class="w-full h-full object-cover group-hover:scale-110 transition duration-[2000ms]" onerror="this.src='https://placehold.co/600x400?text=Camp+Spot'">
+                        <div class="absolute top-6 left-6 px-4 py-2 bg-white/20 backdrop-blur-md rounded-full border border-white/30 text-white font-black text-[9px] uppercase tracking-widest italic">${place.price}</div>
                     </div>
                     <div class="p-10">
-                        <h3 class="font-black text-2xl tracking-tighter text-white leading-none italic uppercase mb-4">${place.name}</h3>
-                        <div class="flex items-center gap-2 text-[11px] font-black text-slate-500 uppercase tracking-widest mb-6">
-                            <i class="fa-solid fa-location-dot text-emerald-500"></i> ${place.loc}
+                        <h3 class="font-black text-2xl tracking-tighter text-emerald-950 leading-none italic uppercase mb-4">${place.name}</h3>
+                        <div class="flex items-center gap-2 text-[11px] font-black text-emerald-400 uppercase tracking-widest mb-6">
+                            <i class="fa-solid fa-location-dot text-amber-500"></i> ${place.loc}
                         </div>
-                        <p class="text-slate-400 text-sm leading-relaxed line-clamp-2 font-medium">${place.desc}</p>
-                        <div class="mt-10 flex justify-end">
-                            <button class="px-8 py-3 rounded-full bg-white/5 text-white font-black text-[9px] uppercase tracking-widest hover:bg-emerald-500 transition shadow-xl">Explore Spot</button>
-                        </div>
+                        <p class="text-gray-500 text-sm leading-relaxed line-clamp-2 font-medium">${place.desc}</p>
                     </div>
                 </div>`).join('');
         }
@@ -552,16 +551,16 @@
         function renderBlogs() {
             const grid = document.getElementById('blogsGrid');
             grid.innerHTML = state.blogs.map(blog => `
-                <div class="flex flex-col lg:flex-row gap-10 items-center fade-in bg-white/5 backdrop-blur-md p-10 rounded-[50px] border border-white/5 card-modern group p-0" onclick="openBlogDetails('${blog.title}')">
-                    <div class="w-full lg:w-2/5 h-72 rounded-[40px] overflow-hidden shadow-2xl flex-shrink-0"><img src="${blog.img}" class="w-full h-full object-cover group-hover:scale-110 transition duration-1000 opacity-80 group-hover:opacity-100" onerror="this.src='https://placehold.co/400x300?text=Blog+Image'"></div>
+                <div class="flex flex-col lg:flex-row gap-10 items-center fade-in bg-white/80 backdrop-blur-md p-10 rounded-[50px] border border-white card-modern group p-0" onclick="openBlogDetails('${blog.title}')">
+                    <div class="w-full lg:w-2/5 h-72 rounded-[40px] overflow-hidden shadow-2xl flex-shrink-0"><img src="${blog.img}" class="w-full h-full object-cover group-hover:scale-110 transition duration-1000" onerror="this.src='https://placehold.co/400x300?text=Blog+Image'"></div>
                     <div class="w-full lg:w-3/5 p-4 lg:p-0">
                         <div class="flex items-center gap-4 mb-6">
-                            <span class="text-[11px] font-black text-emerald-500 uppercase tracking-[0.5em] italic">${blog.date}</span>
-                            <div class="h-1.5 w-12 bg-white/5 rounded-full"></div>
+                            <span class="text-[11px] font-black text-amber-500 uppercase tracking-[0.5em] italic">${blog.date}</span>
+                            <div class="h-1.5 w-12 bg-emerald-50 rounded-full"></div>
                         </div>
-                        <h3 class="text-3xl font-black mb-6 tracking-tighter text-white leading-tight uppercase italic">${blog.title}</h3>
-                        <p class="text-slate-400 text-base leading-relaxed mb-10 line-clamp-3 font-medium">${blog.content}</p>
-                        <button class="text-[11px] font-black uppercase tracking-widest text-white flex items-center gap-4 group">Full Story <i class="fa-solid fa-arrow-right-long text-lg group-hover:translate-x-3 transition-transform text-emerald-500"></i></button>
+                        <h3 class="text-3xl font-black mb-6 tracking-tighter text-emerald-950 leading-tight uppercase italic">${blog.title}</h3>
+                        <p class="text-gray-500 text-base leading-relaxed mb-10 line-clamp-3 font-medium">${blog.content}</p>
+                        <button class="text-[11px] font-black uppercase tracking-widest text-emerald-900 flex items-center gap-4 group">Full Story <i class="fa-solid fa-arrow-right-long text-lg group-hover:translate-x-3 transition-transform text-amber-500"></i></button>
                     </div>
                 </div>`).join('');
         }
@@ -579,7 +578,7 @@
             statusBadge.innerText = p.status;
             statusBadge.className = `text-[10px] font-black uppercase px-5 py-2.5 rounded-full shadow-sm ${p.status.toLowerCase().includes('pre') ? 'status-pre-order' : 'status-in-stock'}`;
             document.getElementById('detailsAddBtn').onclick = () => { addToCart(p.id); closeDetails(); };
-            document.getElementById('detailsWaBtn').href = `https://wa.me/8562054849393?text=${encodeURIComponent("Sabaidee TheSale3! I am interested in: " + p.name + " (" + p.price.toLocaleString() + " LAK)")}`;
+            document.getElementById('detailsWaBtn').href = `https://wa.me/8562054849393?text=${encodeURIComponent("Sabaidee! I am interested in: " + p.name)}`;
             document.getElementById('detailsModal').style.display = 'flex';
             document.body.style.overflow = 'hidden';
         }
@@ -594,7 +593,7 @@
             document.getElementById('placeDetailsLoc').innerText = place.loc;
             document.getElementById('placeDetailsPrice').innerText = place.price;
             document.getElementById('placeDetailsDesc').innerText = place.desc;
-            document.getElementById('placeDetailsWaBtn').href = `https://wa.me/8562054849393?text=${encodeURIComponent("Sabaidee! I'm interested in camping at " + place.name + ". Is it available?")}`;
+            document.getElementById('placeDetailsWaBtn').href = `https://wa.me/8562054849393?text=${encodeURIComponent("Sabaidee! I'm interested in camping at " + place.name)}`;
             document.getElementById('placeModal').style.display = 'flex';
             document.body.style.overflow = 'hidden';
         }
@@ -635,23 +634,23 @@
             const container = document.getElementById('cartItems');
             const totalEl = document.getElementById('cartTotal');
             if(state.cart.length === 0) {
-                container.innerHTML = '<div class="text-center py-40 flex flex-col items-center"><i class="fa-solid fa-mountain-sun text-6xl text-slate-800 mb-6"></i><span class="text-[11px] font-black text-slate-700 uppercase tracking-[0.4em]">Adventure bag is empty</span></div>';
+                container.innerHTML = '<div class="text-center py-40 flex flex-col items-center"><i class="fa-solid fa-mountain-sun text-6xl text-emerald-100 mb-6"></i><span class="text-[11px] font-black text-emerald-200 uppercase tracking-[0.4em]">Adventure bag is empty</span></div>';
                 totalEl.innerText = '0 LAK';
             } else {
                 let total = 0;
                 container.innerHTML = state.cart.map(item => {
                     total += item.price * item.qty;
                     return `
-                    <div class="flex gap-6 items-center bg-white/5 p-6 rounded-[35px] shadow-xl border border-white/5">
-                        <img src="${item.img}" class="w-24 h-24 object-cover rounded-[25px] shadow-md" onerror="this.src='https://placehold.co/100x100?text=X'">
+                    <div class="flex gap-6 items-center bg-white p-6 rounded-[35px] shadow-sm border border-emerald-50 text-emerald-950">
+                        <img src="${item.img}" class="w-20 h-20 object-cover rounded-[20px] shadow-md" onerror="this.src='https://placehold.co/100x100?text=X'">
                         <div class="flex-grow">
-                            <h4 class="font-black text-base uppercase italic tracking-tighter text-white leading-tight mb-2">${item.name}</h4>
-                            <p class="text-emerald-400 font-black text-sm italic">${item.price.toLocaleString('en-US')} LAK</p>
+                            <h4 class="font-black text-sm uppercase tracking-tighter leading-tight mb-2">${item.name}</h4>
+                            <p class="text-emerald-700 font-black text-xs italic">${item.price.toLocaleString('en-US')} LAK</p>
                         </div>
-                        <div class="flex flex-col items-center gap-3 bg-white/10 p-3 rounded-[20px]">
-                            <button onclick="changeQty('${item.id}', 1)" class="w-8 h-8 flex items-center justify-center text-white hover:text-emerald-400 transition"><i class="fa-solid fa-plus text-xs"></i></button>
-                            <span class="text-sm font-black text-white">${item.qty}</span>
-                            <button onclick="changeQty('${item.id}', -1)" class="w-8 h-8 flex items-center justify-center text-white hover:text-red-500 transition"><i class="fa-solid fa-minus text-xs"></i></button>
+                        <div class="flex flex-col items-center gap-2 bg-emerald-50/50 p-2 rounded-2xl">
+                            <button onclick="changeQty('${item.id}', 1)" class="w-8 h-8 flex items-center justify-center text-emerald-900 hover:text-amber-500 transition"><i class="fa-solid fa-plus text-xs"></i></button>
+                            <span class="text-base font-black text-emerald-950">${item.qty}</span>
+                            <button onclick="changeQty('${item.id}', -1)" class="w-8 h-8 flex items-center justify-center text-emerald-900 hover:text-red-500 transition"><i class="fa-solid fa-minus text-xs"></i></button>
                         </div>
                     </div>`;
                 }).join('');
@@ -672,17 +671,35 @@
 
         function checkoutWhatsApp() {
             if(state.cart.length === 0) return;
-            let msg = "Sabaidee TheSale3! I'm planning an adventure. Order list:\n\n";
+            let msg = "Sabaidee TheSale3! My adventure list:\n\n";
             state.cart.forEach((i, idx) => msg += `${idx+1}. ${i.name} [x${i.qty}]\n`);
             const total = state.cart.reduce((s, i) => s + (i.price * i.qty), 0);
-            msg += `\nTotal: ${total.toLocaleString('en-US')} LAK\n\nPlease confirm availability for me!`;
+            msg += `\nTotal: ${total.toLocaleString('en-US')} LAK\n\nPlease confirm availability!`;
             window.open(`https://wa.me/8562054849393?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
-        function adminLogin() {
-            const pass = prompt("Access Key Required:");
-            if(pass === "Mou54849393") window.open(ADMIN_SHEET_URL, '_blank');
-            else if(pass !== null) alert("Unauthorized Access Detected.");
+        // --- Admin Secret Logic ---
+        let adminClicks = 0;
+        let adminTimer;
+
+        function handleAdminClick() {
+            clearTimeout(adminTimer);
+            adminClicks++;
+            
+            if (adminClicks === 5) {
+                adminClicks = 0;
+                const pass = prompt("Access Key Required:");
+                if (pass === "Mou54849393") {
+                    window.open(ADMIN_SHEET_URL, '_blank');
+                } else if (pass !== null) {
+                    alert("Unauthorized Access Detected.");
+                }
+            }
+            
+            // Reset clicks if user pauses for more than 2 seconds
+            adminTimer = setTimeout(() => {
+                adminClicks = 0;
+            }, 2000);
         }
 
         window.onload = () => { updateCartCount(); switchPage('home'); };
