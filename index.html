@@ -1,45 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="lo">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
     <title>TheSale3 Camping Store | Premium Outdoor Gear Laos</title>
-    <meta name="description" content="Premium outdoor equipment for the Lao adventurer. Shop portable stoves, tents, coffee gear, and furniture. Quality tested for Laos terrain. Contact +8562054849393.">
     
-    <!-- Open Graph Tags -->
-    <meta property="og:title" content="TheSale3 Camping Store | Cloud Powered">
-    <meta property="og:description" content="Premium outdoor equipment for the Lao adventurer. Click to browse our catalog.">
-    <meta property="og:image" content="https://i.postimg.cc/FKL5Q4JW/489751506-1424454392283349-8154752889413656228-n.jpg">
-
+    <!-- Scripts & Icons -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
         
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #fcfcfc; color: #111827; }
-        .hero-banner { background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.4)), url('https://i.postimg.cc/FKL5Q4JW/489751506-1424454392283349-8154752889413656228-n.jpg'); background-size: cover; background-position: center; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #fcfcfc; color: #111827; scroll-behavior: smooth; }
+        
         .nav-blur { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
-        .product-card { background: #ffffff; border: 1px solid #f3f4f6; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); border-radius: 24px; }
-        .product-card:hover { transform: translateY(-6px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); }
+        .hero-banner { background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.4)), url('https://i.postimg.cc/FKL5Q4JW/489751506-1424454392283349-8154752889413656228-n.jpg'); background-size: cover; background-position: center; }
+        
+        .card-modern { background: #ffffff; border: 1px solid #f3f4f6; border-radius: 24px; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); height: 100%; display: flex; flex-direction: column; cursor: pointer; }
+        .card-modern:hover { transform: translateY(-5px); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05); }
+        
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .active-link { color: #059669; border-bottom: 2px solid #059669; }
+
+        .modal-overlay { background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); display: none; position: fixed; inset: 0; z-index: 100; align-items: center; justify-content: center; }
+        
+        @keyframes slideIn { from { transform: translateX(100%); } to { transform: translateX(0); } }
+        .cart-slide { animation: slideIn 0.3s ease-out; }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { animation: fadeIn 0.4s ease forwards; }
+
+        /* Status Colors */
+        .status-in-stock { background: #dcfce7; color: #166534; }
+        .status-pre-order { background: #fef3c7; color: #92400e; }
+
         .category-pill { transition: all 0.3s ease; white-space: nowrap; }
         .category-pill.active { background-color: #059669; color: white; border-color: #059669; }
-        .modal-overlay { background: rgba(0,0,0,0.8); backdrop-filter: blur(8px); }
-        .whatsapp-btn { background: #25D366; transition: all 0.3s ease; }
-        .no-scrollbar::-webkit-scrollbar { display: none; }
-        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .fade-in { animation: fadeIn 0.5s ease forwards; }
-
-        .thumbnail-active { border: 2px solid #059669; }
-
-        .cart-badge {
-            animation: pop 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        @keyframes pop {
-            0% { transform: scale(0.5); }
-            100% { transform: scale(1); }
-        }
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
@@ -48,542 +45,393 @@
     <nav class="nav-blur sticky top-0 z-50 border-b border-gray-100">
         <div class="max-w-7xl mx-auto px-4 sm:px-6">
             <div class="flex justify-between items-center h-16 sm:h-20">
-                <div class="flex flex-col">
+                <div class="flex flex-col cursor-pointer" onclick="switchPage('home')">
                     <span class="font-black text-xl leading-none tracking-tight text-black uppercase">THESALE3</span>
                     <span class="text-[9px] font-bold text-emerald-600 tracking-[0.2em] uppercase">Camping Store</span>
                 </div>
-                <div class="flex items-center gap-6">
-                    <button onclick="openCart()" class="relative group p-2">
-                        <i class="fa-solid fa-cart-shopping text-2xl text-gray-800 group-hover:text-emerald-600 transition"></i>
-                        <span id="cartCount" class="cart-badge absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-black w-5 h-5 flex items-center justify-center rounded-full border-2 border-white hidden">0</span>
+
+                <div class="hidden md:flex items-center gap-8 font-bold text-[11px] uppercase tracking-widest">
+                    <button onclick="switchPage('products')" class="nav-btn py-2 hover:text-emerald-600 transition" id="btn-products">Products</button>
+                    <button onclick="switchPage('places')" class="nav-btn py-2 hover:text-emerald-600 transition" id="btn-places">Camping Places</button>
+                    <button onclick="switchPage('blogs')" class="nav-btn py-2 hover:text-emerald-600 transition" id="btn-blogs">Blogs</button>
+                </div>
+
+                <div class="flex items-center gap-4 sm:gap-6">
+                    <button onclick="openCart()" class="relative p-2">
+                        <i class="fa-solid fa-cart-shopping text-xl text-gray-800"></i>
+                        <span id="cartCount" class="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-black w-5 h-5 flex items-center justify-center rounded-full border-2 border-white hidden">0</span>
                     </button>
-                    <a href="https://wa.me/8562054849393" target="_blank" class="flex items-center gap-2 group">
-                        <i class="fa-brands fa-whatsapp text-2xl text-emerald-500 group-hover:scale-110 transition"></i>
-                        <span class="hidden sm:block text-[11px] font-bold uppercase tracking-widest text-gray-900">Contact</span>
-                    </a>
+                    <a href="https://wa.me/8562054849393" target="_blank" class="bg-emerald-600 text-white px-4 py-2 rounded-full text-[10px] font-black uppercase tracking-widest hidden sm:block">WhatsApp</a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <header class="hero-banner h-[300px] sm:h-[400px] flex items-center justify-center text-center px-4">
-        <div class="max-w-3xl">
-            <h1 class="text-4xl sm:text-6xl font-black text-white mb-4 tracking-tighter drop-shadow-2xl">TheSale3 Store</h1>
-            <p class="text-gray-200 text-sm sm:text-lg mb-8 font-medium drop-shadow-md max-w-lg mx-auto uppercase tracking-widest">Premium Camping Gear Laos</p>
-            <a href="#catalog" class="bg-emerald-600 text-white px-8 py-3.5 rounded-full font-bold text-[10px] uppercase tracking-[0.2em] hover:bg-emerald-700 transition shadow-2xl inline-block">Browse Collection</a>
-        </div>
-    </header>
+    <!-- Page Content Container -->
+    <div id="pages-container">
 
-    <!-- Catalog -->
-    <main id="catalog" class="max-w-7xl mx-auto px-4 sm:px-6 py-10 flex-grow w-full">
-        <div class="flex flex-col lg:flex-row justify-between items-center mb-10 gap-6">
-            <div id="categoryContainer" class="flex gap-2 overflow-x-auto no-scrollbar w-full lg:w-auto pb-4">
-                <button onclick="filterBy('all', this)" class="category-pill active bg-emerald-600 text-white px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest border border-transparent">All / ທັງໝົດ</button>
-                <button onclick="filterBy('tents', this)" class="category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600">Tents / ເຕັ້ນ</button>
-                <button onclick="filterBy('cooking', this)" class="category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600">Cooking / ເຄື່ອງຄົວ</button>
-                <button onclick="filterBy('coffee', this)" class="category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600">Coffee / ກາເຟ</button>
-                <button onclick="filterBy('lighting', this)" class="category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600">Lighting / ໄຟ</button>
-                <button onclick="filterBy('sleeping_gear', this)" class="category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600">Sleeping / ເຄື່ອງນອນ</button>
-                <button onclick="filterBy('furniture', this)" class="category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600">Furniture / ເຟີນີເຈີ</button>
-                <button onclick="filterBy('backpack', this)" class="category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600">Backpack / ກະເປົ໋າ</button>
-                <button onclick="filterBy('trekking_poles', this)" class="category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600">Poles / ໄມ້ເທົ້າ</button>
-                <button onclick="filterBy('shoes', this)" class="category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600">Shoes / ເກີບ</button>
-                <button onclick="filterBy('cloth', this)" class="category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600">Cloth / ເຄື່ອງນຸ່ງ</button>
-                <button onclick="filterBy('Glasses', this)" class="category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600">Glasses / ແວ່ນຕາ</button>
-                <button onclick="filterBy('powerbank', this)" class="category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600">Powerbank / ແບັດສຳຮອງ</button>
-                <button onclick="filterBy('survival', this)" class="category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600">Survival / ເອົາຕົວລອດ</button>
-            </div>
-            
-            <div class="relative w-full lg:w-72">
-                <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm"></i>
-                <input type="text" id="searchInput" oninput="searchItems()" placeholder="Search / ຄົ້ນຫາ..." class="w-full pl-12 pr-4 py-3 rounded-2xl border-none ring-1 ring-gray-200 focus:ring-2 focus:ring-emerald-500 shadow-sm transition">
-            </div>
-        </div>
-
-        <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"></div>
-    </main>
-
-    <!-- Product Details Modal -->
-    <div id="modal" style="display: none;" class="fixed inset-0 z-[100] modal-overlay items-center justify-center p-4" onclick="if(event.target === this) closeModals()">
-        <div class="bg-white rounded-[32px] max-w-5xl w-full overflow-hidden shadow-2xl relative flex flex-col md:flex-row max-h-[90vh]">
-            <button onclick="closeModals()" class="absolute top-4 right-4 text-gray-400 hover:text-black z-20 bg-white/80 w-10 h-10 rounded-full flex items-center justify-center shadow-sm"><i class="fa-solid fa-xmark"></i></button>
-            
-            <div class="md:w-1/2 bg-gray-50 flex flex-col h-full overflow-hidden border-r">
-                <div class="flex-grow flex items-center justify-center bg-gray-100 overflow-hidden min-h-[300px]">
-                    <img id="modalImage" src="" alt="" class="w-full h-full object-contain">
+        <!-- Home Section -->
+        <section id="page-home" class="page-section">
+            <header class="hero-banner h-[500px] flex items-center justify-center text-center px-4">
+                <div class="max-w-2xl fade-in">
+                    <h1 class="text-5xl sm:text-7xl font-black text-white mb-6 tracking-tighter drop-shadow-2xl italic">Adventure Awaits</h1>
+                    <p class="text-gray-100 text-xs sm:text-sm font-medium uppercase tracking-[0.4em] mb-10 drop-shadow-lg">Premium Outdoor Equipment & Adventure Guide Laos</p>
+                    <div class="flex flex-wrap gap-4 justify-center">
+                        <button onclick="switchPage('products')" class="bg-emerald-600 text-white px-10 py-4 rounded-full font-bold text-[11px] uppercase tracking-widest hover:bg-emerald-700 transition shadow-2xl">Shop Catalog</button>
+                        <button onclick="switchPage('places')" class="bg-white/10 backdrop-blur-md border border-white/30 text-white px-10 py-4 rounded-full font-bold text-[11px] uppercase tracking-widest hover:bg-white hover:text-black transition">Explore Spots</button>
+                    </div>
                 </div>
-                <div id="modalThumbnails" class="p-4 flex gap-3 overflow-x-auto no-scrollbar bg-white"></div>
-            </div>
+            </header>
+        </section>
 
-            <div class="p-8 md:p-12 md:w-1/2 flex flex-col overflow-y-auto">
-                <span id="modalCategory" class="text-emerald-700 text-[10px] font-bold uppercase tracking-[0.3em] mb-4"></span>
-                <div class="flex justify-between items-start mb-4">
-                    <h2 id="modalTitle" class="text-3xl font-black text-gray-900 tracking-tighter"></h2>
-                    <button id="adminDeleteBtn" class="text-red-500 hover:text-red-700 hidden" title="Delete Product"><i class="fa-solid fa-trash"></i></button>
+        <!-- Products Section -->
+        <section id="page-products" class="page-section hidden py-12 px-4 max-w-7xl mx-auto w-full">
+            <div class="flex flex-col lg:flex-row justify-between items-center mb-10 gap-6">
+                <div>
+                    <h2 class="text-3xl font-black uppercase italic tracking-tight leading-none mb-1">Gear Catalog</h2>
+                    <p class="text-gray-400 text-[10px] font-bold uppercase tracking-widest">Quality tested for Laos terrain</p>
                 </div>
-                <p id="modalPrice" class="text-2xl font-bold text-emerald-600 mb-6 italic"></p>
-                <div class="h-1 w-12 bg-emerald-600 mb-6"></div>
-                <p id="modalDescription" class="text-gray-500 text-sm leading-relaxed mb-8 flex-grow whitespace-pre-line"></p>
-                
-                <div class="flex gap-4">
-                    <button id="addToCartBtn" class="bg-black text-white px-8 py-4 rounded-2xl font-black flex-grow flex items-center justify-center gap-3 shadow-lg uppercase tracking-widest text-xs hover:bg-gray-800 transition">
-                        <i class="fa-solid fa-cart-plus text-xl"></i> Add to Cart
-                    </button>
-                    <a id="whatsappBtn" href="#" target="_blank" class="whatsapp-btn text-white p-4 rounded-2xl font-black flex items-center justify-center shadow-lg transition">
-                        <i class="fa-brands fa-whatsapp text-2xl"></i>
-                    </a>
+                <div class="relative w-full md:w-80">
+                    <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                    <input type="text" id="searchInput" oninput="applyProductFilters()" placeholder="Search products / ຄົ້ນຫາ..." class="w-full pl-12 pr-4 py-3 rounded-2xl bg-white border border-gray-100 focus:ring-2 focus:ring-emerald-500 outline-none shadow-sm transition">
                 </div>
             </div>
-        </div>
+
+            <!-- Categories Filter Bar -->
+            <div id="categoryFilter" class="flex gap-2 overflow-x-auto no-scrollbar pb-6 mb-6">
+                <!-- JavaScript will fill these -->
+            </div>
+
+            <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Products load here -->
+            </div>
+        </section>
+
+        <!-- Places Section -->
+        <section id="page-places" class="page-section hidden py-12 px-4 max-w-7xl mx-auto w-full">
+            <h2 class="text-3xl font-black uppercase italic tracking-tight mb-10">Best Camping Spots</h2>
+            <div id="placesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Places load here -->
+            </div>
+        </section>
+
+        <!-- Blogs Section -->
+        <section id="page-blogs" class="page-section hidden py-12 px-4 max-w-7xl mx-auto w-full">
+            <h2 class="text-3xl font-black uppercase italic tracking-tight mb-10">Camping Blogs</h2>
+            <div id="blogsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                <!-- Blogs load here -->
+            </div>
+        </section>
+
     </div>
 
-    <!-- Admin Password Modal -->
-    <div id="passwordModal" style="display: none;" class="fixed inset-0 z-[130] modal-overlay items-center justify-center p-4" onclick="if(event.target === this) closePasswordModal()">
-        <div class="bg-white rounded-[24px] max-w-sm w-full p-8 shadow-2xl">
-            <h3 class="text-xl font-bold mb-4 uppercase tracking-tight">Admin Access</h3>
-            <p class="text-[10px] text-gray-400 uppercase tracking-widest mb-4">Please enter your management password</p>
-            <input type="password" id="adminPassInput" placeholder="Password" class="w-full p-3 rounded-xl bg-gray-50 border-none ring-1 ring-gray-100 focus:ring-2 focus:ring-emerald-500 mb-6 outline-none">
-            <div class="flex gap-3">
-                <button onclick="checkAdminPassword()" class="bg-emerald-600 text-white flex-grow py-3 rounded-xl font-bold uppercase tracking-widest text-[10px]">Login</button>
-                <button onclick="closePasswordModal()" class="bg-gray-100 px-6 py-3 rounded-xl font-bold uppercase tracking-widest text-[10px]">Cancel</button>
+    <!-- Details Modal -->
+    <div id="detailsModal" class="modal-overlay" onclick="if(event.target === this) closeDetails()">
+        <div class="bg-white rounded-[32px] max-w-4xl w-full mx-4 overflow-hidden shadow-2xl flex flex-col md:flex-row fade-in relative max-h-[90vh]">
+            <button onclick="closeDetails()" class="absolute top-4 right-4 bg-white/80 w-10 h-10 rounded-full flex items-center justify-center text-gray-500 hover:text-black z-10 shadow-sm"><i class="fa-solid fa-xmark"></i></button>
+            <div class="md:w-1/2 bg-gray-50 flex items-center justify-center p-8">
+                <img id="detailsImage" src="" class="max-w-full max-h-[400px] object-contain drop-shadow-xl" onerror="this.src='https://placehold.co/600x600?text=Gear+Photo'">
+            </div>
+            <div class="md:w-1/2 p-8 md:p-12 flex flex-col overflow-y-auto">
+                <span id="detailsCategory" class="text-[10px] font-black text-emerald-600 uppercase tracking-[0.3em] mb-4">Category</span>
+                <h2 id="detailsTitle" class="text-3xl font-black text-gray-900 tracking-tighter mb-4 leading-none">Product Name</h2>
+                <div class="flex items-center gap-4 mb-8">
+                    <p id="detailsPrice" class="text-2xl font-black text-emerald-600 italic">0 LAK</p>
+                    <span id="detailsStatus" class="text-[9px] font-black uppercase px-3 py-1.5 rounded-full shadow-sm">Status</span>
+                </div>
+                <div class="prose prose-sm text-gray-500 mb-10 leading-relaxed">
+                    <p id="detailsDesc" class="whitespace-pre-line text-sm">No description available.</p>
+                </div>
+                <div class="mt-auto pt-6 border-t border-gray-100 flex gap-4">
+                    <button id="detailsAddBtn" class="flex-grow bg-black text-white py-4 rounded-2xl font-black uppercase text-xs tracking-widest hover:bg-gray-800 transition shadow-lg">Add to Bag</button>
+                    <a id="detailsWaBtn" href="#" target="_blank" class="w-14 h-14 bg-[#25D366] text-white rounded-2xl flex items-center justify-center text-2xl hover:brightness-105 transition shadow-lg"><i class="fa-brands fa-whatsapp"></i></a>
+                </div>
             </div>
         </div>
     </div>
 
     <!-- Cart Modal -->
-    <div id="cartModal" style="display: none;" class="fixed inset-0 z-[110] modal-overlay items-center justify-end" onclick="if(event.target === this) closeCart()">
-        <div class="bg-white h-full max-w-lg w-full shadow-2xl flex flex-col fade-in">
-            <div class="p-8 border-b flex justify-between items-center">
-                <h2 class="text-2xl font-black uppercase tracking-tight text-emerald-800">Shopping Cart / ກະຕ່າ</h2>
-                <button onclick="closeCart()" class="text-gray-400 hover:text-black"><i class="fa-solid fa-xmark text-2xl"></i></button>
+    <div id="cartModal" class="modal-overlay" onclick="if(event.target === this) closeCart()">
+        <div class="bg-white h-full max-w-md w-full shadow-2xl ml-auto flex flex-col p-8 cart-slide">
+            <div class="flex justify-between items-center mb-8 border-b pb-4">
+                <div class="flex flex-col">
+                    <h3 class="text-xl font-black uppercase tracking-tight text-emerald-800 leading-none">Your Bag</h3>
+                    <span class="text-[9px] font-bold text-gray-400 uppercase tracking-widest mt-1">Review your items</span>
+                </div>
+                <button onclick="closeCart()" class="text-gray-300 hover:text-black text-2xl transition"><i class="fa-solid fa-xmark"></i></button>
             </div>
-            
-            <div id="cartItems" class="flex-grow overflow-y-auto p-8 space-y-6">
-                <div class="text-center py-20 text-gray-400">Your cart is empty / ບໍ່ມີສິນຄ້າໃນກະຕ່າ</div>
-            </div>
-
-            <div class="p-8 border-t bg-gray-50">
-                <div class="flex justify-between items-center mb-6">
-                    <span class="font-bold text-gray-500 uppercase tracking-widest text-xs">Total Amount / ລວມທັງໝົດ</span>
+            <div id="cartItems" class="flex-grow overflow-y-auto space-y-4 pr-2 no-scrollbar"></div>
+            <div class="border-t pt-6 mt-6 bg-gray-50 p-6 rounded-3xl">
+                <div class="flex justify-between items-center mb-6 px-2">
+                    <span class="font-bold text-gray-400 uppercase text-[10px] tracking-widest">Grand Total</span>
                     <span id="cartTotal" class="text-2xl font-black text-emerald-600 italic">0 LAK</span>
                 </div>
-                <button onclick="sendOrderWhatsApp()" class="whatsapp-btn w-full text-white py-5 rounded-2xl font-black flex items-center justify-center gap-4 shadow-xl uppercase tracking-widest text-sm hover:brightness-110 transition">
-                    <i class="fa-brands fa-whatsapp text-2xl"></i> Order via WhatsApp / ສັ່ງຊື້ຜ່ານວອດແອບ
+                <button onclick="checkoutWhatsApp()" class="w-full bg-[#25D366] text-white py-5 rounded-2xl font-black uppercase text-[11px] tracking-[0.2em] flex items-center justify-center gap-3 hover:brightness-105 transition shadow-lg">
+                    <i class="fa-brands fa-whatsapp text-xl"></i> Order via WhatsApp
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- Admin Panel Modal -->
-    <div id="adminModal" style="display: none;" class="fixed inset-0 z-[120] modal-overlay items-center justify-center p-4" onclick="if(event.target === this) toggleAdminModal()">
-        <div class="bg-white rounded-[32px] max-w-2xl w-full p-8 shadow-2xl overflow-y-auto max-h-[90vh]">
-            <div class="flex justify-between items-center mb-8">
-                <h2 class="text-2xl font-black uppercase tracking-tight">Add New Gear / ເພີ່ມສິນຄ້າໃໝ່</h2>
-                <button onclick="toggleAdminModal()" class="text-gray-400 hover:text-black"><i class="fa-solid fa-xmark text-2xl"></i></button>
-            </div>
-            <form id="adminForm" class="space-y-4">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Product Name / ຊື່ສິນຄ້າ</label>
-                        <input type="text" name="name" required class="w-full p-3 rounded-xl bg-gray-50 border-none ring-1 ring-gray-100 focus:ring-2 focus:ring-emerald-500 outline-none">
-                    </div>
-                    <div>
-                        <label class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Price / ລາຄາ (LAK)</label>
-                        <input type="number" name="price" required class="w-full p-3 rounded-xl bg-gray-50 border-none ring-1 ring-gray-100 focus:ring-2 focus:ring-emerald-500 outline-none">
-                    </div>
-                </div>
-                <div>
-                    <label class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Category / ໝວດໝູ່</label>
-                    <select name="category" class="w-full p-3 rounded-xl bg-gray-50 border-none ring-1 ring-gray-100 focus:ring-2 focus:ring-emerald-500 outline-none">
-                        <option value="tents">Tents / ເຕັ້ນ</option>
-                        <option value="cooking">Cooking / ເຄື່ອງຄົວ</option>
-                        <option value="coffee">Coffee / ກາເຟ</option>
-                        <option value="lighting">Lighting / ໄຟ</option>
-                        <option value="sleeping_gear">Sleeping / ເຄື່ອງນອນ</option>
-                        <option value="furniture">Furniture / ເຟີນີເຈີ</option>
-                        <option value="backpack">Backpack / ກະເປົ໋າ</option>
-                        <option value="trekking_poles">Poles / ໄມ້ເທົ້າ</option>
-                        <option value="shoes">Shoes / ເກີບ</option>
-                        <option value="cloth">Cloth / ເຄື່ອງນຸ່ງ</option>
-                        <option value="Glasses">Glasses / ແວ່ນຕາ</option>
-                        <option value="powerbank">Powerbank / ແບັດສຳຮອງ</option>
-                        <option value="survival">Survival / ເອົາຕົວລອດ</option>
-                    </select>
-                </div>
-                <div>
-                    <label class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Main Image URL / ລິ້ງຮູບຫຼັກ</label>
-                    <input type="url" name="image" required class="w-full p-3 rounded-xl bg-gray-50 border-none ring-1 ring-gray-100 focus:ring-2 focus:ring-emerald-500 outline-none" placeholder="https://i.postimg.cc/...">
-                </div>
-                <div>
-                    <label class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Extra Images (Optional) / ຮູບເພີ່ມເຕີມ (ຂັ້ນດ້ວຍຈຸດ , )</label>
-                    <textarea name="images" class="w-full p-3 rounded-xl bg-gray-50 border-none ring-1 ring-gray-100 focus:ring-2 focus:ring-emerald-500 outline-none" placeholder="URL1, URL2, URL3"></textarea>
-                </div>
-                <div>
-                    <label class="text-[10px] font-bold uppercase tracking-widest text-gray-400">Description / ລາຍລະອຽດ</label>
-                    <textarea name="description" required class="w-full p-3 h-32 rounded-xl bg-gray-50 border-none ring-1 ring-gray-100 focus:ring-2 focus:ring-emerald-500 outline-none"></textarea>
-                </div>
-                <button id="saveGearBtn" type="submit" class="w-full bg-emerald-600 text-white py-4 rounded-xl font-black uppercase tracking-widest text-sm shadow-xl hover:bg-emerald-700 transition">Save Gear / ບັນທຶກສິນຄ້າ</button>
-            </form>
+    <footer class="bg-white border-t py-16 px-4 text-center mt-auto">
+        <div class="flex justify-center gap-10 mb-10">
+            <a href="https://www.facebook.com/Clicktobuy333333333" target="_blank" class="text-gray-300 hover:text-blue-600 transition transform hover:scale-110"><i class="fa-brands fa-facebook-f text-2xl"></i></a>
+            <a href="https://www.tiktok.com/@thesale3camping" target="_blank" class="text-gray-300 hover:text-black transition transform hover:scale-110"><i class="fa-brands fa-tiktok text-2xl"></i></a>
         </div>
-    </div>
-
-    <footer class="bg-white border-t py-12 px-4 text-center mt-auto">
-        <div class="flex justify-center items-center gap-4 mb-6 relative">
-            <a href="https://www.facebook.com/Clicktobuy333333333" target="_blank" class="text-gray-300 hover:text-blue-600 transition"><i class="fa-brands fa-facebook-f text-xl"></i></a>
-            <a href="https://www.tiktok.com/@thesale3camping" target="_blank" class="text-gray-300 hover:text-black transition"><i class="fa-brands fa-tiktok text-xl"></i></a>
-        </div>
-        <div class="mb-4"><span class="font-bold uppercase tracking-[0.3em] text-[10px] text-gray-900">TheSale3 Camping Store</span></div>
-        <p class="text-[9px] text-gray-300 uppercase tracking-[0.2em] select-none mb-4">&copy; 2024 All Rights Reserved. Premium Gear Shop.</p>
-        <button onclick="promptAdmin()" class="text-[8px] text-gray-200 uppercase tracking-widest hover:text-emerald-500 transition">Admin / ຜູ້ດູແລ</button>
+        <button onclick="adminLogin()" class="text-[9px] text-gray-200 uppercase tracking-widest hover:text-emerald-500 transition py-2 px-4 border border-gray-50 rounded-full">Management Access</button>
     </footer>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, onSnapshot, addDoc, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-
-        const catMap = {
-            'all': 'All Gear / ສິນຄ້າທັງໝົດ',
-            'tents': 'Tents / ເຕັ້ນ',
-            'cooking': 'Cooking / ເຄື່ອງຄົວ',
-            'coffee': 'Coffee / ກາເຟ',
-            'lighting': 'Lighting / ໄຟສ່ອງສະຫວ່າງ',
-            'sleeping_gear': 'Sleeping / ເຄື່ອງນອນ',
-            'furniture': 'Furniture / ເຟີນີເຈີ',
-            'backpack': 'Backpack / ກະເປົ໋າ',
-            'trekking_poles': 'Poles / ໄມ້ເທົ້າ',
-            'shoes': 'Shoes / ເກີບ',
-            'cloth': 'Cloth / ເຄື່ອງນຸ່ງ',
-            'Glasses': 'Glasses / ແວ່ນຕາ',
-            'powerbank': 'Powerbank / ແບັດສຳຮອງ',
-            'survival': 'Survival / ເອົາຕົວລອດ'
-        };
-
-        const SYSTEM_PRODUCTS = [
-            // --- TENTS ---
-            { id: 'master-01', name: 'ເຕັ້ນ QUECHUA MH100 Fresh & Black (2 ຄົນ)', price: 1460000, category: 'tents', image: 'https://i.postimg.cc/qv0hwyZz/471874894-1103166361597493-1459129778683580847-n.jpg', description: 'ເຕັ້ນ QUECHUA MH100 Fresh & Black ສຳລັບ 2 ຄົນ.⛺ ເຕັ້ນ Fresh & Black: ນອນເຢັນ, ມືດ 99%, ກັນຝົນດີ, ກາງງ່າຍ (130x210x107cm), 3kg, ເກັບສະດວກ (58x16x16cm).Fresh & Black Tent: Cool & 99% Dark, Waterproof, Easy Setup (130x210x107cm), 3kg, Compact (58x16x16cm).' },
-            { id: 'master-02', name: 'ເຕັ້ນ QUECHUA MH100 (ສີເທົາ)', price: 1100000, category: 'tents', image: 'https://i.postimg.cc/YCzbNjFr/156657757-198686858712119-7425055041363166372-n.jpg', images: ['https://i.postimg.cc/YCzbNjFr/156657757-198686858712119-7425055041363166372-n.jpg', 'https://i.postimg.cc/nM8f7LYc/Screenshot-2026-01-14-at-18-55-51.png'], description: '⛺ ເຕັ້ນ MH100: ກາງງ່າຍ, ກັນຝົນ/ລົມດີ (130x210x107cm), ໜັກເບົາ 2.6kg, UPF 30, ເກັບສະດວກ (58x16x16cm).MH100 Tent: Easy Setup, Rain/Windproof (130x210x107cm), Lightweight 2.6kg, UPF 30, Compact (58x16x16cm).' },
-            { id: 'master-03', name: 'ເຕັ້ນກາງອັດຕະໂນມັດ Premium (3-4 ທ່ານ)', price: 885000, category: 'tents', image: 'https://i.postimg.cc/6pCRNRQF/124951381-118420500072089-6079077613874319164-n.jpg', description: 'Automatic pop-up mechanism.' },
-            { id: 'master-04', name: 'ເຕັ້ນກາງອັດຕະໂນມັດ (Pop-up)', price: 890000, category: 'tents', image: 'https://i.postimg.cc/7LQ62Yt4/481250252-1394483935280395-2343742065073889579-n.jpg', description: 'Automatic Pop-up Tent.' },
-            { id: 'master-05', name: 'ເຕັ້ນສະປິງກາງອັດຕະໂນມັດ', price: 650000, category: 'tents', image: 'https://i.postimg.cc/NGWkqQ4R/127859284-131667258747413-3464652703126584755-n.jpg', description: 'Standard Automatic Spring Tent.' },
-            { id: 'master-06', name: 'ຜ້າກັ້ງກັນຝົນ Flysheet (3x3 ແມັດ)', price: 380000, category: 'tents', image: 'https://i.postimg.cc/4dqkTKK7/489751506-1424454392283349-8154752889413656228-n.jpg', description: 'Flysheet 3x3m with 2 poles.' },
-            { id: 'master-07', name: 'ຜ້າຢາງຮອງເຕັ້ນ (Groundsheet)', price: 200000, category: 'tents', image: 'https://i.postimg.cc/fTzmhkdX/471871594-1103166028264193-3080110264274826660-n.jpg', description: 'Groundsheet 2.1m x 2m.' },
-            { id: 'master-08', name: 'ສະໝໍບົກ (Tent Pegs 20cm)', price: 50000, category: 'tents', image: 'https://i.postimg.cc/B6PqPrzQ/472186338-1103166364930826-8197764758286830200-n.jpg', description: 'Heavy duty 20cm tent pegs.' },
-
-            // --- COOKING ---
-            { id: 'master-09', name: 'ເຕົາແກັດພົກພາ AOTU', price: 285000, category: 'cooking', image: 'https://i.postimg.cc/HLsDXqV6/470820202-1095258122388317-6701559630283280350-n.jpg', description: 'AOTU portable gas stove.' },
-            { id: 'master-10', name: 'ການ້ຳ (Outdoor Kettle 800ml)', price: 240000, category: 'cooking', image: 'https://i.postimg.cc/SxcCCPwR/124985548-118420480072091-5504697490990489685-n.jpg', description: '800ml aluminum kettle.' },
-            { id: 'master-11', name: 'ເຫຼັກຢຶດຂາຕັ້ງສາມຂາ', price: 160000, category: 'cooking', image: 'https://i.postimg.cc/XqZyJ1fj/470195754-1095096232404506-5723296061682898594-n.jpg', description: 'Tripod bracket.' },
-            { id: 'master-12', name: 'ຊຸດໝໍ້ສຳລັບ 3 ຫາ 4 ຄົນ (DS-308)', price: 430000, category: 'cooking', image: 'https://i.postimg.cc/bw8m2q4T/150739603-186271443286994-1875422230249930637-n.jpg', description: 'DS-308 Cooking Set.' },
-            { id: 'master-12small', name: 'ຊຸດໝໍ້ສຳລັບ 1 ຫາ 2 ຄົນ (SY200)', price: 265000, category: 'cooking', image: 'https://i.postimg.cc/sgMq0fcf/Screenshot-2026-03-25-at-18-58-10.png', description: 'SY200 Cooking Set.' },
-            { id: 'master-13', name: 'ເຕົາແກັດນ້ອຍມີສາຍ', price: 200000, category: 'cooking', image: 'https://i.postimg.cc/kgvtYbwk/476775570-1132392825341513-296684994834635171-n.jpg', description: 'Hose stove.' },
-            { id: 'master-14', name: 'ເຕົາແກັດນ້ອຍມີອັນບັງລົມ', price: 180000, category: 'cooking', image: 'https://i.postimg.cc/mrd1BWvN/470235034-1091427629438033-3849741322793284301-n-(2).jpg', description: 'Windproof Stove.' },
-            { id: 'master-14.1', name: 'ເຕົາແກັດນ້ອຍມີອັນບັງລົມມີສາຍແກັດ', price: 225000, category: 'cooking', image: 'https://i.postimg.cc/g2Hh5pdV/Screenshot-2026-03-19-at-22-54-51.png', description: 'Advanced portable stove.' },
-            { id: 'master-15', name: 'ເຕົາແກັດ (Picnic Stove K-202)', price: 165000, category: 'cooking', image: 'https://i.postimg.cc/3RfYqSQJ/150468425-186271443286994-1875422230249930637-n.jpg', description: 'Small Picnic Stove.' },
-            { id: 'master-16', name: 'ໝໍ້ຂຽວທະຫານ', price: 300000, category: 'cooking', image: 'https://i.postimg.cc/63x4bQwN/470161529-1091427636104699-6870152323458159947-n-(1).jpg', description: 'Military Pot 1.8L.' },
-            { id: 'master-16.fork', name: 'ຊຸດບ່ວງ-ສ້ອມ 4-in-1 Selpa', price: 115000, category: 'cooking', image: 'https://i.postimg.cc/nh58jy7Q/Screenshot_2026_03_22_at_13_19_56.png', description: 'Multi-tool set.' },
-            { id: 'master-22Bucket', name: 'ຄຸພັບໄດ້ອະເນກປະສົງ (Collapsible Bucket)', price: 175000, category: 'gear', image: 'https://i.postimg.cc/PrrpSfVF/Screenshot-2026-04-02-at-22-56-31.png', description: 'ຄຸພັບໄດ້ຜ້າ PVC 500D ໜາ ຮັບນ້ຳໜັກໄດ້ 15KG. ພົກພາງ່າຍ, ກັນນ້ຳດີ. ເໝາະສຳລັບແຄ້ມປິ້ງ. | Durable 500D PVC Collapsible Bucket, 15KG capacity. Portable and waterproof, perfect for camping gear.' },
-
-            // --- SURVIVAL ---
-            { id: 'master-16.Survival Kit', name: 'Survival Kit 18-in-1 Tactical Set', price: 475000, category: 'survival', image: 'https://i.postimg.cc/HnKKc5cP/Screenshot-2026-03-22-at-14-09-46.png', description: 'Emergency gear kit.' },
-
-            // --- COFFEE ---
-            { id: 'master-17', name: 'ຈອກ Cool Camp (4 ໃບ)', price: 260000, category: 'coffee', image: 'https://i.postimg.cc/L5yDLPPw/202323323-277134600867344-8457321312918561749-n.jpg', description: 'Stainless steel cups.' },
-            { id: 'master-18', name: 'Espresso Maker (300ml)', price: 210000, category: 'coffee', image: 'https://i.postimg.cc/zDbXHNr1/472106912-1101699191744210-325644103738198928-n-(1).jpg', description: 'Moka Pot.' },
-            { id: 'master-18Frother', name: 'ໄມ້ຕີຟອງນົມໄຟຟ້າ', price: 125000, category: 'coffee', image: 'https://i.postimg.cc/J7gzfLT2/Screenshot_2026_03_27_at_21_28_56.png', description: 'Electric frother.' },
-            { id: 'master-19', name: 'ເຄື່ອງບົດກາເຟ (Coffee Grinder)', price: 195000, category: 'coffee', image: 'https://i.postimg.cc/vZNN0NDm/138558955_160501135864025_1071256138491929297_n.jpg', description: 'Manual grinder.' },
-
-            // --- LIGHTING ---
-            { id: 'master-20', name: 'ຕະກຽງ LED HOMFUL', price: 320000, category: 'lighting', image: 'https://i.postimg.cc/YS7Vz1V8/470138708-1091427639438032-4054288834215141234-n.jpg', description: 'Rechargeable lantern.' },
-            { id: 'master-21', name: 'ເສົາຫ້ອຍໂຄມໄຟ', price: 250000, category: 'lighting', image: 'https://i.postimg.cc/Mp0CfPHz/470580274-1094729429107853-518082534720816909-n.jpg', description: 'Adjustable stand.' },
-            { id: 'master-22', name: 'ເຫຼັກຫ້ອຍດອກໄຟ', price: 70000, category: 'lighting', image: 'https://i.postimg.cc/FKyCB7cG/471590824-1101698975077565-9125211727583692069-n.jpg', description: 'Lantern hook.' },
-            { id: 'master-22.1', name: 'ດອກໄຟນ້ອຍ (Small Lantern)', price: 200000, category: 'lighting', image: 'https://i.postimg.cc/nh0WJs5N/125376115_118420463405426_551614310193011105_n.jpg', description: 'USB small lantern.' },
-
-            // --- SLEEPING ---
-            { id: 'master-23', name: 'ເຊື່ອນອນ Naturehike Air', price: 600000, category: 'sleeping_gear', image: 'https://i.postimg.cc/C5cQ41XF/476403930-1129881948925934-1365118939146447544-n.jpg', description: 'Ultralight mat.' },
-            { id: 'master-24', name: 'ເຊື່ອນອນເປົ່າລົມອັດຕະໂນມັດ', price: 330000, category: 'sleeping_gear', image: 'https://i.postimg.cc/1RT3kQCz/Screenshot_2026_03_27_at_21_30_41.png', description: 'Self-inflatable.' },
-            { id: 'master-25', name: 'ຖົງນອນ MUZENT (5°C)', price: 420000, category: 'sleeping_gear', image: 'https://i.postimg.cc/SQH8nqJr/470732130-1095258142388315-6675372278210325168-n.jpg', description: 'Sleeping bag.' },
-            { id: 'master-26', name: 'ຖົງນອນ Naturehike Premium', price: 550000, category: 'sleeping_gear', image: 'https://i.postimg.cc/28xJzH5Y/483101086-1400042418057880-8967539400801900911-n-(1).jpg', description: 'Premium bag.' },
-            { id: 'master-27', name: 'ຖົງນອນ ແບບພົກພາ', price: 225000, category: 'sleeping_gear', image: 'https://i.postimg.cc/T2bjqp8S/125315138-118420533405419-8079952364573550993-n.jpg', description: 'Portable bag.' },
-            { id: 'master-28', name: 'ໝອນນອນເປົ່າລົມ', price: 50000, category: 'sleeping_gear', image: 'https://i.postimg.cc/kgj91M3M/138786732-160501152530690-3533211310814187676-n.jpg', description: 'Inflatable pillow.' },
-
-            // --- FURNITURE & OTHERS ---
-            { id: 'master-29', name: 'ໂຕະແຄ້ມປິ້ງ Table M', price: 390000, category: 'furniture', image: 'https://i.postimg.cc/MG8JHcSH/470180269-1091456466101816-3503156836293091321-n.jpg', description: 'Aluminum Table.' },
-            { id: 'master-30', name: 'ຕັ່ງແແຄ້ມປີ້ງ ShineTrip', price: 285000, category: 'furniture', image: 'https://i.postimg.cc/0jSsW7Gc/470209749-1091969312717198-8585518212376997562-n.jpg', description: 'Folding chair.' },
-            { id: 'master-31', name: 'ກະເປົ໋າເປ້ 65L Camel', price: 1350000, category: 'backpack', image: 'https://i.postimg.cc/8P7KVyMZ/471164242-1095570065690456-156288641806394470-n-(1).jpg', description: 'Hiking Backpack.' },
-            { id: 'master-32', name: 'ຜ້າກັນຝົນ Rain Cover', price: 70000, category: 'backpack', image: 'https://i.postimg.cc/ZKkc16FY/139180898-160501215864017-905798667929076806-n.jpg', description: 'Waterproof cover.' },
-            { id: 'master-33', name: 'ໄມ້ເທົ້າ Naturehike', price: 335000, category: 'trekking_poles', image: 'https://i.postimg.cc/8PgDFr4N/488790917-1423518039043651-721068063865014396-n-(1).jpg', description: 'Hiking Pole.' },
-            { id: 'master-34', name: 'ໄມ້ກັນເທົ້າ Standard', price: 140000, category: 'trekking_poles', image: 'https://i.postimg.cc/L65784Kh/189756927-258928419354629-5324966725450305500-n-(1).jpg', description: 'Adjustable pole.' },
-            { id: 'master-35', name: 'ກະເປົ໋າຫ້ອຍແອວ', price: 100000, category: 'backpack', image: 'https://i.postimg.cc/7PpfY6j0/476359221-1130686925512103-8223380318275171227-n.jpg', description: 'Waist Bag.' },
-
-            // --- SHOES ---
-            { id: 'shoe-01', name: 'ເກີບຍ່າງປ່າ DOLWIS', price: 285000, category: 'shoes', image: 'https://i.postimg.cc/sfBG9SLs/138610223-160501245864014-7027706613102300070-n.jpg', description: 'Water Hiking Shoes.' },
-            { id: 'shoe-02', name: 'ເກີບ Camel Outdoor', price: 480000, category: 'shoes', image: 'https://i.postimg.cc/x8dRtdWr/156504538-198686892045449-5804187784067538216-n.jpg', description: 'Genuine Camel shoes.' },
-            { id: 'shoe-03', name: 'ເກີບ Tactical OKIY', price: 430000, category: 'shoes', image: 'https://i.postimg.cc/9fMZ6kLR/138641699-160501209197351-6659600786465323988-n.jpg', description: 'High cut tactical boots.' },
-            { id: 'shoe-04', name: 'ເກີບລຸຍນ້ຳ Water Shoes', price: 245000, category: 'shoes', image: 'https://i.postimg.cc/mD8zH6C3/Screenshot-2026-03-19-at-23-11-13.jpg', description: 'Breathable water shoes.' },
-            { id: 'shoe-05', name: 'ເກີບແຕະຫຸ້ມຫົວ ໜັງແທ້', price: 295000, category: 'shoes', image: 'https://i.postimg.cc/7Z9Y3q1L/image-d2bf20.png', description: 'Brown Leather sandals.' },
-
-            // --- CLOTH ---
-            { id: 'cloth-01', name: 'ເສື້ອກັນໜາວ Jeep Spirit (Outdoor Jacket)', price: 360000, category: 'cloth', image: 'https://i.postimg.cc/Pf6VMy2k/Screenshot-2026-03-30-at-23-27-14.png', description: 'ເສື້ອ Outdoor Jeep Spirit ຂອງແທ້ 100% ກັນລົມ ແລະ ລະບາຍອາກາດດີ. ເໝາະສຳລັບກິດຈະກຳກາງແຈ້ງ ແລະ ແຄ້ມປິ້ງ. | 100% Original Jeep Spirit Outdoor Jacket. Windproof and breathable, perfect for outdoor adventures and camping.' },
-            { id: 'cloth-02', name: 'ໂສ້ງຍ່າງປ່າ Outdoor Jeep Spirit (Tactical Pants)', price: 695000, category: 'cloth', image: 'https://i.postimg.cc/SsL6vSWt/Screenshot-2026-03-30-at-23-42-25.png', description: ' ໂສ້ງຍ່າງປ່າ Outdoor Jeep Spirit ຂອງແທ້ 100% ເນື້ອຜ້າແຫ້ງໄວ ແລະ ທົນທານ. ມີຫຼາຍກະເປົາ ເໝາະສຳລັບຍ່າງປ່າ ແລະ ແຄ້ມປິ້ງ. | 100% Original Jeep Spirit Tactical Pants. Quick-dry and durable fabric with multi-pockets, perfect for hiking and camping.' },
-
-            // --- GLASSES ---
-            { id: 'glass-01', name: 'ແວ່ນຕາກັນແດດ Tactical', price: 215000, category: 'Glasses', image: 'https://i.postimg.cc/fK0h3q0s/489751506-1424454392283349-8154752889413656228-n.jpg', description: 'Polarized sunglasses.' },
-            { id: 'glass-02', name: 'ແວ່ນຕາກັນແດດ Polarized ຕັດແສງ', price: 215000, category: 'Glasses', image: 'https://i.postimg.cc/WzpgwYVF/Screenshot-2026-04-02-at-20-11-39.png', description: '🕶️ ແວ່ນ Tactical: ເລນ Polarized ຕັດແສງ, ກັນ UV400, ທົນທານ, ເໝາະສຳລັບຂັບຂີ່ ແລະ ກາງແຈ້ງ. / Polarized Tactical Sunglasses: UV400, Anti-glare, Durable, Perfect for Driving & Outdoors.' },
-            { id: 'glass-03', name: 'ແວ່ນກັນແດດ Sports SP473', price: 75000, category: 'Glasses', image: 'https://i.postimg.cc/zBC4gvDn/Screenshot-2026-04-02-at-20-24-34.png', description: '🕶️ ແວ່ນ Sports SP473: ເລນ Polarized ກັນ UV, ຕັດແສງ, ເໝາະສຳລັບຂັບຂີ່, ຕັ້ງແຄ້ມ ແລະ ກິລາ. / Sports Sunglasses SP473: Polarized UV Protection, Anti-glare, Ideal for Driving, Camping & Sports.' },
-            
-            // --- POWERBANK ---
-            { id: 'powerbank-01', name: 'Powerbank 20000mAh', price: 1750000, category: 'powerbank', image: 'https://i.postimg.cc/rmXbyyps/Screenshot-2026-04-02-at-00-52-06.png', description: '⚡ UGREEN 20,000mAh: ສາກໄວ PD 3.0, ມີ 3 ພອດ (USB-C x2, USB-A x1), ໜ້າຈໍ Digital, ພົກພາຂຶ້ນເຄື່ອງບິນໄດ້ ແລະ ຮັບປະກັນ 2 ປີ!UGREEN 20,000mAh Power Bank: PD 3.0 Super Fast Charge, 3 Ports, Digital Display, Airline Approved, and 2-Year Warranty.' }
-        ];
-
-        let products = [...SYSTEM_PRODUCTS];
-        let cart = [];
-        let currentCat = 'all';
-        let isAdmin = false;
-        let db, auth, productCol, appId;
-
-        window.promptAdmin = () => {
-            document.getElementById('passwordModal').style.display = 'flex';
-            document.getElementById('adminPassInput').focus();
-        };
-
-        window.closePasswordModal = () => {
-            document.getElementById('passwordModal').style.display = 'none';
-            document.getElementById('adminPassInput').value = '';
-        };
-
-        window.checkAdminPassword = () => {
-            const pass = document.getElementById('adminPassInput').value;
-            if (pass === "Mou54849393") { 
-                isAdmin = true; 
-                closePasswordModal();
-                toggleAdminModal(); 
-            } else { 
-                const input = document.getElementById('adminPassInput');
-                input.value = '';
-                input.placeholder = "Wrong password!";
-                input.classList.add('ring-red-500');
-                setTimeout(() => {
-                    input.placeholder = "Password";
-                    input.classList.remove('ring-red-500');
-                }, 2000);
-            }
-        };
-
-        window.toggleAdminModal = () => {
-            const m = document.getElementById('adminModal');
-            m.style.display = m.style.display === 'none' ? 'flex' : 'none';
-        };
-
-        window.openCart = () => { renderCart(); document.getElementById('cartModal').style.display = 'flex'; document.body.style.overflow = 'hidden'; };
-        window.closeCart = () => { document.getElementById('cartModal').style.display = 'none'; document.body.style.overflow = 'auto'; };
+    <script>
+        // --- 1. CONFIGURATION ---
+        const CSV_PRODUCTS = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQOkTfIWeWI0KnhUyZZo1NeYP7B2AJVOXxFyl_g0NrmnWkastWzil9YCOKnTAdPBp8AHyP88LVI2lg6/pub?gid=0&single=true&output=csv';
+        const CSV_PLACES = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQOkTfIWeWI0KnhUyZZo1NeYP7B2AJVOXxFyl_g0NrmnWkastWzil9YCOKnTAdPBp8AHyP88LVI2lg6/pub?gid=368688716&single=true&output=csv';
+        const CSV_BLOGS = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQOkTfIWeWI0KnhUyZZo1NeYP7B2AJVOXxFyl_g0NrmnWkastWzil9YCOKnTAdPBp8AHyP88LVI2lg6/pub?gid=187773397&single=true&output=csv';
         
-        window.addToCart = (productId) => {
-            const p = products.find(x => x.id === productId);
-            if (!p) return;
-            const existing = cart.find(i => i.id === productId);
-            if (existing) existing.quantity += 1;
-            else cart.push({ ...p, quantity: 1 });
-            updateCartUI();
+        const ADMIN_SHEET_URL = 'https://docs.google.com/spreadsheets/d/1qdr-stVezfFRMqug8kuqM8rftflQcnxx/edit';
+        const IMAGE_BASE_PATH = 'assets/products/';
+
+        let state = {
+            products: [],
+            places: [],
+            blogs: [],
+            cart: JSON.parse(localStorage.getItem('thesale3_cart') || '[]'),
+            currentCategory: 'All'
         };
 
-        window.updateCartQuantity = (id, delta) => {
-            const item = cart.find(i => i.id === id);
-            if (!item) return;
-            item.quantity += delta;
-            if (item.quantity <= 0) cart = cart.filter(i => i.id !== id);
-            updateCartUI(); renderCart();
-        };
+        const categories = ["All", "Tents", "Cooking", "Coffee", "Lighting", "Sleeping", "Furniture", "Backpack", "Shoes", "Cloth", "Glasses", "Powerbank", "Survival"];
 
-        function updateCartUI() {
-            const count = cart.reduce((s, i) => s + i.quantity, 0);
-            const b = document.getElementById('cartCount');
-            if (count > 0) { b.innerText = count; b.classList.remove('hidden'); }
-            else b.classList.add('hidden');
-            localStorage.setItem('thesale3_cart', JSON.stringify(cart));
+        // --- 2. NAVIGATION ---
+        function switchPage(pageId) {
+            document.querySelectorAll('.page-section').forEach(p => p.classList.add('hidden'));
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active-link'));
+            const target = document.getElementById('page-' + pageId);
+            if(target) target.classList.remove('hidden');
+            const btn = document.getElementById('btn-' + pageId);
+            if(btn) btn.classList.add('active-link');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            if(pageId === 'products' && state.products.length === 0) loadProducts();
+            if(pageId === 'places' && state.places.length === 0) loadPlaces();
+            if(pageId === 'blogs' && state.blogs.length === 0) loadBlogs();
         }
 
-        function renderCart() {
-            const container = document.getElementById('cartItems');
-            const totalEl = document.getElementById('cartTotal');
-            if (cart.length === 0) { container.innerHTML = '<div class="text-center py-20 text-gray-400">Your cart is empty</div>'; totalEl.innerText = '0 LAK'; return; }
-            let total = 0;
-            container.innerHTML = cart.map(item => {
-                total += item.price * item.quantity;
-                return `<div class="flex items-center gap-4 bg-white p-4 rounded-2xl border border-gray-100 shadow-sm">
-                    <img src="${item.image}" class="w-16 h-16 object-cover rounded-xl shadow-sm">
-                    <div class="flex-grow">
-                        <h4 class="font-bold text-xs text-gray-900 leading-tight">${item.name}</h4>
-                        <p class="text-emerald-600 font-bold text-[10px]">${item.price.toLocaleString()} LAK</p>
+        function parseCSV(text) {
+            const rows = [];
+            const lines = text.split(/\r?\n/);
+            for (let line of lines) {
+                if (!line.trim()) continue;
+                const result = [];
+                let current = '';
+                let inQuotes = false;
+                for (let i = 0; i < line.length; i++) {
+                    const char = line[i];
+                    if (char === '"') inQuotes = !inQuotes;
+                    else if (char === ',' && !inQuotes) { result.push(current.trim()); current = ''; }
+                    else current += char;
+                }
+                result.push(current.trim());
+                rows.push(result);
+            }
+            return rows;
+        }
+
+        // --- 3. DATA LOADERS ---
+        async function loadProducts() {
+            try {
+                const res = await fetch(CSV_PRODUCTS);
+                const text = await res.text();
+                const rows = parseCSV(text).slice(1);
+                state.products = rows.map((cols, i) => {
+                    if(cols.length < 5) return null;
+                    let imgSource = cols[4];
+                    if (!imgSource.startsWith('http')) imgSource = IMAGE_BASE_PATH + imgSource;
+                    return {
+                        id: 'prod-' + i,
+                        name: cols[1],
+                        price: parseInt(cols[2].replace(/\D/g,'')) || 0,
+                        category: cols[3],
+                        img: imgSource,
+                        status: cols[5] || 'In Stock',
+                        desc: cols[6] || 'ພົບກັບອຸປະກອນແຄ້ມປິ້ງຄຸນນະພາບສູງຈາກ TheSale3.'
+                    };
+                }).filter(x => x);
+                renderCategoryFilters();
+                applyProductFilters();
+            } catch (e) {
+                document.getElementById('productGrid').innerHTML = "<div class='col-span-full py-20 text-center text-gray-400'>Error loading gear.</div>";
+            }
+        }
+
+        // --- 4. CATEGORY LOGIC ---
+        function renderCategoryFilters() {
+            const container = document.getElementById('categoryFilter');
+            container.innerHTML = categories.map(cat => `
+                <button onclick="setCategory('${cat}')" class="category-pill ${state.currentCategory === cat ? 'active' : ''} bg-white border border-gray-100 text-gray-400 px-6 py-2 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600 transition">
+                    ${cat}
+                </button>
+            `).join('');
+        }
+
+        window.setCategory = (cat) => {
+            state.currentCategory = cat;
+            renderCategoryFilters();
+            applyProductFilters();
+        };
+
+        window.applyProductFilters = () => {
+            const val = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = state.products.filter(p => {
+                const matchesSearch = p.name.toLowerCase().includes(val);
+                const matchesCategory = state.currentCategory === 'All' || p.category.toLowerCase() === state.currentCategory.toLowerCase();
+                return matchesSearch && matchesCategory;
+            });
+            renderProducts(filtered);
+        };
+
+        // --- 5. RENDERING ---
+        function renderProducts(items) {
+            const grid = document.getElementById('productGrid');
+            if (items.length === 0) {
+                grid.innerHTML = "<div class='col-span-full py-20 text-center text-gray-400 uppercase text-[10px] font-bold tracking-widest'>No products found in this category</div>";
+                return;
+            }
+            grid.innerHTML = items.map(p => {
+                const isPre = p.status.toLowerCase().includes('pre');
+                return `
+                <div class="card-modern group p-6 flex flex-col fade-in" onclick="openDetails('${p.id}')">
+                    <div class="h-52 rounded-[24px] bg-gray-50 overflow-hidden mb-6 relative">
+                        <img src="${p.img}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700" onerror="this.src='https://placehold.co/400x400?text=Gear+Photo'">
+                        <span class="absolute top-3 right-3 text-[8px] font-black uppercase px-2.5 py-1 rounded-full shadow-sm ${isPre ? 'status-pre-order' : 'status-in-stock'}">${p.status}</span>
                     </div>
-                    <div class="flex items-center bg-gray-50 rounded-lg p-1">
-                        <button onclick="updateCartQuantity('${item.id}', -1)" class="w-6 h-6 flex items-center justify-center"><i class="fa-solid fa-minus text-[8px]"></i></button>
-                        <span class="w-8 text-center text-xs font-black">${item.quantity}</span>
-                        <button onclick="updateCartQuantity('${item.id}', 1)" class="w-6 h-6 flex items-center justify-center"><i class="fa-solid fa-plus text-[8px]"></i></button>
+                    <span class="text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-1">${p.category}</span>
+                    <h3 class="font-bold text-sm text-gray-900 mb-2 leading-tight flex-grow">${p.name}</h3>
+                    <div class="mt-auto flex justify-between items-center pt-4 border-t border-gray-50">
+                        <p class="font-black text-emerald-600 italic text-sm">${p.price.toLocaleString('en-US')} LAK</p>
+                        <button onclick="event.stopPropagation(); addToCart('${p.id}')" class="w-10 h-10 rounded-2xl bg-gray-50 flex items-center justify-center hover:bg-emerald-600 hover:text-white transition shadow-sm"><i class="fa-solid fa-plus text-[10px]"></i></button>
                     </div>
                 </div>`;
             }).join('');
-            totalEl.innerText = `${total.toLocaleString()} LAK`;
         }
 
-        window.sendOrderWhatsApp = () => {
-            if (cart.length === 0) return;
-            let msg = "Sabaidee! ຂ້ອຍຕ້ອງການສັ່ງຊື້ສິນຄ້າລຸ່ມນີ້:\n\n";
-            cart.forEach((i, idx) => msg += `${idx+1}. ${i.name} x${i.quantity}\n`);
-            window.open(`https://wa.me/8562054849393?text=${encodeURIComponent(msg)}`, '_blank');
-        };
-
-        window.filterBy = (cat, btn) => {
-            currentCat = cat;
-            document.querySelectorAll('.category-pill').forEach(b => b.className = 'category-pill bg-white border border-gray-100 text-gray-400 px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest hover:border-emerald-600');
-            btn.className = 'category-pill active bg-emerald-600 text-white px-6 py-2.5 rounded-xl text-[10px] font-bold uppercase tracking-widest border border-transparent';
-            applyFilters();
-        };
-
-        window.searchItems = () => applyFilters();
-
-        function applyFilters() {
-            const s = document.getElementById('searchInput').value.toLowerCase();
-            const f = products.filter(p => (currentCat === 'all' || p.category === currentCat) && p.name.toLowerCase().includes(s));
-            render(f);
-        }
-
-        function render(items) {
-            const grid = document.getElementById('productGrid');
-            if(!grid) return;
-            grid.innerHTML = items.map(p => `
-                <div class="product-card group overflow-hidden flex flex-col cursor-pointer fade-in" onclick="openDetails('${p.id}')">
-                    <div class="h-64 bg-gray-50 overflow-hidden relative"><img src="${p.image}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"></div>
-                    <div class="p-8 flex flex-col flex-grow text-left">
-                        <span class="text-[9px] font-bold text-gray-400 uppercase tracking-widest mb-2">${catMap[p.category] || p.category}</span>
-                        <h3 class="font-bold text-lg mb-1 text-gray-900 tracking-tight">${p.name}</h3>
-                        <p class="text-base font-bold text-emerald-600 mb-6 italic">LAK ${Number(p.price).toLocaleString()}</p>
-                        <div class="mt-auto flex items-center justify-between">
-                            <span class="text-[10px] font-bold uppercase tracking-widest text-gray-900">Check Gear <i class="fa-solid fa-arrow-right-long text-emerald-600"></i></span>
-                            <button onclick="event.stopPropagation(); addToCart('${p.id}')" class="bg-gray-100 p-2 rounded-lg hover:bg-emerald-600 hover:text-white transition"><i class="fa-solid fa-plus"></i></button>
-                        </div>
-                    </div>
-                </div>`).join('');
-        }
-
-        window.changeModalImage = (src) => {
-            document.getElementById('modalImage').src = src;
-            document.querySelectorAll('#modalThumbnails img').forEach(img => {
-                if (img.src === src) img.classList.add('thumbnail-active');
-                else img.classList.remove('thumbnail-active');
-            });
-        };
-
-        window.openDetails = (id) => {
-            const p = products.find(x => x.id === id);
-            if (!p) return;
-            const imgs = p.images && p.images.length > 0 ? p.images : [p.image];
-            document.getElementById('modalImage').src = imgs[0];
-            const tc = document.getElementById('modalThumbnails');
-            if (imgs.length > 1) {
-                tc.innerHTML = imgs.map(src => `<img src="${src}" class="w-16 h-16 object-cover rounded-lg cursor-pointer border-2 border-transparent hover:border-emerald-200 transition ${src === imgs[0] ? 'thumbnail-active' : ''}" onclick="changeModalImage('${src}')">`).join('');
-                tc.style.display = 'flex';
-            } else { tc.style.display = 'none'; }
-            document.getElementById('modalTitle').innerText = p.name;
-            document.getElementById('modalCategory').innerText = catMap[p.category] || p.category;
-            document.getElementById('modalPrice').innerText = `LAK ${Number(p.price).toLocaleString()}`;
-            document.getElementById('modalDescription').innerText = p.description;
-            const delBtn = document.getElementById('adminDeleteBtn');
-            if (isAdmin && !id.startsWith('master-') && !id.startsWith('shoe-') && !id.startsWith('cloth-') && !id.startsWith('glass-') && !id.startsWith('powerbank-')) {
-                delBtn.classList.remove('hidden');
-                delBtn.onclick = async () => { if (confirm("Delete product?")) { await deleteDoc(doc(db, 'artifacts', appId, 'public', 'data', 'products', id)); closeModals(); } };
-            } else { delBtn.classList.add('hidden'); }
-            document.getElementById('whatsappBtn').href = `https://wa.me/8562054849393?text=${encodeURIComponent("Interested in: " + p.name)}`;
-            const addBtn = document.getElementById('addToCartBtn');
-            addBtn.onclick = () => { addToCart(p.id); addBtn.innerText = 'Added!'; setTimeout(() => addBtn.innerText = 'Add to Cart', 1500); };
-            document.getElementById('modal').style.display = 'flex'; document.body.style.overflow = 'hidden';
-        };
-        window.closeModals = () => { document.getElementById('modal').style.display = 'none'; document.body.style.overflow = 'auto'; };
-
-        document.addEventListener('DOMContentLoaded', async () => {
-            const sc = localStorage.getItem('thesale3_cart');
-            if (sc) { cart = JSON.parse(sc); updateCartUI(); }
-            applyFilters();
+        async function loadPlaces() {
             try {
-                const cs = typeof __firebase_config !== 'undefined' ? __firebase_config : null;
-                if (!cs) return;
-                const fc = JSON.parse(cs);
-                appId = typeof __app_id !== 'undefined' ? __app_id : 'thesale3-camping';
-                const app = initializeApp(fc);
-                auth = getAuth(app); db = getFirestore(app);
-                
-                const initAuth = async () => {
-                    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                        await signInWithCustomToken(auth, __initial_auth_token);
-                    } else {
-                        await signInAnonymously(auth);
-                    }
-                };
-                await initAuth();
+                const res = await fetch(CSV_PLACES);
+                const text = await res.text();
+                const rows = parseCSV(text).slice(1);
+                state.places = rows.map(cols => {
+                    if(cols.length < 4) return null;
+                    let imgSource = cols[3];
+                    if (!imgSource.startsWith('http')) imgSource = IMAGE_BASE_PATH + imgSource;
+                    return { name: cols[0], loc: cols[1], price: cols[2], img: imgSource, desc: cols[4] || '' };
+                }).filter(x => x);
+                const grid = document.getElementById('placesGrid');
+                grid.innerHTML = state.places.map(place => `
+                    <div class="card-modern overflow-hidden fade-in">
+                        <div class="h-60 bg-gray-100 overflow-hidden"><img src="${place.img}" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/600x400?text=Camp+Spot'"></div>
+                        <div class="p-8"><div class="flex justify-between items-start mb-3"><h3 class="font-black text-lg tracking-tight uppercase leading-none">${place.name}</h3><span class="text-[10px] font-black text-emerald-600 italic bg-emerald-50 px-2 py-1 rounded-lg">${place.price}</span></div><p class="text-gray-400 text-[10px] font-bold uppercase tracking-widest mb-4"><i class="fa-solid fa-location-dot mr-1"></i> ${place.loc}</p><p class="text-gray-500 text-xs leading-relaxed line-clamp-3">${place.desc}</p></div>
+                    </div>`).join('');
+            } catch (e) { document.getElementById('placesGrid').innerHTML = "<div class='col-span-full py-20 text-center text-gray-400'>Error loading places.</div>"; }
+        }
 
-                onAuthStateChanged(auth, (u) => {
-                    if (u) {
-                        productCol = collection(db, 'artifacts', appId, 'public', 'data', 'products');
-                        onSnapshot(productCol, (snap) => {
-                            const dbP = snap.docs.map(d => ({ id: d.id, ...d.data() }));
-                            const sIds = SYSTEM_PRODUCTS.map(p => p.id);
-                            products = [...SYSTEM_PRODUCTS, ...dbP.filter(p => !sIds.includes(p.id))];
-                            applyFilters();
-                        }, (err) => console.error("Firestore Listen Error:", err));
-                    }
-                });
+        async function loadBlogs() {
+            try {
+                const res = await fetch(CSV_BLOGS);
+                const text = await res.text();
+                const rows = parseCSV(text).slice(1);
+                state.blogs = rows.map(cols => {
+                    if(cols.length < 3) return null;
+                    let imgSource = cols[2];
+                    if (!imgSource.startsWith('http')) imgSource = IMAGE_BASE_PATH + imgSource;
+                    return { title: cols[0], date: cols[1], img: imgSource, content: cols[3] || '' };
+                }).filter(x => x);
+                const grid = document.getElementById('blogsGrid');
+                grid.innerHTML = state.blogs.map(blog => `
+                    <div class="flex flex-col md:flex-row gap-8 items-center fade-in bg-white p-6 rounded-[32px] border border-gray-50">
+                        <div class="w-full md:w-2/5 h-52 rounded-[24px] overflow-hidden shadow-sm flex-shrink-0"><img src="${blog.img}" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x300?text=Blog+Image'"></div>
+                        <div class="w-full md:w-3/5"><span class="text-[9px] font-bold text-emerald-600 uppercase tracking-[0.2em] mb-3 inline-block">${blog.date}</span><h3 class="text-xl font-black mb-4 tracking-tight leading-tight">${blog.title}</h3><p class="text-gray-500 text-xs leading-relaxed mb-6 line-clamp-3">${blog.content}</p><button class="text-[9px] font-bold uppercase tracking-widest text-emerald-700 flex items-center gap-2 group">Read More <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i></button></div>
+                    </div>`).join('');
+            } catch (e) { document.getElementById('blogsGrid').innerHTML = "<div class='col-span-full py-20 text-center text-gray-400'>Error loading blogs.</div>"; }
+        }
 
-                document.getElementById('adminForm').addEventListener('submit', async (e) => {
-                    e.preventDefault();
-                    
-                    const saveBtn = document.getElementById('saveGearBtn');
-                    if (!auth.currentUser || !productCol) {
-                        saveBtn.innerText = "Error: System not ready";
-                        return;
-                    }
+        // --- 6. MODALS ---
+        function openDetails(id) {
+            const p = state.products.find(x => x.id === id);
+            if(!p) return;
+            document.getElementById('detailsImage').src = p.img;
+            document.getElementById('detailsTitle').innerText = p.name;
+            document.getElementById('detailsPrice').innerText = p.price.toLocaleString('en-US') + ' LAK';
+            document.getElementById('detailsCategory').innerText = p.category;
+            document.getElementById('detailsDesc').innerText = p.desc;
+            const statusBadge = document.getElementById('detailsStatus');
+            statusBadge.innerText = p.status;
+            statusBadge.className = `text-[9px] font-black uppercase px-3 py-1.5 rounded-full shadow-sm ${p.status.toLowerCase().includes('pre') ? 'status-pre-order' : 'status-in-stock'}`;
+            document.getElementById('detailsAddBtn').onclick = () => { addToCart(p.id); closeDetails(); };
+            document.getElementById('detailsWaBtn').href = `https://wa.me/8562054849393?text=${encodeURIComponent("Sabaidee! I am interested in: " + p.name)}`;
+            document.getElementById('detailsModal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        }
 
-                    const originalText = saveBtn.innerText;
-                    saveBtn.innerText = "Saving...";
-                    saveBtn.disabled = true;
+        function closeDetails() { document.getElementById('detailsModal').style.display = 'none'; document.body.style.overflow = 'auto'; }
 
-                    try {
-                        const fd = new FormData(e.target);
-                        const iS = fd.get('images');
-                        const eI = iS ? iS.split(',').map(s => s.trim()).filter(s => s) : [];
-                        
-                        const nP = {
-                            name: fd.get('name'), 
-                            price: Number(fd.get('price')),
-                            category: fd.get('category'), 
-                            image: fd.get('image'),
-                            images: [fd.get('image'), ...eI], 
-                            description: fd.get('description'),
-                            createdAt: new Date().toISOString()
-                        };
+        // --- 7. CART SYSTEM ---
+        function addToCart(id) {
+            const p = state.products.find(x => x.id === id);
+            if(!p) return;
+            const exists = state.cart.find(i => i.id === id);
+            if(exists) exists.qty++; else state.cart.push({ ...p, qty: 1 });
+            updateCartCount();
+        }
 
-                        await addDoc(productCol, nP);
-                        
-                        e.target.reset();
-                        saveBtn.innerText = "Success / ບັນທຶກແລ້ວ!";
-                        setTimeout(() => {
-                            saveBtn.innerText = originalText;
-                            saveBtn.disabled = false;
-                            toggleAdminModal();
-                        }, 1500);
-                    } catch (err) {
-                        console.error("Save Error:", err);
-                        saveBtn.innerText = "Save Failed / ຜິດພາດ";
-                        saveBtn.disabled = false;
-                        setTimeout(() => saveBtn.innerText = originalText, 3000);
-                    }
-                });
-            } catch (err) { console.warn("Firebase limited.", err); }
-        });
+        function updateCartCount() {
+            const count = state.cart.reduce((s, i) => s + i.qty, 0);
+            const badge = document.getElementById('cartCount');
+            badge.innerText = count;
+            count > 0 ? badge.classList.remove('hidden') : badge.classList.add('hidden');
+            localStorage.setItem('thesale3_cart', JSON.stringify(state.cart));
+        }
 
-        // Add Enter key support for password modal
-        document.getElementById('adminPassInput').addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') checkAdminPassword();
-        });
+        function openCart() {
+            const container = document.getElementById('cartItems');
+            const totalEl = document.getElementById('cartTotal');
+            if(state.cart.length === 0) {
+                container.innerHTML = '<div class="text-center py-24 text-gray-300 text-[10px] uppercase font-bold tracking-[0.3em]">No adventure gear here yet</div>';
+                totalEl.innerText = '0 LAK';
+            } else {
+                let total = 0;
+                container.innerHTML = state.cart.map(item => {
+                    total += item.price * item.qty;
+                    return `<div class="flex gap-5 items-center bg-gray-50/50 p-5 rounded-[24px] border border-gray-100/50"><img src="${item.img}" class="w-14 h-14 object-cover rounded-2xl shadow-sm" onerror="this.src='https://placehold.co/100x100?text=X'"><div class="flex-grow"><h4 class="font-bold text-[10px] uppercase leading-tight text-gray-900 mb-1">${item.name}</h4><p class="text-emerald-600 font-bold text-[10px] italic">${item.price.toLocaleString('en-US')} LAK</p></div><div class="flex items-center gap-3 bg-white p-1 rounded-xl shadow-sm"><button onclick="changeQty('${item.id}', -1)" class="w-7 h-7 flex items-center justify-center text-[10px] text-gray-400 hover:text-red-500 transition"><i class="fa-solid fa-minus"></i></button><span class="text-[11px] font-black w-4 text-center">${item.qty}</span><button onclick="changeQty('${item.id}', 1)" class="w-7 h-7 flex items-center justify-center text-[10px] text-gray-400 hover:text-emerald-500 transition"><i class="fa-solid fa-plus"></i></button></div></div>`;
+                }).join('');
+                totalEl.innerText = total.toLocaleString('en-US') + ' LAK';
+            }
+            document.getElementById('cartModal').style.display = 'flex';
+        }
+
+        function closeCart() { document.getElementById('cartModal').style.display = 'none'; }
+
+        function changeQty(id, delta) {
+            const item = state.cart.find(i => i.id === id);
+            if(!item) return;
+            item.qty += delta;
+            if(item.qty <= 0) state.cart = state.cart.filter(i => i.id !== id);
+            updateCartCount(); openCart();
+        }
+
+        function checkoutWhatsApp() {
+            if(state.cart.length === 0) return;
+            let msg = "Sabaidee TheSale3! I am interested in these items:\n\n";
+            state.cart.forEach((i, idx) => msg += `${idx+1}. ${i.name} [x${i.qty}]\n`);
+            const total = state.cart.reduce((s, i) => s + (i.price * i.qty), 0);
+            msg += `\nTotal: ${total.toLocaleString('en-US')} LAK\n\nPlease let me know if these are ready for pickup or delivery.`;
+            window.open(`https://wa.me/8562054849393?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+        function adminLogin() {
+            const pass = prompt("Enter Portal Password:");
+            if(pass === "Mou54849393") window.open(ADMIN_SHEET_URL, '_blank');
+            else if(pass !== null) alert("Authentication Failed.");
+        }
+
+        window.onload = () => { updateCartCount(); switchPage('home'); };
     </script>
 </body>
 </html>
