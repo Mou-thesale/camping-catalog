@@ -131,10 +131,22 @@
     <!-- Navigation -->
     <nav class="nav-blur sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6">
-            <div class="flex justify-between items-center h-20 sm:h-25">
-                <!-- Branding with Logo Image - Updated with correct Raw GitHub Link -->
+            <!-- 
+               ປັບຂະໜາດຄວາມສູງຂອງ Navbar ຢູ່ນີ້:
+               h-20 = ຂະໜາດມືຖື (Mobile)
+               sm:h-24 = ຂະໜາດຈໍໃຫຍ່ (Desktop) 
+            -->
+            <div class="flex justify-between items-center h-20 sm:h-24">
                 <div class="cursor-pointer flex items-center" onclick="window.switchPage('home')">
-                    <img src="https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/thesale3-logo.png" alt="TheSale3 Logo" class="h-14 sm:h-20 w-auto object-contain" onerror="this.src='https://placehold.co/200x80?text=TheSale3+Logo'">
+                    <!-- 
+                       ປັບຂະໜາດໂລໂກ້ຢູ່ນີ້:
+                       h-14 = ລວງສູງໃນມືຖື (ປ່ຽນເລກເພື່ອເພີ່ມ/ຫຼຸດ)
+                       sm:h-20 = ລວງສູງໃນຈໍໃຫຍ່ (ປ່ຽນເລກເພື່ອເພີ່ມ/ຫຼຸດ)
+                    -->
+                    <img src="https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/thesale3-logo.png" 
+                         alt="TheSale3 Logo" 
+                         class="h-14 sm:h-20 w-auto object-contain drop-shadow-xl hover:scale-105 transition-transform duration-500" 
+                         onerror="this.src='https://placehold.co/400x160?text=TheSale3+Logo'">
                 </div>
 
                 <div class="hidden md:flex items-center gap-10 font-bold text-[10px] uppercase tracking-[0.2em] text-slate-300">
@@ -156,9 +168,7 @@
         </div>
     </nav>
 
-    <!-- Page Content Container -->
     <div id="pages-container">
-
         <!-- Home Section -->
         <section id="page-home" class="page-section">
             <header class="hero-banner h-[600px] flex items-center justify-center text-center px-4 relative overflow-hidden">
@@ -193,9 +203,7 @@
                     <input type="text" id="searchInput" oninput="window.applyProductFilters()" placeholder="Search gear..." class="w-full pl-16 pr-8 py-5 rounded-[26px] bg-white/10 border border-white/20 focus:border-emerald-500 outline-none shadow-2xl transition-all text-sm font-medium text-white placeholder-slate-400">
                 </div>
             </div>
-
             <div id="categoryFilter" class="flex gap-4 overflow-x-auto no-scrollbar pb-10 mb-6 px-2"></div>
-
             <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10"></div>
         </section>
 
@@ -216,12 +224,9 @@
             </div>
             <div id="blogsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-14"></div>
         </section>
-
     </div>
 
     <!-- Modals -->
-
-    <!-- Product Details Modal -->
     <div id="detailsModal" class="modal-overlay" onclick="if(event.target === this) window.closeDetails()">
         <div class="bg-white rounded-[48px] max-w-5xl w-full mx-4 overflow-hidden shadow-2xl flex flex-col md:flex-row fade-in relative max-h-[92vh] border-[12px] border-emerald-950/30">
             <button onclick="window.closeDetails()" class="absolute top-8 right-8 bg-emerald-50 w-14 h-14 rounded-2xl flex items-center justify-center text-emerald-950 hover:bg-emerald-950 hover:text-white z-10 shadow-xl transition-all"><i class="fa-solid fa-xmark text-2xl"></i></button>
@@ -233,7 +238,7 @@
                     <span id="detailsCategory" class="text-[11px] font-black text-emerald-600 uppercase tracking-[0.3em]">Category</span>
                     <div class="h-1.5 w-10 bg-amber-400 rounded-full"></div>
                 </div>
-                <h2 id="detailsTitle" class="text-4xl sm:text-5xl font-black text-emerald-950 tracking-tighter mb-8 leading-tight italic uppercase">Product Name</h2>
+                <h2 id="detailsTitle" class="text-4xl sm:text-5xl font-black text-emerald-950 tracking-tighter mb-8 leading-tight italic uppercase text-slate-900">Product Name</h2>
                 <div class="flex items-center gap-8 mb-12">
                     <p id="detailsPrice" class="text-4xl font-black text-emerald-700 italic tracking-tighter">0 LAK</p>
                     <span id="detailsStatus" class="text-[10px] font-black uppercase px-5 py-2.5 rounded-full shadow-sm border-2">Status</span>
@@ -249,7 +254,6 @@
         </div>
     </div>
 
-    <!-- Place Details Modal -->
     <div id="placeModal" class="modal-overlay" onclick="if(event.target === this) window.closePlaceModal()">
         <div class="bg-white rounded-[48px] max-w-4xl w-full mx-4 overflow-hidden shadow-2xl flex flex-col md:flex-row fade-in relative max-h-[90vh] border-4 border-emerald-900/50">
             <button onclick="window.closePlaceModal()" class="absolute top-8 right-8 bg-white/90 w-14 h-14 rounded-2xl flex items-center justify-center text-emerald-950 hover:bg-emerald-950 hover:text-white z-10 shadow-xl transition-all"><i class="fa-solid fa-xmark text-2xl"></i></button>
@@ -274,7 +278,6 @@
         </div>
     </div>
 
-    <!-- Blog Details Modal -->
     <div id="blogModal" class="modal-overlay" onclick="if(event.target === this) window.closeBlogModal()">
         <div class="bg-white rounded-[48px] max-w-4xl w-full mx-4 overflow-hidden shadow-2xl flex flex-col fade-in relative max-h-[92vh]">
             <button onclick="window.closeBlogModal()" class="absolute top-8 right-8 bg-white/90 w-14 h-14 rounded-2xl flex items-center justify-center text-emerald-950 hover:bg-emerald-950 hover:text-white z-10 shadow-xl transition-all"><i class="fa-solid fa-xmark text-2xl"></i></button>
@@ -293,7 +296,6 @@
         </div>
     </div>
 
-    <!-- Cart Modal -->
     <div id="cartModal" class="modal-overlay" onclick="if(event.target === this) window.closeCart()">
         <div class="bg-white h-full max-w-md w-full shadow-2xl ml-auto flex flex-col p-12 cart-slide">
             <div class="flex justify-between items-center mb-12 border-b border-emerald-50 pb-8 text-emerald-950">
@@ -316,7 +318,6 @@
         </div>
     </div>
 
-    <!-- Footer -->
     <footer class="bg-emerald-950 py-24 px-4 text-center mt-auto border-t-8 border-amber-500 relative overflow-hidden">
         <div class="absolute inset-0 opacity-10 pointer-events-none bg-repeat" style="background-image: url('https://www.transparenttextures.com/patterns/topography.png');"></div>
         <div class="max-w-7xl mx-auto z-10 relative">
@@ -361,54 +362,13 @@
             places: [],
             blogs: [],
             cart: JSON.parse(localStorage.getItem('thesale3_cart') || '[]'),
-            currentCategory: 'All'
+            currentCategory: 'All',
+            user: null
         };
 
         const categories = ["All", "Tents", "Cooking", "Coffee", "Lighting", "Sleeping", "Furniture", "Backpack", "Shoes", "Cloth", "Glasses", "Powerbank", "Survival"];
 
-        const formatImgUrl = (url) => {
-            if (!url) return '';
-            if (url.startsWith('http')) return url;
-            return IMAGE_BASE_PATH + url;
-        };
-
-        // --- AUTH ---
-        const initAuth = async () => {
-            try {
-                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                    await signInWithCustomToken(auth, __initial_auth_token);
-                } else {
-                    await signInAnonymously(auth);
-                }
-            } catch (err) {
-                console.error("Auth Error:", err);
-            }
-        };
-
-        onAuthStateChanged(auth, async (user) => {
-            state.user = user;
-            if (user) {
-                setupListeners();
-            }
-        });
-
-        const setupListeners = () => {
-            if (!state.user) return;
-            onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'products'), (s) => {
-                state.products = s.docs.map(d => ({ id: d.id, ...d.data() }));
-                window.applyProductFilters();
-            });
-            onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'places'), (s) => {
-                state.places = s.docs.map(d => ({ id: d.id, ...d.data() }));
-                renderPlaces();
-            });
-            onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'blogs'), (s) => {
-                state.blogs = s.docs.map(d => ({ id: d.id, ...d.data() }));
-                renderBlogs();
-            });
-        };
-
-        // --- GLOBAL EXPOSURE ---
+        // --- CORE FUNCTIONS ---
         window.switchPage = (pageId) => {
             document.querySelectorAll('.page-section').forEach(p => p.classList.add('hidden'));
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active-link'));
@@ -418,10 +378,145 @@
             if(btn) btn.classList.add('active-link');
             window.scrollTo({ top: 0, behavior: 'smooth' });
             
-            // Initial data pull from Google Sheets if database is empty or on first load
             if(pageId === 'products' && state.products.length === 0) loadProducts();
             if(pageId === 'places' && state.places.length === 0) loadPlaces();
             if(pageId === 'blogs' && state.blogs.length === 0) loadBlogs();
+        };
+
+        window.setCategory = (cat) => {
+            state.currentCategory = cat;
+            renderCategoryFilters();
+            window.applyProductFilters();
+        };
+
+        window.applyProductFilters = () => {
+            const si = document.getElementById('searchInput');
+            const val = si ? si.value.toLowerCase() : "";
+            const filtered = state.products.filter(p => {
+                const matchesSearch = p.name.toLowerCase().includes(val);
+                const matchesCategory = state.currentCategory === 'All' || p.category.toLowerCase() === state.currentCategory.toLowerCase();
+                return matchesSearch && matchesCategory;
+            });
+            renderProducts(filtered);
+        };
+
+        window.openDetails = (id) => {
+            const p = state.products.find(x => x.id === id);
+            if(!p) return;
+            document.getElementById('detailsImage').src = p.img;
+            document.getElementById('detailsTitle').innerText = p.name;
+            document.getElementById('detailsPrice').innerText = p.price.toLocaleString() + ' LAK';
+            document.getElementById('detailsCategory').innerText = p.category;
+            document.getElementById('detailsDesc').innerText = p.desc;
+            const statusBadge = document.getElementById('detailsStatus');
+            statusBadge.innerText = p.status;
+            statusBadge.className = `text-[10px] font-black uppercase px-5 py-2.5 rounded-full shadow-sm border-2 ${p.status.toLowerCase().includes('pre') ? 'status-pre-order' : 'status-in-stock'}`;
+            document.getElementById('detailsAddBtn').onclick = () => { window.addToCart(p.id); window.closeDetails(); };
+            document.getElementById('detailsWaBtn').href = `https://wa.me/8562054849393?text=${encodeURIComponent("Interest: " + p.name)}`;
+            document.getElementById('detailsModal').style.display = 'flex';
+        };
+
+        window.closeDetails = () => document.getElementById('detailsModal').style.display = 'none';
+
+        window.openPlaceDetails = (name) => {
+            const place = state.places.find(x => x.name === name);
+            if(!place) return;
+            document.getElementById('placeDetailsImage').src = place.img;
+            document.getElementById('placeDetailsTitle').innerText = place.name;
+            document.getElementById('placeDetailsLoc').innerText = place.loc;
+            document.getElementById('placeDetailsPrice').innerText = place.price;
+            document.getElementById('placeDetailsDesc').innerText = place.desc;
+            document.getElementById('placeDetailsWaBtn').href = `https://wa.me/8562054849393?text=${encodeURIComponent("Inquiry about " + place.name)}`;
+            document.getElementById('placeModal').style.display = 'flex';
+        };
+
+        window.closePlaceModal = () => document.getElementById('placeModal').style.display = 'none';
+
+        window.openBlogDetails = (title) => {
+            const blog = state.blogs.find(x => x.title === title);
+            if(!blog) return;
+            document.getElementById('blogDetailsImage').src = blog.img;
+            document.getElementById('blogDetailsTitle').innerText = blog.title;
+            document.getElementById('blogDetailsDate').innerText = blog.date;
+            document.getElementById('blogDetailsContent').innerText = blog.content;
+            document.getElementById('blogModal').style.display = 'flex';
+        };
+
+        window.closeBlogModal = () => document.getElementById('blogModal').style.display = 'none';
+
+        window.addToCart = (id) => {
+            const p = state.products.find(x => x.id === id);
+            if(!p) return;
+            const exists = state.cart.find(i => i.id === id);
+            if(exists) exists.qty++; else state.cart.push({ ...p, qty: 1 });
+            window.updateCartCount();
+        };
+
+        window.updateCartCount = () => {
+            const count = state.cart.reduce((s, i) => s + i.qty, 0);
+            const badge = document.getElementById('cartCount');
+            if(badge) {
+                badge.innerText = count;
+                count > 0 ? badge.classList.remove('hidden') : badge.classList.add('hidden');
+            }
+            localStorage.setItem('thesale3_cart', JSON.stringify(state.cart));
+        };
+
+        window.openCart = () => {
+            const container = document.getElementById('cartItems');
+            const totalEl = document.getElementById('cartTotal');
+            if(!container) return;
+            if(state.cart.length === 0) {
+                container.innerHTML = '<div class="text-center py-20 text-emerald-200">Bag empty</div>';
+                if(totalEl) totalEl.innerText = '0 LAK';
+            } else {
+                let total = 0;
+                container.innerHTML = state.cart.map(item => {
+                    total += item.price * item.qty;
+                    return `
+                    <div class="flex gap-4 p-4 bg-emerald-50 rounded-2xl text-emerald-950">
+                        <img src="${item.img}" class="w-16 h-16 rounded-xl object-cover">
+                        <div class="flex-grow">
+                            <h4 class="font-black text-xs uppercase leading-tight">${item.name}</h4>
+                            <p class="text-emerald-700 font-bold text-[10px]">${item.price.toLocaleString()} LAK</p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                             <span class="font-black">x${item.qty}</span>
+                        </div>
+                    </div>`;
+                }).join('');
+                if(totalEl) totalEl.innerText = total.toLocaleString() + ' LAK';
+            }
+            document.getElementById('cartModal').style.display = 'flex';
+        };
+
+        window.closeCart = () => document.getElementById('cartModal').style.display = 'none';
+
+        window.checkoutWhatsApp = () => {
+            if(state.cart.length === 0) return;
+            let msg = "Order Inquiry from TheSale3:\n";
+            state.cart.forEach(i => msg += `- ${i.name} x${i.qty}\n`);
+            window.open(`https://wa.me/8562054849393?text=${encodeURIComponent(msg)}`, '_blank');
+        };
+
+        window.handleAdminClick = () => {
+            let adminClicks = parseInt(sessionStorage.getItem('admin_clicks') || '0');
+            adminClicks++;
+            if (adminClicks === 5) {
+                sessionStorage.setItem('admin_clicks', '0');
+                const pass = prompt("Access Key:");
+                if (pass === "Mou54849393") window.open(ADMIN_SHEET_URL, '_blank');
+            } else {
+                sessionStorage.setItem('admin_clicks', adminClicks.toString());
+            }
+            setTimeout(() => sessionStorage.setItem('admin_clicks', '0'), 3000);
+        };
+
+        // --- HELPERS ---
+        const formatImgUrl = (url) => {
+            if (!url) return '';
+            if (url.startsWith('http')) return url;
+            return IMAGE_BASE_PATH + url;
         };
 
         function parseCSV(text) {
@@ -444,12 +539,73 @@
             return rows;
         }
 
-        // --- DATA LOADERS (Google Sheets Fallback) ---
+        const renderCategoryFilters = () => {
+            const container = document.getElementById('categoryFilter');
+            if(!container) return;
+            container.innerHTML = categories.map(cat => `
+                <button onclick="window.setCategory('${cat}')" class="category-pill ${state.currentCategory === cat ? 'active' : ''} px-10 py-4 rounded-[22px] text-[10px] font-black uppercase tracking-widest shadow-sm">
+                    ${cat}
+                </button>
+            `).join('');
+        };
+
+        function renderProducts(items) {
+            const grid = document.getElementById('productGrid');
+            if(!grid) return;
+            grid.innerHTML = items.map(p => `
+                <div class="card-modern group p-10 flex flex-col fade-in" onclick="window.openDetails('${p.id}')">
+                    <div class="h-60 rounded-[40px] bg-emerald-100/30 overflow-hidden mb-8 relative">
+                        <img src="${p.img}" class="w-full h-full object-cover group-hover:scale-125 transition duration-[1500ms]" onerror="this.src='https://placehold.co/400x400?text=Gear'">
+                        <span class="absolute top-5 right-5 text-[9px] font-black uppercase px-5 py-2.5 rounded-full shadow-2xl ${p.status.toLowerCase().includes('pre') ? 'status-pre-order' : 'status-in-stock'}">${p.status}</span>
+                    </div>
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="h-[2px] w-6 bg-amber-500"></div>
+                        <span class="text-[11px] font-black text-emerald-500 uppercase tracking-widest">${p.category}</span>
+                    </div>
+                    <h3 class="font-black text-xl text-emerald-950 mb-6 flex-grow uppercase italic tracking-tighter leading-tight">${p.name}</h3>
+                    <div class="mt-auto flex justify-between items-center pt-8 border-t border-emerald-100/50">
+                        <p class="font-black text-emerald-700 italic text-lg tracking-tighter">${p.price.toLocaleString()} LAK</p>
+                        <button onclick="event.stopPropagation(); window.addToCart('${p.id}')" class="w-14 h-14 rounded-[22px] bg-emerald-950 text-white flex items-center justify-center hover:bg-amber-500 transition-all shadow-2xl"><i class="fa-solid fa-plus text-lg"></i></button>
+                    </div>
+                </div>`).join('');
+        }
+
+        function renderPlaces() {
+            const grid = document.getElementById('placesGrid');
+            if(!grid) return;
+            grid.innerHTML = state.places.map(place => `
+                <div class="card-modern overflow-hidden fade-in p-0 shadow-lg" onclick="window.openPlaceDetails('${place.name}')">
+                    <div class="h-72 bg-emerald-100 overflow-hidden relative">
+                        <img src="${place.img}" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/600x400?text=Camp'">
+                        <div class="absolute top-6 left-6 px-4 py-2 bg-white/20 backdrop-blur-md rounded-full border border-white/30 text-white font-black text-[9px] uppercase tracking-widest italic">${place.price}</div>
+                    </div>
+                    <div class="p-10 text-emerald-950">
+                        <h3 class="font-black text-2xl tracking-tighter italic uppercase mb-4 leading-none">${place.name}</h3>
+                        <div class="flex items-center gap-2 text-[11px] font-black text-emerald-400 uppercase tracking-widest mb-6"><i class="fa-solid fa-location-dot text-amber-500"></i> ${place.loc}</div>
+                        <p class="text-gray-500 text-sm font-medium line-clamp-2">${place.desc}</p>
+                    </div>
+                </div>`).join('');
+        }
+
+        function renderBlogs() {
+            const grid = document.getElementById('blogsGrid');
+            if(!grid) return;
+            grid.innerHTML = state.blogs.map(blog => `
+                <div class="flex flex-col lg:flex-row gap-10 items-center fade-in bg-white/80 backdrop-blur-md p-10 rounded-[50px] border border-white card-modern group p-0" onclick="window.openBlogDetails('${blog.title}')">
+                    <div class="w-full lg:w-2/5 h-72 rounded-[40px] overflow-hidden shadow-2xl flex-shrink-0"><img src="${blog.img}" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x300?text=Blog'"></div>
+                    <div class="w-full lg:w-3/5 p-4 lg:p-0 text-emerald-950">
+                        <span class="text-[11px] font-black text-amber-500 uppercase italic mb-6 block">${blog.date}</span>
+                        <h3 class="text-3xl font-black mb-6 tracking-tighter uppercase italic leading-tight">${blog.title}</h3>
+                        <p class="text-gray-500 text-base leading-relaxed line-clamp-3 font-medium">${blog.content}</p>
+                    </div>
+                </div>`).join('');
+        }
+
+        // --- DATA ---
         async function loadProducts() {
             try {
                 const res = await fetch(CSV_PRODUCTS);
-                const text = await res.text();
-                const rows = parseCSV(text).slice(1);
+                const rows = parseCSV(await res.text()).slice(1);
                 const googleProducts = rows.map((cols, i) => {
                     if(cols.length < 5) return null;
                     return {
@@ -462,14 +618,10 @@
                         desc: cols[6] || 'Premium outdoor equipment.'
                     };
                 }).filter(x => x);
-                
-                // Merge with DB products if any
                 state.products = [...state.products, ...googleProducts].filter((v,i,a)=>a.findIndex(t=>(t.name===v.name))===i);
                 renderCategoryFilters();
                 window.applyProductFilters();
-            } catch (e) {
-                console.error("Sheets Load Error", e);
-            }
+            } catch (e) { console.error(e); }
         }
 
         async function loadPlaces() {
@@ -498,198 +650,44 @@
             } catch (e) {}
         }
 
-        // --- UI ---
-        const renderCategoryFilters = () => {
-            const container = document.getElementById('categoryFilter');
-            if(!container) return;
-            container.innerHTML = categories.map(cat => `
-                <button onclick="window.setCategory('${cat}')" class="category-pill ${state.currentCategory === cat ? 'active' : ''} px-10 py-4 rounded-[22px] text-[10px] font-black uppercase tracking-widest shadow-sm">
-                    ${cat}
-                </button>
-            `).join('');
+        // --- AUTH ---
+        const initAuth = async () => {
+            try {
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                    await signInWithCustomToken(auth, __initial_auth_token);
+                } else {
+                    await signInAnonymously(auth);
+                }
+            } catch (err) { console.error(err); }
         };
 
-        window.setCategory = (cat) => {
-            state.currentCategory = cat;
-            renderCategoryFilters();
-            window.applyProductFilters();
-        };
-
-        window.applyProductFilters = () => {
-            const si = document.getElementById('searchInput');
-            const val = si ? si.value.toLowerCase() : "";
-            const filtered = state.products.filter(p => {
-                const matchesSearch = p.name.toLowerCase().includes(val);
-                const matchesCategory = state.currentCategory === 'All' || p.category.toLowerCase() === state.currentCategory.toLowerCase();
-                return matchesSearch && matchesCategory;
+        const setupListeners = () => {
+            if (!state.user) return;
+            onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'products'), (s) => {
+                state.products = s.docs.map(d => ({ id: d.id, ...d.data() }));
+                window.applyProductFilters();
             });
-            renderProducts(filtered);
+            onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'places'), (s) => {
+                state.places = s.docs.map(d => ({ id: d.id, ...d.data() }));
+                renderPlaces();
+            });
+            onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'blogs'), (s) => {
+                state.blogs = s.docs.map(d => ({ id: d.id, ...d.data() }));
+                renderBlogs();
+            });
         };
 
-        function renderProducts(items) {
-            const grid = document.getElementById('productGrid');
-            if(!grid) return;
-            grid.innerHTML = items.map(p => `
-                <div class="card-modern group p-10 flex flex-col fade-in" onclick="window.openDetails('${p.id}')">
-                    <div class="h-60 rounded-[40px] bg-emerald-100/30 overflow-hidden mb-8 relative">
-                        <img src="${p.img}" class="w-full h-full object-cover group-hover:scale-125 transition duration-[1500ms]" onerror="this.src='https://placehold.co/400x400?text=Gear'">
-                        <span class="absolute top-5 right-5 text-[9px] font-black uppercase px-5 py-2.5 rounded-full shadow-2xl ${p.status.toLowerCase().includes('pre') ? 'status-pre-order' : 'status-in-stock'}">${p.status}</span>
-                    </div>
-                    <div class="flex items-center gap-3 mb-3">
-                        <div class="h-[2px] w-6 bg-amber-500"></div>
-                        <span class="text-[11px] font-black text-emerald-500 uppercase tracking-widest">${p.category}</span>
-                    </div>
-                    <h3 class="font-black text-xl text-emerald-950 mb-6 flex-grow uppercase italic tracking-tighter">${p.name}</h3>
-                    <div class="mt-auto flex justify-between items-center pt-8 border-t border-emerald-100/50">
-                        <p class="font-black text-emerald-700 italic text-lg tracking-tighter">${p.price.toLocaleString()} LAK</p>
-                        <button onclick="event.stopPropagation(); window.addToCart('${p.id}')" class="w-14 h-14 rounded-[22px] bg-emerald-950 text-white flex items-center justify-center hover:bg-amber-500 transition-all shadow-2xl"><i class="fa-solid fa-plus text-lg"></i></button>
-                    </div>
-                </div>`).join('');
-        }
+        onAuthStateChanged(auth, async (user) => {
+            state.user = user;
+            if (user) setupListeners();
+        });
 
-        function renderPlaces() {
-            const grid = document.getElementById('placesGrid');
-            if(!grid) return;
-            grid.innerHTML = state.places.map(place => `
-                <div class="card-modern overflow-hidden fade-in p-0 shadow-lg" onclick="window.openPlaceDetails('${place.name}')">
-                    <div class="h-72 bg-emerald-100 overflow-hidden relative">
-                        <img src="${place.img}" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/600x400?text=Camp'">
-                        <div class="absolute top-6 left-6 px-4 py-2 bg-white/20 backdrop-blur-md rounded-full border border-white/30 text-white font-black text-[9px] uppercase tracking-widest italic">${place.price}</div>
-                    </div>
-                    <div class="p-10 text-emerald-950">
-                        <h3 class="font-black text-2xl tracking-tighter italic uppercase mb-4">${place.name}</h3>
-                        <div class="flex items-center gap-2 text-[11px] font-black text-emerald-400 uppercase tracking-widest mb-6"><i class="fa-solid fa-location-dot text-amber-500"></i> ${place.loc}</div>
-                        <p class="text-gray-500 text-sm font-medium line-clamp-2">${place.desc}</p>
-                    </div>
-                </div>`).join('');
-        }
-
-        function renderBlogs() {
-            const grid = document.getElementById('blogsGrid');
-            if(!grid) return;
-            grid.innerHTML = state.blogs.map(blog => `
-                <div class="flex flex-col lg:flex-row gap-10 items-center fade-in bg-white/80 backdrop-blur-md p-10 rounded-[50px] border border-white card-modern group p-0" onclick="window.openBlogDetails('${blog.title}')">
-                    <div class="w-full lg:w-2/5 h-72 rounded-[40px] overflow-hidden shadow-2xl flex-shrink-0"><img src="${blog.img}" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x300?text=Blog'"></div>
-                    <div class="w-full lg:w-3/5 p-4 lg:p-0 text-emerald-950">
-                        <span class="text-[11px] font-black text-amber-500 uppercase italic mb-6 block">${blog.date}</span>
-                        <h3 class="text-3xl font-black mb-6 tracking-tighter uppercase italic leading-tight">${blog.title}</h3>
-                        <p class="text-gray-500 text-base leading-relaxed line-clamp-3 font-medium">${blog.content}</p>
-                    </div>
-                </div>`).join('');
-        }
-
-        // --- EXPOSED MODALS ---
-        window.openDetails = (id) => {
-            const p = state.products.find(x => x.id === id);
-            if(!p) return;
-            document.getElementById('detailsImage').src = p.img;
-            document.getElementById('detailsTitle').innerText = p.name;
-            document.getElementById('detailsPrice').innerText = p.price.toLocaleString() + ' LAK';
-            document.getElementById('detailsCategory').innerText = p.category;
-            document.getElementById('detailsDesc').innerText = p.desc;
-            const statusBadge = document.getElementById('detailsStatus');
-            statusBadge.innerText = p.status;
-            statusBadge.className = `text-[10px] font-black uppercase px-5 py-2.5 rounded-full shadow-sm border-2 ${p.status.toLowerCase().includes('pre') ? 'status-pre-order' : 'status-in-stock'}`;
-            document.getElementById('detailsAddBtn').onclick = () => { window.addToCart(p.id); window.closeDetails(); };
-            document.getElementById('detailsWaBtn').href = `https://wa.me/8562054849393?text=${encodeURIComponent("Interest: " + p.name)}`;
-            document.getElementById('detailsModal').style.display = 'flex';
-        };
-        window.closeDetails = () => document.getElementById('detailsModal').style.display = 'none';
-
-        window.openPlaceDetails = (name) => {
-            const place = state.places.find(x => x.name === name);
-            if(!place) return;
-            document.getElementById('placeDetailsImage').src = place.img;
-            document.getElementById('placeDetailsTitle').innerText = place.name;
-            document.getElementById('placeDetailsLoc').innerText = place.loc;
-            document.getElementById('placeDetailsPrice').innerText = place.price;
-            document.getElementById('placeDetailsDesc').innerText = place.desc;
-            document.getElementById('placeDetailsWaBtn').href = `https://wa.me/8562054849393?text=${encodeURIComponent("Inquiry about " + place.name)}`;
-            document.getElementById('placeModal').style.display = 'flex';
-        };
-        window.closePlaceModal = () => document.getElementById('placeModal').style.display = 'none';
-
-        window.openBlogDetails = (title) => {
-            const blog = state.blogs.find(x => x.title === title);
-            if(!blog) return;
-            document.getElementById('blogDetailsImage').src = blog.img;
-            document.getElementById('blogDetailsTitle').innerText = blog.title;
-            document.getElementById('blogDetailsDate').innerText = blog.date;
-            document.getElementById('blogDetailsContent').innerText = blog.content;
-            document.getElementById('blogModal').style.display = 'flex';
-        };
-        window.closeBlogModal = () => document.getElementById('blogModal').style.display = 'none';
-
-        // --- CART ---
-        window.addToCart = (id) => {
-            const p = state.products.find(x => x.id === id);
-            if(!p) return;
-            const exists = state.cart.find(i => i.id === id);
-            if(exists) exists.qty++; else state.cart.push({ ...p, qty: 1 });
+        // --- STARTUP ---
+        (async () => {
+            await initAuth();
             window.updateCartCount();
-        };
-        window.updateCartCount = () => {
-            const count = state.cart.reduce((s, i) => s + i.qty, 0);
-            const badge = document.getElementById('cartCount');
-            if(badge) {
-                badge.innerText = count;
-                count > 0 ? badge.classList.remove('hidden') : badge.classList.add('hidden');
-            }
-            localStorage.setItem('thesale3_cart', JSON.stringify(state.cart));
-        };
-        window.openCart = () => {
-            const container = document.getElementById('cartItems');
-            const totalEl = document.getElementById('cartTotal');
-            if(!container) return;
-            if(state.cart.length === 0) {
-                container.innerHTML = '<div class="text-center py-20 text-emerald-200">Bag empty</div>';
-                if(totalEl) totalEl.innerText = '0 LAK';
-            } else {
-                let total = 0;
-                container.innerHTML = state.cart.map(item => {
-                    total += item.price * item.qty;
-                    return `
-                    <div class="flex gap-4 p-4 bg-emerald-50 rounded-2xl text-emerald-950">
-                        <img src="${item.img}" class="w-16 h-16 rounded-xl object-cover">
-                        <div class="flex-grow">
-                            <h4 class="font-black text-xs uppercase leading-tight">${item.name}</h4>
-                            <p class="text-emerald-700 font-bold text-[10px]">${item.price.toLocaleString()} LAK</p>
-                        </div>
-                        <div class="flex items-center gap-2">
-                             <span class="font-black">x${item.qty}</span>
-                        </div>
-                    </div>`;
-                }).join('');
-                if(totalEl) totalEl.innerText = total.toLocaleString() + ' LAK';
-            }
-            document.getElementById('cartModal').style.display = 'flex';
-        };
-        window.closeCart = () => document.getElementById('cartModal').style.display = 'none';
-        window.checkoutWhatsApp = () => {
-            if(state.cart.length === 0) return;
-            let msg = "Order Inquiry from TheSale3:\n";
-            state.cart.forEach(i => msg += `- ${i.name} x${i.qty}\n`);
-            window.open(`https://wa.me/8562054849393?text=${encodeURIComponent(msg)}`, '_blank');
-        };
-
-        // --- ADMIN ---
-        window.handleAdminClick = () => {
-            let adminClicks = parseInt(sessionStorage.getItem('admin_clicks') || '0');
-            adminClicks++;
-            if (adminClicks === 5) {
-                sessionStorage.setItem('admin_clicks', '0');
-                const pass = prompt("Access Key:");
-                if (pass === "Mou54849393") window.open(ADMIN_SHEET_URL, '_blank');
-            } else {
-                sessionStorage.setItem('admin_clicks', adminClicks.toString());
-            }
-            setTimeout(() => sessionStorage.setItem('admin_clicks', '0'), 3000);
-        };
-
-        // --- STARTUP LOGIC ---
-        await initAuth();
-        window.updateCartCount();
-        window.switchPage('home');
+            window.switchPage('home');
+        })();
 
     </script>
 </body>
