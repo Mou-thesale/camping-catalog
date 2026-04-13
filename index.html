@@ -128,6 +128,200 @@
 </head>
 <body class="flex flex-col min-h-screen">
 
+    <!-- CRITICAL: UI Scripts moved to the top of body to prevent "function not found" errors -->
+    <script>
+        // Global State defined early
+        window.state = {
+            products: [],
+            places: [],
+            blogs: [],
+            cart: JSON.parse(localStorage.getItem('thesale3_cart') || '[]'),
+            currentCategory: 'All',
+            user: null
+        };
+
+        const categories = ["All", "Tents", "Cooking", "Coffee", "Lighting", "Sleeping", "Furniture", "Backpack", "Shoes", "Cloth", "Glasses", "Powerbank", "Survival"];
+        const IMAGE_BASE_PATH = 'assets/products/';
+        const ADMIN_SHEET_URL = 'https://docs.google.com/spreadsheets/d/1qdr-stVezfFRMqug8kuqM8rftflQcnxx/edit';
+
+        // Essential Navigation Function
+        window.switchPage = (pageId) => {
+            document.querySelectorAll('.page-section').forEach(p => p.classList.add('hidden'));
+            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active-link'));
+            const target = document.getElementById('page-' + pageId);
+            if(target) target.classList.remove('hidden');
+            const btn = document.getElementById('btn-' + pageId);
+            if(btn) btn.classList.add('active-link');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            // Trigger data loads which are defined in the module script below
+            if(pageId === 'products' && window.state.products.length === 0) window.loadProducts?.();
+            if(pageId === 'places' && window.state.places.length === 0) window.loadPlaces?.();
+            if(pageId === 'blogs' && window.state.blogs.length === 0) window.loadBlogs?.();
+        };
+
+        // Other UI Functions
+        window.openCart = () => {
+            const container = document.getElementById('cartItems');
+            const totalEl = document.getElementById('cartTotal');
+            if(!container) return;
+            if(window.state.cart.length === 0) {
+                container.innerHTML = '<div class="text-center py-20 text-emerald-200">Bag empty</div>';
+                if(totalEl) totalEl.innerText = '0 LAK';
+            } else {
+                let total = 0;
+                container.innerHTML = window.state.cart.map(item => {
+                    total += item.price * item.qty;
+                    return `
+                    <div class="flex gap-4 p-4 bg-emerald-50 rounded-2xl text-emerald-950">
+                        <img src="${item.img}" class="w-16 h-16 rounded-xl object-cover">
+                        <div class="flex-grow">
+                            <h4 class="font-black text-xs uppercase leading-tight">${item.name}</h4>
+                            <p class="text-emerald-700 font-bold text-[10px]">${item.price.toLocaleString()} LAK</p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                             <span class="font-black">x${item.qty}</span>
+                        </div>
+                    </div>`;
+                }).join('');
+                if(totalEl) totalEl.innerText = total.toLocaleString() + ' LAK';
+            }
+            document.getElementById('cartModal').style.display = 'flex';
+        };
+
+        window.closeCart = () => document.getElementById('cartModal').style.display = 'none';
+
+        window.openDetails = (id) => {
+            const p = window.state.products.find(x => x.id === id);
+            if(!p) return;
+            document.getElementById('detailsImage').src = p.img;
+            document.getElementById('detailsTitle').innerText = p.name;
+            document.getElementById('detailsPrice').innerText = p.price.toLocaleString() + ' LAK';
+            document.getElementById('detailsCategory').innerText = p.category;
+            document.getElementById('detailsDesc').innerText = p.desc;
+            const statusBadge = document.getElementById('detailsStatus');
+            statusBadge.innerText = p.status;
+            statusBadge.className = `text-[10px] font-black uppercase px-5 py-2.5 rounded-full shadow-sm border-2 ${p.status.toLowerCase().includes('pre') ? 'status-pre-order' : 'status-in-stock'}`;
+            document.getElementById('detailsAddBtn').onclick = () => { window.addToCart(p.id); window.closeDetails(); };
+            document.getElementById('detailsWaBtn').href = `https://wa.me/8562054849393?text=${encodeURIComponent("Interest: " + p.name)}`;
+            document.getElementById('detailsModal').style.display = 'flex';
+        };
+
+        window.closeDetails = () => document.getElementById('detailsModal').style.display = 'none';
+
+        window.addToCart = (id) => {
+            const p = window.state.products.find(x => x.id === id);
+            if(!p) return;
+            const exists = window.state.cart.find(i => i.id === id);
+            if(exists) exists.qty++; else window.state.cart.push({ ...p, qty: 1 });
+            window.updateCartCount();
+        };
+
+        window.updateCartCount = () => {
+            const count = window.state.cart.reduce((s, i) => s + i.qty, 0);
+            const badge = document.getElementById('cartCount');
+            if(badge) {
+                badge.innerText = count;
+                count > 0 ? badge.classList.remove('hidden') : badge.classList.add('hidden');
+            }
+            localStorage.setItem('thesale3_cart', JSON.stringify(window.state.cart));
+        };
+
+        window.setCategory = (cat) => {
+            window.state.currentCategory = cat;
+            window.renderCategoryFilters();
+            window.applyProductFilters();
+        };
+
+        window.renderCategoryFilters = () => {
+            const container = document.getElementById('categoryFilter');
+            if(!container) return;
+            container.innerHTML = categories.map(cat => `
+                <button onclick="window.setCategory('${cat}')" class="category-pill ${window.state.currentCategory === cat ? 'active' : ''} px-10 py-4 rounded-[22px] text-[10px] font-black uppercase tracking-widest shadow-sm">
+                    ${cat}
+                </button>
+            `).join('');
+        };
+
+        window.applyProductFilters = () => {
+            const si = document.getElementById('searchInput');
+            const val = si ? si.value.toLowerCase() : "";
+            const filtered = window.state.products.filter(p => {
+                const matchesSearch = p.name.toLowerCase().includes(val);
+                const matchesCategory = window.state.currentCategory === 'All' || p.category.toLowerCase() === window.state.currentCategory.toLowerCase();
+                return matchesSearch && matchesCategory;
+            });
+            window.renderProducts(filtered);
+        };
+
+        window.renderProducts = (items) => {
+            const grid = document.getElementById('productGrid');
+            if(!grid) return;
+            grid.innerHTML = items.map(p => `
+                <div class="card-modern group p-10 flex flex-col fade-in" onclick="window.openDetails('${p.id}')">
+                    <div class="h-60 rounded-[40px] bg-emerald-100/30 overflow-hidden mb-8 relative">
+                        <img src="${p.img}" class="w-full h-full object-cover group-hover:scale-125 transition duration-[1500ms]" onerror="this.src='https://placehold.co/400x400?text=Gear'">
+                        <span class="absolute top-5 right-5 text-[9px] font-black uppercase px-5 py-2.5 rounded-full shadow-2xl ${p.status.toLowerCase().includes('pre') ? 'status-pre-order' : 'status-in-stock'}">${p.status}</span>
+                    </div>
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="h-[2px] w-6 bg-amber-500"></div>
+                        <span class="text-[11px] font-black text-emerald-500 uppercase tracking-widest">${p.category}</span>
+                    </div>
+                    <h3 class="font-black text-xl text-emerald-950 mb-6 flex-grow uppercase italic tracking-tighter leading-tight">${p.name}</h3>
+                    <div class="mt-auto flex justify-between items-center pt-8 border-t border-emerald-100/50">
+                        <p class="font-black text-emerald-700 italic text-lg tracking-tighter">${p.price.toLocaleString()} LAK</p>
+                        <button onclick="event.stopPropagation(); window.addToCart('${p.id}')" class="w-14 h-14 rounded-[22px] bg-emerald-950 text-white flex items-center justify-center hover:bg-amber-500 transition-all shadow-2xl"><i class="fa-solid fa-plus text-lg"></i></button>
+                    </div>
+                </div>`).join('');
+        };
+
+        window.openPlaceDetails = (name) => {
+            const place = window.state.places.find(x => x.name === name);
+            if(!place) return;
+            document.getElementById('placeDetailsImage').src = place.img;
+            document.getElementById('placeDetailsTitle').innerText = place.name;
+            document.getElementById('placeDetailsLoc').innerText = place.loc;
+            document.getElementById('placeDetailsPrice').innerText = place.price;
+            document.getElementById('placeDetailsDesc').innerText = place.desc;
+            document.getElementById('placeDetailsWaBtn').href = `https://wa.me/8562054849393?text=${encodeURIComponent("Inquiry about " + place.name)}`;
+            document.getElementById('placeModal').style.display = 'flex';
+        };
+
+        window.closePlaceModal = () => document.getElementById('placeModal').style.display = 'none';
+
+        window.openBlogDetails = (title) => {
+            const blog = window.state.blogs.find(x => x.title === title);
+            if(!blog) return;
+            document.getElementById('blogDetailsImage').src = blog.img;
+            document.getElementById('blogDetailsTitle').innerText = blog.title;
+            document.getElementById('blogDetailsDate').innerText = blog.date;
+            document.getElementById('blogDetailsContent').innerText = blog.content;
+            document.getElementById('blogModal').style.display = 'flex';
+        };
+
+        window.closeBlogModal = () => document.getElementById('blogModal').style.display = 'none';
+
+        window.checkoutWhatsApp = () => {
+            if(window.state.cart.length === 0) return;
+            let msg = "Order Inquiry from TheSale3:\n";
+            window.state.cart.forEach(i => msg += `- ${i.name} x${i.qty}\n`);
+            window.open(`https://wa.me/8562054849393?text=${encodeURIComponent(msg)}`, '_blank');
+        };
+
+        window.handleAdminClick = () => {
+            let adminClicks = parseInt(sessionStorage.getItem('admin_clicks') || '0');
+            adminClicks++;
+            if (adminClicks === 5) {
+                sessionStorage.setItem('admin_clicks', '0');
+                const pass = prompt("Access Key:");
+                if (pass === "Mou54849393") window.open(ADMIN_SHEET_URL, '_blank');
+            } else {
+                sessionStorage.setItem('admin_clicks', adminClicks.toString());
+            }
+            setTimeout(() => sessionStorage.setItem('admin_clicks', '0'), 3000);
+        };
+    </script>
+
     <!-- Navigation -->
     <nav class="nav-blur sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6">
@@ -244,7 +438,7 @@
         </div>
     </div>
 
-    <!-- Other Modals ... -->
+    <!-- Additional Modals (Places, Blogs, Cart) -->
     <div id="placeModal" class="modal-overlay" onclick="if(event.target === this) window.closePlaceModal()">
         <div class="bg-white rounded-[48px] max-w-4xl w-full mx-4 overflow-hidden shadow-2xl flex flex-col md:flex-row fade-in relative max-h-[90vh] border-4 border-emerald-900/50">
             <button onclick="window.closePlaceModal()" class="absolute top-8 right-8 bg-white/90 w-14 h-14 rounded-2xl flex items-center justify-center text-emerald-950 hover:bg-emerald-950 hover:text-white z-10 shadow-xl transition-all"><i class="fa-solid fa-xmark text-2xl"></i></button>
@@ -330,204 +524,7 @@
         </div>
     </footer>
 
-    <!-- UI Scripts (Standard JS) - Defines functions immediately -->
-    <script>
-        // Global State
-        window.state = {
-            products: [],
-            places: [],
-            blogs: [],
-            cart: JSON.parse(localStorage.getItem('thesale3_cart') || '[]'),
-            currentCategory: 'All',
-            user: null
-        };
-
-        const categories = ["All", "Tents", "Cooking", "Coffee", "Lighting", "Sleeping", "Furniture", "Backpack", "Shoes", "Cloth", "Glasses", "Powerbank", "Survival"];
-        const IMAGE_BASE_PATH = 'assets/products/';
-        const ADMIN_SHEET_URL = 'https://docs.google.com/spreadsheets/d/1qdr-stVezfFRMqug8kuqM8rftflQcnxx/edit';
-
-        // UI Helpers
-        window.switchPage = (pageId) => {
-            document.querySelectorAll('.page-section').forEach(p => p.classList.add('hidden'));
-            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active-link'));
-            const target = document.getElementById('page-' + pageId);
-            if(target) target.classList.remove('hidden');
-            const btn = document.getElementById('btn-' + pageId);
-            if(btn) btn.classList.add('active-link');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            
-            // Trigger data load if needed
-            if(pageId === 'products' && window.state.products.length === 0) window.loadProducts?.();
-            if(pageId === 'places' && window.state.places.length === 0) window.loadPlaces?.();
-            if(pageId === 'blogs' && window.state.blogs.length === 0) window.loadBlogs?.();
-        };
-
-        window.openCart = () => {
-            const container = document.getElementById('cartItems');
-            const totalEl = document.getElementById('cartTotal');
-            if(!container) return;
-            if(window.state.cart.length === 0) {
-                container.innerHTML = '<div class="text-center py-20 text-emerald-200">Bag empty</div>';
-                if(totalEl) totalEl.innerText = '0 LAK';
-            } else {
-                let total = 0;
-                container.innerHTML = window.state.cart.map(item => {
-                    total += item.price * item.qty;
-                    return `
-                    <div class="flex gap-4 p-4 bg-emerald-50 rounded-2xl text-emerald-950">
-                        <img src="${item.img}" class="w-16 h-16 rounded-xl object-cover">
-                        <div class="flex-grow">
-                            <h4 class="font-black text-xs uppercase leading-tight">${item.name}</h4>
-                            <p class="text-emerald-700 font-bold text-[10px]">${item.price.toLocaleString()} LAK</p>
-                        </div>
-                        <div class="flex items-center gap-2">
-                             <span class="font-black">x${item.qty}</span>
-                        </div>
-                    </div>`;
-                }).join('');
-                if(totalEl) totalEl.innerText = total.toLocaleString() + ' LAK';
-            }
-            document.getElementById('cartModal').style.display = 'flex';
-        };
-
-        window.closeCart = () => document.getElementById('cartModal').style.display = 'none';
-
-        window.openDetails = (id) => {
-            const p = window.state.products.find(x => x.id === id);
-            if(!p) return;
-            document.getElementById('detailsImage').src = p.img;
-            document.getElementById('detailsTitle').innerText = p.name;
-            document.getElementById('detailsPrice').innerText = p.price.toLocaleString() + ' LAK';
-            document.getElementById('detailsCategory').innerText = p.category;
-            document.getElementById('detailsDesc').innerText = p.desc;
-            const statusBadge = document.getElementById('detailsStatus');
-            statusBadge.innerText = p.status;
-            statusBadge.className = `text-[10px] font-black uppercase px-5 py-2.5 rounded-full shadow-sm border-2 ${p.status.toLowerCase().includes('pre') ? 'status-pre-order' : 'status-in-stock'}`;
-            document.getElementById('detailsAddBtn').onclick = () => { window.addToCart(p.id); window.closeDetails(); };
-            document.getElementById('detailsWaBtn').href = `https://wa.me/8562054849393?text=${encodeURIComponent("Interest: " + p.name)}`;
-            document.getElementById('detailsModal').style.display = 'flex';
-        };
-
-        window.closeDetails = () => document.getElementById('detailsModal').style.display = 'none';
-
-        window.addToCart = (id) => {
-            const p = window.state.products.find(x => x.id === id);
-            if(!p) return;
-            const exists = window.state.cart.find(i => i.id === id);
-            if(exists) exists.qty++; else window.state.cart.push({ ...p, qty: 1 });
-            window.updateCartCount();
-        };
-
-        window.updateCartCount = () => {
-            const count = window.state.cart.reduce((s, i) => s + i.qty, 0);
-            const badge = document.getElementById('cartCount');
-            if(badge) {
-                badge.innerText = count;
-                count > 0 ? badge.classList.remove('hidden') : badge.classList.add('hidden');
-            }
-            localStorage.setItem('thesale3_cart', JSON.stringify(window.state.cart));
-        };
-
-        window.setCategory = (cat) => {
-            window.state.currentCategory = cat;
-            renderCategoryFilters();
-            window.applyProductFilters();
-        };
-
-        function renderCategoryFilters() {
-            const container = document.getElementById('categoryFilter');
-            if(!container) return;
-            container.innerHTML = categories.map(cat => `
-                <button onclick="window.setCategory('${cat}')" class="category-pill ${window.state.currentCategory === cat ? 'active' : ''} px-10 py-4 rounded-[22px] text-[10px] font-black uppercase tracking-widest shadow-sm">
-                    ${cat}
-                </button>
-            `).join('');
-        };
-
-        window.applyProductFilters = () => {
-            const si = document.getElementById('searchInput');
-            const val = si ? si.value.toLowerCase() : "";
-            const filtered = window.state.products.filter(p => {
-                const matchesSearch = p.name.toLowerCase().includes(val);
-                const matchesCategory = window.state.currentCategory === 'All' || p.category.toLowerCase() === window.state.currentCategory.toLowerCase();
-                return matchesSearch && matchesCategory;
-            });
-            renderProducts(filtered);
-        };
-
-        function renderProducts(items) {
-            const grid = document.getElementById('productGrid');
-            if(!grid) return;
-            grid.innerHTML = items.map(p => `
-                <div class="card-modern group p-10 flex flex-col fade-in" onclick="window.openDetails('${p.id}')">
-                    <div class="h-60 rounded-[40px] bg-emerald-100/30 overflow-hidden mb-8 relative">
-                        <img src="${p.img}" class="w-full h-full object-cover group-hover:scale-125 transition duration-[1500ms]" onerror="this.src='https://placehold.co/400x400?text=Gear'">
-                        <span class="absolute top-5 right-5 text-[9px] font-black uppercase px-5 py-2.5 rounded-full shadow-2xl ${p.status.toLowerCase().includes('pre') ? 'status-pre-order' : 'status-in-stock'}">${p.status}</span>
-                    </div>
-                    <div class="flex items-center gap-3 mb-3">
-                        <div class="h-[2px] w-6 bg-amber-500"></div>
-                        <span class="text-[11px] font-black text-emerald-500 uppercase tracking-widest">${p.category}</span>
-                    </div>
-                    <h3 class="font-black text-xl text-emerald-950 mb-6 flex-grow uppercase italic tracking-tighter leading-tight">${p.name}</h3>
-                    <div class="mt-auto flex justify-between items-center pt-8 border-t border-emerald-100/50">
-                        <p class="font-black text-emerald-700 italic text-lg tracking-tighter">${p.price.toLocaleString()} LAK</p>
-                        <button onclick="event.stopPropagation(); window.addToCart('${p.id}')" class="w-14 h-14 rounded-[22px] bg-emerald-950 text-white flex items-center justify-center hover:bg-amber-500 transition-all shadow-2xl"><i class="fa-solid fa-plus text-lg"></i></button>
-                    </div>
-                </div>`).join('');
-        }
-
-        window.openPlaceDetails = (name) => {
-            const place = window.state.places.find(x => x.name === name);
-            if(!place) return;
-            document.getElementById('placeDetailsImage').src = place.img;
-            document.getElementById('placeDetailsTitle').innerText = place.name;
-            document.getElementById('placeDetailsLoc').innerText = place.loc;
-            document.getElementById('placeDetailsPrice').innerText = place.price;
-            document.getElementById('placeDetailsDesc').innerText = place.desc;
-            document.getElementById('placeDetailsWaBtn').href = `https://wa.me/8562054849393?text=${encodeURIComponent("Inquiry about " + place.name)}`;
-            document.getElementById('placeModal').style.display = 'flex';
-        };
-
-        window.closePlaceModal = () => document.getElementById('placeModal').style.display = 'none';
-
-        window.openBlogDetails = (title) => {
-            const blog = window.state.blogs.find(x => x.title === title);
-            if(!blog) return;
-            document.getElementById('blogDetailsImage').src = blog.img;
-            document.getElementById('blogDetailsTitle').innerText = blog.title;
-            document.getElementById('blogDetailsDate').innerText = blog.date;
-            document.getElementById('blogDetailsContent').innerText = blog.content;
-            document.getElementById('blogModal').style.display = 'flex';
-        };
-
-        window.closeBlogModal = () => document.getElementById('blogModal').style.display = 'none';
-
-        window.checkoutWhatsApp = () => {
-            if(window.state.cart.length === 0) return;
-            let msg = "Order Inquiry from TheSale3:\n";
-            window.state.cart.forEach(i => msg += `- ${i.name} x${i.qty}\n`);
-            window.open(`https://wa.me/8562054849393?text=${encodeURIComponent(msg)}`, '_blank');
-        };
-
-        window.handleAdminClick = () => {
-            let adminClicks = parseInt(sessionStorage.getItem('admin_clicks') || '0');
-            adminClicks++;
-            if (adminClicks === 5) {
-                sessionStorage.setItem('admin_clicks', '0');
-                const pass = prompt("Access Key:");
-                if (pass === "Mou54849393") window.open(ADMIN_SHEET_URL, '_blank');
-            } else {
-                sessionStorage.setItem('admin_clicks', adminClicks.toString());
-            }
-            setTimeout(() => sessionStorage.setItem('admin_clicks', '0'), 3000);
-        };
-
-        // Initialize empty state UI
-        window.switchPage('home');
-        window.updateCartCount();
-    </script>
-
-    <!-- Data & Firebase Script (Module) -->
+    <!-- Firebase Logic Script (Module) -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
@@ -540,12 +537,12 @@
         const db = getFirestore(app);
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'thesale3-camping';
 
-        // CSV Links
+        // CSV Source Links
         const CSV_PRODUCTS = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQOkTfIWeWI0KnhUyZZo1NeYP7B2AJVOXxFyl_g0NrmnWkastWzil9YCOKnTAdPBp8AHyP88LVI2lg6/pub?gid=0&single=true&output=csv';
         const CSV_PLACES = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQOkTfIWeWI0KnhUyZZo1NeYP7B2AJVOXxFyl_g0NrmnWkastWzil9YCOKnTAdPBp8AHyP88LVI2lg6/pub?gid=368688716&single=true&output=csv';
         const CSV_BLOGS = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQOkTfIWeWI0KnhUyZZo1NeYP7B2AJVOXxFyl_g0NrmnWkastWzil9YCOKnTAdPBp8AHyP88LVI2lg6/pub?gid=187773397&single=true&output=csv';
 
-        // Data Fetching Logic
+        // Internal CSV Parser
         function parseCSV(text) {
             const rows = [];
             const lines = text.split(/\r?\n/);
@@ -572,6 +569,7 @@
             return 'assets/products/' + url;
         };
 
+        // Attach Data Loading to Window for the UI functions to call
         window.loadProducts = async () => {
             try {
                 const res = await fetch(CSV_PRODUCTS);
@@ -587,7 +585,8 @@
                 })).filter(x => x.name);
                 window.state.products = items;
                 window.applyProductFilters();
-            } catch (e) { console.error(e); }
+                window.renderCategoryFilters();
+            } catch (e) { console.error("Product load failed:", e); }
         };
 
         window.loadPlaces = async () => {
@@ -597,7 +596,9 @@
                 window.state.places = rows.map(cols => ({
                     name: cols[0], loc: cols[1], price: cols[2], img: formatImgUrl(cols[3]), desc: cols[4] || ''
                 })).filter(x => x.name);
-                // Trigger render if needed
+                if (document.getElementById('page-places').classList.contains('hidden') === false) {
+                    window.switchPage('places'); // Force refresh
+                }
             } catch (e) {}
         };
 
@@ -608,11 +609,13 @@
                 window.state.blogs = rows.map(cols => ({
                     title: cols[0], date: cols[1], img: formatImgUrl(cols[2]), content: cols[3] || ''
                 })).filter(x => x.title);
-                // Trigger render if needed
+                if (document.getElementById('page-blogs').classList.contains('hidden') === false) {
+                    window.switchPage('blogs');
+                }
             } catch (e) {}
         };
 
-        // Firebase Auth
+        // Auth initialization
         const initAuth = async () => {
             try {
                 if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
@@ -620,7 +623,7 @@
                 } else {
                     await signInAnonymously(auth);
                 }
-            } catch (err) { console.error(err); }
+            } catch (err) { console.error("Auth init failed:", err); }
         };
 
         onAuthStateChanged(auth, async (user) => {
@@ -635,7 +638,7 @@
             }
         });
 
-        // Start Auth
+        // Start Auth process
         initAuth();
     </script>
 </body>
