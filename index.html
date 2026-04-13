@@ -131,18 +131,8 @@
     <!-- Navigation -->
     <nav class="nav-blur sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6">
-            <!-- 
-               ປັບຂະໜາດຄວາມສູງຂອງ Navbar ຢູ່ນີ້:
-               h-20 = ຂະໜາດມືຖື (Mobile)
-               sm:h-24 = ຂະໜາດຈໍໃຫຍ່ (Desktop) 
-            -->
             <div class="flex justify-between items-center h-20 sm:h-24">
                 <div class="cursor-pointer flex items-center" onclick="window.switchPage('home')">
-                    <!-- 
-                       ປັບຂະໜາດໂລໂກ້ຢູ່ນີ້:
-                       h-14 = ລວງສູງໃນມືຖື (ປ່ຽນເລກເພື່ອເພີ່ມ/ຫຼຸດ)
-                       sm:h-20 = ລວງສູງໃນຈໍໃຫຍ່ (ປ່ຽນເລກເພື່ອເພີ່ມ/ຫຼຸດ)
-                    -->
                     <img src="https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/thesale3-logo.png" 
                          alt="TheSale3 Logo" 
                          class="h-14 sm:h-20 w-auto object-contain drop-shadow-xl hover:scale-105 transition-transform duration-500" 
@@ -254,6 +244,7 @@
         </div>
     </div>
 
+    <!-- Other Modals ... -->
     <div id="placeModal" class="modal-overlay" onclick="if(event.target === this) window.closePlaceModal()">
         <div class="bg-white rounded-[48px] max-w-4xl w-full mx-4 overflow-hidden shadow-2xl flex flex-col md:flex-row fade-in relative max-h-[90vh] border-4 border-emerald-900/50">
             <button onclick="window.closePlaceModal()" class="absolute top-8 right-8 bg-white/90 w-14 h-14 rounded-2xl flex items-center justify-center text-emerald-950 hover:bg-emerald-950 hover:text-white z-10 shadow-xl transition-all"><i class="fa-solid fa-xmark text-2xl"></i></button>
@@ -339,25 +330,10 @@
         </div>
     </footer>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, doc, addDoc, updateDoc, deleteDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-
-        // --- Configuration ---
-        const CSV_PRODUCTS = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQOkTfIWeWI0KnhUyZZo1NeYP7B2AJVOXxFyl_g0NrmnWkastWzil9YCOKnTAdPBp8AHyP88LVI2lg6/pub?gid=0&single=true&output=csv';
-        const CSV_PLACES = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQOkTfIWeWI0KnhUyZZo1NeYP7B2AJVOXxFyl_g0NrmnWkastWzil9YCOKnTAdPBp8AHyP88LVI2lg6/pub?gid=368688716&single=true&output=csv';
-        const CSV_BLOGS = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQOkTfIWeWI0KnhUyZZo1NeYP7B2AJVOXxFyl_g0NrmnWkastWzil9YCOKnTAdPBp8AHyP88LVI2lg6/pub?gid=187773397&single=true&output=csv';
-        const ADMIN_SHEET_URL = 'https://docs.google.com/spreadsheets/d/1qdr-stVezfFRMqug8kuqM8rftflQcnxx/edit';
-        const IMAGE_BASE_PATH = 'assets/products/';
-
-        const firebaseConfig = JSON.parse(__firebase_config);
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'thesale3-camping';
-
-        let state = {
+    <!-- UI Scripts (Standard JS) - Defines functions immediately -->
+    <script>
+        // Global State
+        window.state = {
             products: [],
             places: [],
             blogs: [],
@@ -367,8 +343,10 @@
         };
 
         const categories = ["All", "Tents", "Cooking", "Coffee", "Lighting", "Sleeping", "Furniture", "Backpack", "Shoes", "Cloth", "Glasses", "Powerbank", "Survival"];
+        const IMAGE_BASE_PATH = 'assets/products/';
+        const ADMIN_SHEET_URL = 'https://docs.google.com/spreadsheets/d/1qdr-stVezfFRMqug8kuqM8rftflQcnxx/edit';
 
-        // --- CORE FUNCTIONS ---
+        // UI Helpers
         window.switchPage = (pageId) => {
             document.querySelectorAll('.page-section').forEach(p => p.classList.add('hidden'));
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active-link'));
@@ -378,100 +356,22 @@
             if(btn) btn.classList.add('active-link');
             window.scrollTo({ top: 0, behavior: 'smooth' });
             
-            if(pageId === 'products' && state.products.length === 0) loadProducts();
-            if(pageId === 'places' && state.places.length === 0) loadPlaces();
-            if(pageId === 'blogs' && state.blogs.length === 0) loadBlogs();
-        };
-
-        window.setCategory = (cat) => {
-            state.currentCategory = cat;
-            renderCategoryFilters();
-            window.applyProductFilters();
-        };
-
-        window.applyProductFilters = () => {
-            const si = document.getElementById('searchInput');
-            const val = si ? si.value.toLowerCase() : "";
-            const filtered = state.products.filter(p => {
-                const matchesSearch = p.name.toLowerCase().includes(val);
-                const matchesCategory = state.currentCategory === 'All' || p.category.toLowerCase() === state.currentCategory.toLowerCase();
-                return matchesSearch && matchesCategory;
-            });
-            renderProducts(filtered);
-        };
-
-        window.openDetails = (id) => {
-            const p = state.products.find(x => x.id === id);
-            if(!p) return;
-            document.getElementById('detailsImage').src = p.img;
-            document.getElementById('detailsTitle').innerText = p.name;
-            document.getElementById('detailsPrice').innerText = p.price.toLocaleString() + ' LAK';
-            document.getElementById('detailsCategory').innerText = p.category;
-            document.getElementById('detailsDesc').innerText = p.desc;
-            const statusBadge = document.getElementById('detailsStatus');
-            statusBadge.innerText = p.status;
-            statusBadge.className = `text-[10px] font-black uppercase px-5 py-2.5 rounded-full shadow-sm border-2 ${p.status.toLowerCase().includes('pre') ? 'status-pre-order' : 'status-in-stock'}`;
-            document.getElementById('detailsAddBtn').onclick = () => { window.addToCart(p.id); window.closeDetails(); };
-            document.getElementById('detailsWaBtn').href = `https://wa.me/8562054849393?text=${encodeURIComponent("Interest: " + p.name)}`;
-            document.getElementById('detailsModal').style.display = 'flex';
-        };
-
-        window.closeDetails = () => document.getElementById('detailsModal').style.display = 'none';
-
-        window.openPlaceDetails = (name) => {
-            const place = state.places.find(x => x.name === name);
-            if(!place) return;
-            document.getElementById('placeDetailsImage').src = place.img;
-            document.getElementById('placeDetailsTitle').innerText = place.name;
-            document.getElementById('placeDetailsLoc').innerText = place.loc;
-            document.getElementById('placeDetailsPrice').innerText = place.price;
-            document.getElementById('placeDetailsDesc').innerText = place.desc;
-            document.getElementById('placeDetailsWaBtn').href = `https://wa.me/8562054849393?text=${encodeURIComponent("Inquiry about " + place.name)}`;
-            document.getElementById('placeModal').style.display = 'flex';
-        };
-
-        window.closePlaceModal = () => document.getElementById('placeModal').style.display = 'none';
-
-        window.openBlogDetails = (title) => {
-            const blog = state.blogs.find(x => x.title === title);
-            if(!blog) return;
-            document.getElementById('blogDetailsImage').src = blog.img;
-            document.getElementById('blogDetailsTitle').innerText = blog.title;
-            document.getElementById('blogDetailsDate').innerText = blog.date;
-            document.getElementById('blogDetailsContent').innerText = blog.content;
-            document.getElementById('blogModal').style.display = 'flex';
-        };
-
-        window.closeBlogModal = () => document.getElementById('blogModal').style.display = 'none';
-
-        window.addToCart = (id) => {
-            const p = state.products.find(x => x.id === id);
-            if(!p) return;
-            const exists = state.cart.find(i => i.id === id);
-            if(exists) exists.qty++; else state.cart.push({ ...p, qty: 1 });
-            window.updateCartCount();
-        };
-
-        window.updateCartCount = () => {
-            const count = state.cart.reduce((s, i) => s + i.qty, 0);
-            const badge = document.getElementById('cartCount');
-            if(badge) {
-                badge.innerText = count;
-                count > 0 ? badge.classList.remove('hidden') : badge.classList.add('hidden');
-            }
-            localStorage.setItem('thesale3_cart', JSON.stringify(state.cart));
+            // Trigger data load if needed
+            if(pageId === 'products' && window.state.products.length === 0) window.loadProducts?.();
+            if(pageId === 'places' && window.state.places.length === 0) window.loadPlaces?.();
+            if(pageId === 'blogs' && window.state.blogs.length === 0) window.loadBlogs?.();
         };
 
         window.openCart = () => {
             const container = document.getElementById('cartItems');
             const totalEl = document.getElementById('cartTotal');
             if(!container) return;
-            if(state.cart.length === 0) {
+            if(window.state.cart.length === 0) {
                 container.innerHTML = '<div class="text-center py-20 text-emerald-200">Bag empty</div>';
                 if(totalEl) totalEl.innerText = '0 LAK';
             } else {
                 let total = 0;
-                container.innerHTML = state.cart.map(item => {
+                container.innerHTML = window.state.cart.map(item => {
                     total += item.price * item.qty;
                     return `
                     <div class="flex gap-4 p-4 bg-emerald-50 rounded-2xl text-emerald-950">
@@ -492,61 +392,67 @@
 
         window.closeCart = () => document.getElementById('cartModal').style.display = 'none';
 
-        window.checkoutWhatsApp = () => {
-            if(state.cart.length === 0) return;
-            let msg = "Order Inquiry from TheSale3:\n";
-            state.cart.forEach(i => msg += `- ${i.name} x${i.qty}\n`);
-            window.open(`https://wa.me/8562054849393?text=${encodeURIComponent(msg)}`, '_blank');
+        window.openDetails = (id) => {
+            const p = window.state.products.find(x => x.id === id);
+            if(!p) return;
+            document.getElementById('detailsImage').src = p.img;
+            document.getElementById('detailsTitle').innerText = p.name;
+            document.getElementById('detailsPrice').innerText = p.price.toLocaleString() + ' LAK';
+            document.getElementById('detailsCategory').innerText = p.category;
+            document.getElementById('detailsDesc').innerText = p.desc;
+            const statusBadge = document.getElementById('detailsStatus');
+            statusBadge.innerText = p.status;
+            statusBadge.className = `text-[10px] font-black uppercase px-5 py-2.5 rounded-full shadow-sm border-2 ${p.status.toLowerCase().includes('pre') ? 'status-pre-order' : 'status-in-stock'}`;
+            document.getElementById('detailsAddBtn').onclick = () => { window.addToCart(p.id); window.closeDetails(); };
+            document.getElementById('detailsWaBtn').href = `https://wa.me/8562054849393?text=${encodeURIComponent("Interest: " + p.name)}`;
+            document.getElementById('detailsModal').style.display = 'flex';
         };
 
-        window.handleAdminClick = () => {
-            let adminClicks = parseInt(sessionStorage.getItem('admin_clicks') || '0');
-            adminClicks++;
-            if (adminClicks === 5) {
-                sessionStorage.setItem('admin_clicks', '0');
-                const pass = prompt("Access Key:");
-                if (pass === "Mou54849393") window.open(ADMIN_SHEET_URL, '_blank');
-            } else {
-                sessionStorage.setItem('admin_clicks', adminClicks.toString());
+        window.closeDetails = () => document.getElementById('detailsModal').style.display = 'none';
+
+        window.addToCart = (id) => {
+            const p = window.state.products.find(x => x.id === id);
+            if(!p) return;
+            const exists = window.state.cart.find(i => i.id === id);
+            if(exists) exists.qty++; else window.state.cart.push({ ...p, qty: 1 });
+            window.updateCartCount();
+        };
+
+        window.updateCartCount = () => {
+            const count = window.state.cart.reduce((s, i) => s + i.qty, 0);
+            const badge = document.getElementById('cartCount');
+            if(badge) {
+                badge.innerText = count;
+                count > 0 ? badge.classList.remove('hidden') : badge.classList.add('hidden');
             }
-            setTimeout(() => sessionStorage.setItem('admin_clicks', '0'), 3000);
+            localStorage.setItem('thesale3_cart', JSON.stringify(window.state.cart));
         };
 
-        // --- HELPERS ---
-        const formatImgUrl = (url) => {
-            if (!url) return '';
-            if (url.startsWith('http')) return url;
-            return IMAGE_BASE_PATH + url;
+        window.setCategory = (cat) => {
+            window.state.currentCategory = cat;
+            renderCategoryFilters();
+            window.applyProductFilters();
         };
 
-        function parseCSV(text) {
-            const rows = [];
-            const lines = text.split(/\r?\n/);
-            for (let line of lines) {
-                if (!line.trim()) continue;
-                const result = [];
-                let current = '';
-                let inQuotes = false;
-                for (let i = 0; i < line.length; i++) {
-                    const char = line[i];
-                    if (char === '"') inQuotes = !inQuotes;
-                    else if (char === ',' && !inQuotes) { result.push(current.trim()); current = ''; }
-                    else current += char;
-                }
-                result.push(current.trim());
-                rows.push(result);
-            }
-            return rows;
-        }
-
-        const renderCategoryFilters = () => {
+        function renderCategoryFilters() {
             const container = document.getElementById('categoryFilter');
             if(!container) return;
             container.innerHTML = categories.map(cat => `
-                <button onclick="window.setCategory('${cat}')" class="category-pill ${state.currentCategory === cat ? 'active' : ''} px-10 py-4 rounded-[22px] text-[10px] font-black uppercase tracking-widest shadow-sm">
+                <button onclick="window.setCategory('${cat}')" class="category-pill ${window.state.currentCategory === cat ? 'active' : ''} px-10 py-4 rounded-[22px] text-[10px] font-black uppercase tracking-widest shadow-sm">
                     ${cat}
                 </button>
             `).join('');
+        };
+
+        window.applyProductFilters = () => {
+            const si = document.getElementById('searchInput');
+            const val = si ? si.value.toLowerCase() : "";
+            const filtered = window.state.products.filter(p => {
+                const matchesSearch = p.name.toLowerCase().includes(val);
+                const matchesCategory = window.state.currentCategory === 'All' || p.category.toLowerCase() === window.state.currentCategory.toLowerCase();
+                return matchesSearch && matchesCategory;
+            });
+            renderProducts(filtered);
         };
 
         function renderProducts(items) {
@@ -570,87 +476,143 @@
                 </div>`).join('');
         }
 
-        function renderPlaces() {
-            const grid = document.getElementById('placesGrid');
-            if(!grid) return;
-            grid.innerHTML = state.places.map(place => `
-                <div class="card-modern overflow-hidden fade-in p-0 shadow-lg" onclick="window.openPlaceDetails('${place.name}')">
-                    <div class="h-72 bg-emerald-100 overflow-hidden relative">
-                        <img src="${place.img}" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/600x400?text=Camp'">
-                        <div class="absolute top-6 left-6 px-4 py-2 bg-white/20 backdrop-blur-md rounded-full border border-white/30 text-white font-black text-[9px] uppercase tracking-widest italic">${place.price}</div>
-                    </div>
-                    <div class="p-10 text-emerald-950">
-                        <h3 class="font-black text-2xl tracking-tighter italic uppercase mb-4 leading-none">${place.name}</h3>
-                        <div class="flex items-center gap-2 text-[11px] font-black text-emerald-400 uppercase tracking-widest mb-6"><i class="fa-solid fa-location-dot text-amber-500"></i> ${place.loc}</div>
-                        <p class="text-gray-500 text-sm font-medium line-clamp-2">${place.desc}</p>
-                    </div>
-                </div>`).join('');
+        window.openPlaceDetails = (name) => {
+            const place = window.state.places.find(x => x.name === name);
+            if(!place) return;
+            document.getElementById('placeDetailsImage').src = place.img;
+            document.getElementById('placeDetailsTitle').innerText = place.name;
+            document.getElementById('placeDetailsLoc').innerText = place.loc;
+            document.getElementById('placeDetailsPrice').innerText = place.price;
+            document.getElementById('placeDetailsDesc').innerText = place.desc;
+            document.getElementById('placeDetailsWaBtn').href = `https://wa.me/8562054849393?text=${encodeURIComponent("Inquiry about " + place.name)}`;
+            document.getElementById('placeModal').style.display = 'flex';
+        };
+
+        window.closePlaceModal = () => document.getElementById('placeModal').style.display = 'none';
+
+        window.openBlogDetails = (title) => {
+            const blog = window.state.blogs.find(x => x.title === title);
+            if(!blog) return;
+            document.getElementById('blogDetailsImage').src = blog.img;
+            document.getElementById('blogDetailsTitle').innerText = blog.title;
+            document.getElementById('blogDetailsDate').innerText = blog.date;
+            document.getElementById('blogDetailsContent').innerText = blog.content;
+            document.getElementById('blogModal').style.display = 'flex';
+        };
+
+        window.closeBlogModal = () => document.getElementById('blogModal').style.display = 'none';
+
+        window.checkoutWhatsApp = () => {
+            if(window.state.cart.length === 0) return;
+            let msg = "Order Inquiry from TheSale3:\n";
+            window.state.cart.forEach(i => msg += `- ${i.name} x${i.qty}\n`);
+            window.open(`https://wa.me/8562054849393?text=${encodeURIComponent(msg)}`, '_blank');
+        };
+
+        window.handleAdminClick = () => {
+            let adminClicks = parseInt(sessionStorage.getItem('admin_clicks') || '0');
+            adminClicks++;
+            if (adminClicks === 5) {
+                sessionStorage.setItem('admin_clicks', '0');
+                const pass = prompt("Access Key:");
+                if (pass === "Mou54849393") window.open(ADMIN_SHEET_URL, '_blank');
+            } else {
+                sessionStorage.setItem('admin_clicks', adminClicks.toString());
+            }
+            setTimeout(() => sessionStorage.setItem('admin_clicks', '0'), 3000);
+        };
+
+        // Initialize empty state UI
+        window.switchPage('home');
+        window.updateCartCount();
+    </script>
+
+    <!-- Data & Firebase Script (Module) -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Firebase Config
+        const firebaseConfig = JSON.parse(__firebase_config);
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'thesale3-camping';
+
+        // CSV Links
+        const CSV_PRODUCTS = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQOkTfIWeWI0KnhUyZZo1NeYP7B2AJVOXxFyl_g0NrmnWkastWzil9YCOKnTAdPBp8AHyP88LVI2lg6/pub?gid=0&single=true&output=csv';
+        const CSV_PLACES = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQOkTfIWeWI0KnhUyZZo1NeYP7B2AJVOXxFyl_g0NrmnWkastWzil9YCOKnTAdPBp8AHyP88LVI2lg6/pub?gid=368688716&single=true&output=csv';
+        const CSV_BLOGS = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQOkTfIWeWI0KnhUyZZo1NeYP7B2AJVOXxFyl_g0NrmnWkastWzil9YCOKnTAdPBp8AHyP88LVI2lg6/pub?gid=187773397&single=true&output=csv';
+
+        // Data Fetching Logic
+        function parseCSV(text) {
+            const rows = [];
+            const lines = text.split(/\r?\n/);
+            for (let line of lines) {
+                if (!line.trim()) continue;
+                const result = [];
+                let current = '';
+                let inQuotes = false;
+                for (let i = 0; i < line.length; i++) {
+                    const char = line[i];
+                    if (char === '"') inQuotes = !inQuotes;
+                    else if (char === ',' && !inQuotes) { result.push(current.trim()); current = ''; }
+                    else current += char;
+                }
+                result.push(current.trim());
+                rows.push(result);
+            }
+            return rows;
         }
 
-        function renderBlogs() {
-            const grid = document.getElementById('blogsGrid');
-            if(!grid) return;
-            grid.innerHTML = state.blogs.map(blog => `
-                <div class="flex flex-col lg:flex-row gap-10 items-center fade-in bg-white/80 backdrop-blur-md p-10 rounded-[50px] border border-white card-modern group p-0" onclick="window.openBlogDetails('${blog.title}')">
-                    <div class="w-full lg:w-2/5 h-72 rounded-[40px] overflow-hidden shadow-2xl flex-shrink-0"><img src="${blog.img}" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x300?text=Blog'"></div>
-                    <div class="w-full lg:w-3/5 p-4 lg:p-0 text-emerald-950">
-                        <span class="text-[11px] font-black text-amber-500 uppercase italic mb-6 block">${blog.date}</span>
-                        <h3 class="text-3xl font-black mb-6 tracking-tighter uppercase italic leading-tight">${blog.title}</h3>
-                        <p class="text-gray-500 text-base leading-relaxed line-clamp-3 font-medium">${blog.content}</p>
-                    </div>
-                </div>`).join('');
-        }
+        const formatImgUrl = (url) => {
+            if (!url) return '';
+            if (url.startsWith('http')) return url;
+            return 'assets/products/' + url;
+        };
 
-        // --- DATA ---
-        async function loadProducts() {
+        window.loadProducts = async () => {
             try {
                 const res = await fetch(CSV_PRODUCTS);
                 const rows = parseCSV(await res.text()).slice(1);
-                const googleProducts = rows.map((cols, i) => {
-                    if(cols.length < 5) return null;
-                    return {
-                        id: 'google-prod-' + i,
-                        name: cols[1],
-                        price: parseInt(cols[2].replace(/\D/g,'')) || 0,
-                        category: cols[3],
-                        img: formatImgUrl(cols[4]),
-                        status: cols[5] || 'In Stock',
-                        desc: cols[6] || 'Premium outdoor equipment.'
-                    };
-                }).filter(x => x);
-                state.products = [...state.products, ...googleProducts].filter((v,i,a)=>a.findIndex(t=>(t.name===v.name))===i);
-                renderCategoryFilters();
+                const items = rows.map((cols, i) => ({
+                    id: 'google-prod-' + i,
+                    name: cols[1],
+                    price: parseInt(cols[2].replace(/\D/g,'')) || 0,
+                    category: cols[3],
+                    img: formatImgUrl(cols[4]),
+                    status: cols[5] || 'In Stock',
+                    desc: cols[6] || 'Premium outdoor equipment.'
+                })).filter(x => x.name);
+                window.state.products = items;
                 window.applyProductFilters();
             } catch (e) { console.error(e); }
-        }
+        };
 
-        async function loadPlaces() {
+        window.loadPlaces = async () => {
             try {
                 const res = await fetch(CSV_PLACES);
                 const rows = parseCSV(await res.text()).slice(1);
-                const googlePlaces = rows.map(cols => {
-                    if(cols.length < 4) return null;
-                    return { name: cols[0], loc: cols[1], price: cols[2], img: formatImgUrl(cols[3]), desc: cols[4] || '' };
-                }).filter(x => x);
-                state.places = [...state.places, ...googlePlaces].filter((v,i,a)=>a.findIndex(t=>(t.name===v.name))===i);
-                renderPlaces();
+                window.state.places = rows.map(cols => ({
+                    name: cols[0], loc: cols[1], price: cols[2], img: formatImgUrl(cols[3]), desc: cols[4] || ''
+                })).filter(x => x.name);
+                // Trigger render if needed
             } catch (e) {}
-        }
+        };
 
-        async function loadBlogs() {
+        window.loadBlogs = async () => {
             try {
                 const res = await fetch(CSV_BLOGS);
                 const rows = parseCSV(await res.text()).slice(1);
-                const googleBlogs = rows.map(cols => {
-                    if(cols.length < 3) return null;
-                    return { title: cols[0], date: cols[1], img: formatImgUrl(cols[2]), content: cols[3] || '' };
-                }).filter(x => x);
-                state.blogs = [...state.blogs, ...googleBlogs].filter((v,i,a)=>a.findIndex(t=>(t.title===v.title))===i);
-                renderBlogs();
+                window.state.blogs = rows.map(cols => ({
+                    title: cols[0], date: cols[1], img: formatImgUrl(cols[2]), content: cols[3] || ''
+                })).filter(x => x.title);
+                // Trigger render if needed
             } catch (e) {}
-        }
+        };
 
-        // --- AUTH ---
+        // Firebase Auth
         const initAuth = async () => {
             try {
                 if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
@@ -661,34 +623,20 @@
             } catch (err) { console.error(err); }
         };
 
-        const setupListeners = () => {
-            if (!state.user) return;
-            onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'products'), (s) => {
-                state.products = s.docs.map(d => ({ id: d.id, ...d.data() }));
-                window.applyProductFilters();
-            });
-            onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'places'), (s) => {
-                state.places = s.docs.map(d => ({ id: d.id, ...d.data() }));
-                renderPlaces();
-            });
-            onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'blogs'), (s) => {
-                state.blogs = s.docs.map(d => ({ id: d.id, ...d.data() }));
-                renderBlogs();
-            });
-        };
-
         onAuthStateChanged(auth, async (user) => {
-            state.user = user;
-            if (user) setupListeners();
+            window.state.user = user;
+            if (user) {
+                onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'products'), (s) => {
+                    if (s.docs.length > 0) {
+                        window.state.products = s.docs.map(d => ({ id: d.id, ...d.data() }));
+                        window.applyProductFilters();
+                    }
+                });
+            }
         });
 
-        // --- STARTUP ---
-        (async () => {
-            await initAuth();
-            window.updateCartCount();
-            window.switchPage('home');
-        })();
-
+        // Start Auth
+        initAuth();
     </script>
 </body>
 </html>
