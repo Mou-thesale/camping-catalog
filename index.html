@@ -67,7 +67,7 @@
         .hero-text-animate {
             transition: opacity 1.5s ease-in-out, transform 1.5s ease-in-out;
             opacity: 0; 
-            transform: translateY(10px);
+            transform: translateY(15px);
         }
         
         .card-modern { 
@@ -162,7 +162,7 @@
         const categories = ["All", "Tents", "Cooking", "Coffee", "Lighting", "Sleeping", "Furniture", "Backpack", "Shoes", "Cloth", "Glasses", "Powerbank", "Survival"];
         const ADMIN_SHEET_URL = 'https://docs.google.com/spreadsheets/d/1N09HDxPd3zEDqxHR-knpH2MP_fq_XkLJZJ4FdCAYEG0/edit';
 
-        // --- Slider Logic (Dissolve Effect for Images and Text) ---
+        // --- Slider Logic (Dissolve Effect) ---
         window.initHeroSlider = () => {
             const layers = [document.getElementById('heroLayer1'), document.getElementById('heroLayer2')];
             const heroHeading = document.getElementById('heroMainHeading');
@@ -172,7 +172,6 @@
             let activeIdx = 0;
             const grad = "linear-gradient(to bottom, rgba(4, 47, 46, 0.2), rgba(2, 44, 34, 0.9))";
 
-            // Init first layer
             layers[0].style.backgroundImage = `${grad}, url('${heroImages[0]}')`;
             layers[0].style.opacity = 1;
 
@@ -180,9 +179,7 @@
                 currentHeroIdx = (currentHeroIdx + 1) % heroImages.length;
                 const nextIdx = 1 - activeIdx;
 
-                // Handle Text/Button Dissolve: 
-                // Hide for images 0, 1, 2 (Camping pictures)
-                // Show for image 3 (Last picture)
+                // Handle Text/Button Dissolve: Hide for 3 images, show on 4th
                 if (heroHeading && heroButton) {
                     if (currentHeroIdx === 3) {
                         heroHeading.style.opacity = 1;
@@ -191,42 +188,127 @@
                         heroButton.style.transform = "translateY(0)";
                     } else {
                         heroHeading.style.opacity = 0;
-                        heroHeading.style.transform = "translateY(10px)";
+                        heroHeading.style.transform = "translateY(15px)";
                         heroButton.style.opacity = 0;
-                        heroButton.style.transform = "translateY(10px)";
+                        heroButton.style.transform = "translateY(15px)";
                     }
                 }
 
-                // Prepare next background layer
                 layers[nextIdx].style.backgroundImage = `${grad}, url('${heroImages[currentHeroIdx]}')`;
                 layers[nextIdx].style.opacity = 1;
-                
-                // Fade out current background layer
                 layers[activeIdx].style.opacity = 0;
-
                 activeIdx = nextIdx;
             }, 4000);
+        };
+
+        // --- Cart Management Logic ---
+        window.addToCart = (id) => {
+            const p = window.state.products.find(x => x.id === id);
+            if(!p) return;
+            const exists = window.state.cart.find(i => i.id === id);
+            if(exists) exists.qty++; else window.state.cart.push({ ...p, qty: 1 });
+            window.updateCartCount();
+        };
+
+        window.updateQty = (id, delta) => {
+            const itemIdx = window.state.cart.findIndex(i => i.id === id);
+            if (itemIdx === -1) return;
+            window.state.cart[itemIdx].qty += delta;
+            if (window.state.cart[itemIdx].qty <= 0) window.state.cart.splice(itemIdx, 1);
+            window.updateCartCount();
+            window.openCart(); // Re-render
+        };
+
+        window.removeFromCart = (id) => {
+            window.state.cart = window.state.cart.filter(i => i.id !== id);
+            window.updateCartCount();
+            window.openCart(); // Re-render
+        };
+
+        window.updateCartCount = () => {
+            const count = window.state.cart.reduce((s, i) => s + (i.qty || 0), 0);
+            const badge = document.getElementById('cartCount');
+            if(badge) {
+                badge.innerText = count;
+                count > 0 ? badge.classList.remove('hidden') : badge.classList.add('hidden');
+            }
+            localStorage.setItem('thesale3_cart', JSON.stringify(window.state.cart));
+        };
+
+        window.openCart = () => {
+            const container = document.getElementById('cartItems');
+            const totalEl = document.getElementById('cartTotal');
+            if(!container) return;
+            
+            if(window.state.cart.length === 0) {
+                container.innerHTML = '<div class="text-center py-20 text-emerald-200 uppercase font-black text-[10px]">Bag empty</div>';
+                if(totalEl) totalEl.innerText = '0 LAK';
+            } else {
+                let total = 0;
+                container.innerHTML = window.state.cart.map(item => {
+                    total += item.price * (item.qty || 1);
+                    return `<div class="flex gap-4 p-4 bg-emerald-50 rounded-2xl text-emerald-950 items-center">
+                        <img src="${item.img}" class="w-12 h-12 rounded-xl object-cover">
+                        <div class="flex-grow">
+                            <h4 class="font-black text-[10px] uppercase leading-tight">${item.name}</h4>
+                            <p class="text-emerald-700 font-bold text-[9px]">${item.price.toLocaleString()} LAK</p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button onclick="window.updateQty('${item.id}', -1)" class="w-6 h-6 rounded-lg bg-white border border-emerald-200 flex items-center justify-center text-xs hover:bg-emerald-100"><i class="fa-solid fa-minus"></i></button>
+                            <span class="font-black text-xs w-4 text-center">${item.qty}</span>
+                            <button onclick="window.updateQty('${item.id}', 1)" class="w-6 h-6 rounded-lg bg-white border border-emerald-200 flex items-center justify-center text-xs hover:bg-emerald-100"><i class="fa-solid fa-plus"></i></button>
+                            <button onclick="window.removeFromCart('${item.id}')" class="ml-2 text-rose-500 hover:text-rose-700 p-1"><i class="fa-solid fa-trash-can text-sm"></i></button>
+                        </div>
+                    </div>`;
+                }).join('');
+                if(totalEl) totalEl.innerText = total.toLocaleString() + ' LAK';
+            }
+            document.getElementById('cartModal').style.display = 'flex';
+        };
+
+        // --- WhatsApp Checkout Logic with "ສະບາຍດີ!" ---
+        window.checkoutWhatsApp = () => {
+            if (window.state.cart.length === 0) return;
+            
+            let totalOrderPrice = 0;
+            let totalOrderItems = 0;
+            let message = "ສະບາຍດີ! *--- ລາຍການສັ່ງຊື້ສິນຄ້າ (TheSale3) ---*\n\n";
+
+            window.state.cart.forEach((item, index) => {
+                const subtotal = item.price * item.qty;
+                totalOrderPrice += subtotal;
+                totalOrderItems += item.qty;
+                message += `${index + 1}. *${item.name}*\n`;
+                message += `   - ຈຳນວນ: ${item.qty} ຊິ້ນ\n`;
+                message += `   - ລາຄາ: ${item.price.toLocaleString()} LAK / ຊິ້ນ\n`;
+                message += `   - ລວມ: ${subtotal.toLocaleString()} LAK\n\n`;
+            });
+
+            message += `*==========================*\n`;
+            message += `*ລວມຈຳນວນທັງໝົດ:* ${totalOrderItems} ຊິ້ນ\n`;
+            message += `*ລາຄາລວມສຸດທິ:* ${totalOrderPrice.toLocaleString()} LAK\n`;
+            message += `*==========================*\n\n`;
+            message += `_ກະລຸນາລໍຖ້າການຢືນຢັນຈາກທາງຮ້ານ._`;
+
+            const waLink = `https://wa.me/8562054849393?text=${encodeURIComponent(message)}`;
+            window.open(waLink, '_blank');
         };
 
         // --- Navigation ---
         window.switchPage = (pageId) => {
             document.querySelectorAll('.page-section').forEach(p => p.classList.add('hidden'));
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active-link'));
-            
             const target = document.getElementById('page-' + pageId);
             if(target) target.classList.remove('hidden');
-            
             document.querySelectorAll(`[id^="btn-${pageId}"]`).forEach(btn => btn.classList.add('active-link'));
-            
             window.scrollTo({ top: 0, behavior: 'smooth' });
-
             if (pageId === 'home') window.renderHomePreview();
             if (pageId === 'products') window.renderProducts(window.state.products);
             if (pageId === 'places') window.renderPlaces(window.state.places);
             if (pageId === 'blogs') window.renderBlogs(window.state.blogs);
         };
 
-        // --- UI Rendering Helpers ---
+        // --- UI Helpers ---
         window.getProductHTML = (p) => `
             <div class="card-modern group p-6 sm:p-8 flex flex-col fade-in cursor-pointer" onclick="window.openDetails('${p.id}')">
                 <div class="h-48 sm:h-56 rounded-[24px] bg-emerald-100/30 overflow-hidden mb-6 relative">
@@ -267,7 +349,6 @@
                 </div>
             </div>`;
 
-        // --- UI Rendering ---
         window.renderHomePreview = () => {
             if(window.state.products.length > 0) {
                 const homeProducts = window.state.products.slice(0, 4);
@@ -288,17 +369,17 @@
 
         window.renderProducts = (items) => {
             const grid = document.getElementById('productGrid');
-            if(grid) grid.innerHTML = items.length === 0 ? '<div class="col-span-full py-20 text-center opacity-50 italic">ກຳລັງໂຫລດສິນຄ້າ...</div>' : items.map(p => window.getProductHTML(p)).join('');
+            if(grid) grid.innerHTML = items.length === 0 ? '<div class="col-span-full py-20 text-center opacity-50 italic">ກຳລັງໂຫລດ...</div>' : items.map(p => window.getProductHTML(p)).join('');
         };
 
         window.renderPlaces = (items) => {
             const grid = document.getElementById('placesGrid');
-            if(grid) grid.innerHTML = items.length === 0 ? '<div class="col-span-full py-20 text-center opacity-50 italic">ກຳລັງໂຫລດຂໍ້ມູນສະຖານທີ່...</div>' : items.map(pl => window.getPlaceHTML(pl)).join('');
+            if(grid) grid.innerHTML = items.length === 0 ? '<div class="col-span-full py-20 text-center opacity-50 italic">ກຳລັງໂຫລດ...</div>' : items.map(pl => window.getPlaceHTML(pl)).join('');
         };
 
         window.renderBlogs = (items) => {
             const grid = document.getElementById('blogsGrid');
-            if(grid) grid.innerHTML = items.length === 0 ? '<div class="col-span-full py-20 text-center opacity-50 italic">ກຳລັງໂຫລດບົດຄວາມ...</div>' : items.map(b => window.getBlogHTML(b)).join('');
+            if(grid) grid.innerHTML = items.length === 0 ? '<div class="col-span-full py-20 text-center opacity-50 italic">ກຳລັງໂຫລດ...</div>' : items.map(b => window.getBlogHTML(b)).join('');
         };
 
         window.renderCategoryFilters = () => {
@@ -311,78 +392,7 @@
             `).join('');
         };
 
-        // --- Cart Logic ---
-        window.addToCart = (id) => {
-            const p = window.state.products.find(x => x.id === id);
-            if(!p) return;
-            const exists = window.state.cart.find(i => i.id === id);
-            if(exists) exists.qty++; else window.state.cart.push({ ...p, qty: 1 });
-            window.updateCartCount();
-        };
-
-        window.updateQty = (id, delta) => {
-            const itemIdx = window.state.cart.findIndex(i => i.id === id);
-            if (itemIdx === -1) return;
-            
-            window.state.cart[itemIdx].qty += delta;
-            
-            if (window.state.cart[itemIdx].qty <= 0) {
-                window.state.cart.splice(itemIdx, 1);
-            }
-            
-            window.updateCartCount();
-            window.openCart(); // Re-render content
-        };
-
-        window.removeFromCart = (id) => {
-            window.state.cart = window.state.cart.filter(i => i.id !== id);
-            window.updateCartCount();
-            window.openCart(); // Re-render content
-        };
-
-        window.updateCartCount = () => {
-            const count = window.state.cart.reduce((s, i) => s + (i.qty || 0), 0);
-            const badge = document.getElementById('cartCount');
-            if(badge) {
-                badge.innerText = count;
-                count > 0 ? badge.classList.remove('hidden') : badge.classList.add('hidden');
-            }
-            localStorage.setItem('thesale3_cart', JSON.stringify(window.state.cart));
-        };
-
-        window.openCart = () => {
-            const container = document.getElementById('cartItems');
-            const totalEl = document.getElementById('cartTotal');
-            if(!container) return;
-            if(window.state.cart.length === 0) {
-                container.innerHTML = '<div class="text-center py-20 text-emerald-200 uppercase font-black text-[10px]">Bag empty</div>';
-                if(totalEl) totalEl.innerText = '0 LAK';
-            } else {
-                let total = 0;
-                container.innerHTML = window.state.cart.map(item => {
-                    total += item.price * (item.qty || 1);
-                    return `<div class="flex gap-4 p-4 bg-emerald-50 rounded-2xl text-emerald-950 items-center">
-                        <img src="${item.img}" class="w-12 h-12 rounded-xl object-cover">
-                        <div class="flex-grow">
-                            <h4 class="font-black text-[10px] uppercase leading-tight">${item.name}</h4>
-                            <p class="text-emerald-700 font-bold text-[9px]">${item.price.toLocaleString()} LAK</p>
-                        </div>
-                        <div class="flex items-center gap-2">
-                            <button onclick="window.updateQty('${item.id}', -1)" class="w-6 h-6 rounded-lg bg-white border border-emerald-200 flex items-center justify-center text-xs hover:bg-emerald-100"><i class="fa-solid fa-minus"></i></button>
-                            <span class="font-black text-xs w-4 text-center">${item.qty}</span>
-                            <button onclick="window.updateQty('${item.id}', 1)" class="w-6 h-6 rounded-lg bg-white border border-emerald-200 flex items-center justify-center text-xs hover:bg-emerald-100"><i class="fa-solid fa-plus"></i></button>
-                            <button onclick="window.removeFromCart('${item.id}')" class="ml-2 text-rose-500 hover:text-rose-700 p-1"><i class="fa-solid fa-trash-can text-sm"></i></button>
-                        </div>
-                    </div>`;
-                }).join('');
-                if(totalEl) totalEl.innerText = total.toLocaleString() + ' LAK';
-            }
-            document.getElementById('cartModal').style.display = 'flex';
-        };
-
-        window.closeCart = () => document.getElementById('cartModal').style.display = 'none';
-
-        // --- Details ---
+        // Modal Controls
         window.openDetails = (id) => {
             const p = window.state.products.find(x => x.id === id);
             if(!p) return;
@@ -395,10 +405,9 @@
             statusBadge.innerText = p.status;
             statusBadge.className = `px-5 py-2.5 rounded-full border-2 text-[10px] font-black ${p.status?.toLowerCase().includes('pre') ? 'status-pre-order' : 'status-in-stock'}`;
             document.getElementById('detailsAddBtn').onclick = () => { window.addToCart(p.id); window.closeDetails(); };
-            document.getElementById('detailsWaBtn').href = `https://wa.me/8562054849393?text=${encodeURIComponent("ສົນໃຈ: " + p.name)}`;
+            document.getElementById('detailsWaBtn').href = `https://wa.me/8562054849393?text=${encodeURIComponent("ສະບາຍດີ! ສົນໃຈ: " + p.name)}`;
             document.getElementById('detailsModal').style.display = 'flex';
         };
-
         window.closeDetails = () => document.getElementById('detailsModal').style.display = 'none';
 
         window.openPlaceDetails = (name) => {
@@ -409,10 +418,9 @@
             document.getElementById('placeDetailsLoc').innerText = place.loc;
             document.getElementById('placeDetailsPrice').innerText = place.price;
             document.getElementById('placeDetailsDesc').innerText = place.desc;
-            document.getElementById('placeDetailsWaBtn').href = `https://wa.me/8562054849393?text=${encodeURIComponent("ສອບຖາມກ່ຽວກັບ: " + place.name)}`;
+            document.getElementById('placeDetailsWaBtn').href = `https://wa.me/8562054849393?text=${encodeURIComponent("ສະບາຍດີ! ສອບຖາມກ່ຽວກັບ: " + place.name)}`;
             document.getElementById('placeModal').style.display = 'flex';
         };
-
         window.closePlaceModal = () => document.getElementById('placeModal').style.display = 'none';
 
         window.openBlogDetails = (title) => {
@@ -424,25 +432,7 @@
             document.getElementById('blogDetailsContent').innerText = blog.content;
             document.getElementById('blogModal').style.display = 'flex';
         };
-
         window.closeBlogModal = () => document.getElementById('blogModal').style.display = 'none';
-
-        window.setCategory = (cat) => {
-            window.state.currentCategory = cat;
-            window.renderCategoryFilters();
-            window.applyProductFilters();
-        };
-
-        window.applyProductFilters = () => {
-            const si = document.getElementById('searchInput');
-            const val = si ? si.value.toLowerCase() : "";
-            const filtered = window.state.products.filter(p => {
-                const mSearch = p.name?.toLowerCase().includes(val);
-                const mCat = window.state.currentCategory === 'All' || p.category?.toLowerCase() === window.state.currentCategory.toLowerCase();
-                return mSearch && mCat;
-            });
-            window.renderProducts(filtered);
-        };
 
         window.handleAdminClick = () => {
             let adminClicks = parseInt(sessionStorage.getItem('admin_clicks') || '0');
@@ -469,94 +459,61 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6">
             <div class="flex justify-between items-center h-20 sm:h-24">
                 <div class="cursor-pointer flex items-center" onclick="window.switchPage('home')">
-                    <img src="https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/thesale3-logo.png" 
-                         alt="TheSale3 Logo" 
-                         class="h-14 sm:h-20 w-auto object-contain drop-shadow-xl" 
-                         onerror="this.src='https://placehold.co/400x160?text=TheSale3+Logo'">
+                    <img src="https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/thesale3-logo.png" alt="Logo" class="h-14 sm:h-20 w-auto object-contain">
                 </div>
-
                 <div class="hidden md:flex items-center gap-8 font-bold text-[10px] uppercase tracking-widest text-slate-300">
                     <button onclick="window.switchPage('products')" class="nav-btn py-2 hover:text-white" id="btn-products-desktop">Products</button>
                     <button onclick="window.switchPage('places')" class="nav-btn py-2 hover:text-white" id="btn-places-desktop">Places</button>
                     <button onclick="window.switchPage('blogs')" class="nav-btn py-2 hover:text-white" id="btn-blogs-desktop">Journal</button>
                 </div>
-
                 <div class="flex items-center gap-4">
                     <button onclick="window.openCart()" class="relative p-2.5 bg-white/10 rounded-2xl border border-white/10 hover:bg-white/20 transition">
                         <i class="fa-solid fa-cart-shopping text-white"></i>
                         <span id="cartCount" class="absolute -top-1 -right-1 bg-amber-500 text-white text-[8px] font-black w-4 h-4 flex items-center justify-center rounded-full border-2 border-emerald-950 hidden">0</span>
                     </button>
-                    <a href="https://wa.me/8562054849393" target="_blank" class="bg-emerald-600 text-white px-6 py-2.5 rounded-2xl text-[9px] font-black uppercase tracking-widest flex items-center gap-2 btn-adventure shadow-lg">
-                        <i class="fa-brands fa-whatsapp"></i> <span class="hidden sm:inline">WhatsApp</span>
-                    </a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <!-- Mobile Nav Bar -->
-    <div class="mobile-nav md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center py-4 px-2">
-        <button onclick="window.switchPage('home')" class="nav-btn flex flex-col items-center gap-1 text-[9px] uppercase font-bold text-slate-400" id="btn-home-mobile">
-            <i class="fa-solid fa-house text-lg"></i>
-            <span>Home</span>
-        </button>
-        <button onclick="window.switchPage('products')" class="nav-btn flex flex-col items-center gap-1 text-[9px] uppercase font-bold text-slate-400" id="btn-products-mobile">
-            <i class="fa-solid fa-tent text-lg"></i>
-            <span>Gear</span>
-        </button>
-        <button onclick="window.switchPage('places')" class="nav-btn flex flex-col items-center gap-1 text-[9px] uppercase font-bold text-slate-400" id="btn-places-mobile">
-            <i class="fa-solid fa-map-location-dot text-lg"></i>
-            <span>Places</span>
-        </button>
-        <button onclick="window.switchPage('blogs')" class="nav-btn flex flex-col items-center gap-1 text-[9px] uppercase font-bold text-slate-400" id="btn-blogs-mobile">
-            <i class="fa-solid fa-newspaper text-lg"></i>
-            <span>Journal</span>
-        </button>
-    </div>
-
-    <!-- Content Sections -->
+    <!-- Content Pages -->
     <div id="pages-container" class="pb-24 md:pb-0">
         <!-- Home -->
         <section id="page-home" class="page-section">
             <header class="hero-container relative">
-                <!-- Dual Layer for Cross-fade -->
                 <div id="heroLayer1" class="hero-bg opacity-0"></div>
                 <div id="heroLayer2" class="hero-bg opacity-0"></div>
-                
                 <div class="absolute inset-0 z-10 flex items-center justify-center text-center px-4">
                     <div class="max-w-3xl">
                         <h1 id="heroMainHeading" class="text-5xl sm:text-8xl font-black text-white mb-8 tracking-tighter drop-shadow-2xl italic hero-text-animate">The Forest<br><span class="text-amber-500">Starts Here.</span></h1>
-                        <button id="heroMainButton" onclick="window.switchPage('products')" class="bg-amber-500 text-white px-10 py-4 rounded-[22px] font-black text-[10px] sm:text-[11px] uppercase tracking-widest hover:bg-amber-600 transition shadow-2xl scale-105 mt-6 hero-text-animate">Discover Gear</button>
+                        <button id="heroMainButton" onclick="window.switchPage('products')" class="bg-amber-500 text-white px-10 py-4 rounded-[22px] font-black text-[10px] sm:text-[11px] uppercase tracking-widest hero-text-animate shadow-2xl scale-105 mt-6">Discover Gear</button>
                     </div>
                 </div>
                 <div class="absolute bottom-[-1px] left-0 w-full h-24 bg-gradient-to-t from-[#022c22] to-transparent z-10"></div>
             </header>
 
             <div class="max-w-7xl mx-auto px-4 py-20">
-                <div class="flex justify-between items-end mb-12">
-                    <h2 class="text-4xl font-black uppercase italic tracking-tighter text-white leading-none">Featured Gear</h2>
-                    <button onclick="window.switchPage('products')" class="text-emerald-400 font-bold text-xs uppercase tracking-widest border-b border-emerald-400/30 pb-1 hover:text-white transition">View All</button>
-                </div>
-                <div id="homeProductGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8"></div>
+                <h2 class="text-4xl font-black uppercase italic tracking-tighter text-white mb-12">Featured Gear</h2>
+                <div id="homeProductGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"></div>
             </div>
 
             <div class="bg-emerald-950/30 py-20 px-4">
                 <div class="max-w-7xl mx-auto">
-                    <h2 class="text-4xl sm:text-6xl font-black uppercase italic tracking-tighter text-white text-center mb-16">Top Destinations</h2>
+                    <h2 class="text-4xl sm:text-6xl font-black uppercase italic text-white text-center mb-16">Top Destinations</h2>
                     <div id="homePlacesGrid" class="grid grid-cols-1 md:grid-cols-3 gap-8"></div>
                 </div>
             </div>
 
             <div class="max-w-7xl mx-auto px-4 py-24">
-                <h2 class="text-4xl font-black uppercase italic tracking-tighter text-white mb-16 text-center">Journal Highlights</h2>
+                <h2 class="text-4xl font-black uppercase italic text-white mb-16 text-center">Journal Highlights</h2>
                 <div id="homeBlogsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-8"></div>
             </div>
         </section>
 
-        <!-- Products -->
+        <!-- Other sections like Products, Places, Blogs follow same logic as existing code -->
         <section id="page-products" class="page-section hidden py-16 sm:py-20 px-4 max-w-7xl mx-auto w-full">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
-                <h2 class="text-4xl sm:text-5xl font-black uppercase italic tracking-tighter text-white">Catalog</h2>
+                <h2 class="text-4xl sm:text-5xl font-black uppercase italic text-white">Catalog</h2>
                 <div class="relative w-full md:w-[400px]">
                     <i class="fa-solid fa-magnifying-glass absolute left-6 top-1/2 -translate-y-1/2 text-emerald-300"></i>
                     <input type="text" id="searchInput" oninput="window.applyProductFilters()" placeholder="Search gear..." class="w-full pl-16 pr-8 py-4 rounded-[22px] bg-white/10 border border-white/20 text-white outline-none focus:border-emerald-500 transition-all text-sm">
@@ -566,48 +523,64 @@
             <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8"></div>
         </section>
 
-        <!-- Places -->
         <section id="page-places" class="page-section hidden py-16 sm:py-24 px-4 max-w-7xl mx-auto w-full text-white">
-            <h2 class="text-4xl sm:text-7xl font-black uppercase italic tracking-tighter text-center mb-16">All Spots</h2>
+            <h2 class="text-4xl sm:text-7xl font-black uppercase italic text-center mb-16">All Spots</h2>
             <div id="placesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
         </section>
 
-        <!-- Blogs -->
         <section id="page-blogs" class="page-section hidden py-16 sm:py-24 px-4 max-w-7xl mx-auto w-full text-white">
-            <h2 class="text-4xl sm:text-7xl font-black uppercase italic tracking-tighter text-center mb-16">The Journal</h2>
+            <h2 class="text-4xl sm:text-7xl font-black uppercase italic text-center mb-16">The Journal</h2>
             <div id="blogsGrid" class="flex flex-col gap-8"></div>
         </section>
     </div>
 
     <!-- Modals -->
+    <!-- Cart Modal -->
+    <div id="cartModal" class="modal-overlay" onclick="if(event.target === this) window.closeCart()">
+        <div class="bg-white h-full max-w-md w-full ml-auto flex flex-col p-8 sm:p-12 shadow-2xl">
+            <div class="flex justify-between items-center mb-10 border-b pb-6">
+                <h3 class="text-2xl font-black uppercase text-emerald-950 italic">Your Bag</h3>
+                <button onclick="window.closeCart()" class="text-emerald-950 text-3xl">&times;</button>
+            </div>
+            <div id="cartItems" class="flex-grow overflow-y-auto space-y-5 pr-2"></div>
+            <div class="pt-8 border-t mt-8">
+                <div class="flex justify-between mb-8"><span class="font-bold text-gray-400 uppercase text-[10px] tracking-widest">Total</span><span id="cartTotal" class="text-2xl font-black text-emerald-700 italic">0 LAK</span></div>
+                <button onclick="window.checkoutWhatsApp()" class="w-full bg-[#25D366] text-white py-5 rounded-[20px] font-black uppercase text-[10px] tracking-widest flex items-center justify-center gap-2">
+                    <i class="fa-brands fa-whatsapp text-lg"></i> Checkout WhatsApp
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Details Modal -->
     <div id="detailsModal" class="modal-overlay" onclick="if(event.target === this) window.closeDetails()">
         <div class="bg-white rounded-[40px] max-w-4xl w-full mx-4 overflow-hidden shadow-2xl flex flex-col md:flex-row relative max-h-[92vh] border-8 border-emerald-950/20">
-            <button onclick="window.closeDetails()" class="absolute top-4 right-4 sm:top-6 sm:right-6 bg-emerald-50 w-10 h-10 sm:w-12 sm:h-12 rounded-2xl flex items-center justify-center text-emerald-950 z-10 shadow-lg"><i class="fa-solid fa-xmark"></i></button>
-            <div class="md:w-1/2 bg-emerald-50 flex items-center justify-center p-6 sm:p-10 text-emerald-950">
-                <img id="detailsImage" src="" class="max-w-full max-h-[300px] sm:max-h-[400px] object-contain">
+            <button onclick="window.closeDetails()" class="absolute top-4 right-4 sm:top-6 sm:right-6 bg-emerald-50 w-10 h-10 rounded-2xl flex items-center justify-center text-emerald-950 z-10 shadow-lg"><i class="fa-solid fa-xmark"></i></button>
+            <div class="md:w-1/2 bg-emerald-50 flex items-center justify-center p-6 text-emerald-950">
+                <img id="detailsImage" src="" class="max-w-full max-h-[400px] object-contain">
             </div>
             <div class="md:w-1/2 p-8 sm:p-10 flex flex-col overflow-y-auto bg-white text-emerald-950">
-                <span id="detailsCategory" class="text-[9px] sm:text-[10px] font-black text-emerald-600 uppercase mb-4 tracking-widest">Category</span>
-                <h2 id="detailsTitle" class="text-2xl sm:text-3xl font-black mb-6 uppercase italic leading-tight">Name</h2>
+                <span id="detailsCategory" class="text-[9px] font-black text-emerald-600 uppercase mb-4 tracking-widest">Category</span>
+                <h2 id="detailsTitle" class="text-2xl font-black mb-6 uppercase italic">Name</h2>
                 <div class="flex items-center gap-6 mb-8">
-                    <p id="detailsPrice" class="text-2xl sm:text-3xl font-black text-emerald-700 italic tracking-tighter">0 LAK</p>
-                    <span id="detailsStatus" class="px-4 py-2 rounded-full border-2 text-[10px] font-black">Status</span>
+                    <p id="detailsPrice" class="text-2xl font-black text-emerald-700 italic">0 LAK</p>
+                    <span id="detailsStatus" class="px-4 py-2 rounded-full border-2 text-[9px] font-black">Status</span>
                 </div>
-                <p id="detailsDesc" class="text-gray-500 mb-8 text-xs sm:text-sm leading-relaxed font-medium">Desc</p>
+                <p id="detailsDesc" class="text-gray-500 mb-8 text-sm font-medium">Desc</p>
                 <div class="mt-auto flex gap-4">
-                    <button id="detailsAddBtn" class="flex-grow btn-adventure text-white py-4 sm:py-5 rounded-[18px] font-black uppercase text-[10px] sm:text-xs tracking-widest">Add to Bag</button>
-                    <a id="detailsWaBtn" href="#" target="_blank" class="w-14 h-14 sm:w-16 sm:h-16 bg-[#25D366] text-white rounded-[18px] flex items-center justify-center text-xl sm:text-2xl hover:scale-110 transition shadow-lg"><i class="fa-brands fa-whatsapp"></i></a>
+                    <button id="detailsAddBtn" class="flex-grow btn-adventure text-white py-4 rounded-[18px] font-black uppercase text-[10px]">Add to Bag</button>
+                    <a id="detailsWaBtn" href="#" target="_blank" class="w-14 h-14 bg-[#25D366] text-white rounded-[18px] flex items-center justify-center text-xl shadow-lg hover:scale-110 transition"><i class="fa-brands fa-whatsapp"></i></a>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Place Details Modal -->
+    <!-- Other Modals (Place, Blog) follow same design pattern -->
     <div id="placeModal" class="modal-overlay" onclick="if(event.target === this) window.closePlaceModal()">
         <div class="bg-white rounded-[40px] max-w-4xl w-full mx-4 overflow-hidden shadow-2xl flex flex-col md:flex-row max-h-[90vh]">
             <div class="md:w-1/2 h-64 md:h-auto overflow-hidden"><img id="placeDetailsImage" src="" class="w-full h-full object-cover"></div>
             <div class="md:w-1/2 p-8 sm:p-10 overflow-y-auto text-emerald-950 bg-white">
-                <h2 id="placeDetailsTitle" class="text-2xl font-black mb-4 italic uppercase leading-none">Location</h2>
+                <h2 id="placeDetailsTitle" class="text-2xl font-black mb-4 italic uppercase">Location</h2>
                 <div class="flex flex-wrap gap-4 mb-6 text-[10px] font-bold uppercase tracking-widest">
                     <span id="placeDetailsLoc" class="text-gray-400"><i class="fa-solid fa-location-dot text-amber-500"></i> Location</span>
                     <span id="placeDetailsPrice" class="text-emerald-800 bg-emerald-50 px-3 py-1.5 rounded-xl">Price</span>
@@ -618,51 +591,40 @@
         </div>
     </div>
 
-    <!-- Blog Details Modal -->
     <div id="blogModal" class="modal-overlay" onclick="if(event.target === this) window.closeBlogModal()">
         <div class="bg-white rounded-[40px] max-w-4xl w-full mx-4 overflow-hidden max-h-[92vh] flex flex-col shadow-2xl">
             <div class="h-64 flex-shrink-0 relative">
                 <img id="blogDetailsImage" src="" class="w-full h-full object-cover">
                 <button onclick="window.closeBlogModal()" class="absolute top-4 right-4 bg-white/80 w-10 h-10 rounded-full flex items-center justify-center text-emerald-950 shadow-md"><i class="fa-solid fa-xmark"></i></button>
             </div>
-            <div class="p-8 sm:p-10 overflow-y-auto bg-white text-emerald-950">
+            <div class="p-8 overflow-y-auto bg-white text-emerald-950">
                 <span id="blogDetailsDate" class="text-amber-500 font-black mb-3 block text-[10px] uppercase tracking-widest">Date</span>
-                <h2 id="blogDetailsTitle" class="text-2xl sm:text-3xl font-black mb-6 uppercase italic leading-tight">Title</h2>
-                <p id="blogDetailsContent" class="text-gray-600 leading-relaxed whitespace-pre-line text-sm font-medium">Content</p>
+                <h2 id="blogDetailsTitle" class="text-2xl font-black mb-6 uppercase italic">Title</h2>
+                <p id="blogDetailsContent" class="text-gray-600 leading-relaxed text-sm font-medium">Content</p>
             </div>
         </div>
     </div>
 
-    <!-- Cart Modal -->
-    <div id="cartModal" class="modal-overlay" onclick="if(event.target === this) window.closeCart()">
-        <div class="bg-white h-full max-w-md w-full ml-auto flex flex-col p-8 sm:p-12 shadow-2xl">
-            <div class="flex justify-between items-center mb-10 border-b pb-6">
-                <h3 class="text-2xl font-black uppercase text-emerald-950 italic tracking-tighter">Your Bag</h3>
-                <button onclick="window.closeCart()" class="text-emerald-950 text-3xl">&times;</button>
-            </div>
-            <div id="cartItems" class="flex-grow overflow-y-auto space-y-5 pr-2"></div>
-            <div class="pt-8 border-t mt-8">
-                <div class="flex justify-between mb-8"><span class="font-bold text-gray-400 uppercase text-[10px] tracking-widest">Total</span><span id="cartTotal" class="text-2xl font-black text-emerald-700 italic tracking-tighter">0 LAK</span></div>
-                <button onclick="window.checkoutWhatsApp()" class="w-full bg-[#25D366] text-white py-5 rounded-[20px] font-black uppercase text-[10px] tracking-widest">Checkout WhatsApp</button>
-            </div>
-        </div>
+    <!-- Mobile Nav -->
+    <div class="mobile-nav md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center py-4 px-2">
+        <button onclick="window.switchPage('home')" class="nav-btn flex flex-col items-center gap-1 text-[9px] uppercase font-bold text-slate-400" id="btn-home-mobile"><i class="fa-solid fa-house text-lg"></i><span>Home</span></button>
+        <button onclick="window.switchPage('products')" class="nav-btn flex flex-col items-center gap-1 text-[9px] uppercase font-bold text-slate-400" id="btn-products-mobile"><i class="fa-solid fa-tent text-lg"></i><span>Gear</span></button>
+        <button onclick="window.switchPage('places')" class="nav-btn flex flex-col items-center gap-1 text-[9px] uppercase font-bold text-slate-400" id="btn-places-mobile"><i class="fa-solid fa-map-location-dot text-lg"></i><span>Places</span></button>
+        <button onclick="window.switchPage('blogs')" class="nav-btn flex flex-col items-center gap-1 text-[9px] uppercase font-bold text-slate-400" id="btn-blogs-mobile"><i class="fa-solid fa-newspaper text-lg"></i><span>Journal</span></button>
     </div>
 
-    <!-- Footer -->
     <footer class="bg-emerald-950 py-16 text-center border-t-8 border-amber-500 relative overflow-hidden">
         <div class="absolute inset-0 opacity-10 pointer-events-none bg-repeat" style="background-image: url('https://www.transparenttextures.com/patterns/topography.png');"></div>
-        
         <div class="flex justify-center gap-10 mb-12 relative z-10">
             <a href="https://www.facebook.com/Clicktobuy333333333" target="_blank" class="text-emerald-500 hover:text-white transition transform hover:scale-125"><i class="fa-brands fa-facebook text-4xl"></i></a>
             <a href="https://www.tiktok.com/@thesale3camping" target="_blank" class="text-emerald-500 hover:text-white transition transform hover:scale-125"><i class="fa-brands fa-tiktok text-4xl"></i></a>
         </div>
-
         <h4 class="text-white font-black text-3xl italic tracking-tighter uppercase mb-4 relative z-10">THESALE3</h4>
         <p class="text-emerald-400 text-[10px] font-bold uppercase tracking-[0.4em] mb-10 relative z-10">Premium Gear for Bold Explorers Across Laos</p>
         <p class="text-[8px] text-emerald-900 font-bold uppercase tracking-[0.6em] relative z-10 select-none">© <span onclick="window.handleAdminClick()" class="cursor-pointer">TheSale3 Business</span> / Established for Adventure</p>
     </footer>
 
-    <!-- Scripts -->
+    <!-- Firebase -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
@@ -713,11 +675,11 @@
                     category: cols[3],
                     img: formatImgUrl(cols[4]),
                     status: cols[5] || 'In Stock',
-                    desc: cols[6] || 'Premium outdoor equipment.'
+                    desc: cols[6] || 'Gear'
                 })).filter(x => x.name);
                 window.renderProducts(window.state.products);
                 window.renderHomePreview();
-                if (window.renderCategoryFilters) window.renderCategoryFilters();
+                window.renderCategoryFilters();
             } catch (e) { console.error(e); }
         };
 
@@ -751,13 +713,11 @@
                 const app = initializeApp(firebaseConfig);
                 const auth = getAuth(app);
                 const db = getFirestore(app);
-
                 const initAuth = async () => {
                     if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
                         await signInWithCustomToken(auth, __initial_auth_token);
                     } else { await signInAnonymously(auth); }
                 };
-
                 onAuthStateChanged(auth, async (user) => {
                     if (user) {
                         onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'products'), (s) => {
