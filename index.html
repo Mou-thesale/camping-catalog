@@ -123,7 +123,8 @@
         };
 
         const categories = ["All", "Tents", "Cooking", "Coffee", "Lighting", "Sleeping", "Furniture", "Backpack", "Shoes", "Cloth", "Glasses", "Powerbank", "Survival"];
-        const ADMIN_SHEET_URL = 'https://docs.google.com/spreadsheets/d/1qdr-stVezfFRMqug8kuqM8rftflQcnxx/edit';
+        // Updated to the new sheet URL provided
+        const ADMIN_SHEET_URL = 'https://docs.google.com/spreadsheets/d/1N09HDxPd3zEDqxHR-knpH2MP_fq_XkLJZJ4FdCAYEG0/edit';
 
         // --- Navigation ---
         window.switchPage = (pageId) => {
@@ -148,7 +149,7 @@
             const grid = document.getElementById('productGrid');
             if(!grid) return;
             if (items.length === 0) {
-                grid.innerHTML = '<div class="col-span-full py-20 text-center text-emerald-100 opacity-50">ກຳລັງໂຫລດສິນຄ້າ ຫຼື ບໍ່ມີຂໍ້ມູນ...</div>';
+                grid.innerHTML = '<div class="col-span-full py-20 text-center text-emerald-100 opacity-50">ກຳລັງໂຫລດສິນຄ້າ...</div>';
                 return;
             }
             grid.innerHTML = items.map(p => `
@@ -442,7 +443,6 @@
         </div>
     </div>
 
-    <!-- Other modals (Places/Blogs) built by same logic -->
     <div id="placeModal" class="modal-overlay" onclick="if(event.target === this) window.closePlaceModal()">
         <div class="bg-white rounded-[40px] max-w-4xl w-full mx-4 overflow-hidden shadow-2xl flex flex-col md:flex-row max-h-[90vh]">
             <div class="md:w-1/2 h-80 md:h-auto overflow-hidden"><img id="placeDetailsImage" src="" class="w-full h-full object-cover"></div>
@@ -488,22 +488,21 @@
         <p class="text-[8px] text-emerald-900 mt-8 uppercase tracking-widest">© TheSale3 Business / Established for Adventure</p>
     </footer>
 
-    <!-- Firebase & Data Loading Logic -->
+    <!-- Firebase & Data Loading Script -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        const firebaseConfig = JSON.parse(__firebase_config);
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
+        // Firebase Context Setup (Fail-safe)
+        const firebaseConfigStr = typeof __firebase_config !== 'undefined' ? __firebase_config : null;
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'thesale3-camping';
 
-        // --- GOOGLE SHEETS LINKS (Exactly as provided) ---
-        const CSV_PRODUCTS = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQOkTfIWeWI0KnhUyZZo1NeYP7B2AJVOXxFyl_g0NrmnWkastWzil9YCOKnTAdPBp8AHyP88LVI2lg6/pub?gid=0&single=true&output=csv';
-        const CSV_PLACES = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQOkTfIWeWI0KnhUyZZo1NeYP7B2AJVOXxFyl_g0NrmnWkastWzil9YCOKnTAdPBp8AHyP88LVI2lg6/pub?gid=368688716&single=true&output=csv';
-        const CSV_BLOGS = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQOkTfIWeWI0KnhUyZZo1NeYP7B2AJVOXxFyl_g0NrmnWkastWzil9YCOKnTAdPBp8AHyP88LVI2lg6/pub?gid=187773397&single=true&output=csv';
+        // --- NEW GOOGLE SHEETS LINKS (Updated ID) ---
+        const SHEET_ID = '1N09HDxPd3zEDqxHR-knpH2MP_fq_XkLJZJ4FdCAYEG0';
+        const CSV_PRODUCTS = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=0`;
+        const CSV_PLACES = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=368688716`;
+        const CSV_BLOGS = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=187773397`;
 
         function parseCSV(text) {
             const rows = [];
@@ -531,7 +530,7 @@
             return 'assets/products/' + url;
         };
 
-        // --- Fetch & Update State ---
+        // Fetch Functions
         window.loadProducts = async () => {
             try {
                 const res = await fetch(CSV_PRODUCTS);
@@ -573,32 +572,37 @@
             } catch (e) { console.error("CSV Load Fail (Blogs):", e); }
         };
 
-        // Auth initialization
-        const initAuth = async () => {
+        // Firebase Logic
+        if (firebaseConfigStr) {
             try {
-                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                    await signInWithCustomToken(auth, __initial_auth_token);
-                } else {
-                    await signInAnonymously(auth);
-                }
-            } catch (err) {}
-        };
+                const firebaseConfig = JSON.parse(firebaseConfigStr);
+                const app = initializeApp(firebaseConfig);
+                const auth = getAuth(app);
+                const db = getFirestore(app);
 
-        onAuthStateChanged(auth, async (user) => {
-            window.state.user = user;
-            if (user) {
-                // Also check Firestore for live updates
-                onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'products'), (s) => {
-                    if (s.docs.length > 0) {
-                        window.state.products = s.docs.map(d => ({ id: d.id, ...d.data() }));
-                        window.renderProducts(window.state.products);
+                const initAuth = async () => {
+                    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                        await signInWithCustomToken(auth, __initial_auth_token);
+                    } else {
+                        await signInAnonymously(auth);
+                    }
+                };
+
+                onAuthStateChanged(auth, async (user) => {
+                    if (user) {
+                        onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'products'), (s) => {
+                            if (s.docs.length > 0) {
+                                window.state.products = s.docs.map(d => ({ id: d.id, ...d.data() }));
+                                window.renderProducts(window.state.products);
+                            }
+                        });
                     }
                 });
-            }
-        });
+                initAuth();
+            } catch (e) { console.warn("Firebase Bypass:", e.message); }
+        }
 
-        // Trigger All Initializations
-        initAuth();
+        // Always Trigger Google Sheets Load
         window.loadProducts();
         window.loadPlaces();
         window.loadBlogs();
