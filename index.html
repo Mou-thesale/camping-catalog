@@ -126,12 +126,6 @@
             transition: all 0.3s ease;
         }
 
-        .mobile-nav {
-            background: rgba(4, 47, 46, 0.95);
-            backdrop-filter: blur(20px);
-            border-top: 1px solid rgba(255,255,255,0.1);
-        }
-
         .fade-in { animation: fadeIn 0.8s ease-out forwards; }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
@@ -162,7 +156,7 @@
         const categories = ["All", "Tents", "Cooking", "Coffee", "Lighting", "Sleeping", "Furniture", "Backpack", "Shoes", "Cloth", "Glasses", "Powerbank", "Survival"];
         const ADMIN_SHEET_URL = 'https://docs.google.com/spreadsheets/d/1N09HDxPd3zEDqxHR-knpH2MP_fq_XkLJZJ4FdCAYEG0/edit';
 
-        // --- Slider Logic (Dissolve Effect) ---
+        // --- Slider Logic ---
         window.initHeroSlider = () => {
             const layers = [document.getElementById('heroLayer1'), document.getElementById('heroLayer2')];
             const heroHeading = document.getElementById('heroMainHeading');
@@ -179,7 +173,6 @@
                 currentHeroIdx = (currentHeroIdx + 1) % heroImages.length;
                 const nextIdx = 1 - activeIdx;
 
-                // Handle Text/Button Dissolve: Hide for 3 images, show on 4th
                 if (heroHeading && heroButton) {
                     if (currentHeroIdx === 3) {
                         heroHeading.style.opacity = 1;
@@ -201,7 +194,7 @@
             }, 4000);
         };
 
-        // --- Cart Management Logic ---
+        // --- Cart Management ---
         window.addToCart = (id) => {
             const p = window.state.products.find(x => x.id === id);
             if(!p) return;
@@ -216,13 +209,13 @@
             window.state.cart[itemIdx].qty += delta;
             if (window.state.cart[itemIdx].qty <= 0) window.state.cart.splice(itemIdx, 1);
             window.updateCartCount();
-            window.openCart(); // Re-render
+            window.openCart();
         };
 
         window.removeFromCart = (id) => {
             window.state.cart = window.state.cart.filter(i => i.id !== id);
             window.updateCartCount();
-            window.openCart(); // Re-render
+            window.openCart();
         };
 
         window.updateCartCount = () => {
@@ -239,7 +232,6 @@
             const container = document.getElementById('cartItems');
             const totalEl = document.getElementById('cartTotal');
             if(!container) return;
-            
             if(window.state.cart.length === 0) {
                 container.innerHTML = '<div class="text-center py-20 text-emerald-200 uppercase font-black text-[10px]">Bag empty</div>';
                 if(totalEl) totalEl.innerText = '0 LAK';
@@ -266,32 +258,19 @@
             document.getElementById('cartModal').style.display = 'flex';
         };
 
-        // --- WhatsApp Checkout Logic with "ສະບາຍດີ!" ---
         window.checkoutWhatsApp = () => {
             if (window.state.cart.length === 0) return;
-            
             let totalOrderPrice = 0;
             let totalOrderItems = 0;
             let message = "ສະບາຍດີ! *--- ລາຍການສັ່ງຊື້ສິນຄ້າ (TheSale3) ---*\n\n";
-
             window.state.cart.forEach((item, index) => {
                 const subtotal = item.price * item.qty;
                 totalOrderPrice += subtotal;
                 totalOrderItems += item.qty;
-                message += `${index + 1}. *${item.name}*\n`;
-                message += `   - ຈຳນວນ: ${item.qty} ຊິ້ນ\n`;
-                message += `   - ລາຄາ: ${item.price.toLocaleString()} LAK / ຊິ້ນ\n`;
-                message += `   - ລວມ: ${subtotal.toLocaleString()} LAK\n\n`;
+                message += `${index + 1}. *${item.name}*\n   - ຈຳນວນ: ${item.qty} ຊິ້ນ\n   - ລາຄາ: ${item.price.toLocaleString()} LAK\n   - ລວມ: ${subtotal.toLocaleString()} LAK\n\n`;
             });
-
-            message += `*==========================*\n`;
-            message += `*ລວມຈຳນວນທັງໝົດ:* ${totalOrderItems} ຊິ້ນ\n`;
-            message += `*ລາຄາລວມສຸດທິ:* ${totalOrderPrice.toLocaleString()} LAK\n`;
-            message += `*==========================*\n\n`;
-            message += `_ກະລຸນາລໍຖ້າການຢືນຢັນຈາກທາງຮ້ານ._`;
-
-            const waLink = `https://wa.me/8562054849393?text=${encodeURIComponent(message)}`;
-            window.open(waLink, '_blank');
+            message += `*ລວມຈຳນວນ:* ${totalOrderItems} ຊິ້ນ\n*ລາຄາລວມສຸດທິ:* ${totalOrderPrice.toLocaleString()} LAK\n\n_ກະລຸນາລໍຖ້າການຢືນຢັນຈາກທາງຮ້ານ._`;
+            window.open(`https://wa.me/8562054849393?text=${encodeURIComponent(message)}`, '_blank');
         };
 
         // --- Navigation ---
@@ -308,8 +287,10 @@
             if (pageId === 'blogs') window.renderBlogs(window.state.blogs);
         };
 
-        // --- UI Helpers ---
-        window.getProductHTML = (p) => `
+        // --- UI Rendering Helpers ---
+        window.getProductHTML = (p) => {
+            const fakePrice = Math.round((p.price * 1.25) / 1000) * 1000;
+            return `
             <div class="card-modern group p-6 sm:p-8 flex flex-col fade-in cursor-pointer" onclick="window.openDetails('${p.id}')">
                 <div class="h-48 sm:h-56 rounded-[24px] bg-emerald-100/30 overflow-hidden mb-6 relative">
                     <img src="${p.img}" class="w-full h-full object-cover transition duration-700 hover:scale-110" onerror="this.src='https://placehold.co/400x400?text=Gear'">
@@ -319,51 +300,49 @@
                     <div class="h-[1px] w-4 bg-amber-500"></div>
                     <span class="text-[9px] font-bold text-emerald-500 uppercase tracking-widest">${p.category}</span>
                 </div>
-                <h3 class="font-black text-md sm:text-lg text-emerald-950 mb-4 flex-grow uppercase italic leading-tight">${p.name}</h3>
-                <div class="mt-auto flex justify-between items-center pt-6 border-t border-emerald-100/50">
-                    <p class="font-black text-emerald-700 italic text-md">${p.price?.toLocaleString()} LAK</p>
-                    <button onclick="event.stopPropagation(); window.addToCart('${p.id}')" class="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-emerald-950 text-white flex items-center justify-center hover:bg-amber-500 transition-all shadow-lg"><i class="fa-solid fa-plus text-sm"></i></button>
+                <h3 class="font-black text-md sm:text-lg text-emerald-950 mb-2 flex-grow uppercase italic leading-tight">${p.name}</h3>
+                <div class="mt-auto pt-4 border-t border-emerald-100/50">
+                    <div class="flex flex-col mb-4">
+                        <span class="text-sm text-red-600 line-through font-black opacity-80 italic">${fakePrice.toLocaleString()} LAK</span>
+                        <p class="font-black text-emerald-700 italic text-xl leading-none">${p.price.toLocaleString()} LAK</p>
+                    </div>
+                    <button onclick="event.stopPropagation(); window.addToCart('${p.id}')" class="w-full h-12 rounded-2xl bg-emerald-950 text-white flex items-center justify-center gap-3 hover:bg-amber-500 transition-all shadow-lg font-black text-[10px] uppercase">
+                        <i class="fa-solid fa-plus"></i> Add to Bag
+                    </button>
                 </div>
             </div>`;
-
-        window.getPlaceHTML = (place) => `
-            <div class="card-modern overflow-hidden fade-in p-0 cursor-pointer" onclick="window.openPlaceDetails('${place.name}')">
-                <div class="h-60 bg-emerald-100 overflow-hidden relative">
-                    <img src="${place.img}" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/600x400?text=Camp'">
-                    <div class="absolute top-4 left-4 px-3 py-1 bg-white/20 backdrop-blur-md rounded-full border border-white/30 text-white font-bold text-[9px] uppercase">${place.price}</div>
-                </div>
-                <div class="p-8 text-emerald-950">
-                    <h3 class="font-black text-xl italic uppercase mb-3 leading-none">${place.name}</h3>
-                    <div class="flex items-center gap-2 text-[10px] font-bold text-emerald-500 uppercase mb-4 tracking-widest"><i class="fa-solid fa-location-dot text-amber-500"></i> ${place.loc}</div>
-                    <p class="text-gray-500 text-xs line-clamp-2 font-medium">${place.desc}</p>
-                </div>
-            </div>`;
-
-        window.getBlogHTML = (blog) => `
-            <div class="flex flex-col md:flex-row gap-6 items-center fade-in bg-white/90 p-6 sm:p-8 rounded-[40px] card-modern p-0 overflow-hidden cursor-pointer" onclick="window.openBlogDetails('${blog.title}')">
-                <div class="w-full md:w-1/3 h-56 flex-shrink-0"><img src="${blog.img}" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x300?text=Blog'"></div>
-                <div class="w-full md:w-2/3 p-4 md:p-4 text-emerald-950">
-                    <span class="text-[10px] font-bold text-amber-500 uppercase mb-3 block tracking-widest">${blog.date}</span>
-                    <h3 class="text-xl sm:text-2xl font-black mb-4 uppercase italic leading-tight">${blog.title}</h3>
-                    <p class="text-gray-500 text-xs sm:text-sm line-clamp-3 font-medium">${blog.content}</p>
-                </div>
-            </div>`;
+        };
 
         window.renderHomePreview = () => {
             if(window.state.products.length > 0) {
-                const homeProducts = window.state.products.slice(0, 4);
                 const grid = document.getElementById('homeProductGrid');
-                if(grid) grid.innerHTML = homeProducts.map(p => window.getProductHTML(p)).join('');
+                if(grid) grid.innerHTML = window.state.products.slice(0, 4).map(p => window.getProductHTML(p)).join('');
             }
             if(window.state.places.length > 0) {
-                const homePlaces = window.state.places.slice(0, 3);
                 const grid = document.getElementById('homePlacesGrid');
-                if(grid) grid.innerHTML = homePlaces.map(pl => window.getPlaceHTML(pl)).join('');
+                if(grid) grid.innerHTML = window.state.places.slice(0, 3).map(pl => `
+                    <div class="card-modern overflow-hidden cursor-pointer" onclick="window.openPlaceDetails('${pl.name}')">
+                        <div class="h-60 bg-emerald-100 overflow-hidden relative">
+                            <img src="${pl.img}" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-8 text-emerald-950">
+                            <h3 class="font-black text-xl italic uppercase mb-3 leading-none">${pl.name}</h3>
+                            <div class="flex items-center gap-2 text-[10px] font-bold text-emerald-500 uppercase mb-4 tracking-widest"><i class="fa-solid fa-location-dot text-amber-500"></i> ${pl.loc}</div>
+                            <p class="text-gray-500 text-xs line-clamp-2 font-medium">${pl.desc}</p>
+                        </div>
+                    </div>`).join('');
             }
             if(window.state.blogs.length > 0) {
-                const homeBlogs = window.state.blogs.slice(0, 2);
                 const grid = document.getElementById('homeBlogsGrid');
-                if(grid) grid.innerHTML = homeBlogs.map(b => window.getBlogHTML(b)).join('');
+                if(grid) grid.innerHTML = window.state.blogs.slice(0, 2).map(b => `
+                    <div class="card-modern flex flex-col md:flex-row overflow-hidden cursor-pointer" onclick="window.openBlogDetails('${b.title}')">
+                        <div class="md:w-1/3 h-56 flex-shrink-0"><img src="${b.img}" class="w-full h-full object-cover"></div>
+                        <div class="md:w-2/3 p-8 text-emerald-950">
+                            <span class="text-[10px] font-bold text-amber-500 uppercase mb-3 block tracking-widest">${b.date}</span>
+                            <h3 class="text-xl font-black mb-4 uppercase italic leading-tight">${b.title}</h3>
+                            <p class="text-gray-500 text-xs line-clamp-3 font-medium">${b.content}</p>
+                        </div>
+                    </div>`).join('');
             }
         };
 
@@ -374,12 +353,28 @@
 
         window.renderPlaces = (items) => {
             const grid = document.getElementById('placesGrid');
-            if(grid) grid.innerHTML = items.length === 0 ? '<div class="col-span-full py-20 text-center opacity-50 italic">ກຳລັງໂຫລດ...</div>' : items.map(pl => window.getPlaceHTML(pl)).join('');
+            if(grid) grid.innerHTML = items.length === 0 ? '<div class="col-span-full py-20 text-center opacity-50 italic">ກຳລັງໂຫລດ...</div>' : items.map(pl => `
+                <div class="card-modern overflow-hidden cursor-pointer" onclick="window.openPlaceDetails('${pl.name}')">
+                    <div class="h-60 overflow-hidden"><img src="${pl.img}" class="w-full h-full object-cover"></div>
+                    <div class="p-8 text-emerald-950">
+                        <h3 class="font-black text-2xl uppercase italic mb-3">${pl.name}</h3>
+                        <p class="text-emerald-500 text-[10px] font-black uppercase mb-4 tracking-widest">${pl.loc}</p>
+                        <p class="text-gray-400 text-xs">${pl.desc}</p>
+                    </div>
+                </div>`).join('');
         };
 
         window.renderBlogs = (items) => {
             const grid = document.getElementById('blogsGrid');
-            if(grid) grid.innerHTML = items.length === 0 ? '<div class="col-span-full py-20 text-center opacity-50 italic">ກຳລັງໂຫລດ...</div>' : items.map(b => window.getBlogHTML(b)).join('');
+            if(grid) grid.innerHTML = items.length === 0 ? '<div class="col-span-full py-20 text-center opacity-50 italic">ກຳລັງໂຫລດ...</div>' : items.map(b => `
+                <div class="card-modern flex flex-col md:flex-row overflow-hidden cursor-pointer mb-6" onclick="window.openBlogDetails('${b.title}')">
+                    <div class="md:w-1/3 h-64"><img src="${b.img}" class="w-full h-full object-cover"></div>
+                    <div class="md:w-2/3 p-10 text-emerald-950">
+                        <span class="text-amber-500 text-[10px] font-black uppercase tracking-widest block mb-4">${b.date}</span>
+                        <h3 class="text-3xl font-black italic uppercase mb-6">${b.title}</h3>
+                        <p class="text-gray-500 leading-relaxed">${b.content}</p>
+                    </div>
+                </div>`).join('');
         };
 
         window.renderCategoryFilters = () => {
@@ -392,13 +387,32 @@
             `).join('');
         };
 
-        // Modal Controls
+        window.setCategory = (cat) => {
+            window.state.currentCategory = cat;
+            window.renderCategoryFilters();
+            window.applyProductFilters();
+        };
+
+        window.applyProductFilters = () => {
+            const si = document.getElementById('searchInput');
+            const val = si ? si.value.toLowerCase() : "";
+            const filtered = window.state.products.filter(p => {
+                const mSearch = p.name?.toLowerCase().includes(val);
+                const mCat = window.state.currentCategory === 'All' || p.category?.toLowerCase() === window.state.currentCategory.toLowerCase();
+                return mSearch && mCat;
+            });
+            window.renderProducts(filtered);
+        };
+
+        // --- Details ---
         window.openDetails = (id) => {
             const p = window.state.products.find(x => x.id === id);
             if(!p) return;
+            const fakePrice = Math.round((p.price * 1.25) / 1000) * 1000;
             document.getElementById('detailsImage').src = p.img;
             document.getElementById('detailsTitle').innerText = p.name;
             document.getElementById('detailsPrice').innerText = p.price.toLocaleString() + ' LAK';
+            document.getElementById('detailsFakePrice').innerText = fakePrice.toLocaleString() + ' LAK';
             document.getElementById('detailsCategory').innerText = p.category;
             document.getElementById('detailsDesc').innerText = p.desc;
             const statusBadge = document.getElementById('detailsStatus');
@@ -408,31 +422,30 @@
             document.getElementById('detailsWaBtn').href = `https://wa.me/8562054849393?text=${encodeURIComponent("ສະບາຍດີ! ສົນໃຈ: " + p.name)}`;
             document.getElementById('detailsModal').style.display = 'flex';
         };
-        window.closeDetails = () => document.getElementById('detailsModal').style.display = 'none';
 
+        window.closeDetails = () => document.getElementById('detailsModal').style.display = 'none';
         window.openPlaceDetails = (name) => {
-            const place = window.state.places.find(x => x.name === name);
-            if(!place) return;
-            document.getElementById('placeDetailsImage').src = place.img;
-            document.getElementById('placeDetailsTitle').innerText = place.name;
-            document.getElementById('placeDetailsLoc').innerText = place.loc;
-            document.getElementById('placeDetailsPrice').innerText = place.price;
-            document.getElementById('placeDetailsDesc').innerText = place.desc;
-            document.getElementById('placeDetailsWaBtn').href = `https://wa.me/8562054849393?text=${encodeURIComponent("ສະບາຍດີ! ສອບຖາມກ່ຽວກັບ: " + place.name)}`;
+            const pl = window.state.places.find(x => x.name === name);
+            if(!pl) return;
+            document.getElementById('placeDetailsImage').src = pl.img;
+            document.getElementById('placeDetailsTitle').innerText = pl.name;
+            document.getElementById('placeDetailsLoc').innerText = pl.loc;
+            document.getElementById('placeDetailsPrice').innerText = pl.price;
+            document.getElementById('placeDetailsDesc').innerText = pl.desc;
             document.getElementById('placeModal').style.display = 'flex';
         };
         window.closePlaceModal = () => document.getElementById('placeModal').style.display = 'none';
-
         window.openBlogDetails = (title) => {
-            const blog = window.state.blogs.find(x => x.title === title);
-            if(!blog) return;
-            document.getElementById('blogDetailsImage').src = blog.img;
-            document.getElementById('blogDetailsTitle').innerText = blog.title;
-            document.getElementById('blogDetailsDate').innerText = blog.date;
-            document.getElementById('blogDetailsContent').innerText = blog.content;
+            const b = window.state.blogs.find(x => x.title === title);
+            if(!b) return;
+            document.getElementById('blogDetailsImage').src = b.img;
+            document.getElementById('blogDetailsTitle').innerText = b.title;
+            document.getElementById('blogDetailsDate').innerText = b.date;
+            document.getElementById('blogDetailsContent').innerText = b.content;
             document.getElementById('blogModal').style.display = 'flex';
         };
         window.closeBlogModal = () => document.getElementById('blogModal').style.display = 'none';
+        window.closeCart = () => document.getElementById('cartModal').style.display = 'none';
 
         window.handleAdminClick = () => {
             let adminClicks = parseInt(sessionStorage.getItem('admin_clicks') || '0');
@@ -458,8 +471,8 @@
     <nav class="nav-blur sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6">
             <div class="flex justify-between items-center h-20 sm:h-24">
-                <div class="cursor-pointer flex items-center" onclick="window.switchPage('home')">
-                    <img src="https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/thesale3-logo.png" alt="Logo" class="h-14 sm:h-20 w-auto object-contain">
+                <div class="cursor-pointer" onclick="window.switchPage('home')">
+                    <img src="https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/thesale3-logo.png" alt="Logo" class="h-14 sm:h-20 w-auto object-contain drop-shadow-xl">
                 </div>
                 <div class="hidden md:flex items-center gap-8 font-bold text-[10px] uppercase tracking-widest text-slate-300">
                     <button onclick="window.switchPage('products')" class="nav-btn py-2 hover:text-white" id="btn-products-desktop">Products</button>
@@ -471,12 +484,23 @@
                         <i class="fa-solid fa-cart-shopping text-white"></i>
                         <span id="cartCount" class="absolute -top-1 -right-1 bg-amber-500 text-white text-[8px] font-black w-4 h-4 flex items-center justify-center rounded-full border-2 border-emerald-950 hidden">0</span>
                     </button>
+                    <a href="https://wa.me/8562054849393" target="_blank" class="bg-emerald-600 text-white px-6 py-2.5 rounded-2xl text-[9px] font-black uppercase tracking-widest flex items-center gap-2 btn-adventure shadow-lg">
+                        <i class="fa-brands fa-whatsapp"></i> <span class="hidden sm:inline">WhatsApp</span>
+                    </a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <!-- Content Pages -->
+    <!-- Mobile Nav Bar -->
+    <div class="mobile-nav md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center py-4 px-2">
+        <button onclick="window.switchPage('home')" class="nav-btn flex flex-col items-center gap-1 text-[9px] uppercase font-bold text-slate-400" id="btn-home-mobile"><i class="fa-solid fa-house text-lg"></i><span>Home</span></button>
+        <button onclick="window.switchPage('products')" class="nav-btn flex flex-col items-center gap-1 text-[9px] uppercase font-bold text-slate-400" id="btn-products-mobile"><i class="fa-solid fa-tent text-lg"></i><span>Gear</span></button>
+        <button onclick="window.switchPage('places')" class="nav-btn flex flex-col items-center gap-1 text-[9px] uppercase font-bold text-slate-400" id="btn-places-mobile"><i class="fa-solid fa-map-location-dot text-lg"></i><span>Places</span></button>
+        <button onclick="window.switchPage('blogs')" class="nav-btn flex flex-col items-center gap-1 text-[9px] uppercase font-bold text-slate-400" id="btn-blogs-mobile"><i class="fa-solid fa-newspaper text-lg"></i><span>Journal</span></button>
+    </div>
+
+    <!-- Pages -->
     <div id="pages-container" class="pb-24 md:pb-0">
         <!-- Home -->
         <section id="page-home" class="page-section">
@@ -493,27 +517,30 @@
             </header>
 
             <div class="max-w-7xl mx-auto px-4 py-20">
-                <h2 class="text-4xl font-black uppercase italic tracking-tighter text-white mb-12">Featured Gear</h2>
-                <div id="homeProductGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"></div>
+                <div class="flex justify-between items-end mb-12">
+                    <h2 class="text-4xl font-black uppercase italic tracking-tighter text-white leading-none">Featured Gear</h2>
+                    <button onclick="window.switchPage('products')" class="text-emerald-400 font-bold text-xs uppercase tracking-widest border-b border-emerald-400/30 pb-1 hover:text-white transition">View All</button>
+                </div>
+                <div id="homeProductGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8"></div>
             </div>
 
             <div class="bg-emerald-950/30 py-20 px-4">
                 <div class="max-w-7xl mx-auto">
-                    <h2 class="text-4xl sm:text-6xl font-black uppercase italic text-white text-center mb-16">Top Destinations</h2>
+                    <h2 class="text-4xl sm:text-6xl font-black uppercase italic tracking-tighter text-white text-center mb-16">Top Destinations</h2>
                     <div id="homePlacesGrid" class="grid grid-cols-1 md:grid-cols-3 gap-8"></div>
                 </div>
             </div>
 
             <div class="max-w-7xl mx-auto px-4 py-24">
-                <h2 class="text-4xl font-black uppercase italic text-white mb-16 text-center">Journal Highlights</h2>
+                <h2 class="text-4xl font-black uppercase italic tracking-tighter text-white mb-16 text-center">Journal Highlights</h2>
                 <div id="homeBlogsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-8"></div>
             </div>
         </section>
 
-        <!-- Other sections like Products, Places, Blogs follow same logic as existing code -->
+        <!-- Products -->
         <section id="page-products" class="page-section hidden py-16 sm:py-20 px-4 max-w-7xl mx-auto w-full">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
-                <h2 class="text-4xl sm:text-5xl font-black uppercase italic text-white">Catalog</h2>
+                <h2 class="text-4xl sm:text-5xl font-black uppercase italic tracking-tighter text-white">Catalog</h2>
                 <div class="relative w-full md:w-[400px]">
                     <i class="fa-solid fa-magnifying-glass absolute left-6 top-1/2 -translate-y-1/2 text-emerald-300"></i>
                     <input type="text" id="searchInput" oninput="window.applyProductFilters()" placeholder="Search gear..." class="w-full pl-16 pr-8 py-4 rounded-[22px] bg-white/10 border border-white/20 text-white outline-none focus:border-emerald-500 transition-all text-sm">
@@ -524,23 +551,47 @@
         </section>
 
         <section id="page-places" class="page-section hidden py-16 sm:py-24 px-4 max-w-7xl mx-auto w-full text-white">
-            <h2 class="text-4xl sm:text-7xl font-black uppercase italic text-center mb-16">All Spots</h2>
+            <h2 class="text-4xl sm:text-7xl font-black uppercase italic tracking-tighter text-center mb-16">All Spots</h2>
             <div id="placesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
         </section>
-
         <section id="page-blogs" class="page-section hidden py-16 sm:py-24 px-4 max-w-7xl mx-auto w-full text-white">
-            <h2 class="text-4xl sm:text-7xl font-black uppercase italic text-center mb-16">The Journal</h2>
+            <h2 class="text-4xl sm:text-7xl font-black uppercase italic tracking-tighter text-center mb-16">The Journal</h2>
             <div id="blogsGrid" class="flex flex-col gap-8"></div>
         </section>
     </div>
 
     <!-- Modals -->
+    <div id="detailsModal" class="modal-overlay" onclick="if(event.target === this) window.closeDetails()">
+        <div class="bg-white rounded-[40px] max-w-4xl w-full mx-4 overflow-hidden shadow-2xl flex flex-col md:flex-row relative max-h-[92vh] border-8 border-emerald-950/20">
+            <button onclick="window.closeDetails()" class="absolute top-4 right-4 sm:top-6 sm:right-6 bg-emerald-50 w-10 h-10 rounded-2xl flex items-center justify-center text-emerald-950 z-10 shadow-lg"><i class="fa-solid fa-xmark"></i></button>
+            <div class="md:w-1/2 bg-emerald-50 flex items-center justify-center p-6 text-emerald-950">
+                <img id="detailsImage" src="" class="max-w-full max-h-[400px] object-contain">
+            </div>
+            <div class="md:w-1/2 p-8 sm:p-10 flex flex-col overflow-y-auto bg-white text-emerald-950">
+                <span id="detailsCategory" class="text-[9px] font-black text-emerald-600 uppercase mb-4 tracking-widest">Category</span>
+                <h2 id="detailsTitle" class="text-2xl sm:text-3xl font-black mb-6 uppercase italic">Name</h2>
+                <div class="mb-8">
+                    <span id="detailsFakePrice" class="text-lg text-red-600 line-through font-black opacity-80 italic mb-1 block">0 LAK</span>
+                    <div class="flex items-center gap-6">
+                        <p id="detailsPrice" class="text-2xl sm:text-3xl font-black text-emerald-700 italic tracking-tighter leading-none">0 LAK</p>
+                        <span id="detailsStatus" class="px-4 py-2 rounded-full border-2 text-[9px] font-black">Status</span>
+                    </div>
+                </div>
+                <p id="detailsDesc" class="text-gray-500 mb-8 text-xs sm:text-sm font-medium">Desc</p>
+                <div class="mt-auto flex gap-4">
+                    <button id="detailsAddBtn" class="flex-grow btn-adventure text-white py-4 rounded-[18px] font-black uppercase text-[10px]">Add to Bag</button>
+                    <a id="detailsWaBtn" href="#" target="_blank" class="w-14 h-14 bg-[#25D366] text-white rounded-[18px] flex items-center justify-center text-xl shadow-lg hover:scale-110 transition"><i class="fa-brands fa-whatsapp"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Cart Modal -->
     <div id="cartModal" class="modal-overlay" onclick="if(event.target === this) window.closeCart()">
         <div class="bg-white h-full max-w-md w-full ml-auto flex flex-col p-8 sm:p-12 shadow-2xl">
             <div class="flex justify-between items-center mb-10 border-b pb-6">
                 <h3 class="text-2xl font-black uppercase text-emerald-950 italic">Your Bag</h3>
-                <button onclick="window.closeCart()" class="text-emerald-950 text-3xl">&times;</button>
+                <button onclick="window.closeCart()" class="text-emerald-950 text-3xl font-light">&times;</button>
             </div>
             <div id="cartItems" class="flex-grow overflow-y-auto space-y-5 pr-2"></div>
             <div class="pt-8 border-t mt-8">
@@ -552,30 +603,6 @@
         </div>
     </div>
 
-    <!-- Product Details Modal -->
-    <div id="detailsModal" class="modal-overlay" onclick="if(event.target === this) window.closeDetails()">
-        <div class="bg-white rounded-[40px] max-w-4xl w-full mx-4 overflow-hidden shadow-2xl flex flex-col md:flex-row relative max-h-[92vh] border-8 border-emerald-950/20">
-            <button onclick="window.closeDetails()" class="absolute top-4 right-4 sm:top-6 sm:right-6 bg-emerald-50 w-10 h-10 rounded-2xl flex items-center justify-center text-emerald-950 z-10 shadow-lg"><i class="fa-solid fa-xmark"></i></button>
-            <div class="md:w-1/2 bg-emerald-50 flex items-center justify-center p-6 text-emerald-950">
-                <img id="detailsImage" src="" class="max-w-full max-h-[400px] object-contain">
-            </div>
-            <div class="md:w-1/2 p-8 sm:p-10 flex flex-col overflow-y-auto bg-white text-emerald-950">
-                <span id="detailsCategory" class="text-[9px] font-black text-emerald-600 uppercase mb-4 tracking-widest">Category</span>
-                <h2 id="detailsTitle" class="text-2xl font-black mb-6 uppercase italic">Name</h2>
-                <div class="flex items-center gap-6 mb-8">
-                    <p id="detailsPrice" class="text-2xl font-black text-emerald-700 italic">0 LAK</p>
-                    <span id="detailsStatus" class="px-4 py-2 rounded-full border-2 text-[9px] font-black">Status</span>
-                </div>
-                <p id="detailsDesc" class="text-gray-500 mb-8 text-sm font-medium">Desc</p>
-                <div class="mt-auto flex gap-4">
-                    <button id="detailsAddBtn" class="flex-grow btn-adventure text-white py-4 rounded-[18px] font-black uppercase text-[10px]">Add to Bag</button>
-                    <a id="detailsWaBtn" href="#" target="_blank" class="w-14 h-14 bg-[#25D366] text-white rounded-[18px] flex items-center justify-center text-xl shadow-lg hover:scale-110 transition"><i class="fa-brands fa-whatsapp"></i></a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Other Modals (Place, Blog) follow same design pattern -->
     <div id="placeModal" class="modal-overlay" onclick="if(event.target === this) window.closePlaceModal()">
         <div class="bg-white rounded-[40px] max-w-4xl w-full mx-4 overflow-hidden shadow-2xl flex flex-col md:flex-row max-h-[90vh]">
             <div class="md:w-1/2 h-64 md:h-auto overflow-hidden"><img id="placeDetailsImage" src="" class="w-full h-full object-cover"></div>
@@ -590,7 +617,6 @@
             </div>
         </div>
     </div>
-
     <div id="blogModal" class="modal-overlay" onclick="if(event.target === this) window.closeBlogModal()">
         <div class="bg-white rounded-[40px] max-w-4xl w-full mx-4 overflow-hidden max-h-[92vh] flex flex-col shadow-2xl">
             <div class="h-64 flex-shrink-0 relative">
@@ -605,14 +631,7 @@
         </div>
     </div>
 
-    <!-- Mobile Nav -->
-    <div class="mobile-nav md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center py-4 px-2">
-        <button onclick="window.switchPage('home')" class="nav-btn flex flex-col items-center gap-1 text-[9px] uppercase font-bold text-slate-400" id="btn-home-mobile"><i class="fa-solid fa-house text-lg"></i><span>Home</span></button>
-        <button onclick="window.switchPage('products')" class="nav-btn flex flex-col items-center gap-1 text-[9px] uppercase font-bold text-slate-400" id="btn-products-mobile"><i class="fa-solid fa-tent text-lg"></i><span>Gear</span></button>
-        <button onclick="window.switchPage('places')" class="nav-btn flex flex-col items-center gap-1 text-[9px] uppercase font-bold text-slate-400" id="btn-places-mobile"><i class="fa-solid fa-map-location-dot text-lg"></i><span>Places</span></button>
-        <button onclick="window.switchPage('blogs')" class="nav-btn flex flex-col items-center gap-1 text-[9px] uppercase font-bold text-slate-400" id="btn-blogs-mobile"><i class="fa-solid fa-newspaper text-lg"></i><span>Journal</span></button>
-    </div>
-
+    <!-- Footer -->
     <footer class="bg-emerald-950 py-16 text-center border-t-8 border-amber-500 relative overflow-hidden">
         <div class="absolute inset-0 opacity-10 pointer-events-none bg-repeat" style="background-image: url('https://www.transparenttextures.com/patterns/topography.png');"></div>
         <div class="flex justify-center gap-10 mb-12 relative z-10">
@@ -675,7 +694,7 @@
                     category: cols[3],
                     img: formatImgUrl(cols[4]),
                     status: cols[5] || 'In Stock',
-                    desc: cols[6] || 'Gear'
+                    desc: cols[6] || 'Premium outdoor equipment.'
                 })).filter(x => x.name);
                 window.renderProducts(window.state.products);
                 window.renderHomePreview();
@@ -685,8 +704,10 @@
 
         window.loadPlaces = async () => {
             try {
-                const res = await fetch(CSV_PLACES);
-                const rows = parseCSV(await res.text()).slice(1);
+                const res = await fetch(CSV_PRODUCTS); // Assuming GI is correct or use specific place sheet
+                // Using CSV_PLACES if defined correctly in your setup
+                const resPlaces = await fetch(CSV_PLACES);
+                const rows = parseCSV(await resPlaces.text()).slice(1);
                 window.state.places = rows.map(cols => ({
                     name: cols[0], loc: cols[1], price: cols[2], img: formatImgUrl(cols[3]), desc: cols[4] || ''
                 })).filter(x => x.name);
