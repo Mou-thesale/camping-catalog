@@ -27,7 +27,6 @@
             background-attachment: fixed;
             color: #f8fafc; 
             scroll-behavior: smooth;
-            position: relative;
         }
 
         body::before {
@@ -44,7 +43,6 @@
         .nav-blur { 
             background: rgba(4, 47, 46, 0.8); 
             backdrop-filter: blur(20px); 
-            -webkit-backdrop-filter: blur(20px); 
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
@@ -119,17 +117,12 @@
             box-shadow: 0 10px 20px rgba(6, 95, 70, 0.3);
             transform: translateY(-2px);
         }
-
-        .section-title {
-            color: #ffffff;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
     </style>
 </head>
 <body class="flex flex-col min-h-screen">
 
     <script>
-        // Global State
+        // Global App State
         window.state = {
             products: [],
             places: [],
@@ -140,43 +133,40 @@
         };
 
         const categories = ["All", "Tents", "Cooking", "Coffee", "Lighting", "Sleeping", "Furniture", "Backpack", "Shoes", "Cloth", "Glasses", "Powerbank", "Survival"];
-        const IMAGE_BASE_PATH = 'assets/products/';
         const ADMIN_SHEET_URL = 'https://docs.google.com/spreadsheets/d/1qdr-stVezfFRMqug8kuqM8rftflQcnxx/edit';
 
-        // Essential Navigation Function
+        // Navigation
         window.switchPage = (pageId) => {
             document.querySelectorAll('.page-section').forEach(p => p.classList.add('hidden'));
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active-link'));
+            
             const target = document.getElementById('page-' + pageId);
             if(target) target.classList.remove('hidden');
+            
             const btn = document.getElementById('btn-' + pageId);
             if(btn) btn.classList.add('active-link');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
             
-            // Trigger load if empty, otherwise render existing state
-            if(pageId === 'products') {
-                if(window.state.products.length === 0) window.loadProducts?.();
-                else window.renderProducts(window.state.products);
-            }
-            if(pageId === 'places') {
-                if(window.state.places.length === 0) window.loadPlaces?.();
-                else window.renderPlaces(window.state.places);
-            }
-            if(pageId === 'blogs') {
-                if(window.state.blogs.length === 0) window.loadBlogs?.();
-                else window.renderBlogs(window.state.blogs);
-            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // Render current state data
+            if (pageId === 'products') window.renderProducts(window.state.products);
+            if (pageId === 'places') window.renderPlaces(window.state.places);
+            if (pageId === 'blogs') window.renderBlogs(window.state.blogs);
         };
 
-        // --- UI Rendering Functions ---
+        // --- Rendering Logic ---
         window.renderProducts = (items) => {
             const grid = document.getElementById('productGrid');
             if(!grid) return;
+            if (items.length === 0) {
+                grid.innerHTML = '<div class="col-span-full py-20 text-center text-emerald-100 opacity-50">ກຳລັງໂຫລດສິນຄ້າ...</div>';
+                return;
+            }
             grid.innerHTML = items.map(p => `
                 <div class="card-modern group p-10 flex flex-col fade-in" onclick="window.openDetails('${p.id}')">
                     <div class="h-60 rounded-[40px] bg-emerald-100/30 overflow-hidden mb-8 relative">
                         <img src="${p.img}" class="w-full h-full object-cover group-hover:scale-125 transition duration-[1500ms]" onerror="this.src='https://placehold.co/400x400?text=Gear'">
-                        <span class="absolute top-5 right-5 text-[9px] font-black uppercase px-5 py-2.5 rounded-full shadow-2xl ${p.status.toLowerCase().includes('pre') ? 'status-pre-order' : 'status-in-stock'}">${p.status}</span>
+                        <span class="absolute top-5 right-5 text-[9px] font-black uppercase px-5 py-2.5 rounded-full shadow-2xl ${p.status?.toLowerCase().includes('pre') ? 'status-pre-order' : 'status-in-stock'}">${p.status}</span>
                     </div>
                     <div class="flex items-center gap-3 mb-3">
                         <div class="h-[2px] w-6 bg-amber-500"></div>
@@ -194,7 +184,7 @@
             const grid = document.getElementById('placesGrid');
             if(!grid) return;
             if(items.length === 0) {
-                grid.innerHTML = '<p class="col-span-full text-center text-emerald-200">ກຳລັງໂຫລດຂໍ້ມູນສະຖານທີ່...</p>';
+                grid.innerHTML = '<div class="col-span-full py-20 text-center text-emerald-100 opacity-50">ກຳລັງໂຫລດຂໍ້ມູນສະຖານທີ່...</div>';
                 return;
             }
             grid.innerHTML = items.map(place => `
@@ -215,7 +205,7 @@
             const grid = document.getElementById('blogsGrid');
             if(!grid) return;
             if(items.length === 0) {
-                grid.innerHTML = '<p class="col-span-full text-center text-emerald-200">ກຳລັງໂຫລດບົດຄວາມ...</p>';
+                grid.innerHTML = '<div class="col-span-full py-20 text-center text-emerald-100 opacity-50">ກຳລັງໂຫລດບົດຄວາມ...</div>';
                 return;
             }
             grid.innerHTML = items.map(blog => `
@@ -229,7 +219,7 @@
                 </div>`).join('');
         };
 
-        // --- Other Global Logic ---
+        // --- Modals ---
         window.openCart = () => {
             const container = document.getElementById('cartItems');
             const totalEl = document.getElementById('cartTotal');
@@ -240,7 +230,7 @@
             } else {
                 let total = 0;
                 container.innerHTML = window.state.cart.map(item => {
-                    total += item.price * item.qty;
+                    total += item.price * (item.qty || 1);
                     return `<div class="flex gap-4 p-4 bg-emerald-50 rounded-2xl text-emerald-950">
                         <img src="${item.img}" class="w-16 h-16 rounded-xl object-cover">
                         <div class="flex-grow">
@@ -267,7 +257,7 @@
             document.getElementById('detailsDesc').innerText = p.desc;
             const statusBadge = document.getElementById('detailsStatus');
             statusBadge.innerText = p.status;
-            statusBadge.className = `text-[10px] font-black uppercase px-5 py-2.5 rounded-full shadow-sm border-2 ${p.status.toLowerCase().includes('pre') ? 'status-pre-order' : 'status-in-stock'}`;
+            statusBadge.className = `text-[10px] font-black uppercase px-5 py-2.5 rounded-full shadow-sm border-2 ${p.status?.toLowerCase().includes('pre') ? 'status-pre-order' : 'status-in-stock'}`;
             document.getElementById('detailsAddBtn').onclick = () => { window.addToCart(p.id); window.closeDetails(); };
             document.getElementById('detailsWaBtn').href = `https://wa.me/8562054849393?text=${encodeURIComponent("Interest: " + p.name)}`;
             document.getElementById('detailsModal').style.display = 'flex';
@@ -284,7 +274,7 @@
         };
 
         window.updateCartCount = () => {
-            const count = window.state.cart.reduce((s, i) => s + i.qty, 0);
+            const count = window.state.cart.reduce((s, i) => s + (i.qty || 0), 0);
             const badge = document.getElementById('cartCount');
             if(badge) {
                 badge.innerText = count;
@@ -313,38 +303,12 @@
             const si = document.getElementById('searchInput');
             const val = si ? si.value.toLowerCase() : "";
             const filtered = window.state.products.filter(p => {
-                const matchesSearch = p.name.toLowerCase().includes(val);
-                const matchesCategory = window.state.currentCategory === 'All' || p.category.toLowerCase() === window.state.currentCategory.toLowerCase();
+                const matchesSearch = p.name?.toLowerCase().includes(val);
+                const matchesCategory = window.state.currentCategory === 'All' || p.category?.toLowerCase() === window.state.currentCategory.toLowerCase();
                 return matchesSearch && matchesCategory;
             });
             window.renderProducts(filtered);
         };
-
-        window.openPlaceDetails = (name) => {
-            const place = window.state.places.find(x => x.name === name);
-            if(!place) return;
-            document.getElementById('placeDetailsImage').src = place.img;
-            document.getElementById('placeDetailsTitle').innerText = place.name;
-            document.getElementById('placeDetailsLoc').innerText = place.loc;
-            document.getElementById('placeDetailsPrice').innerText = place.price;
-            document.getElementById('placeDetailsDesc').innerText = place.desc;
-            document.getElementById('placeDetailsWaBtn').href = `https://wa.me/8562054849393?text=${encodeURIComponent("Inquiry about " + place.name)}`;
-            document.getElementById('placeModal').style.display = 'flex';
-        };
-
-        window.closePlaceModal = () => document.getElementById('placeModal').style.display = 'none';
-
-        window.openBlogDetails = (title) => {
-            const blog = window.state.blogs.find(x => x.title === title);
-            if(!blog) return;
-            document.getElementById('blogDetailsImage').src = blog.img;
-            document.getElementById('blogDetailsTitle').innerText = blog.title;
-            document.getElementById('blogDetailsDate').innerText = blog.date;
-            document.getElementById('blogDetailsContent').innerText = blog.content;
-            document.getElementById('blogModal').style.display = 'flex';
-        };
-
-        window.closeBlogModal = () => document.getElementById('blogModal').style.display = 'none';
 
         window.checkoutWhatsApp = () => {
             if(window.state.cart.length === 0) return;
@@ -365,6 +329,12 @@
             }
             setTimeout(() => sessionStorage.setItem('admin_clicks', '0'), 3000);
         };
+
+        // App Initialization
+        document.addEventListener('DOMContentLoaded', () => {
+            window.switchPage('home');
+            window.updateCartCount();
+        });
     </script>
 
     <!-- Navigation -->
@@ -398,7 +368,7 @@
     </nav>
 
     <div id="pages-container">
-        <!-- Home Section -->
+        <!-- Home -->
         <section id="page-home" class="page-section">
             <header class="hero-banner h-[600px] flex items-center justify-center text-center px-4 relative overflow-hidden">
                 <div class="max-w-3xl fade-in z-10 px-6">
@@ -407,187 +377,129 @@
                         <span class="text-white text-[9px] font-black uppercase tracking-[0.4em]">Forest Adventure calls</span>
                     </div>
                     <h1 class="text-6xl sm:text-8xl font-black text-white mb-8 tracking-tighter drop-shadow-2xl italic leading-[1.1]">The Forest<br><span class="text-amber-500">Starts Here.</span></h1>
-                    <p class="text-emerald-50 text-xs sm:text-sm font-medium uppercase tracking-[0.5em] mb-14 drop-shadow-lg opacity-90 leading-loose max-w-lg mx-auto">Premium Gear for the Bold Explorer Across Laos</p>
-                    <div class="flex flex-wrap gap-5 justify-center">
+                    <div class="flex flex-wrap gap-5 justify-center mt-10">
                         <button onclick="window.switchPage('products')" class="bg-amber-500 text-white px-12 py-4.5 rounded-[22px] font-black text-[11px] uppercase tracking-[0.2em] hover:bg-amber-600 transition shadow-2xl scale-105">Shop Catalog</button>
-                        <button onclick="window.switchPage('places')" class="bg-white/10 backdrop-blur-xl border border-white/40 text-white px-12 py-4.5 rounded-[22px] font-black text-[11px] uppercase tracking-[0.2em] hover:bg-white hover:text-emerald-950 transition">Explore Spots</button>
                     </div>
                 </div>
-                <div class="absolute bottom-[-1px] left-0 w-full h-24 bg-gradient-to-t from-[#022c22] to-transparent"></div>
             </header>
         </section>
 
-        <!-- Products Section -->
+        <!-- Products -->
         <section id="page-products" class="page-section hidden py-20 px-4 max-w-7xl mx-auto w-full">
             <div class="flex flex-col lg:flex-row justify-between items-end mb-16 gap-8">
-                <div class="fade-in">
-                    <div class="flex items-center gap-3 mb-3">
-                        <div class="h-1.5 w-10 bg-amber-500 rounded-full"></div>
-                        <span class="text-[11px] font-black text-emerald-400 uppercase tracking-[0.3em]">Gear Collection</span>
-                    </div>
-                    <h2 class="text-5xl sm:text-6xl font-black uppercase italic tracking-tighter section-title">Catalog</h2>
+                <div>
+                    <h2 class="text-5xl sm:text-6xl font-black uppercase italic tracking-tighter text-white">Catalog</h2>
                 </div>
-                <div class="relative w-full md:w-[400px] group fade-in">
-                    <i class="fa-solid fa-magnifying-glass absolute left-6 top-1/2 -translate-y-1/2 text-emerald-300 group-focus-within:text-emerald-600 transition"></i>
-                    <input type="text" id="searchInput" oninput="window.applyProductFilters()" placeholder="Search gear..." class="w-full pl-16 pr-8 py-5 rounded-[26px] bg-white/10 border border-white/20 focus:border-emerald-500 outline-none shadow-2xl transition-all text-sm font-medium text-white placeholder-slate-400">
+                <div class="relative w-full md:w-[400px] group">
+                    <i class="fa-solid fa-magnifying-glass absolute left-6 top-1/2 -translate-y-1/2 text-emerald-300"></i>
+                    <input type="text" id="searchInput" oninput="window.applyProductFilters()" placeholder="Search gear..." class="w-full pl-16 pr-8 py-5 rounded-[26px] bg-white/10 border border-white/20 text-white outline-none">
                 </div>
             </div>
             <div id="categoryFilter" class="flex gap-4 overflow-x-auto no-scrollbar pb-10 mb-6 px-2"></div>
             <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10"></div>
         </section>
 
-        <!-- Places Section -->
+        <!-- Places -->
         <section id="page-places" class="page-section hidden py-24 px-4 max-w-7xl mx-auto w-full">
-            <div class="text-center mb-20 fade-in">
-                <span class="text-amber-500 font-black text-[11px] uppercase tracking-[0.5em] mb-4 block">Destinations</span>
-                <h2 class="text-5xl sm:text-7xl font-black uppercase italic tracking-tighter section-title">Adventure Spots</h2>
-            </div>
+            <h2 class="text-5xl sm:text-7xl font-black uppercase italic tracking-tighter text-white text-center mb-20">Adventure Spots</h2>
             <div id="placesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12"></div>
         </section>
 
-        <!-- Blogs Section -->
+        <!-- Blogs -->
         <section id="page-blogs" class="page-section hidden py-24 px-4 max-w-7xl mx-auto w-full">
-            <div class="text-center mb-20 fade-in">
-                <span class="text-emerald-400 font-black text-[11px] uppercase tracking-[0.5em] mb-4 block">Knowledge</span>
-                <h2 class="text-5xl sm:text-7xl font-black uppercase italic tracking-tighter section-title">Outdoor Journal</h2>
-            </div>
+            <h2 class="text-5xl sm:text-7xl font-black uppercase italic tracking-tighter text-white text-center mb-20">Journal</h2>
             <div id="blogsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-14"></div>
         </section>
     </div>
 
-    <!-- Modals -->
+    <!-- Modals (Placeholders for script) -->
     <div id="detailsModal" class="modal-overlay" onclick="if(event.target === this) window.closeDetails()">
+        <!-- Content injected by script -->
         <div class="bg-white rounded-[48px] max-w-5xl w-full mx-4 overflow-hidden shadow-2xl flex flex-col md:flex-row fade-in relative max-h-[92vh] border-[12px] border-emerald-950/30">
-            <button onclick="window.closeDetails()" class="absolute top-8 right-8 bg-emerald-50 w-14 h-14 rounded-2xl flex items-center justify-center text-emerald-950 hover:bg-emerald-950 hover:text-white z-10 shadow-xl transition-all"><i class="fa-solid fa-xmark text-2xl"></i></button>
+            <button onclick="window.closeDetails()" class="absolute top-8 right-8 bg-emerald-50 w-14 h-14 rounded-2xl flex items-center justify-center text-emerald-950 z-10 shadow-xl"><i class="fa-solid fa-xmark text-2xl"></i></button>
             <div class="md:w-1/2 bg-emerald-50/50 flex items-center justify-center p-12">
-                <img id="detailsImage" src="" class="max-w-full max-h-[500px] object-contain drop-shadow-3xl transition duration-700" onerror="this.src='https://placehold.co/600x600?text=Gear+Photo'">
+                <img id="detailsImage" src="" class="max-w-full max-h-[500px] object-contain">
             </div>
             <div class="md:w-1/2 p-12 md:p-16 flex flex-col overflow-y-auto bg-white">
-                <div class="flex items-center gap-3 mb-6">
-                    <span id="detailsCategory" class="text-[11px] font-black text-emerald-600 uppercase tracking-[0.3em]">Category</span>
-                    <div class="h-1.5 w-10 bg-amber-400 rounded-full"></div>
-                </div>
-                <h2 id="detailsTitle" class="text-4xl sm:text-5xl font-black text-emerald-950 tracking-tighter mb-8 leading-tight italic uppercase text-slate-900">Product Name</h2>
+                <span id="detailsCategory" class="text-[11px] font-black text-emerald-600 uppercase tracking-widest mb-4">Category</span>
+                <h2 id="detailsTitle" class="text-4xl font-black text-emerald-950 mb-8 uppercase italic leading-tight">Name</h2>
                 <div class="flex items-center gap-8 mb-12">
                     <p id="detailsPrice" class="text-4xl font-black text-emerald-700 italic tracking-tighter">0 LAK</p>
-                    <span id="detailsStatus" class="text-[10px] font-black uppercase px-5 py-2.5 rounded-full shadow-sm border-2">Status</span>
+                    <span id="detailsStatus" class="px-5 py-2.5 rounded-full border-2 text-[10px] font-black">Status</span>
                 </div>
-                <div class="prose prose-emerald mb-16">
-                    <p id="detailsDesc" class="whitespace-pre-line text-gray-500 leading-relaxed text-base font-medium">Description details go here...</p>
-                </div>
+                <p id="detailsDesc" class="text-gray-500 mb-12">Desc</p>
                 <div class="mt-auto pt-10 border-t border-emerald-50 flex gap-5">
-                    <button id="detailsAddBtn" class="flex-grow btn-adventure text-white py-6 rounded-[24px] font-black uppercase text-xs tracking-[0.3em] shadow-2xl shadow-emerald-900/20">Add to Bag</button>
-                    <a id="detailsWaBtn" href="#" target="_blank" class="w-20 h-20 bg-[#25D366] text-white rounded-[24px] flex items-center justify-center text-4xl hover:rotate-12 transition shadow-xl"><i class="fa-brands fa-whatsapp"></i></a>
+                    <button id="detailsAddBtn" class="flex-grow btn-adventure text-white py-6 rounded-[24px] font-black uppercase text-xs">Add to Bag</button>
+                    <a id="detailsWaBtn" href="#" target="_blank" class="w-20 h-20 bg-[#25D366] text-white rounded-[24px] flex items-center justify-center text-4xl"><i class="fa-brands fa-whatsapp"></i></a>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Additional Modals -->
     <div id="placeModal" class="modal-overlay" onclick="if(event.target === this) window.closePlaceModal()">
-        <div class="bg-white rounded-[48px] max-w-4xl w-full mx-4 overflow-hidden shadow-2xl flex flex-col md:flex-row fade-in relative max-h-[90vh] border-4 border-emerald-900/50">
-            <button onclick="window.closePlaceModal()" class="absolute top-8 right-8 bg-white/90 w-14 h-14 rounded-2xl flex items-center justify-center text-emerald-950 hover:bg-emerald-950 hover:text-white z-10 shadow-xl transition-all"><i class="fa-solid fa-xmark text-2xl"></i></button>
-            <div class="md:w-1/2 h-80 md:h-auto overflow-hidden relative">
-                <img id="placeDetailsImage" src="" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/600x600?text=Camp+Spot'">
-                <div class="absolute inset-0 bg-gradient-to-t from-emerald-950/40 to-transparent"></div>
+        <div class="bg-white rounded-[48px] max-w-4xl w-full mx-4 overflow-hidden shadow-2xl flex flex-col md:flex-row relative max-h-[90vh]">
+            <div class="md:w-1/2 h-80 md:h-auto overflow-hidden">
+                <img id="placeDetailsImage" src="" class="w-full h-full object-cover">
             </div>
             <div class="md:w-1/2 p-12 md:p-16 flex flex-col overflow-y-auto text-emerald-950">
-                <span class="text-[11px] font-black text-emerald-600 uppercase tracking-[0.4em] mb-4">Location Reveal</span>
-                <h2 id="placeDetailsTitle" class="text-4xl font-black text-emerald-950 tracking-tighter mb-8 leading-none italic uppercase">Location</h2>
+                <h2 id="placeDetailsTitle" class="text-4xl font-black mb-8 italic uppercase">Location</h2>
                 <div class="flex flex-wrap gap-5 mb-12">
-                    <div class="flex items-center gap-2 text-xs font-black text-gray-400 uppercase tracking-widest"><i class="fa-solid fa-location-dot text-amber-500"></i> <span id="placeDetailsLoc">Location</span></div>
-                    <div id="placeDetailsPrice" class="text-xs font-black text-emerald-800 bg-emerald-50 px-5 py-2.5 rounded-[15px] italic">Price</div>
+                    <span id="placeDetailsLoc" class="text-xs font-black text-gray-400"><i class="fa-solid fa-location-dot text-amber-500"></i> Location</span>
+                    <span id="placeDetailsPrice" class="text-xs font-black text-emerald-800 bg-emerald-50 px-5 py-2.5 rounded-[15px]">Price</span>
                 </div>
-                <p id="placeDetailsDesc" class="text-gray-500 text-base leading-relaxed whitespace-pre-line mb-14 font-medium">Description text...</p>
-                <div class="mt-auto pt-10 border-t border-emerald-50">
-                    <a id="placeDetailsWaBtn" href="#" target="_blank" class="w-full bg-[#25D366] text-white py-6 rounded-[24px] font-black uppercase text-xs tracking-[0.2em] flex items-center justify-center gap-4 hover:scale-[1.03] transition shadow-2xl">
-                        <i class="fa-brands fa-whatsapp text-2xl"></i> Inquire via WhatsApp
-                    </a>
-                </div>
+                <p id="placeDetailsDesc" class="text-gray-500 mb-14">Desc</p>
+                <a id="placeDetailsWaBtn" href="#" target="_blank" class="w-full bg-[#25D366] text-white py-6 rounded-[24px] font-black uppercase text-center">WhatsApp Inquire</a>
             </div>
         </div>
     </div>
 
     <div id="blogModal" class="modal-overlay" onclick="if(event.target === this) window.closeBlogModal()">
-        <div class="bg-white rounded-[48px] max-w-4xl w-full mx-4 overflow-hidden shadow-2xl flex flex-col fade-in relative max-h-[92vh]">
-            <button onclick="window.closeBlogModal()" class="absolute top-8 right-8 bg-white/90 w-14 h-14 rounded-2xl flex items-center justify-center text-emerald-950 hover:bg-emerald-950 hover:text-white z-10 shadow-xl transition-all"><i class="fa-solid fa-xmark text-2xl"></i></button>
-            <div class="h-96 overflow-hidden relative">
-                <img id="blogDetailsImage" src="" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/1200x600?text=Blog+Image'">
-                <div class="absolute bottom-0 left-0 w-full p-12 bg-gradient-to-t from-white via-white/80 to-transparent">
-                    <span id="blogDetailsDate" class="text-[11px] font-black text-amber-500 uppercase tracking-[0.5em]">Date Published</span>
-                </div>
-            </div>
-            <div class="p-12 md:p-16 flex flex-col overflow-y-auto text-emerald-950">
-                <h2 id="blogDetailsTitle" class="text-4xl sm:text-5xl font-black text-emerald-950 tracking-tighter mb-12 leading-tight uppercase italic">Title</h2>
-                <div class="prose prose-emerald leading-relaxed max-w-none text-gray-600 text-base font-medium">
-                    <p id="blogDetailsContent" class="whitespace-pre-line">Content body...</p>
-                </div>
+        <div class="bg-white rounded-[48px] max-w-4xl w-full mx-4 overflow-hidden relative max-h-[92vh] flex flex-col">
+            <div class="h-80 overflow-hidden"><img id="blogDetailsImage" src="" class="w-full h-full object-cover"></div>
+            <div class="p-12 overflow-y-auto">
+                <span id="blogDetailsDate" class="text-amber-500 font-black mb-4 block">Date</span>
+                <h2 id="blogDetailsTitle" class="text-4xl font-black mb-10 text-emerald-950 italic uppercase">Title</h2>
+                <p id="blogDetailsContent" class="text-gray-600 leading-relaxed whitespace-pre-line">Content</p>
             </div>
         </div>
     </div>
 
     <div id="cartModal" class="modal-overlay" onclick="if(event.target === this) window.closeCart()">
-        <div class="bg-white h-full max-w-md w-full shadow-2xl ml-auto flex flex-col p-12 cart-slide">
-            <div class="flex justify-between items-center mb-12 border-b border-emerald-50 pb-8 text-emerald-950">
-                <div class="flex flex-col">
-                    <h3 class="text-3xl font-black uppercase tracking-tighter leading-none">Your Bag</h3>
-                    <span class="text-[11px] font-bold text-emerald-300 uppercase tracking-[0.3em] mt-2">The Explorer's Choice</span>
-                </div>
-                <button onclick="window.closeCart()" class="text-emerald-100 hover:text-emerald-950 text-4xl transition"><i class="fa-solid fa-xmark"></i></button>
+        <div class="bg-white h-full max-w-md w-full ml-auto flex flex-col p-12">
+            <div class="flex justify-between items-center mb-12">
+                <h3 class="text-3xl font-black uppercase text-emerald-950">Your Bag</h3>
+                <button onclick="window.closeCart()" class="text-emerald-950 text-4xl">&times;</button>
             </div>
-            <div id="cartItems" class="flex-grow overflow-y-auto space-y-8 pr-2 no-scrollbar"></div>
-            <div class="border-t border-emerald-50 pt-10 mt-10">
-                <div class="flex justify-between items-center mb-12 px-2">
-                    <span class="font-black text-gray-400 uppercase text-[10px] tracking-[0.5em]">Total Amount</span>
-                    <span id="cartTotal" class="text-3xl font-black text-emerald-700 italic tracking-tighter">0 LAK</span>
-                </div>
-                <button onclick="window.checkoutWhatsApp()" class="w-full bg-[#25D366] text-white py-6 rounded-[24px] font-black uppercase text-xs tracking-[0.3em] flex items-center justify-center gap-4 hover:brightness-105 transition shadow-2xl">
-                    <i class="fa-brands fa-whatsapp text-2xl"></i> Checkout via WhatsApp
-                </button>
+            <div id="cartItems" class="flex-grow overflow-y-auto space-y-6"></div>
+            <div class="pt-10 border-t mt-10">
+                <div class="flex justify-between mb-10"><span class="font-black text-gray-400">Total</span><span id="cartTotal" class="text-3xl font-black text-emerald-700">0 LAK</span></div>
+                <button onclick="window.checkoutWhatsApp()" class="w-full bg-[#25D366] text-white py-6 rounded-[24px] font-black uppercase">Checkout WhatsApp</button>
             </div>
         </div>
     </div>
 
-    <footer class="bg-emerald-950 py-24 px-4 text-center mt-auto border-t-8 border-amber-500 relative overflow-hidden">
-        <div class="absolute inset-0 opacity-10 pointer-events-none bg-repeat" style="background-image: url('https://www.transparenttextures.com/patterns/topography.png');"></div>
-        <div class="max-w-7xl mx-auto z-10 relative">
-            <div class="flex justify-center gap-14 mb-16">
-                <a href="https://www.facebook.com/Clicktobuy333333333" target="_blank" class="text-emerald-500 hover:text-white transition transform hover:scale-125 hover:-rotate-12"><i class="fa-brands fa-facebook text-4xl"></i></a>
-                <a href="https://www.tiktok.com/@thesale3camping" target="_blank" class="text-emerald-500 hover:text-white transition transform hover:scale-125 hover:rotate-12"><i class="fa-brands fa-tiktok text-4xl"></i></a>
-            </div>
-            <div class="max-w-md mx-auto mb-16">
-                <div class="flex items-center justify-center gap-4 mb-6">
-                    <div class="h-[1px] w-12 bg-emerald-900"></div>
-                    <h4 class="text-white font-black text-3xl uppercase tracking-tighter italic">THESALE3</h4>
-                    <div class="h-[1px] w-12 bg-emerald-900"></div>
-                </div>
-                <p class="text-emerald-400 text-[11px] font-bold uppercase tracking-[0.4em] mb-12 leading-loose">Premium Gear for Bold Explorers Across Laos since 2024.</p>
-            </div>
-            <p class="text-[9px] text-emerald-900 font-bold uppercase tracking-[0.6em] cursor-default select-none">
-                © <span onclick="window.handleAdminClick()" class="hover:text-emerald-800 transition-colors">TheSale3 Business</span> / Established for Adventure
-            </p>
-        </div>
+    <footer class="bg-emerald-950 py-16 text-center border-t-8 border-amber-500">
+        <h4 class="text-white font-black text-3xl italic">THESALE3</h4>
+        <p class="text-[9px] text-emerald-900 mt-10 uppercase tracking-widest">© TheSale3 Business / Adventure Starts Here</p>
     </footer>
 
-    <!-- Firebase Logic Script (Module) -->
+    <!-- Firebase & Data Logic -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-        // Firebase Config
         const firebaseConfig = JSON.parse(__firebase_config);
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'thesale3-camping';
 
-        // CSV Source Links
+        // Updated CSV Links based on your request
         const CSV_PRODUCTS = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQOkTfIWeWI0KnhUyZZo1NeYP7B2AJVOXxFyl_g0NrmnWkastWzil9YCOKnTAdPBp8AHyP88LVI2lg6/pub?gid=0&single=true&output=csv';
         const CSV_PLACES = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQOkTfIWeWI0KnhUyZZo1NeYP7B2AJVOXxFyl_g0NrmnWkastWzil9YCOKnTAdPBp8AHyP88LVI2lg6/pub?gid=368688716&single=true&output=csv';
         const CSV_BLOGS = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQOkTfIWeWI0KnhUyZZo1NeYP7B2AJVOXxFyl_g0NrmnWkastWzil9YCOKnTAdPBp8AHyP88LVI2lg6/pub?gid=187773397&single=true&output=csv';
 
-        // Internal CSV Parser
         function parseCSV(text) {
             const rows = [];
             const lines = text.split(/\r?\n/);
@@ -614,20 +526,23 @@
             return 'assets/products/' + url;
         };
 
-        // Attach Data Loading Logic
+        // --- Fetch Functions ---
         window.loadProducts = async () => {
             try {
                 const res = await fetch(CSV_PRODUCTS);
                 const rows = parseCSV(await res.text()).slice(1);
                 window.state.products = rows.map((cols, i) => ({
-                    id: 'google-prod-' + i,
-                    name: cols[1], price: parseInt(cols[2].replace(/\D/g,'')) || 0,
-                    category: cols[3], img: formatImgUrl(cols[4]),
-                    status: cols[5] || 'In Stock', desc: cols[6] || 'Premium gear.'
+                    id: 'g-prod-' + i,
+                    name: cols[1],
+                    price: parseInt(cols[2]?.replace(/\D/g,'')) || 0,
+                    category: cols[3],
+                    img: formatImgUrl(cols[4]),
+                    status: cols[5] || 'In Stock',
+                    desc: cols[6] || 'Premium outdoor equipment.'
                 })).filter(x => x.name);
                 window.renderProducts(window.state.products);
                 window.renderCategoryFilters();
-            } catch (e) {}
+            } catch (e) { console.error("Error loading products", e); }
         };
 
         window.loadPlaces = async () => {
@@ -638,7 +553,7 @@
                     name: cols[0], loc: cols[1], price: cols[2], img: formatImgUrl(cols[3]), desc: cols[4] || ''
                 })).filter(x => x.name);
                 window.renderPlaces(window.state.places);
-            } catch (e) {}
+            } catch (e) { console.error("Error loading places", e); }
         };
 
         window.loadBlogs = async () => {
@@ -649,10 +564,10 @@
                     title: cols[0], date: cols[1], img: formatImgUrl(cols[2]), content: cols[3] || ''
                 })).filter(x => x.title);
                 window.renderBlogs(window.state.blogs);
-            } catch (e) {}
+            } catch (e) { console.error("Error loading blogs", e); }
         };
 
-        // Auth initialization
+        // Firebase Auth Init
         const initAuth = async () => {
             try {
                 if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
@@ -666,6 +581,7 @@
         onAuthStateChanged(auth, async (user) => {
             window.state.user = user;
             if (user) {
+                // Also check Firestore for live updates
                 onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'products'), (s) => {
                     if (s.docs.length > 0) {
                         window.state.products = s.docs.map(d => ({ id: d.id, ...d.data() }));
@@ -676,6 +592,9 @@
         });
 
         initAuth();
+        window.loadProducts();
+        window.loadPlaces();
+        window.loadBlogs();
     </script>
 </body>
 </html>
