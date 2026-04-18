@@ -46,7 +46,6 @@
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        /* Hero Slider Cross-fade Effects */
         .hero-container {
             position: relative;
             overflow: hidden;
@@ -63,11 +62,10 @@
             z-index: 1;
         }
 
-        /* Hero Text Animation Style */
         .hero-text-animate {
-            transition: opacity 1.5s ease-in-out, transform 1.5s ease-in-out;
+            transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
             opacity: 0; 
-            transform: translateY(15px);
+            transform: translateY(30px);
         }
         
         .card-modern { 
@@ -146,17 +144,16 @@
         };
 
         const heroImages = [
+            'https://i.postimg.cc/FKL5Q4JW/489751506-1424454392283349-8154752889413656228-n.jpg',
             'https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/donkoksa-camping.jpg',
             'https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/nammung3-camping.jpg',
-            'https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/phadang-camping.jpg',
-            'https://i.postimg.cc/FKL5Q4JW/489751506-1424454392283349-8154752889413656228-n.jpg'
+            'https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/phadang-camping.jpg'
         ];
         let currentHeroIdx = 0;
 
         const categories = ["All", "ເຕັ້ນTents", "ເຄື່ອງຄົວCooking", "ອຸປະກອນກາເຟCoffee", "Lighting", "ເຄື່ອງນອນSleeping", "ເຟີນິເຈີ້Furniture", "ກະເປົາBackpack", "ເກີບShoes", "ເຄື່ອງນຸ່ງCloth", "ແວ່ນຕາGlasses", "ພາວເວີ້ແບ້ງPowerbank", "ອຸປະກອນເອົາໂຕລອດSurvival"];
         const ADMIN_SHEET_URL = 'https://docs.google.com/spreadsheets/d/1N09HDxPd3zEDqxHR-knpH2MP_fq_XkLJZJ4FdCAYEG0/edit';
 
-        // --- Slider Logic ---
         window.initHeroSlider = () => {
             const layers = [document.getElementById('heroLayer1'), document.getElementById('heroLayer2')];
             const heroHeading = document.getElementById('heroMainHeading');
@@ -166,35 +163,70 @@
             let activeIdx = 0;
             const grad = "linear-gradient(to bottom, rgba(4, 47, 46, 0.2), rgba(2, 44, 34, 0.9))";
 
-            layers[0].style.backgroundImage = `${grad}, url('${heroImages[0]}')`;
-            layers[0].style.opacity = 1;
+            const animateTextIn = () => {
+                if (heroHeading && heroButton) {
+                    heroHeading.style.opacity = 1;
+                    heroHeading.style.transform = "translateY(0)";
+                    heroButton.style.opacity = 1;
+                    heroButton.style.transform = "translateY(0)";
+                }
+            };
 
-            setInterval(() => {
+            const animateTextOut = () => {
+                if (heroHeading && heroButton) {
+                    heroHeading.style.opacity = 0;
+                    heroHeading.style.transform = "translateY(30px)";
+                    heroButton.style.opacity = 0;
+                    heroButton.style.transform = "translateY(30px)";
+                }
+            };
+
+            const changeImage = () => {
                 currentHeroIdx = (currentHeroIdx + 1) % heroImages.length;
                 const nextIdx = 1 - activeIdx;
-
-                if (heroHeading && heroButton) {
-                    if (currentHeroIdx === 3) {
-                        heroHeading.style.opacity = 1;
-                        heroHeading.style.transform = "translateY(0)";
-                        heroButton.style.opacity = 1;
-                        heroButton.style.transform = "translateY(0)";
-                    } else {
-                        heroHeading.style.opacity = 0;
-                        heroHeading.style.transform = "translateY(15px)";
-                        heroButton.style.opacity = 0;
-                        heroButton.style.transform = "translateY(15px)";
-                    }
-                }
-
                 layers[nextIdx].style.backgroundImage = `${grad}, url('${heroImages[currentHeroIdx]}')`;
                 layers[nextIdx].style.opacity = 1;
                 layers[activeIdx].style.opacity = 0;
                 activeIdx = nextIdx;
-            }, 4000);
+            };
+
+            // INITIAL START (0s)
+            layers[0].style.backgroundImage = `${grad}, url('${heroImages[0]}')`;
+            layers[0].style.opacity = 1;
+            setTimeout(animateTextIn, 500);
+
+            // TIMELINE LOGIC
+            const runCycle = () => {
+                // At 5 seconds: Disappear text and change to second image
+                setTimeout(() => {
+                    animateTextOut();
+                    changeImage(); // Img 2
+                }, 5000);
+
+                // Subsequent image changes to fill the gap until 18s
+                // At 9.3s: Change to Img 3
+                setTimeout(() => {
+                    changeImage();
+                }, 9300);
+
+                // At 13.6s: Change to Img 4
+                setTimeout(() => {
+                    changeImage();
+                }, 13600);
+
+                // At 18 seconds: Come back again (Show text + Change back to Img 1)
+                setTimeout(() => {
+                    changeImage(); // Back to Img 1 (index 0)
+                    animateTextIn();
+                }, 18000);
+            };
+
+            // Start first cycle
+            runCycle();
+            // Repeat cycle every 18 seconds
+            setInterval(runCycle, 18000);
         };
 
-        // --- Cart Management ---
         window.addToCart = (id) => {
             const p = window.state.products.find(x => x.id === id);
             if(!p) return;
@@ -233,7 +265,7 @@
             const totalEl = document.getElementById('cartTotal');
             if(!container) return;
             if(window.state.cart.length === 0) {
-                container.innerHTML = '<div class="text-center py-20 text-emerald-200 uppercase font-black text-[10px]">Bag empty</div>';
+                container.innerHTML = '<div class="text-center py-20 text-emerald-200 uppercase font-black text-[10px]">ກະຕ່າຫວ່າງເປົ່າ | Bag Empty</div>';
                 if(totalEl) totalEl.innerText = '0 LAK';
             } else {
                 let total = 0;
@@ -273,7 +305,6 @@
             window.open(`https://wa.me/8562054849393?text=${encodeURIComponent(message)}`, '_blank');
         };
 
-        // --- Navigation ---
         window.switchPage = (pageId) => {
             document.querySelectorAll('.page-section').forEach(p => p.classList.add('hidden'));
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active-link'));
@@ -287,7 +318,6 @@
             if (pageId === 'blogs') window.renderBlogs(window.state.blogs);
         };
 
-        // --- UI Rendering Helpers ---
         window.getProductHTML = (p) => {
             const fakePrice = Math.round((p.price * 1.25) / 1000) * 1000;
             return `
@@ -306,8 +336,8 @@
                         <span class="text-sm text-red-600 line-through font-black opacity-80 italic">${fakePrice.toLocaleString()} LAK</span>
                         <p class="font-black text-emerald-700 italic text-xl leading-none">${p.price.toLocaleString()} LAK</p>
                     </div>
-                    <button onclick="event.stopPropagation(); window.addToCart('${p.id}')" class="w-full h-12 rounded-2xl bg-emerald-950 text-white flex items-center justify-center gap-3 hover:bg-amber-500 transition-all shadow-lg font-black text-[10px] uppercase">
-                        <i class="fa-solid fa-plus"></i> Add to Bag
+                    <button onclick="event.stopPropagation(); window.addToCart('${p.id}')" class="w-full h-12 rounded-2xl bg-emerald-950 text-white flex items-center justify-center gap-3 hover:bg-amber-500 transition-all shadow-lg font-black text-[9px] uppercase">
+                        <i class="fa-solid fa-plus"></i> ເພີ່ມລົງກະຕ່າ | Add to Bag
                     </button>
                 </div>
             </div>`;
@@ -348,12 +378,12 @@
 
         window.renderProducts = (items) => {
             const grid = document.getElementById('productGrid');
-            if(grid) grid.innerHTML = items.length === 0 ? '<div class="col-span-full py-20 text-center opacity-50 italic">ກຳລັງໂຫລດ...</div>' : items.map(p => window.getProductHTML(p)).join('');
+            if(grid) grid.innerHTML = items.length === 0 ? '<div class="col-span-full py-20 text-center opacity-50 italic">ກຳລັງໂຫລດ... | Loading...</div>' : items.map(p => window.getProductHTML(p)).join('');
         };
 
         window.renderPlaces = (items) => {
             const grid = document.getElementById('placesGrid');
-            if(grid) grid.innerHTML = items.length === 0 ? '<div class="col-span-full py-20 text-center opacity-50 italic">ກຳລັງໂຫລດ...</div>' : items.map(pl => `
+            if(grid) grid.innerHTML = items.length === 0 ? '<div class="col-span-full py-20 text-center opacity-50 italic">ກຳລັງໂຫລດ... | Loading...</div>' : items.map(pl => `
                 <div class="card-modern overflow-hidden cursor-pointer" onclick="window.openPlaceDetails('${pl.name}')">
                     <div class="h-60 overflow-hidden"><img src="${pl.img}" class="w-full h-full object-cover"></div>
                     <div class="p-8 text-emerald-950">
@@ -366,7 +396,7 @@
 
         window.renderBlogs = (items) => {
             const grid = document.getElementById('blogsGrid');
-            if(grid) grid.innerHTML = items.length === 0 ? '<div class="col-span-full py-20 text-center opacity-50 italic">ກຳລັງໂຫລດ...</div>' : items.map(b => `
+            if(grid) grid.innerHTML = items.length === 0 ? '<div class="col-span-full py-20 text-center opacity-50 italic">ກຳລັງໂຫລດ... | Loading...</div>' : items.map(b => `
                 <div class="card-modern flex flex-col md:flex-row overflow-hidden cursor-pointer mb-6" onclick="window.openBlogDetails('${b.title}')">
                     <div class="md:w-1/3 h-64"><img src="${b.img}" class="w-full h-full object-cover"></div>
                     <div class="md:w-2/3 p-10 text-emerald-950">
@@ -404,7 +434,6 @@
             window.renderProducts(filtered);
         };
 
-        // --- Details ---
         window.openDetails = (id) => {
             const p = window.state.products.find(x => x.id === id);
             if(!p) return;
@@ -475,9 +504,9 @@
                     <img src="https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/thesale3-logo.png" alt="Logo" class="h-14 sm:h-20 w-auto object-contain drop-shadow-xl">
                 </div>
                 <div class="hidden md:flex items-center gap-8 font-bold text-[10px] uppercase tracking-widest text-slate-300">
-                    <button onclick="window.switchPage('products')" class="nav-btn py-2 hover:text-white" id="btn-products-desktop">Products</button>
-                    <button onclick="window.switchPage('places')" class="nav-btn py-2 hover:text-white" id="btn-places-desktop">Places</button>
-                    <button onclick="window.switchPage('blogs')" class="nav-btn py-2 hover:text-white" id="btn-blogs-desktop">Journal</button>
+                    <button onclick="window.switchPage('products')" class="nav-btn py-2 hover:text-white" id="btn-products-desktop">ສິນຄ້າ | Products</button>
+                    <button onclick="window.switchPage('places')" class="nav-btn py-2 hover:text-white" id="btn-places-desktop">ສະຖານທີ່ | Places</button>
+                    <button onclick="window.switchPage('blogs')" class="nav-btn py-2 hover:text-white" id="btn-blogs-desktop">ບົດຄວາມ | Journal</button>
                 </div>
                 <div class="flex items-center gap-4">
                     <button onclick="window.openCart()" class="relative p-2.5 bg-white/10 rounded-2xl border border-white/10 hover:bg-white/20 transition">
@@ -493,11 +522,11 @@
     </nav>
 
     <!-- Mobile Nav Bar -->
-    <div class="mobile-nav md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center py-4 px-2">
-        <button onclick="window.switchPage('home')" class="nav-btn flex flex-col items-center gap-1 text-[9px] uppercase font-bold text-slate-400" id="btn-home-mobile"><i class="fa-solid fa-house text-lg"></i><span>Home</span></button>
-        <button onclick="window.switchPage('products')" class="nav-btn flex flex-col items-center gap-1 text-[9px] uppercase font-bold text-slate-400" id="btn-products-mobile"><i class="fa-solid fa-tent text-lg"></i><span>Gear</span></button>
-        <button onclick="window.switchPage('places')" class="nav-btn flex flex-col items-center gap-1 text-[9px] uppercase font-bold text-slate-400" id="btn-places-mobile"><i class="fa-solid fa-map-location-dot text-lg"></i><span>Places</span></button>
-        <button onclick="window.switchPage('blogs')" class="nav-btn flex flex-col items-center gap-1 text-[9px] uppercase font-bold text-slate-400" id="btn-blogs-mobile"><i class="fa-solid fa-newspaper text-lg"></i><span>Journal</span></button>
+    <div class="mobile-nav md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center py-4 px-2 bg-emerald-950/95 backdrop-blur-md border-t border-white/10">
+        <button onclick="window.switchPage('home')" class="nav-btn flex flex-col items-center gap-1 text-[9px] uppercase font-bold text-slate-400" id="btn-home-mobile"><i class="fa-solid fa-house text-lg"></i><span>ໜ້າຫຼັກ | Home</span></button>
+        <button onclick="window.switchPage('products')" class="nav-btn flex flex-col items-center gap-1 text-[9px] uppercase font-bold text-slate-400" id="btn-products-mobile"><i class="fa-solid fa-tent text-lg"></i><span>ສິນຄ້າ | Gear</span></button>
+        <button onclick="window.switchPage('places')" class="nav-btn flex flex-col items-center gap-1 text-[9px] uppercase font-bold text-slate-400" id="btn-places-mobile"><i class="fa-solid fa-map-location-dot text-lg"></i><span>ສະຖານທີ່ | Places</span></button>
+        <button onclick="window.switchPage('blogs')" class="nav-btn flex flex-col items-center gap-1 text-[9px] uppercase font-bold text-slate-400" id="btn-blogs-mobile"><i class="fa-solid fa-newspaper text-lg"></i><span>ບົດຄວາມ | Journal</span></button>
     </div>
 
     <!-- Pages -->
@@ -510,7 +539,7 @@
                 <div class="absolute inset-0 z-10 flex items-center justify-center text-center px-4">
                     <div class="max-w-3xl">
                         <h1 id="heroMainHeading" class="text-5xl sm:text-8xl font-black text-white mb-8 tracking-tighter drop-shadow-2xl italic hero-text-animate">The Forest<br><span class="text-amber-500">Starts Here.</span></h1>
-                        <button id="heroMainButton" onclick="window.switchPage('products')" class="bg-amber-500 text-white px-10 py-4 rounded-[22px] font-black text-[10px] sm:text-[11px] uppercase tracking-widest hero-text-animate shadow-2xl scale-105 mt-6">Discover Gear</button>
+                        <button id="heroMainButton" onclick="window.switchPage('products')" class="bg-amber-500 text-white px-10 py-4 rounded-[22px] font-black text-[9px] sm:text-[10px] uppercase tracking-widest hero-text-animate shadow-2xl scale-105 mt-6">ເລືອກເບິ່ງອຸປະກອນ | Discover Gear</button>
                     </div>
                 </div>
                 <div class="absolute bottom-[-1px] left-0 w-full h-24 bg-gradient-to-t from-[#022c22] to-transparent z-10"></div>
@@ -518,21 +547,21 @@
 
             <div class="max-w-7xl mx-auto px-4 py-20">
                 <div class="flex justify-between items-end mb-12">
-                    <h2 class="text-4xl font-black uppercase italic tracking-tighter text-white leading-none">Featured Gear</h2>
-                    <button onclick="window.switchPage('products')" class="text-emerald-400 font-bold text-xs uppercase tracking-widest border-b border-emerald-400/30 pb-1 hover:text-white transition">View All</button>
+                    <h2 class="text-3xl sm:text-4xl font-black uppercase italic tracking-tighter text-white leading-none">ສິນຄ້າແນະນຳ | Featured Gear</h2>
+                    <button onclick="window.switchPage('products')" class="text-emerald-400 font-bold text-[10px] uppercase tracking-widest border-b border-emerald-400/30 pb-1 hover:text-white transition">ເບິ່ງທັງໝົດ | View All</button>
                 </div>
                 <div id="homeProductGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8"></div>
             </div>
 
             <div class="bg-emerald-950/30 py-20 px-4">
                 <div class="max-w-7xl mx-auto">
-                    <h2 class="text-4xl sm:text-6xl font-black uppercase italic tracking-tighter text-white text-center mb-16">Top Destinations</h2>
+                    <h2 class="text-3xl sm:text-6xl font-black uppercase italic tracking-tighter text-white text-center mb-16">ສະຖານທີ່ຍອດຮິດ | Top Destinations</h2>
                     <div id="homePlacesGrid" class="grid grid-cols-1 md:grid-cols-3 gap-8"></div>
                 </div>
             </div>
 
             <div class="max-w-7xl mx-auto px-4 py-24">
-                <h2 class="text-4xl font-black uppercase italic tracking-tighter text-white mb-16 text-center">Journal Highlights</h2>
+                <h2 class="text-3xl sm:text-4xl font-black uppercase italic tracking-tighter text-white mb-16 text-center">ບົດຄວາມທີ່ໜ້າສົນໃຈ | Journal Highlights</h2>
                 <div id="homeBlogsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-8"></div>
             </div>
         </section>
@@ -540,22 +569,25 @@
         <!-- Products -->
         <section id="page-products" class="page-section hidden py-16 sm:py-20 px-4 max-w-7xl mx-auto w-full">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
-                <h2 class="text-4xl sm:text-5xl font-black uppercase italic tracking-tighter text-white">Catalog</h2>
+                <h2 class="text-4xl sm:text-5xl font-black uppercase italic tracking-tighter text-white">ລາຍການສິນຄ້າ | Catalog</h2>
                 <div class="relative w-full md:w-[400px]">
                     <i class="fa-solid fa-magnifying-glass absolute left-6 top-1/2 -translate-y-1/2 text-emerald-300"></i>
-                    <input type="text" id="searchInput" oninput="window.applyProductFilters()" placeholder="Search gear..." class="w-full pl-16 pr-8 py-4 rounded-[22px] bg-white/10 border border-white/20 text-white outline-none focus:border-emerald-500 transition-all text-sm">
+                    <input type="text" id="searchInput" oninput="window.applyProductFilters()" placeholder="ຄົ້ນຫາອຸປະກອນ... | Search gear..." class="w-full pl-16 pr-8 py-4 rounded-[22px] bg-white/10 border border-white/20 text-white outline-none focus:border-emerald-500 transition-all text-sm">
                 </div>
             </div>
             <div id="categoryFilter" class="flex gap-3 overflow-x-auto no-scrollbar pb-6 mb-6"></div>
             <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8"></div>
         </section>
 
+        <!-- Places -->
         <section id="page-places" class="page-section hidden py-16 sm:py-24 px-4 max-w-7xl mx-auto w-full text-white">
-            <h2 class="text-4xl sm:text-7xl font-black uppercase italic tracking-tighter text-center mb-16">All Spots</h2>
+            <h2 class="text-4xl sm:text-7xl font-black uppercase italic tracking-tighter text-center mb-16">ສະຖານທີ່ທັງໝົດ | All Spots</h2>
             <div id="placesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
         </section>
+
+        <!-- Blogs -->
         <section id="page-blogs" class="page-section hidden py-16 sm:py-24 px-4 max-w-7xl mx-auto w-full text-white">
-            <h2 class="text-4xl sm:text-7xl font-black uppercase italic tracking-tighter text-center mb-16">The Journal</h2>
+            <h2 class="text-4xl sm:text-7xl font-black uppercase italic tracking-tighter text-center mb-16">ບົດຄວາມການເດີນທາງ | The Journal</h2>
             <div id="blogsGrid" class="flex flex-col gap-8"></div>
         </section>
     </div>
@@ -568,18 +600,18 @@
                 <img id="detailsImage" src="" class="max-w-full max-h-[400px] object-contain">
             </div>
             <div class="md:w-1/2 p-8 sm:p-10 flex flex-col overflow-y-auto bg-white text-emerald-950">
-                <span id="detailsCategory" class="text-[9px] font-black text-emerald-600 uppercase mb-4 tracking-widest">Category</span>
-                <h2 id="detailsTitle" class="text-2xl sm:text-3xl font-black mb-6 uppercase italic">Name</h2>
+                <span id="detailsCategory" class="text-[9px] font-black text-emerald-600 uppercase mb-4 tracking-widest">ໝວດໝູ່ | Category</span>
+                <h2 id="detailsTitle" class="text-2xl sm:text-3xl font-black mb-6 uppercase italic">ຊື່ສິນຄ້າ | Name</h2>
                 <div class="mb-8">
                     <span id="detailsFakePrice" class="text-lg text-red-600 line-through font-black opacity-80 italic mb-1 block">0 LAK</span>
                     <div class="flex items-center gap-6">
                         <p id="detailsPrice" class="text-2xl sm:text-3xl font-black text-emerald-700 italic tracking-tighter leading-none">0 LAK</p>
-                        <span id="detailsStatus" class="px-4 py-2 rounded-full border-2 text-[9px] font-black">Status</span>
+                        <span id="detailsStatus" class="px-4 py-2 rounded-full border-2 text-[9px] font-black">ສະຖານະ | Status</span>
                     </div>
                 </div>
-                <p id="detailsDesc" class="text-gray-500 mb-8 text-xs sm:text-sm font-medium">Desc</p>
+                <p id="detailsDesc" class="text-gray-500 mb-8 text-xs sm:text-sm font-medium">ລາຍລະອຽດ | Description</p>
                 <div class="mt-auto flex gap-4">
-                    <button id="detailsAddBtn" class="flex-grow btn-adventure text-white py-4 rounded-[18px] font-black uppercase text-[10px]">Add to Bag</button>
+                    <button id="detailsAddBtn" class="flex-grow btn-adventure text-white py-4 rounded-[18px] font-black uppercase text-[10px]">ເພີ່ມລົງກະຕ່າ | Add to Bag</button>
                     <a id="detailsWaBtn" href="#" target="_blank" class="w-14 h-14 bg-[#25D366] text-white rounded-[18px] flex items-center justify-center text-xl shadow-lg hover:scale-110 transition"><i class="fa-brands fa-whatsapp"></i></a>
                 </div>
             </div>
@@ -590,14 +622,14 @@
     <div id="cartModal" class="modal-overlay" onclick="if(event.target === this) window.closeCart()">
         <div class="bg-white h-full max-w-md w-full ml-auto flex flex-col p-8 sm:p-12 shadow-2xl">
             <div class="flex justify-between items-center mb-10 border-b pb-6">
-                <h3 class="text-2xl font-black uppercase text-emerald-950 italic">Your Bag</h3>
+                <h3 class="text-2xl font-black uppercase text-emerald-950 italic">ກະຕ່າຂອງທ່ານ | Your Bag</h3>
                 <button onclick="window.closeCart()" class="text-emerald-950 text-3xl font-light">&times;</button>
             </div>
             <div id="cartItems" class="flex-grow overflow-y-auto space-y-5 pr-2"></div>
             <div class="pt-8 border-t mt-8">
-                <div class="flex justify-between mb-8"><span class="font-bold text-gray-400 uppercase text-[10px] tracking-widest">Total</span><span id="cartTotal" class="text-2xl font-black text-emerald-700 italic">0 LAK</span></div>
+                <div class="flex justify-between mb-8"><span class="font-bold text-gray-400 uppercase text-[10px] tracking-widest">ລວມທັງໝົດ | Total</span><span id="cartTotal" class="text-2xl font-black text-emerald-700 italic">0 LAK</span></div>
                 <button onclick="window.checkoutWhatsApp()" class="w-full bg-[#25D366] text-white py-5 rounded-[20px] font-black uppercase text-[10px] tracking-widest flex items-center justify-center gap-2">
-                    <i class="fa-brands fa-whatsapp text-lg"></i> Checkout WhatsApp
+                    <i class="fa-brands fa-whatsapp text-lg"></i> ສັ່ງຊື້ຜ່ານ WhatsApp | Checkout
                 </button>
             </div>
         </div>
@@ -607,16 +639,17 @@
         <div class="bg-white rounded-[40px] max-w-4xl w-full mx-4 overflow-hidden shadow-2xl flex flex-col md:flex-row max-h-[90vh]">
             <div class="md:w-1/2 h-64 md:h-auto overflow-hidden"><img id="placeDetailsImage" src="" class="w-full h-full object-cover"></div>
             <div class="md:w-1/2 p-8 sm:p-10 overflow-y-auto text-emerald-950 bg-white">
-                <h2 id="placeDetailsTitle" class="text-2xl font-black mb-4 italic uppercase">Location</h2>
+                <h2 id="placeDetailsTitle" class="text-2xl font-black mb-4 italic uppercase">ສະຖານທີ່ | Location</h2>
                 <div class="flex flex-wrap gap-4 mb-6 text-[10px] font-bold uppercase tracking-widest">
-                    <span id="placeDetailsLoc" class="text-gray-400"><i class="fa-solid fa-location-dot text-amber-500"></i> Location</span>
-                    <span id="placeDetailsPrice" class="text-emerald-800 bg-emerald-50 px-3 py-1.5 rounded-xl">Price</span>
+                    <span id="placeDetailsLoc" class="text-gray-400"><i class="fa-solid fa-location-dot text-amber-500"></i> ທີ່ຕັ້ງ | Location</span>
+                    <span id="placeDetailsPrice" class="text-emerald-800 bg-emerald-50 px-3 py-1.5 rounded-xl">ລາຄາ | Price</span>
                 </div>
-                <p id="placeDetailsDesc" class="text-gray-500 text-sm leading-relaxed mb-8">Desc</p>
-                <a id="placeDetailsWaBtn" href="#" target="_blank" class="w-full block bg-[#25D366] text-white py-5 rounded-[20px] font-black uppercase text-center text-[10px] tracking-widest">Inquiry</a>
+                <p id="placeDetailsDesc" class="text-gray-500 text-sm leading-relaxed mb-8">ລາຍລະອຽດ | Description</p>
+                <a id="placeDetailsWaBtn" href="#" target="_blank" class="w-full block bg-[#25D366] text-white py-5 rounded-[20px] font-black uppercase text-center text-[10px] tracking-widest">ສອບຖາມຂໍ້ມູນ | Inquiry</a>
             </div>
         </div>
     </div>
+
     <div id="blogModal" class="modal-overlay" onclick="if(event.target === this) window.closeBlogModal()">
         <div class="bg-white rounded-[40px] max-w-4xl w-full mx-4 overflow-hidden max-h-[92vh] flex flex-col shadow-2xl">
             <div class="h-64 flex-shrink-0 relative">
@@ -624,9 +657,9 @@
                 <button onclick="window.closeBlogModal()" class="absolute top-4 right-4 bg-white/80 w-10 h-10 rounded-full flex items-center justify-center text-emerald-950 shadow-md"><i class="fa-solid fa-xmark"></i></button>
             </div>
             <div class="p-8 overflow-y-auto bg-white text-emerald-950">
-                <span id="blogDetailsDate" class="text-amber-500 font-black mb-3 block text-[10px] uppercase tracking-widest">Date</span>
-                <h2 id="blogDetailsTitle" class="text-2xl font-black mb-6 uppercase italic">Title</h2>
-                <p id="blogDetailsContent" class="text-gray-600 leading-relaxed text-sm font-medium">Content</p>
+                <span id="blogDetailsDate" class="text-amber-500 font-black mb-3 block text-[10px] uppercase tracking-widest">ວັນທີ | Date</span>
+                <h2 id="blogDetailsTitle" class="text-2xl font-black mb-6 uppercase italic">ຫົວຂໍ້ | Title</h2>
+                <p id="blogDetailsContent" class="text-gray-600 leading-relaxed text-sm font-medium">ເນື້ອຫາ | Content</p>
             </div>
         </div>
     </div>
@@ -639,11 +672,11 @@
             <a href="https://www.tiktok.com/@thesale3camping" target="_blank" class="text-emerald-500 hover:text-white transition transform hover:scale-125"><i class="fa-brands fa-tiktok text-4xl"></i></a>
         </div>
         <h4 class="text-white font-black text-3xl italic tracking-tighter uppercase mb-4 relative z-10">THESALE3</h4>
-        <p class="text-emerald-400 text-[10px] font-bold uppercase tracking-[0.4em] mb-10 relative z-10">Premium Gear for Bold Explorers Across Laos</p>
+        <p class="text-emerald-400 text-[10px] font-bold uppercase tracking-[0.4em] mb-10 relative z-10">ອຸປະກອນຄຸນນະພາບສຳລັບນັກເດີນທາງທົ່ວລາວ | Premium Gear for All Travelers in Laos</p>
         <p class="text-[8px] text-emerald-900 font-bold uppercase tracking-[0.6em] relative z-10 select-none">© <span onclick="window.handleAdminClick()" class="cursor-pointer">TheSale3 Business</span> / Established for Adventure</p>
     </footer>
 
-    <!-- Firebase -->
+    <!-- Firebase / Data Logic -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
@@ -694,7 +727,7 @@
                     category: cols[3],
                     img: formatImgUrl(cols[4]),
                     status: cols[5] || 'In Stock',
-                    desc: cols[6] || 'Premium outdoor equipment.'
+                    desc: cols[6] || 'ອຸປະກອນນອກສະຖານທີ່ລະດັບພຣີມ່ຽມ | Premium outdoor equipment.'
                 })).filter(x => x.name);
                 window.renderProducts(window.state.products);
                 window.renderHomePreview();
@@ -704,8 +737,6 @@
 
         window.loadPlaces = async () => {
             try {
-                const res = await fetch(CSV_PRODUCTS); // Assuming GI is correct or use specific place sheet
-                // Using CSV_PLACES if defined correctly in your setup
                 const resPlaces = await fetch(CSV_PLACES);
                 const rows = parseCSV(await resPlaces.text()).slice(1);
                 window.state.places = rows.map(cols => ({
