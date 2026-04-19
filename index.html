@@ -88,16 +88,30 @@
             background: #ffffff;
         }
         
+        .journal-card {
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            color: #1c1917;
+        }
+        @media (min-width: 1024px) {
+            .journal-card { flex-direction: row; height: 450px; }
+        }
+
         .no-scrollbar::-webkit-scrollbar { display: none; }
         .active-link { color: var(--emerald-vibrant) !important; font-weight: 800; border-bottom: 3px solid var(--accent-amber); }
 
         .modal-overlay { 
-            background: rgba(2, 44, 34, 0.9); 
+            background: rgba(2, 44, 34, 0.95); 
             backdrop-filter: blur(15px); 
             display: none; 
             position: fixed; 
             inset: 0; 
-            z-index: 100; 
+            z-index: 1000; 
             align-items: center; 
             justify-content: center; 
         }
@@ -111,9 +125,9 @@
         }
 
         .category-pill.active { 
-            background-color: var(--accent-amber); 
+            background-color: #065f46; 
             color: white; 
-            border-color: var(--accent-amber);
+            border-color: #065f46;
         }
 
         .status-in-stock { background: #d1fae5; color: #065f46; border: 1px solid #a7f3d0; }
@@ -124,6 +138,18 @@
             transition: all 0.3s ease;
         }
 
+        .blog-content-rich p { margin-bottom: 1.5rem; line-height: 1.8; color: #44403c; font-size: 1.1rem; }
+        .blog-content-rich img { 
+            border-radius: 1.5rem; 
+            margin: 2rem 0; 
+            width: 100%; 
+            display: block;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            object-fit: cover;
+        }
+        .blog-content-rich h3 { color: #1c1917; font-weight: 800; font-size: 1.75rem; margin-top: 2.5rem; margin-bottom: 1rem; }
+        .blog-content-rich .font-semibold { color: #1c1917; font-size: 1.25rem; }
+
         .fade-in { animation: fadeIn 0.8s ease-out forwards; }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
@@ -133,12 +159,104 @@
 </head>
 <body class="flex flex-col min-h-screen">
 
-    <!-- Global App Logic -->
     <script>
         window.state = {
             products: [],
             places: [],
-            blogs: [],
+            // 5 Drafted blog posts integrated into state
+            blogs: [
+                {
+                    title: "The Hidden Sandstone Plateaus of Ban Hat Khai",
+                    date: "May 20, 2024",
+                    img: "https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/phadang-camping.jpg",
+                    category: "Trail Guide",
+                    excerpt: "Journey into the heart of Phou Khao Khouay. A guide to finding the most exclusive riverside camping spots in the national park.",
+                    author: "Mou",
+                    authorImg: "https://i.pravatar.cc/150?u=Mou",
+                    content: `
+                        <p class='text-xl font-semibold text-stone-900'>Phou Khao Khouay is more than just a forest; it is a sprawling sanctuary of sandstone cliffs and ancient riverbeds waiting to be explored.</p>
+                        <p>Located just a few hours from Vientiane, the Ban Hat Khai area serves as the perfect basecamp for those looking to escape the city noise. The trek to the plateau is challenging but rewards the persistent with panoramic views of the Nam Mang river system.</p>
+                        <img src='https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/phadang-camping.jpg' class='rounded-2xl my-8 w-full' alt='Sandstone Plateau View'>
+                        <h3 class='text-2xl font-bold text-stone-900 mt-10 mb-4'>The Journey to Tad Xay</h3>
+                        <p>The trail winds through dense bamboo groves before opening up into wide sandstone clearings. This is where you want to pitch your tent. The ground is solid, and the elevation provides a natural breeze that keeps the mosquitoes away during the humid Lao nights.</p>
+                        <img src='https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/nammung3-camping.jpg' class='rounded-2xl my-8 w-full' alt='Tad Xay Waterfall'>
+                        <h3 class='text-2xl font-bold text-stone-900 mt-10 mb-4'>Pro Tips & Insights</h3>
+                        <p>Always bring a high-quality water filter. While the rivers look crystal clear, the tropical environment requires extra caution. Filtering your water at the source saves weight in your backpack and keeps you healthy for the long trek back.</p>
+                    `
+                },
+                {
+                    title: "The Ultimate Monsoon Protection: 4-Season Tents Tested",
+                    date: "May 22, 2024",
+                    img: "https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/donkoksa-camping.jpg",
+                    category: "Gear Review",
+                    excerpt: "Don't let the Lao rainy season stop your adventure. We review the top 3 tents that actually stay dry during a tropical downpour.",
+                    author: "TheSale3 Team",
+                    authorImg: "https://i.pravatar.cc/150?u=thesale3",
+                    content: `
+                        <p class='text-xl font-semibold text-stone-900'>Camping in Laos during the monsoon season is the ultimate test for any piece of outdoor equipment.</p>
+                        <p>We spent three nights on the Bolaven Plateau during a week of heavy storms to find out which of our tents truly earns the "4-Season" label. Ventilation and waterproof ratings (HH) are the two most critical factors when you are dealing with high humidity and vertical rainfall.</p>
+                        <img src='https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/donkoksa-camping.jpg' class='rounded-2xl my-8 w-full' alt='Tent in rain'>
+                        <h3 class='text-2xl font-bold text-stone-900 mt-10 mb-4'>Ventilation vs. Waterproofing</h3>
+                        <p>Most tents fail in Laos because they lack airflow, leading to "indoor rain" or condensation. Our top pick features a massive mesh inner layer paired with a 5000mm HH flysheet. This setup allows the humid air to escape while keeping the heavy rain out.</p>
+                        <h3 class='text-2xl font-bold text-stone-900 mt-10 mb-4'>Pro Tips & Insights</h3>
+                        <p>Never pitch your tent in a hollow or a dry riverbed during the rainy season. Flash floods are common in the Lao highlands. Always look for high ground with good drainage.</p>
+                    `
+                },
+                {
+                    title: "Traditional Flavors Over an Open Fire",
+                    date: "May 25, 2024",
+                    img: "https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/nammung3-camping.jpg",
+                    category: "Camp Cooking",
+                    excerpt: "Who says camp food has to be boring? Learn how to make authentic Lao Jeow Bong and grilled fish using only your camping stove.",
+                    author: "Mou",
+                    authorImg: "https://i.pravatar.cc/150?u=Mou",
+                    content: `
+                        <p class='text-xl font-semibold text-stone-900'>There is a deep satisfaction in preparing a traditional Lao meal under the canopy of the rainforest.</p>
+                        <p>One of the best things about camping in our country is the access to fresh, local ingredients. All you need is a lightweight grill grate and a small pot for sticky rice. The smoky flavor from the wood fire adds a dimension to the food that you just can't get in a modern kitchen.</p>
+                        <img src='https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/nammung3-camping.jpg' class='rounded-2xl my-8 w-full' alt='Camp Cooking'>
+                        <h3 class='text-2xl font-bold text-stone-900 mt-10 mb-4'>The Secret to Sticky Rice</h3>
+                        <p>Most campers avoid sticky rice because they think it's too much work, but a small bamboo steamer fits perfectly over a standard camping pot. Soak your rice beforehand and enjoy authentic flavors in the middle of nowhere.</p>
+                        <h3 class='text-2xl font-bold text-stone-900 mt-10 mb-4'>Pro Tips & Insights</h3>
+                        <p>Always carry a small container of Jeow Bong. It’s the ultimate camping condiment—it doesn't spoil easily and it makes even a simple bowl of rice taste like a feast.</p>
+                    `
+                },
+                {
+                    title: "Capturing the Milky Way Over the Karsts",
+                    date: "May 28, 2024",
+                    img: "https://i.postimg.cc/FKL5Q4JW/489751506-1424454392283349-8154752889413656228-n.jpg",
+                    category: "Photography",
+                    excerpt: "Vang Vieng offers some of the darkest skies in Southeast Asia. Master the settings for stunning nighttime landscape photography.",
+                    author: "TheSale3 Photo",
+                    authorImg: "https://i.pravatar.cc/150?u=photo",
+                    content: `
+                        <p class='text-xl font-semibold text-stone-900'>When the sun set behind the limestone mountains of Vang Vieng, a second world revealed itself in the stars above.</p>
+                        <p>To capture the Milky Way, you need to get away from the light pollution of the main town. The silhouette of the karsts against the galactic core is a sight every photographer needs to capture.</p>
+                        <img src='https://i.postimg.cc/FKL5Q4JW/489751506-1424454392283349-8154752889413656228-n.jpg' class='rounded-2xl my-8 w-full' alt='Milky Way View'>
+                        <h3 class='text-2xl font-bold text-stone-900 mt-10 mb-4'>Camera Settings</h3>
+                        <p>Use a wide-angle lens with an aperture of f/2.8 or wider. Set your ISO between 3200 and 6400, and use a shutter speed of 15-20 seconds. Any longer, and the stars will start to trail.</p>
+                        <h3 class='text-2xl font-bold text-stone-900 mt-10 mb-4'>Pro Tips & Insights</h3>
+                        <p>Use a headlamp with a red-light mode. Red light preserves your night vision, allowing you to adjust your camera settings without blinding yourself.</p>
+                    `
+                },
+                {
+                    title: "First-Time Camping in Laos: The Essential Checklist",
+                    date: "June 01, 2024",
+                    img: "https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/phadang-camping.jpg",
+                    category: "Adventure",
+                    excerpt: "Nervous about your first night in the wild? We've compiled the ultimate packing list to keep you safe, dry, and comfortable.",
+                    author: "Mou",
+                    authorImg: "https://i.pravatar.cc/150?u=Mou",
+                    content: `
+                        <p class='text-xl font-semibold text-stone-900'>Your first camping trip in the Lao wilderness is a rite of passage that you will remember for the rest of your life.</p>
+                        <p>Preparation is the difference between a miserable night and a life-changing adventure. This guide covers the 'Big Three': Shelter, Sleep, and Safety.</p>
+                        <img src='https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/phadang-camping.jpg' class='rounded-2xl my-8 w-full' alt='Gear Prep'>
+                        <h3 class='text-2xl font-bold text-stone-900 mt-10 mb-4'>The Humidity Factor</h3>
+                        <p>In our climate, cotton stays wet and becomes heavy. Switch to moisture-wicking synthetics or lightweight wool. Always pack a spare set of "sleeping clothes" in a dry bag.</p>
+                        <h3 class='text-2xl font-bold text-stone-900 mt-10 mb-4'>Pro Tips & Insights</h3>
+                        <p>Always carry a powerbank with at least 20,000mAh capacity. Keeping your phone charged is your primary safety tool for GPS and emergency calls.</p>
+                    `
+                }
+            ],
             cart: JSON.parse(localStorage.getItem('thesale3_cart') || '[]'),
             currentCategory: 'All'
         };
@@ -190,40 +308,18 @@
                 activeIdx = nextIdx;
             };
 
-            // INITIAL START (0s)
             layers[0].style.backgroundImage = `${grad}, url('${heroImages[0]}')`;
             layers[0].style.opacity = 1;
             setTimeout(animateTextIn, 500);
 
-            // TIMELINE LOGIC
             const runCycle = () => {
-                // At 5 seconds: Disappear text and change to second image
-                setTimeout(() => {
-                    animateTextOut();
-                    changeImage(); // Img 2
-                }, 5000);
-
-                // Subsequent image changes to fill the gap until 18s
-                // At 9.3s: Change to Img 3
-                setTimeout(() => {
-                    changeImage();
-                }, 9300);
-
-                // At 13.6s: Change to Img 4
-                setTimeout(() => {
-                    changeImage();
-                }, 13600);
-
-                // At 18 seconds: Come back again (Show text + Change back to Img 1)
-                setTimeout(() => {
-                    changeImage(); // Back to Img 1 (index 0)
-                    animateTextIn();
-                }, 18000);
+                setTimeout(() => { animateTextOut(); changeImage(); }, 5000);
+                setTimeout(() => { changeImage(); }, 9300);
+                setTimeout(() => { changeImage(); }, 13600);
+                setTimeout(() => { changeImage(); animateTextIn(); }, 18000);
             };
 
-            // Start first cycle
             runCycle();
-            // Repeat cycle every 18 seconds
             setInterval(runCycle, 18000);
         };
 
@@ -293,15 +389,13 @@
         window.checkoutWhatsApp = () => {
             if (window.state.cart.length === 0) return;
             let totalOrderPrice = 0;
-            let totalOrderItems = 0;
             let message = "ສະບາຍດີ! *--- ລາຍການສັ່ງຊື້ສິນຄ້າ (TheSale3) ---*\n\n";
             window.state.cart.forEach((item, index) => {
                 const subtotal = item.price * item.qty;
                 totalOrderPrice += subtotal;
-                totalOrderItems += item.qty;
-                message += `${index + 1}. *${item.name}*\n   - ຈຳນວນ: ${item.qty} ຊິ້ນ\n   - ລາຄາ: ${item.price.toLocaleString()} LAK\n   - ລວມ: ${subtotal.toLocaleString()} LAK\n\n`;
+                message += `${index + 1}. *${item.name}*\n   - ຈຳນວນ: ${item.qty} ຊິ້ນ\n   - ລາຄາ: ${item.price.toLocaleString()} LAK\n\n`;
             });
-            message += `*ລວມຈຳນວນ:* ${totalOrderItems} ຊິ້ນ\n*ລາຄາລວມສຸດທິ:* ${totalOrderPrice.toLocaleString()} LAK\n\n_ກະລຸນາລໍຖ້າການຢືນຢັນຈາກທາງຮ້ານ._`;
+            message += `*ລາຄາລວມສຸດທິ:* ${totalOrderPrice.toLocaleString()} LAK`;
             window.open(`https://wa.me/8562054849393?text=${encodeURIComponent(message)}`, '_blank');
         };
 
@@ -323,7 +417,7 @@
             return `
             <div class="card-modern group p-6 sm:p-8 flex flex-col fade-in cursor-pointer" onclick="window.openDetails('${p.id}')">
                 <div class="h-48 sm:h-56 rounded-[24px] bg-emerald-100/30 overflow-hidden mb-6 relative">
-                    <img src="${p.img}" class="w-full h-full object-cover transition duration-700 hover:scale-110" onerror="this.src='https://placehold.co/400x400?text=Gear'">
+                    <img src="${p.img}" class="w-full h-full object-cover transition duration-700 hover:scale-110">
                     <span class="absolute top-4 right-4 text-[8px] sm:text-[9px] font-black uppercase px-3 py-1.5 rounded-full ${p.status?.toLowerCase().includes('pre') ? 'status-pre-order' : 'status-in-stock'}">${p.status}</span>
                 </div>
                 <div class="flex items-center gap-2 mb-2">
@@ -365,12 +459,12 @@
             if(window.state.blogs.length > 0) {
                 const grid = document.getElementById('homeBlogsGrid');
                 if(grid) grid.innerHTML = window.state.blogs.slice(0, 2).map(b => `
-                    <div class="card-modern flex flex-col md:flex-row overflow-hidden cursor-pointer" onclick="window.openBlogDetails('${b.title}')">
+                    <div class="card-modern flex flex-col md:flex-row overflow-hidden cursor-pointer h-full" onclick="window.openBlogDetails('${b.title}')">
                         <div class="md:w-1/3 h-56 flex-shrink-0"><img src="${b.img}" class="w-full h-full object-cover"></div>
                         <div class="md:w-2/3 p-8 text-emerald-950">
                             <span class="text-[10px] font-bold text-amber-500 uppercase mb-3 block tracking-widest">${b.date}</span>
                             <h3 class="text-xl font-black mb-4 uppercase italic leading-tight">${b.title}</h3>
-                            <p class="text-gray-500 text-xs line-clamp-3 font-medium">${b.content}</p>
+                            <p class="text-gray-500 text-xs line-clamp-3 font-medium">${b.excerpt || ''}</p>
                         </div>
                     </div>`).join('');
             }
@@ -378,12 +472,12 @@
 
         window.renderProducts = (items) => {
             const grid = document.getElementById('productGrid');
-            if(grid) grid.innerHTML = items.length === 0 ? '<div class="col-span-full py-20 text-center opacity-50 italic">ກຳລັງໂຫລດ... | Loading...</div>' : items.map(p => window.getProductHTML(p)).join('');
+            if(grid) grid.innerHTML = items.length === 0 ? '<div class="col-span-full py-20 text-center opacity-50 italic">ກຳລັງໂຫລດ...</div>' : items.map(p => window.getProductHTML(p)).join('');
         };
 
         window.renderPlaces = (items) => {
             const grid = document.getElementById('placesGrid');
-            if(grid) grid.innerHTML = items.length === 0 ? '<div class="col-span-full py-20 text-center opacity-50 italic">ກຳລັງໂຫລດ... | Loading...</div>' : items.map(pl => `
+            if(grid) grid.innerHTML = items.length === 0 ? '<div class="col-span-full py-20 text-center opacity-50 italic">ກຳລັງໂຫລດ...</div>' : items.map(pl => `
                 <div class="card-modern overflow-hidden cursor-pointer" onclick="window.openPlaceDetails('${pl.name}')">
                     <div class="h-60 overflow-hidden"><img src="${pl.img}" class="w-full h-full object-cover"></div>
                     <div class="p-8 text-emerald-950">
@@ -396,13 +490,30 @@
 
         window.renderBlogs = (items) => {
             const grid = document.getElementById('blogsGrid');
-            if(grid) grid.innerHTML = items.length === 0 ? '<div class="col-span-full py-20 text-center opacity-50 italic">ກຳລັງໂຫລດ... | Loading...</div>' : items.map(b => `
-                <div class="card-modern flex flex-col md:flex-row overflow-hidden cursor-pointer mb-6" onclick="window.openBlogDetails('${b.title}')">
-                    <div class="md:w-1/3 h-64"><img src="${b.img}" class="w-full h-full object-cover"></div>
-                    <div class="md:w-2/3 p-10 text-emerald-950">
-                        <span class="text-amber-500 text-[10px] font-black uppercase tracking-widest block mb-4">${b.date}</span>
-                        <h3 class="text-3xl font-black italic uppercase mb-6">${b.title}</h3>
-                        <p class="text-gray-500 leading-relaxed">${b.content}</p>
+            if(!grid) return;
+            grid.innerHTML = items.map(b => `
+                <div class="journal-card group cursor-pointer group mb-12 fade-in bg-white" onclick="window.openBlogDetails('${b.title}')">
+                    <div class="lg:w-[450px] h-64 lg:h-full overflow-hidden flex-shrink-0">
+                        <img src="${b.img}" class="w-full h-full object-cover transition duration-700 group-hover:scale-105">
+                    </div>
+                    <div class="flex-grow p-8 lg:p-12 flex flex-col justify-center text-stone-900">
+                        <div class="flex items-center gap-3 mb-6">
+                            <i class="fa-solid fa-compass text-emerald-700"></i>
+                            <span class="text-[11px] font-black uppercase tracking-[0.2em] text-emerald-700">${b.category || 'Trail Guide'}</span>
+                        </div>
+                        <h3 class="text-3xl lg:text-5xl font-extrabold uppercase italic mb-6 leading-tight group-hover:text-emerald-800 transition-colors">${b.title}</h3>
+                        <p class="text-stone-500 text-lg leading-relaxed line-clamp-3 mb-10">${b.excerpt || ''}</p>
+                        
+                        <div class="mt-auto pt-8 border-t border-stone-100 flex items-center justify-between">
+                            <div class="flex items-center gap-4">
+                                <img src="${b.authorImg || 'https://i.pravatar.cc/150'}" class="w-10 h-10 rounded-full object-cover">
+                                <div class="flex flex-col">
+                                    <span class="text-[11px] font-black uppercase text-stone-900">${b.author || 'TheSale3'}</span>
+                                    <span class="text-[10px] font-bold text-stone-400 uppercase">${b.date}</span>
+                                </div>
+                            </div>
+                            <span class="text-[10px] font-black uppercase text-emerald-600 group-hover:translate-x-2 transition-transform">Read Story <i class="fa-solid fa-arrow-right ml-2"></i></span>
+                        </div>
                     </div>
                 </div>`).join('');
         };
@@ -446,34 +557,42 @@
             document.getElementById('detailsDesc').innerText = p.desc;
             const statusBadge = document.getElementById('detailsStatus');
             statusBadge.innerText = p.status;
-            statusBadge.className = `px-5 py-2.5 rounded-full border-2 text-[10px] font-black ${p.status?.toLowerCase().includes('pre') ? 'status-pre-order' : 'status-in-stock'}`;
+            statusBadge.className = `px-5 py-2.5 rounded-full border-2 text-[10px] font-black uppercase ${p.status?.toLowerCase().includes('pre') ? 'status-pre-order' : 'status-in-stock'}`;
             document.getElementById('detailsAddBtn').onclick = () => { window.addToCart(p.id); window.closeDetails(); };
             document.getElementById('detailsWaBtn').href = `https://wa.me/8562054849393?text=${encodeURIComponent("ສະບາຍດີ! ສົນໃຈ: " + p.name)}`;
             document.getElementById('detailsModal').style.display = 'flex';
         };
 
         window.closeDetails = () => document.getElementById('detailsModal').style.display = 'none';
+        
+        window.openBlogDetails = (title) => {
+            const b = window.state.blogs.find(x => x.title === title);
+            if(!b) return;
+            const headerEl = document.getElementById('blogModalHeaderImg');
+            headerEl.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.8)), url('${b.img}')`;
+            document.getElementById('blogModalTitle').innerText = b.title;
+            document.getElementById('blogModalCategory').innerText = b.category || 'Trail Guide';
+            document.getElementById('blogModalDate').innerText = b.date;
+            document.getElementById('blogModalAuthor').innerText = b.author || 'TheSale3 Team';
+            document.getElementById('blogModalAuthorImg').src = b.authorImg || 'https://i.pravatar.cc/150';
+            document.getElementById('blogModalContent').innerHTML = b.content;
+            document.getElementById('blogModal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+        };
+
+        window.closeBlogModal = () => {
+            document.getElementById('blogModal').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        };
+
         window.openPlaceDetails = (name) => {
             const pl = window.state.places.find(x => x.name === name);
             if(!pl) return;
             document.getElementById('placeDetailsImage').src = pl.img;
             document.getElementById('placeDetailsTitle').innerText = pl.name;
-            document.getElementById('placeDetailsLoc').innerText = pl.loc;
-            document.getElementById('placeDetailsPrice').innerText = pl.price;
-            document.getElementById('placeDetailsDesc').innerText = pl.desc;
             document.getElementById('placeModal').style.display = 'flex';
         };
         window.closePlaceModal = () => document.getElementById('placeModal').style.display = 'none';
-        window.openBlogDetails = (title) => {
-            const b = window.state.blogs.find(x => x.title === title);
-            if(!b) return;
-            document.getElementById('blogDetailsImage').src = b.img;
-            document.getElementById('blogDetailsTitle').innerText = b.title;
-            document.getElementById('blogDetailsDate').innerText = b.date;
-            document.getElementById('blogDetailsContent').innerText = b.content;
-            document.getElementById('blogModal').style.display = 'flex';
-        };
-        window.closeBlogModal = () => document.getElementById('blogModal').style.display = 'none';
         window.closeCart = () => document.getElementById('cartModal').style.display = 'none';
 
         window.handleAdminClick = () => {
@@ -497,15 +616,15 @@
     </script>
 
     <!-- Navigation -->
-    <nav class="nav-blur sticky top-0 z-50">
+    <nav class="nav-blur sticky top-0 z-[100]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6">
             <div class="flex justify-between items-center h-20 sm:h-24">
                 <div class="cursor-pointer" onclick="window.switchPage('home')">
-                    <img src="https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/thesale3-logo.png" alt="Logo" class="h-14 sm:h-20 w-auto object-contain drop-shadow-xl">
+                    <img src="https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/thesale3-logo.png" alt="Logo" class="h-14 sm:h-20 w-auto object-contain filter grayscale invert brightness-200">
                 </div>
                 <div class="hidden md:flex items-center gap-8 font-bold text-[10px] uppercase tracking-widest text-slate-300">
                     <button onclick="window.switchPage('products')" class="nav-btn py-2 hover:text-white" id="btn-products-desktop">ສິນຄ້າ | Products</button>
-                    <button onclick="window.switchPage('places')" class="nav-btn py-2 hover:text-white" id="btn-places-desktop">ສະຖານທີ່ຕັ້ງແຄ້ມ | Places</button>
+                    <button onclick="window.switchPage('places')" class="nav-btn py-2 hover:text-white" id="btn-places-desktop">ສະຖານທີ່ | Places</button>
                     <button onclick="window.switchPage('blogs')" class="nav-btn py-2 hover:text-white" id="btn-blogs-desktop">ບົດຄວາມ | Journal</button>
                 </div>
                 <div class="flex items-center gap-4">
@@ -514,7 +633,7 @@
                         <span id="cartCount" class="absolute -top-1 -right-1 bg-amber-500 text-white text-[8px] font-black w-4 h-4 flex items-center justify-center rounded-full border-2 border-emerald-950 hidden">0</span>
                     </button>
                     <a href="https://wa.me/8562054849393" target="_blank" class="bg-emerald-600 text-white px-6 py-2.5 rounded-2xl text-[9px] font-black uppercase tracking-widest flex items-center gap-2 btn-adventure shadow-lg">
-                        <i class="fa-brands fa-whatsapp"></i> <span class="hidden sm:inline">WhatsApp</span>
+                        <i class="fa-brands fa-whatsapp"></i> <span class="hidden sm:inline">Connect</span>
                     </a>
                 </div>
             </div>
@@ -522,11 +641,11 @@
     </nav>
 
     <!-- Mobile Nav Bar -->
-    <div class="mobile-nav md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center py-4 px-2 bg-emerald-950/95 backdrop-blur-md border-t border-white/10">
-        <button onclick="window.switchPage('home')" class="nav-btn flex flex-col items-center gap-1 text-[9px] uppercase font-bold text-slate-400" id="btn-home-mobile"><i class="fa-solid fa-house text-lg"></i><span>ໜ້າຫຼັກ | Home</span></button>
-        <button onclick="window.switchPage('products')" class="nav-btn flex flex-col items-center gap-1 text-[9px] uppercase font-bold text-slate-400" id="btn-products-mobile"><i class="fa-solid fa-tent text-lg"></i><span>ສິນຄ້າ | Gear</span></button>
-        <button onclick="window.switchPage('places')" class="nav-btn flex flex-col items-center gap-1 text-[9px] uppercase font-bold text-slate-400" id="btn-places-mobile"><i class="fa-solid fa-map-location-dot text-lg"></i><span>ສະຖານທີ່ | Places</span></button>
-        <button onclick="window.switchPage('blogs')" class="nav-btn flex flex-col items-center gap-1 text-[9px] uppercase font-bold text-slate-400" id="btn-blogs-mobile"><i class="fa-solid fa-newspaper text-lg"></i><span>ບົດຄວາມ | Journal</span></button>
+    <div class="mobile-nav md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] z-[100] flex justify-around items-center py-4 px-4 bg-white/10 backdrop-blur-xl border border-white/10 rounded-[32px] shadow-2xl">
+        <button onclick="window.switchPage('home')" class="nav-btn flex flex-col items-center gap-1 text-[9px] uppercase font-bold text-slate-400" id="btn-home-mobile"><i class="fa-solid fa-house text-lg"></i><span>Home</span></button>
+        <button onclick="window.switchPage('products')" class="nav-btn flex flex-col items-center gap-1 text-[9px] uppercase font-bold text-slate-400" id="btn-products-mobile"><i class="fa-solid fa-tent text-lg"></i><span>Gear</span></button>
+        <button onclick="window.switchPage('places')" class="nav-btn flex flex-col items-center gap-1 text-[9px] uppercase font-bold text-slate-400" id="btn-places-mobile"><i class="fa-solid fa-location-dot text-lg"></i><span>Spots</span></button>
+        <button onclick="window.switchPage('blogs')" class="nav-btn flex flex-col items-center gap-1 text-[9px] uppercase font-bold text-slate-400" id="btn-blogs-mobile"><i class="fa-solid fa-newspaper text-lg"></i><span>Journal</span></button>
     </div>
 
     <!-- Pages -->
@@ -537,143 +656,141 @@
                 <div id="heroLayer1" class="hero-bg opacity-0"></div>
                 <div id="heroLayer2" class="hero-bg opacity-0"></div>
                 <div class="absolute inset-0 z-10 flex items-center justify-center text-center px-4">
-                    <div class="max-w-3xl">
-                        <h1 id="heroMainHeading" class="text-5xl sm:text-8xl font-black text-white mb-8 tracking-tighter drop-shadow-2xl italic hero-text-animate">The Forest<br><span class="text-amber-500">Starts Here.</span></h1>
-                        <button id="heroMainButton" onclick="window.switchPage('products')" class="bg-amber-500 text-white px-10 py-4 rounded-[22px] font-black text-[9px] sm:text-[10px] uppercase tracking-widest hero-text-animate shadow-2xl scale-105 mt-6">ເລືອກເບິ່ງອຸປະກອນ | Discover Gear</button>
+                    <div class="max-w-4xl">
+                        <h1 id="heroMainHeading" class="text-6xl sm:text-9xl font-black text-white mb-8 tracking-tighter drop-shadow-2xl italic hero-text-animate">The Forest<br><span class="text-emerald-400">Starts Here.</span></h1>
+                        <button id="heroMainButton" onclick="window.switchPage('products')" class="bg-white text-stone-900 px-10 py-4 rounded-[22px] font-black text-[10px] uppercase tracking-widest hero-text-animate shadow-2xl scale-105 mt-6">Explore Inventory</button>
                     </div>
                 </div>
-                <div class="absolute bottom-[-1px] left-0 w-full h-24 bg-gradient-to-t from-[#022c22] to-transparent z-10"></div>
             </header>
 
-            <div class="max-w-7xl mx-auto px-4 py-20">
-                <div class="flex justify-between items-end mb-12">
-                    <h2 class="text-3xl sm:text-4xl font-black uppercase italic tracking-tighter text-white leading-none">ສິນຄ້າແນະນຳ | Featured Gear</h2>
-                    <button onclick="window.switchPage('products')" class="text-emerald-400 font-bold text-[10px] uppercase tracking-widest border-b border-emerald-400/30 pb-1 hover:text-white transition">ເບິ່ງທັງໝົດ | View All</button>
+            <div class="max-w-7xl mx-auto px-4 py-24 text-white">
+                <div class="flex justify-between items-end mb-16">
+                    <h2 class="text-4xl font-black uppercase italic tracking-tighter">Featured Gear</h2>
+                    <button onclick="window.switchPage('products')" class="text-emerald-400 font-bold text-[10px] uppercase border-b border-emerald-400/30 pb-1">Shop All</button>
                 </div>
-                <div id="homeProductGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8"></div>
+                <div id="homeProductGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"></div>
             </div>
 
-            <div class="bg-emerald-950/30 py-20 px-4">
+            <div class="bg-white/5 py-24 px-4 border-y border-white/5 text-white">
                 <div class="max-w-7xl mx-auto">
-                    <h2 class="text-3xl sm:text-6xl font-black uppercase italic tracking-tighter text-white text-center mb-16">ສະຖານທີ່ຍອດຮິດ | Top Destinations</h2>
-                    <div id="homePlacesGrid" class="grid grid-cols-1 md:grid-cols-3 gap-8"></div>
+                    <h2 class="text-4xl sm:text-6xl font-black uppercase italic tracking-tighter text-center mb-16">Latest Stories</h2>
+                    <div id="homeBlogsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-8"></div>
                 </div>
-            </div>
-
-            <div class="max-w-7xl mx-auto px-4 py-24">
-                <h2 class="text-3xl sm:text-4xl font-black uppercase italic tracking-tighter text-white mb-16 text-center">ບົດຄວາມທີ່ໜ້າສົນໃຈ | Journal Highlights</h2>
-                <div id="homeBlogsGrid" class="grid grid-cols-1 md:grid-cols-2 gap-8"></div>
             </div>
         </section>
 
         <!-- Products -->
-        <section id="page-products" class="page-section hidden py-16 sm:py-20 px-4 max-w-7xl mx-auto w-full">
-            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
-                <h2 class="text-4xl sm:text-5xl font-black uppercase italic tracking-tighter text-white">ລາຍການສິນຄ້າ | Catalog</h2>
+        <section id="page-products" class="page-section hidden py-24 px-4 max-w-7xl mx-auto w-full text-white">
+            <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-8">
+                <h2 class="text-5xl font-black uppercase italic tracking-tighter">Catalog</h2>
                 <div class="relative w-full md:w-[400px]">
                     <i class="fa-solid fa-magnifying-glass absolute left-6 top-1/2 -translate-y-1/2 text-emerald-300"></i>
-                    <input type="text" id="searchInput" oninput="window.applyProductFilters()" placeholder="ຄົ້ນຫາອຸປະກອນ... | Search gear..." class="w-full pl-16 pr-8 py-4 rounded-[22px] bg-white/10 border border-white/20 text-white outline-none focus:border-emerald-500 transition-all text-sm">
+                    <input type="text" id="searchInput" oninput="window.applyProductFilters()" placeholder="Search equipment..." class="w-full pl-16 pr-8 py-4 rounded-[22px] bg-white/10 border border-white/20 text-white outline-none focus:border-emerald-500 transition-all text-sm">
                 </div>
             </div>
             <div id="categoryFilter" class="flex gap-3 overflow-x-auto no-scrollbar pb-6 mb-6"></div>
-            <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8"></div>
+            <div id="productGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 text-stone-900"></div>
         </section>
 
         <!-- Places -->
-        <section id="page-places" class="page-section hidden py-16 sm:py-24 px-4 max-w-7xl mx-auto w-full text-white">
-            <h2 class="text-4xl sm:text-7xl font-black uppercase italic tracking-tighter text-center mb-16">ສະຖານທີ່ທັງໝົດ | All Spots</h2>
+        <section id="page-places" class="page-section hidden py-24 px-4 max-w-7xl mx-auto w-full text-white">
+            <h2 class="text-5xl sm:text-8xl font-black uppercase italic tracking-tighter text-center mb-16">Destinations</h2>
             <div id="placesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
         </section>
 
-        <!-- Blogs -->
-        <section id="page-blogs" class="page-section hidden py-16 sm:py-24 px-4 max-w-7xl mx-auto w-full text-white">
-            <h2 class="text-4xl sm:text-7xl font-black uppercase italic tracking-tighter text-center mb-16">ບົດຄວາມການເດີນທາງ | The Journal</h2>
-            <div id="blogsGrid" class="flex flex-col gap-8"></div>
+        <!-- Journal Section -->
+        <section id="page-blogs" class="page-section hidden w-full text-white">
+            <div class="relative h-[450px] w-full flex items-center justify-center overflow-hidden">
+                <div class="absolute inset-0 bg-cover bg-center" style="background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.2)), url('https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/nammung3-camping.jpg');"></div>
+                <div class="relative z-10 text-center px-4">
+                    <span class="text-emerald-400 text-[11px] font-black uppercase tracking-[0.6em] mb-4 block">The Basecamp Blog</span>
+                    <h2 class="text-5xl sm:text-8xl font-black text-white uppercase italic tracking-tighter mb-4 leading-none">Stories from the<br>Great Outdoors</h2>
+                    <p class="text-stone-300 text-lg font-medium max-w-2xl mx-auto opacity-80">Expert guides, gear reviews, and inspiration for your next night under the stars.</p>
+                </div>
+            </div>
+            
+            <div class="max-w-7xl mx-auto px-4 py-20">
+                <div class="flex flex-wrap justify-center gap-4 mb-20 border-b border-white/5 pb-12">
+                     <button class="category-pill active px-10 py-3 rounded-full text-[11px] font-black uppercase tracking-widest">All Stories</button>
+                     <button class="category-pill px-10 py-3 rounded-full text-[11px] font-black uppercase tracking-widest">Gear Reviews</button>
+                     <button class="category-pill px-10 py-3 rounded-full text-[11px] font-black uppercase tracking-widest">Trail Guides</button>
+                     <button class="category-pill px-10 py-3 rounded-full text-[11px] font-black uppercase tracking-widest">Camp Cooking</button>
+                </div>
+                
+                <div id="blogsGrid" class="flex flex-col gap-12">
+                    <!-- Dynamic rendering of blogs -->
+                </div>
+            </div>
         </section>
     </div>
 
     <!-- Modals -->
     <div id="detailsModal" class="modal-overlay" onclick="if(event.target === this) window.closeDetails()">
-        <div class="bg-white rounded-[40px] max-w-4xl w-full mx-4 overflow-hidden shadow-2xl flex flex-col md:flex-row relative max-h-[92vh] border-8 border-emerald-950/20">
-            <button onclick="window.closeDetails()" class="absolute top-4 right-4 sm:top-6 sm:right-6 bg-emerald-50 w-10 h-10 rounded-2xl flex items-center justify-center text-emerald-950 z-10 shadow-lg"><i class="fa-solid fa-xmark"></i></button>
-            <div class="md:w-1/2 bg-emerald-50 flex items-center justify-center p-6 text-emerald-950">
-                <img id="detailsImage" src="" class="max-w-full max-h-[400px] object-contain">
-            </div>
-            <div class="md:w-1/2 p-8 sm:p-10 flex flex-col overflow-y-auto bg-white text-emerald-950">
-                <span id="detailsCategory" class="text-[9px] font-black text-emerald-600 uppercase mb-4 tracking-widest">ໝວດໝູ່ | Category</span>
-                <h2 id="detailsTitle" class="text-2xl sm:text-3xl font-black mb-6 uppercase italic">ຊື່ສິນຄ້າ | Name</h2>
-                <div class="mb-8">
-                    <span id="detailsFakePrice" class="text-lg text-red-600 line-through font-black opacity-80 italic mb-1 block">0 LAK</span>
+        <div class="bg-white rounded-[40px] max-w-4xl w-full mx-4 overflow-hidden shadow-2xl flex flex-col md:flex-row relative max-h-[92vh]">
+            <button onclick="window.closeDetails()" class="absolute top-6 right-6 bg-stone-100 w-12 h-12 rounded-full flex items-center justify-center text-stone-900 z-10 transition hover:bg-stone-200"><i class="fa-solid fa-xmark"></i></button>
+            <div class="md:w-1/2 bg-stone-50 flex items-center justify-center p-8 text-stone-900"><img id="detailsImage" src="" class="max-w-full max-h-[400px] object-contain"></div>
+            <div class="md:w-1/2 p-10 flex flex-col overflow-y-auto text-stone-900">
+                <span id="detailsCategory" class="text-[10px] font-black text-emerald-600 uppercase mb-4 tracking-widest">Category</span>
+                <h2 id="detailsTitle" class="text-3xl font-black mb-6 uppercase italic">Product Name</h2>
+                <div class="mb-10">
+                    <span id="detailsFakePrice" class="text-lg text-red-600 line-through font-black opacity-60 italic mb-1 block">0 LAK</span>
                     <div class="flex items-center gap-6">
-                        <p id="detailsPrice" class="text-2xl sm:text-3xl font-black text-emerald-700 italic tracking-tighter leading-none">0 LAK</p>
-                        <span id="detailsStatus" class="px-4 py-2 rounded-full border-2 text-[9px] font-black">ສະຖານະ | Status</span>
+                        <p id="detailsPrice" class="text-3xl font-black text-emerald-700 italic tracking-tighter leading-none">0 LAK</p>
+                        <span id="detailsStatus" class="px-4 py-2 rounded-full border-2 text-[10px] font-black uppercase">In Stock</span>
                     </div>
                 </div>
-                <p id="detailsDesc" class="text-gray-500 mb-8 text-xs sm:text-sm font-medium">ລາຍລະອຽດ | Description</p>
-                <div class="mt-auto flex gap-4">
-                    <button id="detailsAddBtn" class="flex-grow btn-adventure text-white py-4 rounded-[18px] font-black uppercase text-[10px]">ເພີ່ມລົງກະຕ່າ | Add to Bag</button>
-                    <a id="detailsWaBtn" href="#" target="_blank" class="w-14 h-14 bg-[#25D366] text-white rounded-[18px] flex items-center justify-center text-xl shadow-lg hover:scale-110 transition"><i class="fa-brands fa-whatsapp"></i></a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Cart Modal -->
-    <div id="cartModal" class="modal-overlay" onclick="if(event.target === this) window.closeCart()">
-        <div class="bg-white h-full max-w-md w-full ml-auto flex flex-col p-8 sm:p-12 shadow-2xl">
-            <div class="flex justify-between items-center mb-10 border-b pb-6">
-                <h3 class="text-2xl font-black uppercase text-emerald-950 italic">ກະຕ່າຂອງທ່ານ | Your Bag</h3>
-                <button onclick="window.closeCart()" class="text-emerald-950 text-3xl font-light">&times;</button>
-            </div>
-            <div id="cartItems" class="flex-grow overflow-y-auto space-y-5 pr-2"></div>
-            <div class="pt-8 border-t mt-8">
-                <div class="flex justify-between mb-8"><span class="font-bold text-gray-400 uppercase text-[10px] tracking-widest">ລວມທັງໝົດ | Total</span><span id="cartTotal" class="text-2xl font-black text-emerald-700 italic">0 LAK</span></div>
-                <button onclick="window.checkoutWhatsApp()" class="w-full bg-[#25D366] text-white py-5 rounded-[20px] font-black uppercase text-[10px] tracking-widest flex items-center justify-center gap-2">
-                    <i class="fa-brands fa-whatsapp text-lg"></i> ສັ່ງຊື້ຜ່ານ WhatsApp | Checkout
-                </button>
-            </div>
-        </div>
-    </div>
-
-    <div id="placeModal" class="modal-overlay" onclick="if(event.target === this) window.closePlaceModal()">
-        <div class="bg-white rounded-[40px] max-w-4xl w-full mx-4 overflow-hidden shadow-2xl flex flex-col md:flex-row max-h-[90vh]">
-            <div class="md:w-1/2 h-64 md:h-auto overflow-hidden"><img id="placeDetailsImage" src="" class="w-full h-full object-cover"></div>
-            <div class="md:w-1/2 p-8 sm:p-10 overflow-y-auto text-emerald-950 bg-white">
-                <h2 id="placeDetailsTitle" class="text-2xl font-black mb-4 italic uppercase">ສະຖານທີ່ | Location</h2>
-                <div class="flex flex-wrap gap-4 mb-6 text-[10px] font-bold uppercase tracking-widest">
-                    <span id="placeDetailsLoc" class="text-gray-400"><i class="fa-solid fa-location-dot text-amber-500"></i> ທີ່ຕັ້ງ | Location</span>
-                    <span id="placeDetailsPrice" class="text-emerald-800 bg-emerald-50 px-3 py-1.5 rounded-xl">ລາຄາ | Price</span>
-                </div>
-                <p id="placeDetailsDesc" class="text-gray-500 text-sm leading-relaxed mb-8">ລາຍລະອຽດ | Description</p>
-                <a id="placeDetailsWaBtn" href="#" target="_blank" class="w-full block bg-[#25D366] text-white py-5 rounded-[20px] font-black uppercase text-center text-[10px] tracking-widest">ສອບຖາມຂໍ້ມູນ | Inquiry</a>
+                <p id="detailsDesc" class="text-stone-500 mb-10 text-sm leading-relaxed">Description...</p>
+                <button id="detailsAddBtn" class="w-full btn-adventure text-white py-5 rounded-2xl font-black uppercase text-[11px] tracking-widest">Add to Bag</button>
             </div>
         </div>
     </div>
 
     <div id="blogModal" class="modal-overlay" onclick="if(event.target === this) window.closeBlogModal()">
-        <div class="bg-white rounded-[40px] max-w-4xl w-full mx-4 overflow-hidden max-h-[92vh] flex flex-col shadow-2xl">
-            <div class="h-64 flex-shrink-0 relative">
-                <img id="blogDetailsImage" src="" class="w-full h-full object-cover">
-                <button onclick="window.closeBlogModal()" class="absolute top-4 right-4 bg-white/80 w-10 h-10 rounded-full flex items-center justify-center text-emerald-950 shadow-md"><i class="fa-solid fa-xmark"></i></button>
+        <div class="bg-white w-full h-full md:h-[95vh] md:max-w-5xl md:rounded-[40px] overflow-hidden flex flex-col shadow-2xl md:my-4">
+            <div id="blogModalHeaderImg" class="relative h-[300px] sm:h-[500px] flex-shrink-0 bg-cover bg-center flex items-end p-8 sm:p-20">
+                <button onclick="window.closeBlogModal()" class="absolute top-8 left-8 text-white text-[11px] font-black uppercase flex items-center gap-2 hover:opacity-70 transition group">
+                    <i class="fa-solid fa-arrow-left transition-transform group-hover:-translate-x-1"></i> Back to Stories
+                </button>
+                <div class="relative z-10 max-w-3xl">
+                    <span id="blogModalCategory" class="bg-emerald-600 text-white text-[10px] font-black uppercase px-5 py-2 rounded-lg mb-8 inline-block tracking-widest">Trail Guide</span>
+                    <h2 id="blogModalTitle" class="text-4xl sm:text-7xl font-black text-white uppercase italic leading-[1] mb-10">Story Title</h2>
+                    <div class="flex items-center gap-6">
+                        <img id="blogModalAuthorImg" src="" class="w-14 h-14 rounded-full border-2 border-white/20">
+                        <div class="text-white">
+                            <p id="blogModalAuthor" class="text-sm font-black uppercase mb-1">Author Name</p>
+                            <p class="text-[10px] font-bold text-white/50 uppercase tracking-[0.2em]"><span id="blogModalDate">Date</span></p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="p-8 overflow-y-auto bg-white text-emerald-950">
-                <span id="blogDetailsDate" class="text-amber-500 font-black mb-3 block text-[10px] uppercase tracking-widest">ວັນທີ | Date</span>
-                <h2 id="blogDetailsTitle" class="text-2xl font-black mb-6 uppercase italic">ຫົວຂໍ້ | Title</h2>
-                <p id="blogDetailsContent" class="text-gray-600 leading-relaxed text-sm font-medium">ເນື້ອຫາ | Content</p>
+            
+            <div class="flex-grow overflow-y-auto px-8 py-20 sm:px-24 sm:py-24 bg-white text-stone-900">
+                <div id="blogModalContent" class="blog-content-rich max-w-3xl mx-auto">
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="bg-emerald-950 py-16 text-center border-t-8 border-amber-500 relative overflow-hidden">
-        <div class="absolute inset-0 opacity-10 pointer-events-none bg-repeat" style="background-image: url('https://www.transparenttextures.com/patterns/topography.png');"></div>
-        <div class="flex justify-center gap-10 mb-12 relative z-10">
-            <a href="https://www.facebook.com/Clicktobuy333333333" target="_blank" class="text-emerald-500 hover:text-white transition transform hover:scale-125"><i class="fa-brands fa-facebook text-4xl"></i></a>
-            <a href="https://www.tiktok.com/@thesale3camping" target="_blank" class="text-emerald-500 hover:text-white transition transform hover:scale-125"><i class="fa-brands fa-tiktok text-4xl"></i></a>
+    <!-- Other Modals & Cart -->
+    <div id="cartModal" class="modal-overlay" onclick="if(event.target === this) window.closeCart()">
+        <div class="bg-white h-full max-w-md w-full ml-auto flex flex-col p-10 shadow-2xl text-stone-900">
+            <h3 class="text-2xl font-black uppercase text-stone-900 italic border-b pb-8 mb-10">Your Bag</h3>
+            <div id="cartItems" class="flex-grow overflow-y-auto space-y-6"></div>
+            <div class="pt-10 border-t mt-10">
+                <div class="flex justify-between mb-8"><span class="font-bold text-stone-400 uppercase text-[10px]">Total</span><span id="cartTotal" class="text-3xl font-black text-emerald-800 italic">0 LAK</span></div>
+                <button onclick="window.checkoutWhatsApp()" class="w-full bg-[#25D366] text-white py-5 rounded-2xl font-black uppercase text-[11px] tracking-widest">WhatsApp Checkout</button>
+            </div>
         </div>
-        <h4 class="text-white font-black text-3xl italic tracking-tighter uppercase mb-4 relative z-10">THESALE3</h4>
-        <p class="text-emerald-400 text-[10px] font-bold uppercase tracking-[0.4em] mb-10 relative z-10">ອຸປະກອນຄຸນນະພາບສຳລັບນັກເດີນທາງທົ່ວລາວ | Premium Gear for All Travelers in Laos</p>
-        <p class="text-[8px] text-emerald-900 font-bold uppercase tracking-[0.6em] relative z-10 select-none">© <span onclick="window.handleAdminClick()" class="cursor-pointer">TheSale3 Business</span> / Established for Adventure</p>
+    </div>
+
+    <footer class="bg-stone-900 py-24 text-center border-t-8 border-emerald-950 text-white">
+        <h4 class="text-white font-black text-4xl italic uppercase mb-6 tracking-tighter">THESALE3</h4>
+        <p class="text-emerald-500 text-[11px] font-black uppercase tracking-[0.6em] mb-12">Outdoor specialists since establishment</p>
+        <div class="flex justify-center gap-10 mb-20">
+            <a href="https://www.facebook.com/Clicktobuy333333333" target="_blank" class="text-stone-500 hover:text-white transition transform hover:scale-125"><i class="fa-brands fa-facebook text-4xl"></i></a>
+            <a href="https://www.tiktok.com/@thesale3camping" target="_blank" class="text-stone-500 hover:text-white transition transform hover:scale-125"><i class="fa-brands fa-tiktok text-4xl"></i></a>
+        </div>
+        <p class="text-[9px] text-stone-700 font-black uppercase tracking-[0.8em]">© <span onclick="window.handleAdminClick()" class="cursor-pointer">TheSale3 Business</span> / Laos Adventure Gear</p>
     </footer>
 
     <!-- Firebase / Data Logic -->
@@ -681,9 +798,6 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
         import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
         import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-
-        const firebaseConfigStr = typeof __firebase_config !== 'undefined' ? __firebase_config : null;
-        const appId = typeof __app_id !== 'undefined' ? __app_id : 'thesale3-camping';
 
         const SHEET_ID = '1N09HDxPd3zEDqxHR-knpH2MP_fq_XkLJZJ4FdCAYEG0';
         const CSV_PRODUCTS = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=0`;
@@ -721,13 +835,7 @@
                 const res = await fetch(CSV_PRODUCTS);
                 const rows = parseCSV(await res.text()).slice(1);
                 window.state.products = rows.map((cols, i) => ({
-                    id: 'g-prod-' + i,
-                    name: cols[1],
-                    price: parseInt(cols[2]?.replace(/\D/g,'')) || 0,
-                    category: cols[3],
-                    img: formatImgUrl(cols[4]),
-                    status: cols[5] || 'In Stock',
-                    desc: cols[6] || 'ອຸປະກອນນອກສະຖານທີ່ລະດັບພຣີມ່ຽມ | Premium outdoor equipment.'
+                    id: 'p-' + i, name: cols[1], price: parseInt(cols[2]?.replace(/\D/g,'')) || 0, category: cols[3], img: formatImgUrl(cols[4]), status: cols[5] || 'In Stock', desc: cols[6] || 'Premium outdoor equipment.'
                 })).filter(x => x.name);
                 window.renderProducts(window.state.products);
                 window.renderHomePreview();
@@ -750,40 +858,26 @@
         window.loadBlogs = async () => {
             try {
                 const res = await fetch(CSV_BLOGS);
-                const rows = parseCSV(await res.text()).slice(1);
-                window.state.blogs = rows.map(cols => ({
-                    title: cols[0], date: cols[1], img: formatImgUrl(cols[2]), content: cols[3] || ''
+                const text = await res.text();
+                const rows = parseCSV(text).slice(1);
+                
+                const sheetBlogs = rows.map(cols => ({
+                    title: cols[0], date: cols[1], img: formatImgUrl(cols[2]), content: cols[3] || '',
+                    category: cols[4] || 'Adventure', excerpt: cols[5] || '',
+                    author: cols[6] || 'TheSale3', authorImg: cols[7] || 'https://i.pravatar.cc/150'
                 })).filter(x => x.title);
+                
+                // Merge sheet blogs with hardcoded ones, but keep hardcoded ones unique by title
+                if (sheetBlogs.length > 0) {
+                    const existingTitles = new Set(sheetBlogs.map(b => b.title));
+                    const fallbackBlogs = window.state.blogs.filter(b => !existingTitles.has(b.title));
+                    window.state.blogs = [...sheetBlogs, ...fallbackBlogs];
+                }
+                
                 window.renderBlogs(window.state.blogs);
                 window.renderHomePreview();
             } catch (e) { console.error(e); }
         };
-
-        if (firebaseConfigStr) {
-            try {
-                const firebaseConfig = JSON.parse(firebaseConfigStr);
-                const app = initializeApp(firebaseConfig);
-                const auth = getAuth(app);
-                const db = getFirestore(app);
-                const initAuth = async () => {
-                    if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-                        await signInWithCustomToken(auth, __initial_auth_token);
-                    } else { await signInAnonymously(auth); }
-                };
-                onAuthStateChanged(auth, async (user) => {
-                    if (user) {
-                        onSnapshot(collection(db, 'artifacts', appId, 'public', 'data', 'products'), (s) => {
-                            if (s.docs.length > 0) {
-                                window.state.products = s.docs.map(d => ({ id: d.id, ...d.data() }));
-                                window.renderProducts(window.state.products);
-                                window.renderHomePreview();
-                            }
-                        });
-                    }
-                });
-                initAuth();
-            } catch (e) { console.warn(e.message); }
-        }
 
         window.loadProducts();
         window.loadPlaces();
