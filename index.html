@@ -150,6 +150,14 @@
         .blog-content-rich h3 { color: #1c1917; font-weight: 800; font-size: 1.75rem; margin-top: 2.5rem; margin-bottom: 1rem; }
         .blog-content-rich .font-semibold { color: #1c1917; font-size: 1.25rem; }
 
+        .post-gallery-item {
+            background: #f8fafc;
+            border-radius: 24px;
+            padding: 24px;
+            margin-bottom: 32px;
+            border: 1px solid #f1f5f9;
+        }
+
         .fade-in { animation: fadeIn 0.8s ease-out forwards; }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
@@ -163,100 +171,7 @@
         window.state = {
             products: [],
             places: [],
-            // 5 Drafted blog posts integrated into state
-            blogs: [
-                {
-                    title: "The Hidden Sandstone Plateaus of Ban Hat Khai",
-                    date: "May 20, 2024",
-                    img: "https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/phadang-camping.jpg",
-                    category: "Trail Guide",
-                    excerpt: "Journey into the heart of Phou Khao Khouay. A guide to finding the most exclusive riverside camping spots in the national park.",
-                    author: "Mou",
-                    authorImg: "https://i.pravatar.cc/150?u=Mou",
-                    content: `
-                        <p class='text-xl font-semibold text-stone-900'>Phou Khao Khouay is more than just a forest; it is a sprawling sanctuary of sandstone cliffs and ancient riverbeds waiting to be explored.</p>
-                        <p>Located just a few hours from Vientiane, the Ban Hat Khai area serves as the perfect basecamp for those looking to escape the city noise. The trek to the plateau is challenging but rewards the persistent with panoramic views of the Nam Mang river system.</p>
-                        <img src='https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/phadang-camping.jpg' class='rounded-2xl my-8 w-full' alt='Sandstone Plateau View'>
-                        <h3 class='text-2xl font-bold text-stone-900 mt-10 mb-4'>The Journey to Tad Xay</h3>
-                        <p>The trail winds through dense bamboo groves before opening up into wide sandstone clearings. This is where you want to pitch your tent. The ground is solid, and the elevation provides a natural breeze that keeps the mosquitoes away during the humid Lao nights.</p>
-                        <img src='https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/nammung3-camping.jpg' class='rounded-2xl my-8 w-full' alt='Tad Xay Waterfall'>
-                        <h3 class='text-2xl font-bold text-stone-900 mt-10 mb-4'>Pro Tips & Insights</h3>
-                        <p>Always bring a high-quality water filter. While the rivers look crystal clear, the tropical environment requires extra caution. Filtering your water at the source saves weight in your backpack and keeps you healthy for the long trek back.</p>
-                    `
-                },
-                {
-                    title: "The Ultimate Monsoon Protection: 4-Season Tents Tested",
-                    date: "May 22, 2024",
-                    img: "https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/donkoksa-camping.jpg",
-                    category: "Gear Review",
-                    excerpt: "Don't let the Lao rainy season stop your adventure. We review the top 3 tents that actually stay dry during a tropical downpour.",
-                    author: "TheSale3 Team",
-                    authorImg: "https://i.pravatar.cc/150?u=thesale3",
-                    content: `
-                        <p class='text-xl font-semibold text-stone-900'>Camping in Laos during the monsoon season is the ultimate test for any piece of outdoor equipment.</p>
-                        <p>We spent three nights on the Bolaven Plateau during a week of heavy storms to find out which of our tents truly earns the "4-Season" label. Ventilation and waterproof ratings (HH) are the two most critical factors when you are dealing with high humidity and vertical rainfall.</p>
-                        <img src='https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/donkoksa-camping.jpg' class='rounded-2xl my-8 w-full' alt='Tent in rain'>
-                        <h3 class='text-2xl font-bold text-stone-900 mt-10 mb-4'>Ventilation vs. Waterproofing</h3>
-                        <p>Most tents fail in Laos because they lack airflow, leading to "indoor rain" or condensation. Our top pick features a massive mesh inner layer paired with a 5000mm HH flysheet. This setup allows the humid air to escape while keeping the heavy rain out.</p>
-                        <h3 class='text-2xl font-bold text-stone-900 mt-10 mb-4'>Pro Tips & Insights</h3>
-                        <p>Never pitch your tent in a hollow or a dry riverbed during the rainy season. Flash floods are common in the Lao highlands. Always look for high ground with good drainage.</p>
-                    `
-                },
-                {
-                    title: "Traditional Flavors Over an Open Fire",
-                    date: "May 25, 2024",
-                    img: "https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/nammung3-camping.jpg",
-                    category: "Camp Cooking",
-                    excerpt: "Who says camp food has to be boring? Learn how to make authentic Lao Jeow Bong and grilled fish using only your camping stove.",
-                    author: "Mou",
-                    authorImg: "https://i.pravatar.cc/150?u=Mou",
-                    content: `
-                        <p class='text-xl font-semibold text-stone-900'>There is a deep satisfaction in preparing a traditional Lao meal under the canopy of the rainforest.</p>
-                        <p>One of the best things about camping in our country is the access to fresh, local ingredients. All you need is a lightweight grill grate and a small pot for sticky rice. The smoky flavor from the wood fire adds a dimension to the food that you just can't get in a modern kitchen.</p>
-                        <img src='https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/nammung3-camping.jpg' class='rounded-2xl my-8 w-full' alt='Camp Cooking'>
-                        <h3 class='text-2xl font-bold text-stone-900 mt-10 mb-4'>The Secret to Sticky Rice</h3>
-                        <p>Most campers avoid sticky rice because they think it's too much work, but a small bamboo steamer fits perfectly over a standard camping pot. Soak your rice beforehand and enjoy authentic flavors in the middle of nowhere.</p>
-                        <h3 class='text-2xl font-bold text-stone-900 mt-10 mb-4'>Pro Tips & Insights</h3>
-                        <p>Always carry a small container of Jeow Bong. It’s the ultimate camping condiment—it doesn't spoil easily and it makes even a simple bowl of rice taste like a feast.</p>
-                    `
-                },
-                {
-                    title: "Capturing the Milky Way Over the Karsts",
-                    date: "May 28, 2024",
-                    img: "https://i.postimg.cc/FKL5Q4JW/489751506-1424454392283349-8154752889413656228-n.jpg",
-                    category: "Photography",
-                    excerpt: "Vang Vieng offers some of the darkest skies in Southeast Asia. Master the settings for stunning nighttime landscape photography.",
-                    author: "TheSale3 Photo",
-                    authorImg: "https://i.pravatar.cc/150?u=photo",
-                    content: `
-                        <p class='text-xl font-semibold text-stone-900'>When the sun set behind the limestone mountains of Vang Vieng, a second world revealed itself in the stars above.</p>
-                        <p>To capture the Milky Way, you need to get away from the light pollution of the main town. The silhouette of the karsts against the galactic core is a sight every photographer needs to capture.</p>
-                        <img src='https://i.postimg.cc/FKL5Q4JW/489751506-1424454392283349-8154752889413656228-n.jpg' class='rounded-2xl my-8 w-full' alt='Milky Way View'>
-                        <h3 class='text-2xl font-bold text-stone-900 mt-10 mb-4'>Camera Settings</h3>
-                        <p>Use a wide-angle lens with an aperture of f/2.8 or wider. Set your ISO between 3200 and 6400, and use a shutter speed of 15-20 seconds. Any longer, and the stars will start to trail.</p>
-                        <h3 class='text-2xl font-bold text-stone-900 mt-10 mb-4'>Pro Tips & Insights</h3>
-                        <p>Use a headlamp with a red-light mode. Red light preserves your night vision, allowing you to adjust your camera settings without blinding yourself.</p>
-                    `
-                },
-                {
-                    title: "First-Time Camping in Laos: The Essential Checklist",
-                    date: "June 01, 2024",
-                    img: "https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/phadang-camping.jpg",
-                    category: "Adventure",
-                    excerpt: "Nervous about your first night in the wild? We've compiled the ultimate packing list to keep you safe, dry, and comfortable.",
-                    author: "Mou",
-                    authorImg: "https://i.pravatar.cc/150?u=Mou",
-                    content: `
-                        <p class='text-xl font-semibold text-stone-900'>Your first camping trip in the Lao wilderness is a rite of passage that you will remember for the rest of your life.</p>
-                        <p>Preparation is the difference between a miserable night and a life-changing adventure. This guide covers the 'Big Three': Shelter, Sleep, and Safety.</p>
-                        <img src='https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/phadang-camping.jpg' class='rounded-2xl my-8 w-full' alt='Gear Prep'>
-                        <h3 class='text-2xl font-bold text-stone-900 mt-10 mb-4'>The Humidity Factor</h3>
-                        <p>In our climate, cotton stays wet and becomes heavy. Switch to moisture-wicking synthetics or lightweight wool. Always pack a spare set of "sleeping clothes" in a dry bag.</p>
-                        <h3 class='text-2xl font-bold text-stone-900 mt-10 mb-4'>Pro Tips & Insights</h3>
-                        <p>Always carry a powerbank with at least 20,000mAh capacity. Keeping your phone charged is your primary safety tool for GPS and emergency calls.</p>
-                    `
-                }
-            ],
+            blogs: [],
             cart: JSON.parse(localStorage.getItem('thesale3_cart') || '[]'),
             currentCategory: 'All'
         };
@@ -449,7 +364,7 @@
                         <div class="h-60 bg-emerald-100 overflow-hidden relative">
                             <img src="${pl.img}" class="w-full h-full object-cover">
                         </div>
-                        <div class="p-8 text-emerald-950">
+                        <div class="p-8 text-stone-900">
                             <h3 class="font-black text-xl italic uppercase mb-3 leading-none">${pl.name}</h3>
                             <div class="flex items-center gap-2 text-[10px] font-bold text-emerald-500 uppercase mb-4 tracking-widest"><i class="fa-solid fa-location-dot text-amber-500"></i> ${pl.loc}</div>
                             <p class="text-gray-500 text-xs line-clamp-2 font-medium">${pl.desc}</p>
@@ -461,7 +376,7 @@
                 if(grid) grid.innerHTML = window.state.blogs.slice(0, 2).map(b => `
                     <div class="card-modern flex flex-col md:flex-row overflow-hidden cursor-pointer h-full" onclick="window.openBlogDetails('${b.title}')">
                         <div class="md:w-1/3 h-56 flex-shrink-0"><img src="${b.img}" class="w-full h-full object-cover"></div>
-                        <div class="md:w-2/3 p-8 text-emerald-950">
+                        <div class="md:w-2/3 p-8 text-stone-900">
                             <span class="text-[10px] font-bold text-amber-500 uppercase mb-3 block tracking-widest">${b.date}</span>
                             <h3 class="text-xl font-black mb-4 uppercase italic leading-tight">${b.title}</h3>
                             <p class="text-gray-500 text-xs line-clamp-3 font-medium">${b.excerpt || ''}</p>
@@ -480,7 +395,7 @@
             if(grid) grid.innerHTML = items.length === 0 ? '<div class="col-span-full py-20 text-center opacity-50 italic">ກຳລັງໂຫລດ...</div>' : items.map(pl => `
                 <div class="card-modern overflow-hidden cursor-pointer" onclick="window.openPlaceDetails('${pl.name}')">
                     <div class="h-60 overflow-hidden"><img src="${pl.img}" class="w-full h-full object-cover"></div>
-                    <div class="p-8 text-emerald-950">
+                    <div class="p-8 text-stone-900">
                         <h3 class="font-black text-2xl uppercase italic mb-3">${pl.name}</h3>
                         <p class="text-emerald-500 text-[10px] font-black uppercase mb-4 tracking-widest">${pl.loc}</p>
                         <p class="text-gray-400 text-xs">${pl.desc}</p>
@@ -559,7 +474,13 @@
             statusBadge.innerText = p.status;
             statusBadge.className = `px-5 py-2.5 rounded-full border-2 text-[10px] font-black uppercase ${p.status?.toLowerCase().includes('pre') ? 'status-pre-order' : 'status-in-stock'}`;
             document.getElementById('detailsAddBtn').onclick = () => { window.addToCart(p.id); window.closeDetails(); };
-            document.getElementById('detailsWaBtn').href = `https://wa.me/8562054849393?text=${encodeURIComponent("ສະບາຍດີ! ສົນໃຈ: " + p.name)}`;
+            
+            // Fix: Check if element exists before setting href
+            const waBtn = document.getElementById('detailsWaBtn');
+            if (waBtn) {
+                waBtn.href = `https://wa.me/8562054849393?text=${encodeURIComponent("ສະບາຍດີ! ສົນໃຈ: " + p.name)}`;
+            }
+            
             document.getElementById('detailsModal').style.display = 'flex';
         };
 
@@ -568,6 +489,7 @@
         window.openBlogDetails = (title) => {
             const b = window.state.blogs.find(x => x.title === title);
             if(!b) return;
+
             const headerEl = document.getElementById('blogModalHeaderImg');
             headerEl.style.backgroundImage = `linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.8)), url('${b.img}')`;
             document.getElementById('blogModalTitle').innerText = b.title;
@@ -575,7 +497,28 @@
             document.getElementById('blogModalDate').innerText = b.date;
             document.getElementById('blogModalAuthor').innerText = b.author || 'TheSale3 Team';
             document.getElementById('blogModalAuthorImg').src = b.authorImg || 'https://i.pravatar.cc/150';
-            document.getElementById('blogModalContent').innerHTML = b.content;
+
+            let finalContent = "";
+            if (b.dynamic) {
+                finalContent += `<p class="text-xl font-semibold text-stone-900 mb-8">${b.description || ""}</p>`;
+                for (let i = 1; i <= 4; i++) {
+                    const img = b[`img${i}`];
+                    const title = b[`title${i}`];
+                    const caption = b[`caption${i}`];
+                    if (img && img.trim() !== "") {
+                        finalContent += `
+                        <div class="post-gallery-item fade-in">
+                            ${title ? `<h4 class="text-xl font-black text-emerald-900 uppercase italic mb-4">${title}</h4>` : ""}
+                            <img src="${img}" class="rounded-2xl w-full mb-4 shadow-lg">
+                            ${caption ? `<p class="text-stone-600 text-sm leading-relaxed italic">${caption}</p>` : ""}
+                        </div>`;
+                    }
+                }
+            } else {
+                finalContent = b.content;
+            }
+
+            document.getElementById('blogModalContent').innerHTML = finalContent;
             document.getElementById('blogModal').style.display = 'flex';
             document.body.style.overflow = 'hidden';
         };
@@ -590,6 +533,8 @@
             if(!pl) return;
             document.getElementById('placeDetailsImage').src = pl.img;
             document.getElementById('placeDetailsTitle').innerText = pl.name;
+            document.getElementById('placeDetailsLoc').innerText = pl.loc;
+            document.getElementById('placeDetailsDesc').innerText = pl.desc;
             document.getElementById('placeModal').style.display = 'flex';
         };
         window.closePlaceModal = () => document.getElementById('placeModal').style.display = 'none';
@@ -695,7 +640,7 @@
         <!-- Places -->
         <section id="page-places" class="page-section hidden py-24 px-4 max-w-7xl mx-auto w-full text-white">
             <h2 class="text-5xl sm:text-8xl font-black uppercase italic tracking-tighter text-center mb-16">Destinations</h2>
-            <div id="placesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"></div>
+            <div id="placesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-stone-900"></div>
         </section>
 
         <!-- Journal Section -->
@@ -710,16 +655,7 @@
             </div>
             
             <div class="max-w-7xl mx-auto px-4 py-20">
-                <div class="flex flex-wrap justify-center gap-4 mb-20 border-b border-white/5 pb-12">
-                     <button class="category-pill active px-10 py-3 rounded-full text-[11px] font-black uppercase tracking-widest">All Stories</button>
-                     <button class="category-pill px-10 py-3 rounded-full text-[11px] font-black uppercase tracking-widest">Gear Reviews</button>
-                     <button class="category-pill px-10 py-3 rounded-full text-[11px] font-black uppercase tracking-widest">Trail Guides</button>
-                     <button class="category-pill px-10 py-3 rounded-full text-[11px] font-black uppercase tracking-widest">Camp Cooking</button>
-                </div>
-                
-                <div id="blogsGrid" class="flex flex-col gap-12">
-                    <!-- Dynamic rendering of blogs -->
-                </div>
+                <div id="blogsGrid" class="flex flex-col gap-12"></div>
             </div>
         </section>
     </div>
@@ -740,7 +676,25 @@
                     </div>
                 </div>
                 <p id="detailsDesc" class="text-stone-500 mb-10 text-sm leading-relaxed">Description...</p>
-                <button id="detailsAddBtn" class="w-full btn-adventure text-white py-5 rounded-2xl font-black uppercase text-[11px] tracking-widest">Add to Bag</button>
+                <button id="detailsAddBtn" class="w-full btn-adventure text-white py-5 rounded-2xl font-black uppercase text-[11px] tracking-widest mb-4">Add to Bag</button>
+                <a id="detailsWaBtn" target="_blank" class="w-full border-2 border-emerald-600 text-emerald-600 py-4 rounded-2xl font-black uppercase text-[11px] tracking-widest flex items-center justify-center gap-2 hover:bg-emerald-50 transition">
+                    <i class="fa-brands fa-whatsapp"></i> Inquiry on WhatsApp
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div id="placeModal" class="modal-overlay" onclick="if(event.target === this) window.closePlaceModal()">
+        <div class="bg-white rounded-[40px] max-w-4xl w-full mx-4 overflow-hidden shadow-2xl flex flex-col md:flex-row relative max-h-[92vh]">
+            <button onclick="window.closePlaceModal()" class="absolute top-6 right-6 bg-stone-100 w-12 h-12 rounded-full flex items-center justify-center text-stone-900 z-10 transition hover:bg-stone-200"><i class="fa-solid fa-xmark"></i></button>
+            <div class="md:w-1/2 bg-stone-50 flex items-center justify-center overflow-hidden"><img id="placeDetailsImage" src="" class="w-full h-full object-cover"></div>
+            <div class="md:w-1/2 p-10 flex flex-col overflow-y-auto text-stone-900">
+                <div class="flex items-center gap-2 mb-4">
+                    <i class="fa-solid fa-location-dot text-amber-500"></i>
+                    <span id="placeDetailsLoc" class="text-[10px] font-black text-emerald-600 uppercase tracking-widest">Location</span>
+                </div>
+                <h2 id="placeDetailsTitle" class="text-3xl font-black mb-6 uppercase italic">Place Name</h2>
+                <p id="placeDetailsDesc" class="text-stone-500 mb-10 text-sm leading-relaxed">Description...</p>
             </div>
         </div>
     </div>
@@ -763,10 +717,8 @@
                     </div>
                 </div>
             </div>
-            
             <div class="flex-grow overflow-y-auto px-8 py-20 sm:px-24 sm:py-24 bg-white text-stone-900">
-                <div id="blogModalContent" class="blog-content-rich max-w-3xl mx-auto">
-                </div>
+                <div id="blogModalContent" class="blog-content-rich max-w-3xl mx-auto"></div>
             </div>
         </div>
     </div>
@@ -795,10 +747,6 @@
 
     <!-- Firebase / Data Logic -->
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
-        import { getAuth, signInAnonymously, onAuthStateChanged, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, collection, onSnapshot } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
-
         const SHEET_ID = '1N09HDxPd3zEDqxHR-knpH2MP_fq_XkLJZJ4FdCAYEG0';
         const CSV_PRODUCTS = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=0`;
         const CSV_PLACES = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=368688716`;
@@ -827,7 +775,7 @@
         const formatImgUrl = (url) => {
             if (!url) return '';
             if (url.startsWith('http')) return url;
-            return 'assets/products/' + url; 
+            return 'https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/' + url; 
         };
 
         window.loadProducts = async () => {
@@ -861,13 +809,37 @@
                 const text = await res.text();
                 const rows = parseCSV(text).slice(1);
                 
-                const sheetBlogs = rows.map(cols => ({
-                    title: cols[0], date: cols[1], img: formatImgUrl(cols[2]), content: cols[3] || '',
-                    category: cols[4] || 'Adventure', excerpt: cols[5] || '',
-                    author: cols[6] || 'TheSale3', authorImg: cols[7] || 'https://i.pravatar.cc/150'
-                })).filter(x => x.title);
+                const sheetBlogs = rows.map(cols => {
+                    const blog = {
+                        title: cols[0],
+                        date: cols[1],
+                        img: formatImgUrl(cols[2]),
+                        description: cols[3] || '',
+                        img1: formatImgUrl(cols[4]),
+                        title1: cols[5],
+                        caption1: cols[6],
+                        img2: formatImgUrl(cols[7]),
+                        title2: cols[8],
+                        caption2: cols[9],
+                        img3: formatImgUrl(cols[10]),
+                        title3: cols[11],
+                        caption3: cols[12],
+                        img4: formatImgUrl(cols[13]),
+                        title4: cols[14],
+                        caption4: cols[15],
+                        category: cols[16] || 'Trail Guide',
+                        author: cols[17] || 'TheSale3 Team',
+                        authorImg: cols[18] || 'https://i.pravatar.cc/150',
+                        // Check if it's dynamic (has the new img1 column filled)
+                        dynamic: cols[4] && cols[4].trim() !== "",
+                        content: cols[3] || ""
+                    };
+                    
+                    const tempText = (blog.description || blog.content).replace(/<[^>]*>/g, '');
+                    blog.excerpt = tempText.substring(0, 150) + "...";
+                    return blog;
+                }).filter(x => x.title);
                 
-                // Merge sheet blogs with hardcoded ones, but keep hardcoded ones unique by title
                 if (sheetBlogs.length > 0) {
                     const existingTitles = new Set(sheetBlogs.map(b => b.title));
                     const fallbackBlogs = window.state.blogs.filter(b => !existingTitles.has(b.title));
