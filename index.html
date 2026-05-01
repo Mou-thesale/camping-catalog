@@ -173,7 +173,8 @@
             places: [],
             blogs: [],
             cart: JSON.parse(localStorage.getItem('thesale3_cart') || '[]'),
-            currentCategory: 'All'
+            currentCategory: 'All',
+            activePage: 'home'
         };
 
         const heroImages = [
@@ -314,17 +315,57 @@
             window.open(`https://wa.me/8562054849393?text=${encodeURIComponent(message)}`, '_blank');
         };
 
-        window.switchPage = (pageId) => {
+        // NAVIGATION LOGIC
+        window.switchPage = (pageId, updateHash = true) => {
+            window.state.activePage = pageId;
             document.querySelectorAll('.page-section').forEach(p => p.classList.add('hidden'));
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active-link'));
+            
             const target = document.getElementById('page-' + pageId);
             if(target) target.classList.remove('hidden');
+            
             document.querySelectorAll(`[id^="btn-${pageId}"]`).forEach(btn => btn.classList.add('active-link'));
             window.scrollTo({ top: 0, behavior: 'smooth' });
+            
             if (pageId === 'home') window.renderHomePreview();
             if (pageId === 'products') window.renderProducts(window.state.products);
             if (pageId === 'places') window.renderPlaces(window.state.places);
             if (pageId === 'blogs') window.renderBlogs(window.state.blogs);
+
+            // Update URL Hash for sharing
+            if (updateHash) {
+                let hash = `#${pageId}`;
+                if (pageId === 'products' && window.state.currentCategory !== 'All') {
+                    hash += `?category=${encodeURIComponent(window.state.currentCategory)}`;
+                }
+                window.location.hash = hash;
+            }
+        };
+
+        // HANDLE ROUTING FROM URL
+        window.handleRouting = () => {
+            const hash = window.location.hash.substring(1); // remove #
+            if (!hash) {
+                window.switchPage('home', false);
+                return;
+            }
+
+            const [pageId, queryStr] = hash.split('?');
+            
+            // Check for category in query
+            if (pageId === 'products' && queryStr) {
+                const params = new URLSearchParams(queryStr);
+                const cat = params.get('category');
+                if (cat) {
+                    window.state.currentCategory = decodeURIComponent(cat);
+                }
+            } else if (pageId === 'products') {
+                window.state.currentCategory = 'All';
+            }
+
+            window.switchPage(pageId || 'home', false);
+            window.renderCategoryFilters();
+            window.applyProductFilters();
         };
 
         window.getProductHTML = (p) => {
@@ -447,6 +488,13 @@
             window.state.currentCategory = cat;
             window.renderCategoryFilters();
             window.applyProductFilters();
+            
+            // Update hash when category changes
+            let hash = `#products`;
+            if (cat !== 'All') {
+                hash += `?category=${encodeURIComponent(cat)}`;
+            }
+            window.location.hash = hash;
         };
 
         window.applyProductFilters = () => {
@@ -475,7 +523,6 @@
             statusBadge.className = `px-5 py-2.5 rounded-full border-2 text-[10px] font-black uppercase ${p.status?.toLowerCase().includes('pre') ? 'status-pre-order' : 'status-in-stock'}`;
             document.getElementById('detailsAddBtn').onclick = () => { window.addToCart(p.id); window.closeDetails(); };
             
-            // Fix: Check if element exists before setting href
             const waBtn = document.getElementById('detailsWaBtn');
             if (waBtn) {
                 waBtn.href = `https://wa.me/8562054849393?text=${encodeURIComponent("ສະບາຍດີ! ສົນໃຈ: " + p.name)}`;
@@ -554,9 +601,13 @@
         };
 
         document.addEventListener('DOMContentLoaded', () => {
-            window.switchPage('home');
+            // Check URL for specific section or category
+            window.handleRouting();
             window.updateCartCount();
             window.initHeroSlider();
+            
+            // Listen for URL changes (Browser back/forward buttons)
+            window.addEventListener('hashchange', window.handleRouting);
         });
     </script>
 
