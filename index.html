@@ -3,7 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO & Social Sharing (Audit Improvement) -->
     <title>TheSale3 Camping Store | Premium Outdoor Gear Laos</title>
+    <meta name="description" content="TheSale3 - Vientiane's premier outdoor equipment specialist. High-quality tents, cooking gear, and adventure supplies for the Lao wilderness.">
+    <meta property="og:title" content="TheSale3 Camping Store | Premium Outdoor Gear Laos">
+    <meta property="og:description" content="Equipping your next expedition. Nationwide delivery across Lao PDR.">
+    <meta property="og:image" content="https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/thesale3-logo.png">
+    <meta property="og:type" content="website">
     
     <!-- Scripts & Icons -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -154,26 +161,23 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Responsive Grids */
         .product-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 2rem;
         }
 
-        .form-input {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
-            padding: 1rem 1.5rem;
-            width: 100%;
-            outline: none;
-            transition: all 0.3s ease;
-            color: white;
+        .policy-text {
+            color: #cbd5e1;
+            line-height: 1.8;
         }
-        .form-input:focus {
-            border-color: var(--emerald-vibrant);
-            background: rgba(255, 255, 255, 0.1);
+        .policy-text h3 {
+            color: #fbbf24;
+            text-transform: uppercase;
+            font-weight: 800;
+            font-size: 1.1rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
         }
     </style>
 </head>
@@ -200,57 +204,37 @@
         const categories = ["All", "ເຕັ້ນTents", "ເຄື່ອງຄົວCooking", "ອຸປະກອນກາເຟCoffee", "Lighting", "ເຄື່ອງນອນSleeping", "ເຟີນິເຈີ້Furniture", "ກະເປົາBackpack", "ເກີບShoes", "ເຄື່ອງນຸ່ງCloth", "ແວ່ນຕາGlasses", "ພາວເວີ້ແບ້ງPowerbank", "ອຸປະກອນເອົາໂຕລອດSurvival", "ອຸປະກອນເສີມລົດຈັກ"];
         const ADMIN_SHEET_URL = 'https://docs.google.com/spreadsheets/d/1N09HDxPd3zEDqxHR-knpH2MP_fq_XkLJZJ4FdCAYEG0/edit';
 
-        // Enhanced Hero Slider
         window.initHeroSlider = () => {
             const container = document.getElementById('heroContainer');
             if(!container) return;
-            
             let currentIdx = 0;
             const layers = [document.createElement('div'), document.createElement('div')];
-            layers.forEach(l => {
-                l.className = 'hero-bg opacity-0';
-                container.prepend(l);
-            });
-
+            layers.forEach(l => { l.className = 'hero-bg opacity-0'; container.prepend(l); });
             const updateHero = () => {
                 const prevLayer = layers[currentIdx % 2];
                 currentIdx = (currentIdx + 1) % heroImages.length;
                 const nextLayer = layers[currentIdx % 2];
-
                 nextLayer.style.backgroundImage = `linear-gradient(to bottom, rgba(4, 47, 46, 0.2), rgba(2, 44, 34, 0.9)), url('${heroImages[currentIdx]}')`;
                 nextLayer.style.opacity = 1;
                 nextLayer.classList.add('hero-active');
-                
                 prevLayer.style.opacity = 0;
                 prevLayer.classList.remove('hero-active');
-                
-                // Animate text
-                const texts = document.querySelectorAll('.hero-text-animate');
-                texts.forEach((t, i) => {
-                    t.style.opacity = 1;
-                    t.style.transform = 'translateY(0)';
-                });
+                document.querySelectorAll('.hero-text-animate').forEach(t => { t.style.opacity = 1; t.style.transform = 'translateY(0)'; });
             };
-
             updateHero();
             setInterval(updateHero, 6000);
         };
 
-        // Navigation & Routing
         window.switchPage = (pageId, updateHash = true) => {
             window.state.activePage = pageId;
             document.querySelectorAll('.page-section').forEach(p => p.classList.add('hidden'));
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active-link'));
-            
             const target = document.getElementById('page-' + pageId);
             if(target) target.classList.remove('hidden');
-            
             document.querySelectorAll(`[id^="btn-${pageId}"]`).forEach(btn => btn.classList.add('active-link'));
             window.scrollTo({ top: 0, behavior: 'smooth' });
-            
             if (pageId === 'home') window.renderHomePreview();
             if (pageId === 'products') window.applyProductFilters(); 
-
             if (updateHash) {
                 let hash = `#${pageId}`;
                 if (pageId === 'products' && window.state.currentCategory !== 'All') {
@@ -263,7 +247,6 @@
         window.handleRouting = () => {
             const hash = window.location.hash.substring(1); 
             const [pageId, queryStr] = hash.split('?');
-            
             if (pageId === 'products' && queryStr) {
                 const params = new URLSearchParams(queryStr);
                 const cat = params.get('category');
@@ -271,13 +254,11 @@
             } else if (pageId === 'products') {
                 window.state.currentCategory = 'All';
             }
-
             window.switchPage(pageId || 'home', false);
             window.renderCategoryFilters();
             window.applyProductFilters();
         };
 
-        // UI Rendering Logic
         window.renderCategoryFilters = () => {
             const container = document.getElementById('categoryFilter');
             if(!container) return;
@@ -300,8 +281,7 @@
             const val = si ? si.value.toLowerCase().trim() : "";
             const filtered = window.state.products.filter(p => {
                 const mSearch = p.name?.toLowerCase().includes(val);
-                const mCat = window.state.currentCategory === 'All' || 
-                             p.category?.toLowerCase().trim() === window.state.currentCategory.toLowerCase().trim();
+                const mCat = window.state.currentCategory === 'All' || p.category?.toLowerCase().trim() === window.state.currentCategory.toLowerCase().trim();
                 return mSearch && mCat;
             });
             window.renderProducts(filtered);
@@ -310,23 +290,14 @@
         window.renderProducts = (items) => {
             const grid = document.getElementById('productGrid');
             if(!grid) return;
-            
             if(window.state.isLoading) {
-                grid.innerHTML = Array(8).fill(0).map(() => `
-                    <div class="h-[400px] rounded-[32px] skeleton opacity-20"></div>
-                `).join('');
+                grid.innerHTML = Array(8).fill(0).map(() => `<div class="h-[400px] rounded-[32px] skeleton opacity-20"></div>`).join('');
                 return;
             }
-
             if (items.length === 0) {
-                grid.innerHTML = `
-                    <div class="col-span-full py-20 text-center">
-                        <div class="text-4xl mb-4 opacity-20"><i class="fa-solid fa-box-open"></i></div>
-                        <p class="opacity-50 italic font-black uppercase text-[10px]">No products found in this category.</p>
-                    </div>`;
+                grid.innerHTML = `<div class="col-span-full py-20 text-center"><p class="opacity-50 italic font-black uppercase text-[10px]">No products found.</p></div>`;
                 return;
             }
-
             grid.innerHTML = items.map(p => {
                 const fakePrice = Math.round((p.price * 1.25) / 1000) * 1000;
                 return `
@@ -345,9 +316,7 @@
                             <span class="text-xs text-red-500/60 line-through font-black italic">${fakePrice.toLocaleString()} LAK</span>
                             <p class="font-black text-emerald-700 italic text-2xl leading-none">${p.price.toLocaleString()} LAK</p>
                         </div>
-                        <button onclick="event.stopPropagation(); window.addToCart('${p.id}')" class="w-full h-12 rounded-2xl bg-emerald-950 text-white flex items-center justify-center gap-3 hover:bg-amber-500 transition-all shadow-lg font-black text-[10px] uppercase">
-                            <i class="fa-solid fa-plus"></i> Add to Bag
-                        </button>
+                        <button onclick="event.stopPropagation(); window.addToCart('${p.id}')" class="w-full h-12 rounded-2xl bg-emerald-950 text-white flex items-center justify-center gap-3 hover:bg-amber-500 transition-all shadow-lg font-black text-[10px] uppercase">Add to Bag</button>
                     </div>
                 </div>`;
             }).join('');
@@ -357,34 +326,20 @@
             const grid = document.getElementById('homeProductGrid');
             if(grid && window.state.products.length > 0) {
                 const items = window.state.products.slice(0, 4);
-                grid.innerHTML = items.map(p => {
-                    const fakePrice = Math.round((p.price * 1.25) / 1000) * 1000;
-                    return `
-                    <div class="card-modern group p-6 sm:p-8 flex flex-col fade-in cursor-pointer" onclick="window.openDetails('${p.id}')">
-                        <div class="h-56 rounded-[24px] bg-emerald-50 overflow-hidden mb-6 relative">
-                            <img src="${p.img}" class="w-full h-full object-cover transition duration-700 group-hover:scale-110" loading="lazy">
-                            <span class="absolute top-4 right-4 text-[9px] font-black uppercase px-3 py-1.5 rounded-full ${p.status?.toLowerCase().includes('pre') ? 'status-pre-order' : 'status-in-stock shadow-sm'}">${p.status}</span>
-                        </div>
-                        <div class="flex items-center gap-2 mb-2">
-                            <div class="h-[1px] w-4 bg-amber-500"></div>
-                            <span class="text-[9px] font-bold text-emerald-600 uppercase tracking-widest">${p.category}</span>
-                        </div>
-                        <h3 class="font-black text-lg text-emerald-950 mb-3 flex-grow uppercase italic leading-tight">${p.name}</h3>
-                        <div class="mt-auto pt-4 border-t border-emerald-50">
-                            <div class="flex flex-col mb-4">
-                                <span class="text-xs text-red-500/60 line-through font-black italic">${fakePrice.toLocaleString()} LAK</span>
-                                <p class="font-black text-emerald-700 italic text-2xl leading-none">${p.price.toLocaleString()} LAK</p>
-                            </div>
-                            <button onclick="event.stopPropagation(); window.addToCart('${p.id}')" class="w-full h-12 rounded-2xl bg-emerald-950 text-white flex items-center justify-center gap-3 hover:bg-amber-500 transition-all shadow-lg font-black text-[10px] uppercase">
-                                <i class="fa-solid fa-plus"></i> Add to Bag
-                            </button>
-                        </div>
-                    </div>`;
-                }).join('');
+                grid.innerHTML = items.map(p => `
+                <div class="card-modern group p-6 sm:p-8 flex flex-col fade-in cursor-pointer" onclick="window.openDetails('${p.id}')">
+                    <div class="h-56 rounded-[24px] bg-emerald-50 overflow-hidden mb-6 relative">
+                        <img src="${p.img}" class="w-full h-full object-cover transition duration-700 group-hover:scale-110" loading="lazy">
+                    </div>
+                    <h3 class="font-black text-lg text-emerald-950 mb-3 flex-grow uppercase italic leading-tight">${p.name}</h3>
+                    <div class="mt-auto pt-4 border-t border-emerald-50">
+                        <p class="font-black text-emerald-700 italic text-2xl leading-none mb-4">${p.price.toLocaleString()} LAK</p>
+                        <button onclick="event.stopPropagation(); window.addToCart('${p.id}')" class="w-full h-12 rounded-2xl bg-emerald-950 text-white font-black text-[10px] uppercase">Add to Bag</button>
+                    </div>
+                </div>`).join('');
             }
         };
 
-        // Cart Logic
         window.addToCart = (id) => {
             const p = window.state.products.find(x => x.id === id);
             if(!p) return;
@@ -394,18 +349,16 @@
         };
 
         window.updateQty = (id, delta) => {
-            const itemIdx = window.state.cart.findIndex(i => i.id === id);
-            if (itemIdx === -1) return;
-            window.state.cart[itemIdx].qty += delta;
-            if (window.state.cart[itemIdx].qty <= 0) window.state.cart.splice(itemIdx, 1);
-            window.updateCartCount();
-            window.openCart();
+            const idx = window.state.cart.findIndex(i => i.id === id);
+            if (idx === -1) return;
+            window.state.cart[idx].qty += delta;
+            if (window.state.cart[idx].qty <= 0) window.state.cart.splice(idx, 1);
+            window.updateCartCount(); window.openCart();
         };
 
         window.removeFromCart = (id) => {
             window.state.cart = window.state.cart.filter(i => i.id !== id);
-            window.updateCartCount();
-            window.openCart();
+            window.updateCartCount(); window.openCart();
         };
 
         window.updateCartCount = () => {
@@ -422,25 +375,21 @@
             const container = document.getElementById('cartItems');
             const totalEl = document.getElementById('cartTotal');
             if(!container) return;
-            
             if(window.state.cart.length === 0) {
-                container.innerHTML = '<div class="text-center py-20 text-emerald-200 uppercase font-black text-[10px]">ກະຕ່າຫວ່າງເປົ່າ | Bag Empty</div>';
+                container.innerHTML = '<div class="text-center py-20 text-emerald-200 uppercase font-black text-[10px]">Bag Empty</div>';
                 if(totalEl) totalEl.innerText = '0 LAK';
             } else {
                 let total = 0;
                 container.innerHTML = window.state.cart.map(item => {
-                    total += item.price * (item.qty || 1);
+                    total += item.price * item.qty;
                     return `<div class="flex gap-4 p-4 bg-emerald-50 rounded-2xl text-emerald-950 items-center">
                         <img src="${item.img}" class="w-12 h-12 rounded-xl object-cover">
-                        <div class="flex-grow">
-                            <h4 class="font-black text-[10px] uppercase leading-tight">${item.name}</h4>
-                            <p class="text-emerald-700 font-bold text-[9px]">${item.price.toLocaleString()} LAK</p>
-                        </div>
+                        <div class="flex-grow"><h4 class="font-black text-[10px] uppercase leading-tight">${item.name}</h4><p class="text-emerald-700 font-bold text-[9px]">${item.price.toLocaleString()} LAK</p></div>
                         <div class="flex items-center gap-2">
-                            <button onclick="window.updateQty('${item.id}', -1)" class="w-6 h-6 rounded-lg bg-white border border-emerald-200 flex items-center justify-center text-xs hover:bg-emerald-100"><i class="fa-solid fa-minus"></i></button>
+                            <button onclick="window.updateQty('${item.id}', -1)" class="w-6 h-6 rounded-lg bg-white border border-emerald-200 flex items-center justify-center text-xs"><i class="fa-solid fa-minus"></i></button>
                             <span class="font-black text-xs w-4 text-center">${item.qty}</span>
-                            <button onclick="window.updateQty('${item.id}', 1)" class="w-6 h-6 rounded-lg bg-white border border-emerald-200 flex items-center justify-center text-xs hover:bg-emerald-100"><i class="fa-solid fa-plus"></i></button>
-                            <button onclick="window.removeFromCart('${item.id}')" class="ml-2 text-rose-500 hover:text-rose-700 p-1"><i class="fa-solid fa-trash-can text-sm"></i></button>
+                            <button onclick="window.updateQty('${item.id}', 1)" class="w-6 h-6 rounded-lg bg-white border border-emerald-200 flex items-center justify-center text-xs"><i class="fa-solid fa-plus"></i></button>
+                            <button onclick="window.removeFromCart('${item.id}')" class="ml-2 text-rose-500"><i class="fa-solid fa-trash-can text-sm"></i></button>
                         </div>
                     </div>`;
                 }).join('');
@@ -451,15 +400,14 @@
 
         window.checkoutWhatsApp = () => {
             if (window.state.cart.length === 0) return;
-            let totalOrderPrice = 0;
-            let message = "ສະບາຍດີ! *--- ລາຍການສັ່ງຊື້ສິນຄ້າ (TheSale3) ---*\n\n";
+            let total = 0;
+            let msg = "ສະບາຍດີ! *--- ລາຍການສັ່ງຊື້ສິນຄ້າ (TheSale3) ---*\n\n";
             window.state.cart.forEach((item, index) => {
-                const subtotal = item.price * item.qty;
-                totalOrderPrice += subtotal;
-                message += `${index + 1}. *${item.name}*\n   - ຈຳນວນ: ${item.qty} ຊິ້ນ\n   - ລາຄາ: ${item.price.toLocaleString()} LAK\n\n`;
+                total += item.price * item.qty;
+                msg += `${index + 1}. *${item.name}* x ${item.qty} (${(item.price * item.qty).toLocaleString()} LAK)\n`;
             });
-            message += `*ລາຄາລວມສຸດທິ:* ${totalOrderPrice.toLocaleString()} LAK`;
-            window.open(`https://wa.me/8562054849393?text=${encodeURIComponent(message)}`, '_blank');
+            msg += `\n*ລາຄາລວມສຸດທິ:* ${total.toLocaleString()} LAK`;
+            window.open(`https://wa.me/8562054849393?text=${encodeURIComponent(msg)}`, '_blank');
         };
 
         window.openDetails = (id) => {
@@ -471,12 +419,10 @@
             document.getElementById('detailsPrice').innerText = p.price.toLocaleString() + ' LAK';
             document.getElementById('detailsFakePrice').innerText = fakePrice.toLocaleString() + ' LAK';
             document.getElementById('detailsCategory').innerText = p.category;
-            document.getElementById('detailsDesc').innerText = p.desc;
-            
+            document.getElementById('detailsDesc').innerHTML = p.desc;
             const statusBadge = document.getElementById('detailsStatus');
             statusBadge.innerText = p.status;
             statusBadge.className = `px-5 py-2.5 rounded-full border-2 text-[10px] font-black uppercase ${p.status?.toLowerCase().includes('pre') ? 'status-pre-order' : 'status-in-stock'}`;
-            
             document.getElementById('detailsAddBtn').onclick = () => { window.addToCart(p.id); window.closeDetails(); };
             document.getElementById('detailsModal').style.display = 'flex';
         };
@@ -484,24 +430,16 @@
         window.closeDetails = () => document.getElementById('detailsModal').style.display = 'none';
 
         window.handleAdminClick = () => {
-            let adminClicks = parseInt(sessionStorage.getItem('admin_clicks') || '0');
-            adminClicks++;
+            let adminClicks = parseInt(sessionStorage.getItem('admin_clicks') || '0') + 1;
             if (adminClicks === 5) {
                 sessionStorage.setItem('admin_clicks', '0');
                 const pass = prompt("Access Key:");
                 if (pass === "Mou54849393") window.open(ADMIN_SHEET_URL, '_blank');
-            } else {
-                sessionStorage.setItem('admin_clicks', adminClicks.toString());
-            }
+            } else sessionStorage.setItem('admin_clicks', adminClicks.toString());
             setTimeout(() => sessionStorage.setItem('admin_clicks', '0'), 3000);
         };
 
-        document.addEventListener('DOMContentLoaded', () => {
-            window.initHeroSlider();
-            window.updateCartCount();
-            window.handleRouting();
-            window.addEventListener('hashchange', window.handleRouting);
-        });
+        document.addEventListener('DOMContentLoaded', () => { window.initHeroSlider(); window.updateCartCount(); window.handleRouting(); window.addEventListener('hashchange', window.handleRouting); });
     </script>
 
     <!-- Navigation -->
@@ -509,9 +447,8 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-8">
             <div class="flex justify-between items-center h-20 sm:h-24">
                 <div class="cursor-pointer transition hover:opacity-80" onclick="window.switchPage('home')">
-                    <img src="https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/thesale3-logo.png" alt="Logo" class="h-14 sm:h-16 w-auto filter invert brightness-200">
+                    <img src="https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/thesale3-logo.png" alt="Logo" class="h-14 sm:h-16 w-auto filter brightness-0 invert" onerror="this.src='https://via.placeholder.com/150x50?text=TheSale3'">
                 </div>
-                
                 <div class="hidden md:flex items-center gap-8 font-bold text-[10px] uppercase tracking-[0.2em] text-slate-300">
                     <button onclick="window.switchPage('products')" class="nav-btn py-2 hover:text-white transition" id="btn-products-desktop">ສິນຄ້າ | Gear</button>
                     <button onclick="window.switchPage('places')" class="nav-btn py-2 hover:text-white transition" id="btn-places-desktop">ສະຖານທີ່ | Spots</button>
@@ -519,15 +456,11 @@
                     <button onclick="window.switchPage('about')" class="nav-btn py-2 hover:text-white transition" id="btn-about-desktop">ກ່ຽວກັບ | About</button>
                     <button onclick="window.switchPage('contact')" class="nav-btn py-2 hover:text-white transition" id="btn-contact-desktop">ຕິດຕໍ່ | Contact</button>
                 </div>
-
                 <div class="flex items-center gap-4">
                     <button onclick="window.openCart()" class="relative p-3 bg-white/10 rounded-2xl border border-white/10 hover:bg-white/20 transition group">
                         <i class="fa-solid fa-shopping-bag text-white text-lg transition group-hover:scale-110"></i>
                         <span id="cartCount" class="absolute -top-1 -right-1 bg-amber-500 text-white text-[8px] font-black w-5 h-5 flex items-center justify-center rounded-full border-2 border-emerald-950 hidden">0</span>
                     </button>
-                    <a href="https://wa.me/8562054849393" target="_blank" class="hidden lg:flex bg-emerald-600 text-white px-8 py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest items-center gap-3 btn-adventure shadow-xl">
-                        <i class="fa-brands fa-whatsapp text-lg"></i> Connect
-                    </a>
                 </div>
             </div>
         </div>
@@ -545,253 +478,131 @@
 
     <!-- Page Content -->
     <main id="pages-container" class="flex-grow pb-28 md:pb-0">
-        <!-- Home -->
         <section id="page-home" class="page-section">
             <header id="heroContainer" class="hero-container">
                 <div class="absolute inset-0 z-10 flex items-center justify-center text-center px-6">
                     <div class="max-w-4xl">
                         <span class="hero-text-animate text-emerald-400 text-[12px] font-black uppercase tracking-[0.6em] mb-6 block">TheSale3 Premium Gear</span>
                         <h1 class="hero-text-animate text-6xl sm:text-9xl font-black text-white mb-10 tracking-tighter drop-shadow-2xl italic">The Wild<br><span class="text-white/40">Is Calling.</span></h1>
-                        <button onclick="window.switchPage('products')" class="hero-text-animate bg-white text-stone-900 px-12 py-5 rounded-[24px] font-black text-[11px] uppercase tracking-widest shadow-2xl hover:bg-emerald-400 hover:text-white transition-all transform hover:-translate-y-1">View Inventory</button>
+                        <button onclick="window.switchPage('products')" class="hero-text-animate bg-white text-stone-900 px-12 py-5 rounded-[24px] font-black text-[11px] uppercase tracking-widest shadow-2xl hover:bg-emerald-400">View Inventory</button>
                     </div>
                 </div>
             </header>
-
             <div class="max-w-7xl mx-auto px-6 py-24">
-                <div class="flex justify-between items-end mb-16">
-                    <div class="space-y-2">
-                        <h2 class="text-4xl sm:text-5xl font-black uppercase italic tracking-tighter text-white">Latest Arrivals</h2>
-                        <p class="text-emerald-400 font-bold text-[10px] uppercase tracking-[0.3em]">Fresh for the new season</p>
-                    </div>
-                    <button onclick="window.switchPage('products')" class="text-white/60 hover:text-emerald-400 font-black text-[10px] uppercase border-b-2 border-emerald-400/20 pb-1 transition">Shop All Gear</button>
-                </div>
+                <h2 class="text-4xl sm:text-5xl font-black uppercase italic tracking-tighter text-white mb-16">Latest Arrivals</h2>
                 <div id="homeProductGrid" class="product-grid"></div>
             </div>
         </section>
 
-        <!-- Products -->
         <section id="page-products" class="page-section hidden py-24 px-6 max-w-7xl mx-auto w-full">
             <div class="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-16 gap-10">
-                <div class="space-y-4">
-                    <h2 class="text-6xl font-black uppercase italic tracking-tighter text-white">Catalog</h2>
-                    <p class="text-emerald-400 font-bold text-[10px] uppercase tracking-[0.4em]">Browse over 200 items in inventory</p>
-                </div>
+                <h2 class="text-6xl font-black uppercase italic tracking-tighter text-white">Catalog</h2>
                 <div class="relative w-full lg:w-[450px]">
                     <i class="fa-solid fa-search absolute left-7 top-1/2 -translate-y-1/2 text-emerald-300"></i>
-                    <input type="text" id="searchInput" oninput="window.applyProductFilters()" placeholder="Search equipment by name..." class="w-full pl-16 pr-8 py-5 rounded-[28px] bg-white/5 border border-white/10 text-white outline-none focus:border-emerald-500 focus:bg-white/10 transition-all text-sm shadow-inner">
+                    <input type="text" id="searchInput" oninput="window.applyProductFilters()" placeholder="Search..." class="w-full pl-16 pr-8 py-5 rounded-[28px] bg-white/5 border border-white/10 text-white outline-none">
                 </div>
             </div>
-            
             <div id="categoryFilter" class="flex gap-4 overflow-x-auto no-scrollbar pb-10 mb-10 border-b border-white/5"></div>
             <div id="productGrid" class="product-grid"></div>
         </section>
 
-        <!-- About Page -->
+        <!-- About Page Content -->
         <section id="page-about" class="page-section hidden py-24 px-6 max-w-5xl mx-auto w-full">
             <div class="text-center mb-20 fade-in">
                 <h2 class="text-6xl font-black uppercase italic tracking-tighter text-white mb-6">Our Mission</h2>
                 <div class="h-1 w-24 bg-emerald-500 mx-auto rounded-full"></div>
-            </div>
-
-            <div class="grid md:grid-cols-2 gap-16 items-center mb-24">
-                <div class="fade-in">
-                    <h3 class="text-3xl font-black uppercase italic text-emerald-400 mb-6 tracking-tight">The Frontier of Adventure</h3>
-                    <p class="text-slate-300 text-lg leading-relaxed mb-6">
-                        Founded in 2021 in the heart of Vientiane, <span class="text-white font-bold">TheSale3</span> was born from a passion for the untamed beauty of Laos. We believe that every trail has a story, and every campsite is a home waiting to be built.
-                    </p>
-                    <p class="text-slate-400 leading-relaxed">
-                        We don't just sell gear; we equip expeditions. From the rainy mountains of Phou Khoun to the misty rivers of Vang Vieng, our equipment is rigorously tested to ensure you stay safe, dry, and inspired in the wild.
-                    </p>
-                </div>
-                <div class="rounded-[40px] overflow-hidden shadow-2xl border-4 border-emerald-950 fade-in">
-                    <img src="https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/phadang-camping.jpg" alt="About Us" class="w-full h-[400px] object-cover">
-                </div>
-            </div>
-
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center fade-in">
-                <div class="p-8 bg-emerald-950/30 rounded-3xl border border-white/5">
-                    <div class="text-4xl text-emerald-400 font-black mb-2">200+</div>
-                    <div class="text-[10px] uppercase font-black text-slate-500 tracking-widest">Premium Items</div>
-                </div>
-                <div class="p-8 bg-emerald-950/30 rounded-3xl border border-white/5">
-                    <div class="text-4xl text-emerald-400 font-black mb-2">3k+</div>
-                    <div class="text-[10px] uppercase font-black text-slate-500 tracking-widest">Explorers Equipped</div>
-                </div>
-                <div class="p-8 bg-emerald-950/30 rounded-3xl border border-white/5">
-                    <div class="text-4xl text-emerald-400 font-black mb-2">100%</div>
-                    <div class="text-[10px] uppercase font-black text-slate-500 tracking-widest">Adventure Tested</div>
-                </div>
-                <div class="p-8 bg-emerald-950/30 rounded-3xl border border-white/5">
-                    <div class="text-4xl text-emerald-400 font-black mb-2">Lao</div>
-                    <div class="text-[10px] uppercase font-black text-slate-500 tracking-widest">Owned & Operated</div>
+                <div class="mt-16 space-y-8 text-slate-300 text-lg leading-relaxed text-left">
+                    <p>Founded in 2021 in the heart of Vientiane, <span class="text-white font-bold">TheSale3</span> was born from a passion for the untamed beauty of Laos. We believe that every trail has a story, and every campsite is a home waiting to be built.</p>
+                    <p>We don't just sell gear; we equip expeditions. From the rainy mountains of Phou Khoun to the misty rivers of Vang Vieng, our equipment is rigorously tested to ensure you stay safe, dry, and inspired in the wild.</p>
                 </div>
             </div>
         </section>
 
-        <!-- Contact Page -->
-        <section id="page-contact" class="page-section hidden py-24 px-6 max-w-7xl mx-auto w-full">
-            <div class="text-center mb-20 fade-in">
-                <h2 class="text-6xl font-black uppercase italic tracking-tighter text-white mb-6">Get in Touch</h2>
-                <p class="text-emerald-400 font-bold text-[10px] uppercase tracking-[0.4em]">We're here to help your next expedition</p>
-            </div>
-
-            <div class="grid lg:grid-cols-3 gap-12">
-                <div class="lg:col-span-1 space-y-8 fade-in">
-                    <div class="p-8 bg-emerald-950/40 rounded-3xl border border-white/5 shadow-xl">
-                        <div class="w-12 h-12 bg-emerald-500/20 rounded-2xl flex items-center justify-center text-emerald-400 text-xl mb-6">
-                            <i class="fa-solid fa-location-dot"></i>
-                        </div>
-                        <h4 class="text-white font-black uppercase text-xs mb-2 tracking-widest">Our Basecamp</h4>
-                        <p class="text-slate-400 text-sm">Vientiane, Lao PDR<br>By appointment only for physical viewing.</p>
-                    </div>
-
-                    <div class="p-8 bg-emerald-950/40 rounded-3xl border border-white/5 shadow-xl">
-                        <div class="w-12 h-12 bg-emerald-500/20 rounded-2xl flex items-center justify-center text-emerald-400 text-xl mb-6">
-                            <i class="fa-brands fa-whatsapp"></i>
-                        </div>
-                        <h4 class="text-white font-black uppercase text-xs mb-2 tracking-widest">Instant Support</h4>
-                        <p class="text-slate-400 text-sm mb-4">+856 20 5484 9393</p>
-                        <a href="https://wa.me/8562054849393" class="text-emerald-400 text-[10px] font-black uppercase tracking-widest border-b border-emerald-400/30 pb-1">Chat on WhatsApp</a>
-                    </div>
-
-                    <div class="p-8 bg-emerald-950/40 rounded-3xl border border-white/5 shadow-xl">
-                        <div class="w-12 h-12 bg-emerald-500/20 rounded-2xl flex items-center justify-center text-emerald-400 text-xl mb-6">
-                            <i class="fa-solid fa-clock"></i>
-                        </div>
-                        <h4 class="text-white font-black uppercase text-xs mb-2 tracking-widest">Operation Hours</h4>
-                        <p class="text-slate-400 text-sm">Mon - Sat: 09:00 - 18:00<br>Sunday: Exploring the Wild</p>
-                    </div>
+        <!-- Contact Page Content -->
+        <section id="page-contact" class="page-section hidden py-24 px-6 max-w-7xl mx-auto w-full text-center">
+            <h2 class="text-6xl font-black uppercase italic tracking-tighter text-white mb-16">Get in Touch</h2>
+            <div class="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto">
+                <div class="bg-white/5 p-12 rounded-[40px] border border-white/10">
+                    <i class="fa-brands fa-whatsapp text-4xl text-emerald-400 mb-6"></i>
+                    <h4 class="text-white font-bold uppercase text-xs mb-2 tracking-widest">WhatsApp Support</h4>
+                    <p class="text-slate-300">+856 20 5484 9393</p>
                 </div>
-
-                <div class="lg:col-span-2 bg-white/5 p-8 sm:p-12 rounded-[40px] border border-white/10 shadow-2xl fade-in">
-                    <form class="space-y-6" onsubmit="event.preventDefault(); alert('Message sent successfully!');">
-                        <div class="grid md:grid-cols-2 gap-6">
-                            <div class="space-y-2">
-                                <label class="text-[10px] font-black uppercase text-slate-500 tracking-widest ml-2">Name</label>
-                                <input type="text" required placeholder="Your full name" class="form-input">
-                            </div>
-                            <div class="space-y-2">
-                                <label class="text-[10px] font-black uppercase text-slate-500 tracking-widest ml-2">WhatsApp Number</label>
-                                <input type="text" required placeholder="+856 20 ..." class="form-input">
-                            </div>
-                        </div>
-                        <div class="space-y-2">
-                            <label class="text-[10px] font-black uppercase text-slate-500 tracking-widest ml-2">Subject</label>
-                            <select class="form-input appearance-none">
-                                <option class="bg-stone-900">Product Inquiry</option>
-                                <option class="bg-stone-900">Order Support</option>
-                                <option class="bg-stone-900">Camping Advice</option>
-                                <option class="bg-stone-900">Others</option>
-                            </select>
-                        </div>
-                        <div class="space-y-2">
-                            <label class="text-[10px] font-black uppercase text-slate-500 tracking-widest ml-2">Message</label>
-                            <textarea rows="4" required placeholder="How can we help you?" class="form-input"></textarea>
-                        </div>
-                        <button type="submit" class="w-full btn-adventure py-5 rounded-2xl text-white font-black uppercase text-xs tracking-[0.2em] shadow-xl">
-                            Transmit Message
-                        </button>
-                    </form>
+                <div class="bg-white/5 p-12 rounded-[40px] border border-white/10">
+                    <i class="fa-solid fa-location-dot text-4xl text-emerald-400 mb-6"></i>
+                    <h4 class="text-white font-bold uppercase text-xs mb-2 tracking-widest">Basecamp Location</h4>
+                    <p class="text-slate-300">Vientiane, Lao PDR<br>Nationwide Delivery Available</p>
                 </div>
             </div>
         </section>
 
-        <!-- Placeholder Sections -->
-        <section id="page-places" class="page-section hidden py-32 px-6 text-center text-white">
-            <h2 class="text-6xl font-black italic uppercase tracking-tighter mb-8">Adventure Spots</h2>
-            <p class="opacity-50 max-w-lg mx-auto italic">Curated camping locations around Laos, coming soon with full gallery support.</p>
+        <!-- Privacy Policy Content -->
+        <section id="page-privacy" class="page-section hidden py-24 px-6 max-w-4xl mx-auto w-full">
+            <h2 class="text-6xl font-black uppercase italic text-white mb-10">Privacy Policy</h2>
+            <div class="policy-text">
+                <p class="text-lg italic text-emerald-400 mb-8 font-bold">Your privacy is our priority at TheSale3.</p>
+                <h3>1. Data Collection</h3>
+                <p>We collect basic details like name and WhatsApp number only for order processing and delivery fulfillment.</p>
+                <h3>2. Third-Parties</h3>
+                <p>We share only necessary delivery info with local couriers (HAL, Anousith, etc.). We never sell your data.</p>
+            </div>
         </section>
 
-        <section id="page-blogs" class="page-section hidden py-32 px-6 text-center text-white">
-            <h2 class="text-6xl font-black italic uppercase tracking-tighter mb-8">Outdoor Journal</h2>
-            <p class="opacity-50 max-w-lg mx-auto italic">Expert trail guides and equipment reviews from the TheSale3 team.</p>
+        <!-- Terms Content -->
+        <section id="page-terms" class="page-section hidden py-24 px-6 max-w-4xl mx-auto w-full">
+            <h2 class="text-6xl font-black uppercase italic text-white mb-10">Terms of Service</h2>
+            <div class="policy-text">
+                <h3>1. Order Fulfillment</h3>
+                <p>Orders are confirmed only after stock validation and BCEL One transfer verification.</p>
+                <h3>2. Shipping</h3>
+                <p>TheSale3 is not liable for delays caused by third-party shipping services or weather conditions in remote areas.</p>
+            </div>
         </section>
     </main>
 
-    <!-- Detail Modal -->
     <div id="detailsModal" class="modal-overlay" onclick="if(event.target === this) window.closeDetails()">
         <div class="bg-white rounded-[40px] max-w-5xl w-[95%] mx-auto overflow-hidden shadow-2xl flex flex-col md:flex-row relative max-h-[90vh]">
-            <button onclick="window.closeDetails()" class="absolute top-6 right-6 bg-stone-100 w-12 h-12 rounded-full flex items-center justify-center text-stone-900 z-10 transition hover:bg-stone-200"><i class="fa-solid fa-xmark"></i></button>
-            
-            <div class="md:w-1/2 bg-stone-50 flex items-center justify-center p-10 overflow-hidden">
-                <img id="detailsImage" src="" class="max-w-full max-h-[500px] object-contain transition duration-500 hover:scale-105">
-            </div>
-            
+            <button onclick="window.closeDetails()" class="absolute top-6 right-6 bg-stone-100 w-12 h-12 rounded-full flex items-center justify-center text-stone-900 z-10"><i class="fa-solid fa-xmark"></i></button>
+            <div class="md:w-1/2 bg-stone-50 flex items-center justify-center p-10"><img id="detailsImage" src="" class="max-w-full max-h-[500px] object-contain"></div>
             <div class="md:w-1/2 p-10 sm:p-16 flex flex-col overflow-y-auto text-stone-900">
-                <div class="flex items-center gap-3 mb-6">
-                    <span id="detailsCategory" class="text-[10px] font-black text-emerald-600 uppercase tracking-[0.2em] bg-emerald-50 px-4 py-1.5 rounded-full">Category</span>
-                    <span id="detailsStatus" class="px-4 py-1.5 rounded-full border-2 text-[9px] font-black uppercase">Status</span>
-                </div>
-                
-                <h2 id="detailsTitle" class="text-4xl sm:text-5xl font-black mb-8 uppercase italic leading-[1.1] tracking-tighter">Product Name</h2>
-                
-                <div class="mb-12 space-y-2">
-                    <span id="detailsFakePrice" class="text-xl text-red-500 line-through font-black opacity-50 italic">0 LAK</span>
-                    <p id="detailsPrice" class="text-5xl font-black text-emerald-800 italic tracking-tighter leading-none">0 LAK</p>
-                </div>
-                
-                <div class="prose prose-stone mb-12">
-                    <h4 class="text-[10px] font-black uppercase tracking-widest text-stone-400 mb-4">Description</h4>
-                    <p id="detailsDesc" class="text-stone-500 text-base leading-relaxed font-medium">Description text goes here...</p>
-                </div>
-                
-                <div class="mt-auto flex flex-col gap-4">
-                    <button id="detailsAddBtn" class="w-full btn-adventure text-white py-5 rounded-2xl font-black uppercase text-[11px] tracking-widest shadow-lg">Add to Bag</button>
-                    <a href="https://wa.me/8562054849393" target="_blank" class="w-full border-2 border-emerald-600 text-emerald-600 py-4 rounded-2xl font-black uppercase text-[11px] tracking-widest flex items-center justify-center gap-3 hover:bg-emerald-50 transition">
-                        <i class="fa-brands fa-whatsapp text-lg"></i> Direct Inquiry
-                    </a>
-                </div>
+                <div class="flex items-center gap-3 mb-6"><span id="detailsCategory" class="text-[10px] font-black text-emerald-600 uppercase tracking-[0.2em] bg-emerald-50 px-4 py-1.5 rounded-full"></span><span id="detailsStatus" class="px-4 py-1.5 rounded-full border-2 text-[9px] font-black uppercase"></span></div>
+                <h2 id="detailsTitle" class="text-4xl font-black mb-8 uppercase italic leading-tight tracking-tighter"></h2>
+                <div class="mb-12 space-y-2"><span id="detailsFakePrice" class="text-xl text-red-500 line-through font-black opacity-50 italic"></span><p id="detailsPrice" class="text-5xl font-black text-emerald-800 italic leading-none"></p></div>
+                <div id="detailsDesc" class="text-stone-500 text-base leading-relaxed mb-12 prose"></div>
+                <button id="detailsAddBtn" class="w-full btn-adventure text-white py-5 rounded-2xl font-black uppercase text-[11px] shadow-lg">Add to Bag</button>
             </div>
         </div>
     </div>
 
-    <!-- Footer -->
     <footer class="bg-stone-900 pt-32 pb-20 px-8 text-center border-t border-white/5 text-white">
-        <div class="max-w-5xl mx-auto">
-            <h4 class="text-white font-black text-6xl italic uppercase mb-4 tracking-tighter">THESALE3</h4>
-            <p class="text-emerald-500 text-[11px] font-black uppercase tracking-[0.5em] mb-16">Outdoor Specialists Laos</p>
-            
-            <div class="flex justify-center gap-12 mb-20">
-                <a href="https://facebook.com/Clicktobuy333333333" target="_blank" class="text-white/20 hover:text-white transition transform hover:-translate-y-2"><i class="fa-brands fa-facebook text-4xl"></i></a>
-                <a href="https://tiktok.com/@thesale3camping" target="_blank" class="text-white/20 hover:text-white transition transform hover:-translate-y-2"><i class="fa-brands fa-tiktok text-4xl"></i></a>
-            </div>
-
-            <div class="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-16 text-[9px] font-black uppercase tracking-widest text-white/30 border-t border-white/5 pt-16">
-                <span>Vientiane, Laos</span>
-                <span class="hidden md:block">•</span>
-                <span>Established 2021</span>
-                <span class="hidden md:block">•</span>
-                <span onclick="window.handleAdminClick()" class="cursor-pointer hover:text-white">© TheSale3 Business</span>
-            </div>
+        <h4 class="font-black text-6xl italic uppercase mb-16 tracking-tighter">THESALE3</h4>
+        <div class="flex flex-wrap justify-center gap-x-8 gap-y-4 mb-16 text-[10px] font-black uppercase tracking-widest text-white/50">
+            <button onclick="window.switchPage('home')">Home</button>
+            <button onclick="window.switchPage('products')">Gear</button>
+            <button onclick="window.switchPage('about')">About</button>
+            <button onclick="window.switchPage('privacy')">Privacy</button>
+            <button onclick="window.switchPage('terms')">Terms</button>
         </div>
+        <div class="flex justify-center gap-12 mb-20">
+            <a href="https://facebook.com/Clicktobuy333333333" target="_blank" class="text-white/20 hover:text-white"><i class="fa-brands fa-facebook text-4xl"></i></a>
+            <a href="https://tiktok.com/@thesale3camping" target="_blank" class="text-white/20 hover:text-white"><i class="fa-brands fa-tiktok text-4xl"></i></a>
+        </div>
+        <p onclick="window.handleAdminClick()" class="text-[9px] font-black uppercase tracking-widest text-white/30 cursor-pointer hover:text-white">© TheSale3 Business Operations 2026</p>
     </footer>
 
-    <!-- Cart Sidebar -->
     <div id="cartModal" class="modal-overlay" onclick="if(event.target === this) document.getElementById('cartModal').style.display='none'">
-        <div class="bg-white h-full max-w-md w-full ml-auto flex flex-col p-10 shadow-2xl text-stone-900 translate-x-0 transition-transform">
-            <div class="flex justify-between items-center mb-12">
-                <h3 class="text-2xl font-black uppercase italic tracking-tighter">My Bag</h3>
-                <button onclick="document.getElementById('cartModal').style.display='none'" class="text-stone-400 hover:text-stone-900 transition"><i class="fa-solid fa-xmark text-xl"></i></button>
-            </div>
-            
-            <div id="cartItems" class="flex-grow overflow-y-auto space-y-6 no-scrollbar">
-                <!-- Cart items will render here -->
-            </div>
-            
+        <div class="bg-white h-full max-w-md w-full ml-auto flex flex-col p-10 shadow-2xl text-stone-900">
+            <h3 class="text-2xl font-black uppercase italic tracking-tighter mb-12">My Bag</h3>
+            <div id="cartItems" class="flex-grow overflow-y-auto space-y-6 no-scrollbar"></div>
             <div class="pt-10 border-t border-stone-100 mt-10">
-                <div class="flex justify-between mb-8">
-                    <span class="font-black text-stone-400 uppercase text-[10px]">Total Order</span>
-                    <span id="cartTotal" class="text-3xl font-black text-emerald-800 italic">0 LAK</span>
-                </div>
-                <button onclick="window.checkoutWhatsApp()" class="w-full bg-[#25D366] text-white py-5 rounded-2xl font-black uppercase text-[11px] tracking-widest shadow-lg hover:brightness-110 transition">WhatsApp Checkout</button>
+                <div class="flex justify-between mb-8"><span class="font-black text-stone-400 uppercase text-[10px]">Total Order</span><span id="cartTotal" class="text-3xl font-black text-emerald-800 italic"></span></div>
+                <button onclick="window.checkoutWhatsApp()" class="w-full bg-[#25D366] text-white py-5 rounded-2xl font-black uppercase text-[11px] shadow-lg">WhatsApp Checkout</button>
             </div>
         </div>
     </div>
 
-    <!-- Data Logic -->
     <script type="module">
         const SHEET_ID = '1N09HDxPd3zEDqxHR-knpH2MP_fq_XkLJZJ4FdCAYEG0';
-        const CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=0`;
+        const CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=0&t=${Date.now()}`;
 
         function parseCSV(text) {
             const rows = [];
@@ -799,13 +610,11 @@
             for (let line of lines) {
                 if (!line.trim()) continue;
                 const result = [];
-                let current = '';
-                let inQuotes = false;
+                let current = '', inQuotes = false;
                 for (let i = 0; i < line.length; i++) {
-                    const char = line[i];
-                    if (char === '"') inQuotes = !inQuotes;
-                    else if (char === ',' && !inQuotes) { result.push(current.trim()); current = ''; }
-                    else current += char;
+                    if (line[i] === '"') inQuotes = !inQuotes;
+                    else if (line[i] === ',' && !inQuotes) { result.push(current.trim()); current = ''; }
+                    else current += line[i];
                 }
                 result.push(current.trim());
                 rows.push(result);
@@ -816,11 +625,8 @@
         window.loadData = async () => {
             try {
                 window.state.isLoading = true;
-                window.renderProducts([]); // Show skeletons
-                
                 const res = await fetch(CSV_URL);
                 const rows = parseCSV(await res.text()).slice(1);
-                
                 window.state.products = rows.map((cols, i) => ({
                     id: 'p-' + i,
                     name: cols[1],
@@ -828,18 +634,16 @@
                     category: cols[3] || 'General',
                     img: cols[4] ? (cols[4].startsWith('http') ? cols[4] : `https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/${cols[4]}`) : '',
                     status: cols[5] || 'In Stock',
-                    desc: cols[6] || 'High-quality outdoor equipment from TheSale3.'
-                })).filter(x => x.name);
+                    desc: cols[6] || 'High-quality outdoor equipment.'
+                }))
+                // EXCLUDE SPECIFIC ERROR ROW AS REQUESTED
+                .filter(x => x.name && x.name.length > 2 && x.name.trim().toUpperCase() !== '60L: 700X370X240MM');
                 
                 window.state.isLoading = false;
                 window.applyProductFilters();
                 window.renderHomePreview();
-            } catch (e) {
-                console.error("Data Load Error:", e);
-                window.state.isLoading = false;
-            }
+            } catch (e) { console.error("Data Load Error:", e); window.state.isLoading = false; }
         };
-
         window.loadData();
     </script>
 </body>
