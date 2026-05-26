@@ -194,33 +194,64 @@
             isLoading: true
         };
 
+        // Reordered: the 4th picture (phadang-camping) is now the first photo
         const heroImages = [
+            'https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/phadang-camping.jpg',
             'https://i.postimg.cc/FKL5Q4JW/489751506-1424454392283349-8154752889413656228-n.jpg',
             'https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/donkoksa-camping.jpg',
-            'https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/nammung3-camping.jpg',
-            'https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/phadang-camping.jpg'
+            'https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/nammung3-camping.jpg'
         ];
         
-        const categories = ["All", "ເຕັ້ນTents", "ເຄື່ອງຄົວCooking", "ອຸປະກອນກາເຟCoffee", "Lighting", "ເຄື່ອງນອນSleeping", "ເຟີນິເຈີ້Furniture", "ກະເປົາBackpack", "ເກີບShoes", "ເຄື່ອງນຸ່ງCloth", "ແວ່ນຕາGlasses", "ພາວເວີ້ແບ້ງPowerbank", "ອຸປະກອນເອົາໂຕລອດSurvival", "ອຸປະກອນເສີມລົດຈັກ"];
+        const categories = ["All", "ເຕັ້ນTents", "ເຄື່ອງຄົວCooking", "ອຸປະກອນກາເຟCoffee", "Lighting", "ເຄື່ອງນອນSleeping", "ເຟີນິເຈີ້Furniture", "ກະເປົາBackpack", "ໄມ້ເທົ້າຍ່າງປ່າPoles", "ເກີບShoes", "ເຄື່ອງນຸ່ງCloth", "ແວ່ນຕາGlasses", "ພາວເວີ້ແບ້ງPowerbank", "ອຸປະກອນເອົາໂຕລອດSurvival", "ອຸປະກອນເສີມລົດຈັກ"];
         const ADMIN_SHEET_URL = 'https://docs.google.com/spreadsheets/d/1N09HDxPd3zEDqxHR-knpH2MP_fq_XkLJZJ4FdCAYEG0/edit';
 
         window.initHeroSlider = () => {
             const container = document.getElementById('heroContainer');
             if(!container) return;
             let currentIdx = 0;
+            
+            // Set up layered slides
             const layers = [document.createElement('div'), document.createElement('div')];
             layers.forEach(l => { l.className = 'hero-bg opacity-0'; container.prepend(l); });
+            
+            const textContainer = container.querySelector('.absolute.inset-0.z-10');
+            if (textContainer) {
+                textContainer.style.transition = 'opacity 1.5s cubic-bezier(0.16, 1, 0.3, 1)';
+            }
+
             const updateHero = () => {
                 const prevLayer = layers[currentIdx % 2];
-                currentIdx = (currentIdx + 1) % heroImages.length;
-                const nextLayer = layers[currentIdx % 2];
+                const nextLayer = layers[(currentIdx + 1) % 2];
+
                 nextLayer.style.backgroundImage = `linear-gradient(to bottom, rgba(4, 47, 46, 0.2), rgba(2, 44, 34, 0.9)), url('${heroImages[currentIdx]}')`;
                 nextLayer.style.opacity = 1;
                 nextLayer.classList.add('hero-active');
+                
                 prevLayer.style.opacity = 0;
                 prevLayer.classList.remove('hero-active');
-                document.querySelectorAll('.hero-text-animate').forEach(t => { t.style.opacity = 1; t.style.transform = 'translateY(0)'; });
+                
+                // Show text ONLY on the second slide (which is the Facebook camp photo, index 1)
+                if (currentIdx === 1) {
+                    if (textContainer) {
+                        textContainer.style.opacity = '1';
+                        textContainer.style.pointerEvents = 'auto';
+                        
+                        document.querySelectorAll('.hero-text-animate').forEach(t => { 
+                            t.style.opacity = 1; 
+                            t.style.transform = 'translateY(0)'; 
+                        });
+                    }
+                } else {
+                    if (textContainer) {
+                        textContainer.style.opacity = '0';
+                        textContainer.style.pointerEvents = 'none';
+                    }
+                }
+                
+                // Progress index
+                currentIdx = (currentIdx + 1) % heroImages.length;
             };
+            
             updateHero();
             setInterval(updateHero, 6000);
         };
