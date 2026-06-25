@@ -100,6 +100,20 @@
             border-color: var(--emerald-vibrant);
             background: #ffffff;
         }
+
+        /* Journal/Blog Premium Adjustments */
+        .card-journal {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 32px;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .card-journal:hover {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: rgba(16, 185, 129, 0.4);
+            transform: translateY(-8px);
+            box-shadow: 0 30px 50px -15px rgba(2, 44, 34, 0.6);
+        }
         
         /* Skeleton Animation */
         @keyframes shimmer {
@@ -185,16 +199,147 @@
 
     <script>
         window.state = {
-            products: [],
-            places: [],
-            blogs: [],
+            products: [
+                // Premium Safe Fallbacks so Homepage never renders blank during load
+                {
+                    id: 'p-default-1',
+                    name: 'Premium Family Dome Tent 4-Person (TheSale3)',
+                    price: 1850000,
+                    category: 'ເຕັ້ນTents',
+                    img: 'https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/phadang-camping.jpg',
+                    status: 'In Stock',
+                    desc: 'Double-layered waterproof dome tent engineered to withstand mountain rains and high-altitude wilderness winds.'
+                },
+                {
+                    id: 'p-default-2',
+                    name: 'Ultralight Outdoor Wilderness Gas Burner',
+                    price: 320000,
+                    category: 'ເຄື່ອງຄົວCooking',
+                    img: 'https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/donkoksa-camping.jpg',
+                    status: 'In Stock',
+                    desc: 'Compact electronic ignition alloy stove with micro adjustment safety controls.'
+                },
+                {
+                    id: 'p-default-3',
+                    name: 'Backcountry Expedition Backpack 60L',
+                    price: 890000,
+                    category: 'ກະເປົາBackpack',
+                    img: 'https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/nammung3-camping.jpg',
+                    status: 'In Stock',
+                    desc: 'Ergonomic multi-compartment pack with custom load balancer straps and high waterproof covers.'
+                },
+                {
+                    id: 'p-default-4',
+                    name: 'Rechargeable Warm Glow Camping Lantern',
+                    price: 240000,
+                    category: 'Lighting',
+                    img: 'https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/phadang-camping.jpg',
+                    status: 'In Stock',
+                    desc: 'Dimmable high-capacity warm light setting for tents, picnic spots, and outdoor emergency paths.'
+                }
+            ],
+            places: [
+                {
+                    id: 'spot-1',
+                    title: 'Phou Khoun Cloud Camp (ພູຄູນ ຊົມໝອກ)',
+                    province: 'Luang Prabang',
+                    elevation: '1,400m',
+                    difficulty: 'Medium / SUV Accessible',
+                    img: 'image_cd7fa5.jpg',
+                    desc: 'Camp above a breathtaking sea of clouds on mountain ridges connecting Vientiane and Luang Prabang.',
+                    amenities: ['Hot Showers', 'Tent Platforms', '4G Mobile Signal', 'Local Cafe nearby'],
+                    mapLink: 'https://maps.google.com/?q=Phou+Khoun',
+                    content: `
+                        <p class="mb-4">Phou Khoun is spectacular for mountain lovers who want to witness rolling clouds without high-intensity hiking. Setup your dome tent directly on premium wooden platforms and enjoy cool breeze reaching down to 12°C during winter months.</p>
+                        <h4 class="text-amber-400 font-bold mt-6 mb-2">Backcountry Tips</h4>
+                        <p class="mb-4">Ensure you bring high thermal sleep gear (such as a premium sleeping bag or insulated mat) as high altitude winds drop temperatures rapidly after dusk.</p>
+                    `
+                },
+                {
+                    id: 'spot-2',
+                    title: 'Nam Lik Riverside Wilderness (ແຄ້ມປິ້ງ ນໍ້າລີກ)',
+                    province: 'Vientiane Province',
+                    elevation: '180m',
+                    difficulty: 'Easy Family Camping',
+                    img: 'image_cd87fe.jpg',
+                    desc: 'Relax directly beside pristine clear rapids of the Nam Lik river. Perfect for a peaceful weekend camp kitchen setup.',
+                    amenities: ['Fresh Spring Water', 'Fire Pit Rings', 'Car Access', 'Kayaking Options'],
+                    mapLink: 'https://maps.google.com/?q=Nam+Lik+River',
+                    content: `
+                        <p class="mb-4">Tuck away along the gentle banks of Nam Lik. This site provides shaded camping spots beneath mature riverbank canopies. Perfect for setting up your hammocks, folding chairs, and trying out your backcountry drip coffee filters.</p>
+                        <h4 class="text-amber-400 font-bold mt-6 mb-2">Cooking Setup</h4>
+                        <p class="mb-4">There is plenty of driftwood along the river gravel. Combine with an ultralight gas burner for quick brews and slow cast iron campfire dinners.</p>
+                    `
+                },
+                {
+                    id: 'spot-3',
+                    title: 'Pha Dang Mountain Ridge Vista (ຜາແດງ ວັງວຽງ)',
+                    province: 'Vientiane Province',
+                    elevation: '650m',
+                    difficulty: 'Challenging Trail Hike',
+                    img: 'IMG_0152.jpg',
+                    desc: 'Hike up to one of the most famous limestone viewpoints in Vang Vieng to witness dramatic sunset shadows.',
+                    amenities: ['Lookout Shelter', 'Breathtaking 360° Views', 'No Power Grid'],
+                    mapLink: 'https://maps.google.com/?q=Pha+Ngem+Viewpoint+Vang+Vieng',
+                    content: `
+                        <p class="mb-4">Pha Dang viewpoint is legendary. The steep trail rewards adventurers with a full vista of Vang Vieng\'s emerald-green rice paddies and jagged limestone peaks. This is a pure wild bivouac setup spot for hikers looking to pack exceptionally light.</p>
+                    `
+                },
+                {
+                    id: 'spot-4',
+                    title: 'Phou Kabo Pine Forest Camp (ຍອດພູກະໂບ້)',
+                    province: 'Xieng Khouang',
+                    elevation: '1,800m',
+                    difficulty: 'Extreme 4x4 Off-Road',
+                    img: 'image_cde979.jpg',
+                    desc: 'An extraordinary pine-covered mountain ridge high above northern Laos, perfect for deep adventure expeditions.',
+                    amenities: ['Deep Wild Pine Forest', 'Stunning night sky stars', 'Remote Spot', 'No Signal'],
+                    mapLink: 'https://maps.google.com/?q=Xieng+Khouang',
+                    content: `
+                        <p class="mb-4">For the true off-road overland enthusiast, Phou Kabo offers unparalleled isolation. Towering pines frame the mountain ridges, providing an Alpine-like atmosphere hidden deep inside northern Lao mountains. Freezing nights, clear skies, and absolute quiet await those who undertake the expedition.</p>
+                    `
+                }
+            ],
+            blogs: [
+                {
+                    id: 'blog-1',
+                    category: 'Expedition',
+                    date: 'June 2026',
+                    readTime: '5 Min Read',
+                    author: 'Mou Team',
+                    title: 'Surviving the Misty Monsoons of Phou Khoun Wilderness',
+                    desc: 'A deep look into navigating heavy rainfall paths, maintaining structural integrity on quick-setup shelters, and managing mountain moisture levels safely.',
+                    img: 'image_cd7fa5.jpg',
+                    content: `
+                        <p class="mb-4">Phou Khoun is legendary for its rolling sea of clouds, but when the monsoon season hits, those beautiful mist trails quickly transform into torrential downpours and unpredictable mountain wind tunnels. Undertaking an expedition here requires a shift in mindset—from fair-weather recreation to absolute moisture defense.</p>
+                        <h4 class="text-emerald-400 font-bold text-lg mt-6 mb-2">1. Pitching the Perfect Shelter under Pressure</h4>
+                        <p class="mb-4">During monsoons, wind shifts up to 45 degrees in minutes. We recommend a sturdy dome structure with heavy aluminum pole segments. When setting up under heavy downpours, pitch your footprint and rainfly together first if your tent model supports outer-first setup. This guarantees your internal mesh sleeping space remains bone dry.</p>
+                        <blockquote class="border-l-4 border-emerald-500 pl-4 py-1 italic my-4 text-emerald-300">"Never assume your pitch site is safe from pooling. Look for natural runoffs and keep your entry door facing opposite of the dominant mountain winds."</blockquote>
+                    `
+                },
+                {
+                    id: 'blog-2',
+                    category: 'Gear Guide',
+                    date: 'May 2026',
+                    readTime: '8 Min Read',
+                    author: 'Expedition Crew',
+                    title: 'The Ultimate Camping Cookware & Fuel Breakdown',
+                    desc: 'From minimalist titanium wood burners to heavy-duty cast irons along river banks. Learn to optimize pack weight without sacrificing camp meal performance.',
+                    img: 'image_cd87fe.jpg',
+                    content: `
+                        <p class="mb-4">A hot camp meal is not just about nutrition; it is a vital psychological boost after a long trek along the rugged trails of Laos. However, choosing between minimalist titanium setups and versatile cooking systems is an art form every adventurer should master.</p>
+                        <h4 class="text-emerald-400 font-bold text-lg mt-6 mb-2">Titanium vs. Hard-Anodized Aluminum</h4>
+                        <p class="mb-4">Titanium is the absolute king of ultralight backpacking. It is extremely strong, resists corrosion, and weighs next to nothing. However, it disperses heat poorly, leading to hot spots.</p>
+                    `
+                }
+            ],
             cart: JSON.parse(localStorage.getItem('thesale3_cart') || '[]'),
             currentCategory: 'All',
             activePage: 'home',
             isLoading: true
         };
 
-        // Reordered: the 4th picture (phadang-camping) is now the first photo
+        // Restored online high-resolution camping images for the background hero slideshow
         const heroImages = [
             'https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/phadang-camping.jpg',
             'https://i.postimg.cc/FKL5Q4JW/489751506-1424454392283349-8154752889413656228-n.jpg',
@@ -210,7 +355,6 @@
             if(!container) return;
             let currentIdx = 0;
             
-            // Set up layered slides
             const layers = [document.createElement('div'), document.createElement('div')];
             layers.forEach(l => { l.className = 'hero-bg opacity-0'; container.prepend(l); });
             
@@ -223,32 +367,24 @@
                 const prevLayer = layers[currentIdx % 2];
                 const nextLayer = layers[(currentIdx + 1) % 2];
 
-                nextLayer.style.backgroundImage = `linear-gradient(to bottom, rgba(4, 47, 46, 0.2), rgba(2, 44, 34, 0.9)), url('${heroImages[currentIdx]}')`;
+                nextLayer.style.backgroundImage = `linear-gradient(to bottom, rgba(4, 47, 46, 0.35), rgba(2, 44, 34, 0.95)), url('${heroImages[currentIdx]}')`;
                 nextLayer.style.opacity = 1;
                 nextLayer.classList.add('hero-active');
                 
                 prevLayer.style.opacity = 0;
                 prevLayer.classList.remove('hero-active');
                 
-                // Show text ONLY on the second slide (which is the Facebook camp photo, index 1)
-                if (currentIdx === 1) {
-                    if (textContainer) {
-                        textContainer.style.opacity = '1';
-                        textContainer.style.pointerEvents = 'auto';
-                        
-                        document.querySelectorAll('.hero-text-animate').forEach(t => { 
-                            t.style.opacity = 1; 
-                            t.style.transform = 'translateY(0)'; 
-                        });
-                    }
-                } else {
-                    if (textContainer) {
-                        textContainer.style.opacity = '0';
-                        textContainer.style.pointerEvents = 'none';
-                    }
+                // Show core text with excellent high contrast on ALL transitions so homepage never appears blank
+                if (textContainer) {
+                    textContainer.style.opacity = '1';
+                    textContainer.style.pointerEvents = 'auto';
+                    
+                    document.querySelectorAll('.hero-text-animate').forEach(t => { 
+                        t.style.opacity = 1; 
+                        t.style.transform = 'translateY(0)'; 
+                    });
                 }
                 
-                // Progress index
                 currentIdx = (currentIdx + 1) % heroImages.length;
             };
             
@@ -266,6 +402,8 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
             if (pageId === 'home') window.renderHomePreview();
             if (pageId === 'products') window.applyProductFilters(); 
+            if (pageId === 'blogs') window.renderBlogs();
+            if (pageId === 'places') window.renderPlaces();
             if (updateHash) {
                 let hash = `#${pageId}`;
                 if (pageId === 'products' && window.state.currentCategory !== 'All') {
@@ -294,7 +432,7 @@
             const container = document.getElementById('categoryFilter');
             if(!container) return;
             container.innerHTML = categories.map(cat => `
-                <button onclick="window.setCategory('${cat}')" class="category-pill ${window.state.currentCategory.toLowerCase() === cat.toLowerCase() ? 'active' : ''} px-6 py-3 rounded-2xl text-[10px] font-bold uppercase tracking-widest">
+                <button onclick="window.setCategory('${cat}')" class="category-pill ${window.state.currentCategory.toLowerCase() === cat.toLowerCase() ? 'active' : ''} px-6 py-3 rounded-2xl text-[10px] font-bold uppercase tracking-widest font-sans">
                     ${cat}
                 </button>
             `).join('');
@@ -321,12 +459,12 @@
         window.renderProducts = (items) => {
             const grid = document.getElementById('productGrid');
             if(!grid) return;
-            if(window.state.isLoading) {
+            if(window.state.isLoading && window.state.products.length <= 4) {
                 grid.innerHTML = Array(8).fill(0).map(() => `<div class="h-[400px] rounded-[32px] skeleton opacity-20"></div>`).join('');
                 return;
             }
             if (items.length === 0) {
-                grid.innerHTML = `<div class="col-span-full py-20 text-center"><p class="opacity-50 italic font-black uppercase text-[10px]">No products found.</p></div>`;
+                grid.innerHTML = `<div class="col-span-full py-20 text-center"><p class="opacity-50 italic font-black uppercase text-[10px] tracking-wider">No products found.</p></div>`;
                 return;
             }
             grid.innerHTML = items.map(p => {
@@ -334,7 +472,7 @@
                 return `
                 <div class="card-modern group p-6 sm:p-8 flex flex-col fade-in cursor-pointer" onclick="window.openDetails('${p.id}')">
                     <div class="h-56 rounded-[24px] bg-emerald-50 overflow-hidden mb-6 relative">
-                        <img src="${p.img}" class="w-full h-full object-cover transition duration-700 group-hover:scale-110" loading="lazy">
+                        <img src="${p.img}" class="w-full h-full object-cover transition duration-700 group-hover:scale-110" loading="lazy" onerror="this.src='https://placehold.co/400x300/022c22/ffffff?text=TheSale3+Gear'">
                         <span class="absolute top-4 right-4 text-[9px] font-black uppercase px-3 py-1.5 rounded-full ${p.status?.toLowerCase().includes('pre') ? 'status-pre-order' : 'status-in-stock shadow-sm'}">${p.status}</span>
                     </div>
                     <div class="flex items-center gap-2 mb-2">
@@ -360,7 +498,7 @@
                 grid.innerHTML = items.map(p => `
                 <div class="card-modern group p-6 sm:p-8 flex flex-col fade-in cursor-pointer" onclick="window.openDetails('${p.id}')">
                     <div class="h-56 rounded-[24px] bg-emerald-50 overflow-hidden mb-6 relative">
-                        <img src="${p.img}" class="w-full h-full object-cover transition duration-700 group-hover:scale-110" loading="lazy">
+                        <img src="${p.img}" class="w-full h-full object-cover transition duration-700 group-hover:scale-110" loading="lazy" onerror="this.src='https://placehold.co/400x300/022c22/ffffff?text=TheSale3+Gear'">
                     </div>
                     <h3 class="font-black text-lg text-emerald-950 mb-3 flex-grow uppercase italic leading-tight">${p.name}</h3>
                     <div class="mt-auto pt-4 border-t border-emerald-50">
@@ -369,6 +507,102 @@
                     </div>
                 </div>`).join('');
             }
+        };
+
+        window.renderPlaces = () => {
+            const grid = document.getElementById('placesGrid');
+            if(!grid) return;
+            if (window.state.places.length === 0) {
+                grid.innerHTML = `<div class="col-span-full py-20 text-center"><p class="opacity-50 italic font-black uppercase text-[10px]">No backcountry spots found.</p></div>`;
+                return;
+            }
+            grid.innerHTML = window.state.places.map(p => `
+                <article onclick="window.openPlaceDetails('${p.id}')" class="card-journal group flex flex-col overflow-hidden h-full cursor-pointer">
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="${p.img}" class="w-full h-full object-cover transition duration-700 group-hover:scale-105" alt="${p.title}" onerror="this.src='https://placehold.co/600x400/022c22/ffffff?text=TheSale3+Expedition'">
+                        <span class="absolute bottom-4 left-4 bg-amber-500 text-stone-950 text-[9px] font-black uppercase tracking-widest px-3 py-1.5 rounded-xl shadow-md font-sans">${p.province}</span>
+                    </div>
+                    <div class="p-8 flex flex-col flex-grow">
+                        <div class="flex items-center gap-4 text-slate-400 text-[10px] uppercase font-bold mb-4 tracking-widest">
+                            <span><i class="fa-solid fa-mountain text-emerald-400 mr-1.5"></i> ${p.elevation}</span>
+                            <span><i class="fa-solid fa-gauge-simple-high text-emerald-400 mr-1.5"></i> ${p.difficulty}</span>
+                        </div>
+                        <h3 class="text-xl font-black text-white group-hover:text-emerald-400 transition mb-4 uppercase italic tracking-tight leading-snug">${p.title}</h3>
+                        <p class="text-slate-400 text-xs leading-relaxed mb-6 flex-grow">${p.desc}</p>
+                        <div class="pt-6 border-t border-white/5 mt-auto flex items-center justify-between">
+                            <span class="text-emerald-400 text-[10px] font-black uppercase tracking-widest group-hover:translate-x-2 transition duration-300 font-sans">Explore Spot Details <i class="fa-solid fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </article>
+            `).join('');
+        };
+
+        window.openPlaceDetails = (id) => {
+            const p = window.state.places.find(x => x.id === id);
+            if(!p) return;
+            document.getElementById('placeModalImg').src = p.img;
+            document.getElementById('placeModalProvince').innerText = p.province;
+            document.getElementById('placeModalTitle').innerText = p.title;
+            document.getElementById('placeModalElevation').innerText = p.elevation;
+            document.getElementById('placeModalDifficulty').innerText = p.difficulty;
+            document.getElementById('placeModalAmenities').innerHTML = p.amenities.map(amenity => `
+                <span class="bg-white/5 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-wider text-slate-300 flex items-center gap-1.5 border border-white/5 font-sans">
+                    <i class="fa-solid fa-circle-check text-emerald-400"></i> ${amenity}
+                </span>
+            `).join('');
+            document.getElementById('placeModalBody').innerHTML = p.content;
+            document.getElementById('placeModalMapBtn').onclick = () => window.open(p.mapLink, '_blank');
+            document.getElementById('placeModal').style.display = 'flex';
+        };
+
+        window.closePlace = () => {
+            document.getElementById('placeModal').style.display = 'none';
+        };
+
+        window.renderBlogs = () => {
+            const grid = document.getElementById('blogGrid');
+            if(!grid) return;
+            if (window.state.blogs.length === 0) {
+                grid.innerHTML = `<div class="col-span-full py-20 text-center"><p class="opacity-50 italic font-black uppercase text-[10px]">No stories found.</p></div>`;
+                return;
+            }
+            grid.innerHTML = window.state.blogs.map(b => `
+                <article onclick="window.openBlog('${b.id}')" class="card-journal group flex flex-col overflow-hidden h-full cursor-pointer">
+                    <div class="h-64 overflow-hidden relative">
+                        <img src="${b.img}" class="w-full h-full object-cover transition duration-700 group-hover:scale-105" alt="${b.title}" onerror="this.src='https://placehold.co/600x400/022c22/ffffff?text=TheSale3+Adventure'">
+                        <span class="absolute bottom-4 left-4 bg-emerald-500 text-stone-950 text-[9px] font-black uppercase tracking-widest px-3 py-1.5 rounded-xl shadow-md font-sans">${b.category}</span>
+                    </div>
+                    <div class="p-8 flex flex-col flex-grow">
+                        <div class="flex items-center gap-4 text-slate-400 text-[10px] uppercase font-bold mb-4 tracking-widest">
+                            <span><i class="fa-regular fa-calendar-days text-emerald-400 mr-1.5"></i> ${b.date}</span>
+                            <span><i class="fa-regular fa-clock text-emerald-400 mr-1.5"></i> ${b.readTime}</span>
+                        </div>
+                        <h3 class="text-xl font-black text-white group-hover:text-emerald-400 transition mb-4 uppercase italic tracking-tight leading-snug">${b.title}</h3>
+                        <p class="text-slate-400 text-xs leading-relaxed mb-6 flex-grow">${b.desc}</p>
+                        <div class="pt-6 border-t border-white/5 mt-auto flex items-center justify-between">
+                            <span class="text-[10px] font-black text-white/50 uppercase tracking-widest"><i class="fa-regular fa-user text-emerald-400 mr-1.5"></i> By ${b.author}</span>
+                            <span class="text-emerald-400 text-[10px] font-black uppercase tracking-widest group-hover:translate-x-2 transition duration-300 font-sans">Read Essay <i class="fa-solid fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </article>
+            `).join('');
+        };
+
+        window.openBlog = (blogId) => {
+            const b = window.state.blogs.find(x => x.id === blogId);
+            if(!b) return;
+            document.getElementById('blogModalImg').src = b.img;
+            document.getElementById('blogModalTag').innerText = b.category;
+            document.getElementById('blogModalTitle').innerText = b.title;
+            document.getElementById('blogModalDate').innerText = b.date;
+            document.getElementById('blogModalTime').innerText = b.readTime;
+            document.getElementById('blogModalAuthor').innerText = b.author;
+            document.getElementById('blogModalBody').innerHTML = b.content;
+            document.getElementById('blogModal').style.display = 'flex';
+        };
+
+        window.closeBlog = () => {
+            document.getElementById('blogModal').style.display = 'none';
         };
 
         window.addToCart = (id) => {
@@ -413,13 +647,13 @@
                 let total = 0;
                 container.innerHTML = window.state.cart.map(item => {
                     total += item.price * item.qty;
-                    return `<div class="flex gap-4 p-4 bg-emerald-50 rounded-2xl text-emerald-950 items-center">
-                        <img src="${item.img}" class="w-12 h-12 rounded-xl object-cover">
+                    return `<div class="flex gap-4 p-4 bg-emerald-50 rounded-2xl text-emerald-950 items-center border border-emerald-100 font-sans">
+                        <img src="${item.img}" class="w-12 h-12 rounded-xl object-cover" onerror="this.src='https://placehold.co/100x100/022c22/ffffff?text=TheSale3'">
                         <div class="flex-grow"><h4 class="font-black text-[10px] uppercase leading-tight">${item.name}</h4><p class="text-emerald-700 font-bold text-[9px]">${item.price.toLocaleString()} LAK</p></div>
                         <div class="flex items-center gap-2">
-                            <button onclick="window.updateQty('${item.id}', -1)" class="w-6 h-6 rounded-lg bg-white border border-emerald-200 flex items-center justify-center text-xs"><i class="fa-solid fa-minus"></i></button>
+                            <button onclick="window.updateQty('${item.id}', -1)" class="w-6 h-6 rounded-lg bg-white border border-emerald-200 flex items-center justify-center text-xs text-emerald-900"><i class="fa-solid fa-minus"></i></button>
                             <span class="font-black text-xs w-4 text-center">${item.qty}</span>
-                            <button onclick="window.updateQty('${item.id}', 1)" class="w-6 h-6 rounded-lg bg-white border border-emerald-200 flex items-center justify-center text-xs"><i class="fa-solid fa-plus"></i></button>
+                            <button onclick="window.updateQty('${item.id}', 1)" class="w-6 h-6 rounded-lg bg-white border border-emerald-200 flex items-center justify-center text-xs text-emerald-900"><i class="fa-solid fa-plus"></i></button>
                             <button onclick="window.removeFromCart('${item.id}')" class="ml-2 text-rose-500"><i class="fa-solid fa-trash-can text-sm"></i></button>
                         </div>
                     </div>`;
@@ -460,17 +694,169 @@
 
         window.closeDetails = () => document.getElementById('detailsModal').style.display = 'none';
 
+        window.showToast = (message, isError = false) => {
+            const container = document.getElementById('toastContainer');
+            if (!container) return;
+            const toast = document.createElement('div');
+            toast.className = `flex items-center gap-3 px-6 py-4 rounded-2xl shadow-2xl border transition-all duration-500 transform translate-y-10 opacity-0 ${isError ? 'bg-red-950 border-red-500 text-red-200' : 'bg-emerald-950 border-emerald-500 text-emerald-200'}`;
+            toast.innerHTML = `<i class="fa-solid ${isError ? 'fa-circle-exclamation text-red-400' : 'fa-circle-check text-emerald-400'}"></i> <span class="font-black uppercase tracking-wider text-[10px]">${message}</span>`;
+            container.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.classList.remove('translate-y-10', 'opacity-0');
+            }, 50);
+
+            setTimeout(() => {
+                toast.classList.add('translate-y-10', 'opacity-0');
+                setTimeout(() => toast.remove(), 500);
+            }, 4000);
+        };
+
         window.handleAdminClick = () => {
             let adminClicks = parseInt(sessionStorage.getItem('admin_clicks') || '0') + 1;
             if (adminClicks === 5) {
                 sessionStorage.setItem('admin_clicks', '0');
-                const pass = prompt("Access Key:");
-                if (pass === "Mou54849393") window.open(ADMIN_SHEET_URL, '_blank');
-            } else sessionStorage.setItem('admin_clicks', adminClicks.toString());
+                document.getElementById('adminAuthModal').style.display = 'flex';
+            } else {
+                sessionStorage.setItem('admin_clicks', adminClicks.toString());
+            }
             setTimeout(() => sessionStorage.setItem('admin_clicks', '0'), 3000);
         };
 
-        document.addEventListener('DOMContentLoaded', () => { window.initHeroSlider(); window.updateCartCount(); window.handleRouting(); window.addEventListener('hashchange', window.handleRouting); });
+        window.closeAdminAuth = () => {
+            document.getElementById('adminAuthModal').style.display = 'none';
+            document.getElementById('adminPasswordInput').value = '';
+        };
+
+        window.submitAdminAuth = () => {
+            const pass = document.getElementById('adminPasswordInput').value;
+            if (pass === "Mou54849393") {
+                window.closeAdminAuth();
+                window.openAdminPortal();
+            } else {
+                window.showToast("Access Denied: Incorrect Password", true);
+            }
+        };
+
+        // Admin Portal Page States
+        window.openAdminPortal = () => {
+            document.getElementById('adminPortal').style.display = 'flex';
+            window.renderAdminBlogsList();
+            window.loadSettingsToForm();
+        };
+
+        window.closeAdminPortal = () => {
+            document.getElementById('adminPortal').style.display = 'none';
+        };
+
+        window.switchAdminTab = (tab) => {
+            document.querySelectorAll('.admin-tab-btn').forEach(btn => btn.classList.remove('bg-emerald-500', 'text-stone-950'));
+            document.querySelectorAll('.admin-tab-btn').forEach(btn => btn.classList.add('text-slate-300'));
+            document.getElementById(`tabBtn-${tab}`).classList.add('bg-emerald-500', 'text-stone-950');
+            document.getElementById(`tabBtn-${tab}`).classList.remove('text-slate-300');
+
+            document.querySelectorAll('.admin-tab-content').forEach(el => el.classList.add('hidden'));
+            document.getElementById(`adminTab-${tab}`).classList.remove('hidden');
+
+            if(tab === 'write') {
+                window.resetAdminForm();
+            }
+        };
+
+        window.renderAdminBlogsList = () => {
+            const listEl = document.getElementById('adminBlogsList');
+            if(!listEl) return;
+            
+            if(window.state.blogs.length === 0) {
+                listEl.innerHTML = `<div class="py-12 text-center text-slate-500 uppercase font-black text-xs">No posts inside database.</div>`;
+                return;
+            }
+
+            listEl.innerHTML = window.state.blogs.map(b => `
+                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-6 bg-stone-900 border border-white/5 rounded-3xl font-sans">
+                    <div class="flex items-center gap-4">
+                        <img src="${b.img}" class="w-16 h-16 rounded-2xl object-cover" onerror="this.src='https://placehold.co/100x100/022c22/ffffff?text=TheSale3'">
+                        <div>
+                            <span class="text-[9px] font-black uppercase text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded-md tracking-wider">${b.category}</span>
+                            <h4 class="font-black text-white uppercase italic mt-1 leading-snug">${b.title}</h4>
+                            <p class="text-[10px] text-slate-500 uppercase mt-0.5">${b.date} • By ${b.author}</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-2 w-full sm:w-auto justify-end">
+                        <button onclick="window.editBlogFromAdmin('${b.id}')" class="px-4 py-2.5 rounded-xl bg-white/5 border border-white/10 hover:border-emerald-500 text-slate-300 hover:text-white text-[10px] font-black uppercase tracking-wider transition"><i class="fa-solid fa-pen-to-square mr-1"></i> Edit</button>
+                        <button onclick="window.deleteBlogFromAdmin('${b.id}')" class="px-4 py-2.5 rounded-xl bg-red-950/40 border border-red-500/30 hover:bg-red-500 hover:text-white text-red-200 text-[10px] font-black uppercase tracking-wider transition"><i class="fa-solid fa-trash-can mr-1"></i> Delete</button>
+                    </div>
+                </div>
+            `).join('');
+        };
+
+        window.resetAdminForm = () => {
+            document.getElementById('blogEditId').value = '';
+            document.getElementById('blogTitleInput').value = '';
+            document.getElementById('blogCategorySelect').value = 'Expedition';
+            document.getElementById('blogAuthorInput').value = 'Mou Team';
+            document.getElementById('blogDateInput').value = 'June 2026';
+            document.getElementById('blogReadTimeInput').value = '5 Min Read';
+            document.getElementById('blogImgInput').value = '';
+            document.getElementById('blogDescInput').value = '';
+            document.getElementById('blogContentInput').value = '';
+            document.getElementById('adminFormTitle').innerText = 'Create New Wilderness Journal Entry';
+            document.getElementById('adminFormPublishBtn').innerHTML = `<i class="fa-solid fa-cloud-arrow-up mr-2"></i> Publish Entry`;
+            window.updateLivePreview();
+        };
+
+        window.editBlogFromAdmin = (id) => {
+            const b = window.state.blogs.find(x => x.id === id);
+            if(!b) return;
+
+            window.switchAdminTab('write');
+            document.getElementById('blogEditId').value = b.id;
+            document.getElementById('blogTitleInput').value = b.title;
+            document.getElementById('blogCategorySelect').value = b.category;
+            document.getElementById('blogAuthorInput').value = b.author;
+            document.getElementById('blogDateInput').value = b.date;
+            document.getElementById('blogReadTimeInput').value = b.readTime;
+            document.getElementById('blogImgInput').value = b.img;
+            document.getElementById('blogDescInput').value = b.desc;
+            document.getElementById('blogContentInput').value = b.content;
+            
+            document.getElementById('adminFormTitle').innerText = 'Edit Adventure Note';
+            document.getElementById('adminFormPublishBtn').innerHTML = `<i class="fa-solid fa-pen-nib mr-2 font-sans"></i> Update Entry`;
+            window.updateLivePreview();
+        };
+
+        window.updateLivePreview = () => {
+            const title = document.getElementById('blogTitleInput').value || 'Untitled Adventure Note';
+            const cat = document.getElementById('blogCategorySelect').value;
+            const author = document.getElementById('blogAuthorInput').value || 'Mou Team';
+            const date = document.getElementById('blogDateInput').value || 'Today';
+            const readTime = document.getElementById('blogReadTimeInput').value || '1 Min Read';
+            const img = document.getElementById('blogImgInput').value || 'https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/phadang-camping.jpg';
+            const desc = document.getElementById('blogDescInput').value || 'A beautifully drafted teaser for our premium audience...';
+            const body = document.getElementById('blogContentInput').value || '<p>The story begins here...</p>';
+
+            // Update Card Preview
+            document.getElementById('previewCardImg').src = img;
+            document.getElementById('previewCardCat').innerText = cat;
+            document.getElementById('previewCardTitle').innerText = title;
+            document.getElementById('previewCardDesc').innerText = desc;
+            document.getElementById('previewCardDate').innerText = date;
+            document.getElementById('previewCardReadTime').innerText = readTime;
+            document.getElementById('previewCardAuthor').innerText = author;
+
+            // Update Article Reading Preview
+            document.getElementById('previewModalImg').src = img;
+            document.getElementById('previewModalCat').innerText = cat;
+            document.getElementById('previewModalTitle').innerText = title;
+            document.getElementById('previewModalDate').innerText = date;
+            document.getElementById('previewModalTime').innerText = readTime;
+            document.getElementById('previewModalAuthor').innerText = author;
+            document.getElementById('previewModalBody').innerHTML = body;
+        };
+
+        window.openSheetLinkDirectly = () => {
+            window.open(ADMIN_SHEET_URL, '_blank');
+        };
     </script>
 
     <!-- Navigation -->
@@ -481,6 +867,7 @@
                     <img src="https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/thesale3-logo.png" alt="Logo" class="h-14 sm:h-16 w-auto filter brightness-0 invert" onerror="this.src='https://via.placeholder.com/150x50?text=TheSale3'">
                 </div>
                 <div class="hidden md:flex items-center gap-8 font-bold text-[10px] uppercase tracking-[0.2em] text-slate-300">
+                    <button onclick="window.switchPage('home')" class="nav-btn py-2 hover:text-white transition" id="btn-home-desktop">ໜ້າຫຼັກ | Home</button>
                     <button onclick="window.switchPage('products')" class="nav-btn py-2 hover:text-white transition" id="btn-products-desktop">ສິນຄ້າ | Gear</button>
                     <button onclick="window.switchPage('places')" class="nav-btn py-2 hover:text-white transition" id="btn-places-desktop">ສະຖານທີ່ | Spots</button>
                     <button onclick="window.switchPage('blogs')" class="nav-btn py-2 hover:text-white transition" id="btn-blogs-desktop">ບົດຄວາມ | Journal</button>
@@ -513,9 +900,8 @@
             <header id="heroContainer" class="hero-container">
                 <div class="absolute inset-0 z-10 flex items-center justify-center text-center px-6">
                     <div class="max-w-4xl">
-                        <span class="hero-text-animate text-emerald-400 text-[12px] font-black uppercase tracking-[0.6em] mb-6 block">TheSale3 Premium Gear</span>
-                        <h1 class="hero-text-animate text-6xl sm:text-9xl font-black text-white mb-10 tracking-tighter drop-shadow-2xl italic">The Wild<br><span class="text-white/40">Is Calling.</span></h1>
-                        <button onclick="window.switchPage('products')" class="hero-text-animate bg-white text-stone-900 px-12 py-5 rounded-[24px] font-black text-[11px] uppercase tracking-widest shadow-2xl hover:bg-emerald-400">View Inventory</button>
+                        <span class="hero-text-animate text-emerald-400 text-[12px] font-black uppercase tracking-[0.6em] mb-8 block font-sans">TheSale3 Premium Gear</span>
+                        <button onclick="window.switchPage('products')" class="hero-text-animate bg-white text-stone-900 px-12 py-5 rounded-[24px] font-black text-[11px] uppercase tracking-widest shadow-2xl hover:bg-emerald-400 transition-all font-sans">View Inventory</button>
                     </div>
                 </div>
             </header>
@@ -525,9 +911,21 @@
             </div>
         </section>
 
+        <!-- Dynamic Places (Spots) Page Content -->
+        <section id="page-places" class="page-section hidden py-24 px-6 max-w-7xl mx-auto w-full">
+            <div class="text-center md:text-left mb-16 max-w-2xl">
+                <span class="text-emerald-400 text-xs font-black uppercase tracking-[0.4em] mb-3 block font-sans">Backcountry Destinations</span>
+                <h2 class="text-5xl sm:text-7xl font-black uppercase italic tracking-tighter text-white mb-6">Wild Spots</h2>
+                <p class="text-slate-400 text-sm leading-relaxed font-sans">Discover handpicked, breathtaking wilderness campsites, mountain peaks, and hidden riversides across Lao PDR verified by our expedition crew.</p>
+            </div>
+            <div id="placesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Dynamically generated places -->
+            </div>
+        </section>
+
         <section id="page-products" class="page-section hidden py-24 px-6 max-w-7xl mx-auto w-full">
             <div class="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-16 gap-10">
-                <h2 class="text-6xl font-black uppercase italic tracking-tighter text-white">Catalog</h2>
+                <h2 class="text-6xl font-black uppercase italic tracking-tighter text-white font-sans">Catalog</h2>
                 <div class="relative w-full lg:w-[450px]">
                     <i class="fa-solid fa-search absolute left-7 top-1/2 -translate-y-1/2 text-emerald-300"></i>
                     <input type="text" id="searchInput" oninput="window.applyProductFilters()" placeholder="Search..." class="w-full pl-16 pr-8 py-5 rounded-[28px] bg-white/5 border border-white/10 text-white outline-none">
@@ -535,6 +933,18 @@
             </div>
             <div id="categoryFilter" class="flex gap-4 overflow-x-auto no-scrollbar pb-10 mb-10 border-b border-white/5"></div>
             <div id="productGrid" class="product-grid"></div>
+        </section>
+
+        <!-- Redesigned Premium Blog Page Section -->
+        <section id="page-blogs" class="page-section hidden py-24 px-6 max-w-7xl mx-auto w-full">
+            <div class="text-center md:text-left mb-16 max-w-2xl">
+                <span class="text-emerald-400 text-xs font-black uppercase tracking-[0.4em] mb-3 block font-sans">Adventure Notes</span>
+                <h2 class="text-5xl sm:text-7xl font-black uppercase italic tracking-tighter text-white mb-6">Wild Journal</h2>
+                <p class="text-slate-400 text-sm leading-relaxed font-sans font-sans">Stories, practical guides, and expert backcountry insights from our team expeditions right out across the rugged landscapes of Lao PDR.</p>
+            </div>
+            <div id="blogGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Dynamically generated entries -->
+            </div>
         </section>
 
         <!-- About Page Content -->
@@ -555,13 +965,13 @@
             <div class="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto">
                 <div class="bg-white/5 p-12 rounded-[40px] border border-white/10">
                     <i class="fa-brands fa-whatsapp text-4xl text-emerald-400 mb-6"></i>
-                    <h4 class="text-white font-bold uppercase text-xs mb-2 tracking-widest">WhatsApp Support</h4>
-                    <p class="text-slate-300">+856 20 5484 9393</p>
+                    <h4 class="text-white font-bold uppercase text-xs mb-2 tracking-widest font-sans">WhatsApp Support</h4>
+                    <p class="text-slate-300 font-sans">+856 20 5484 9393</p>
                 </div>
                 <div class="bg-white/5 p-12 rounded-[40px] border border-white/10">
                     <i class="fa-solid fa-location-dot text-4xl text-emerald-400 mb-6"></i>
-                    <h4 class="text-white font-bold uppercase text-xs mb-2 tracking-widest">Basecamp Location</h4>
-                    <p class="text-slate-300">Vientiane, Lao PDR<br>Nationwide Delivery Available</p>
+                    <h4 class="text-white font-bold uppercase text-xs mb-2 tracking-widest font-sans">Basecamp Location</h4>
+                    <p class="text-slate-300 font-sans">Vientiane, Lao PDR<br>Nationwide Delivery Available</p>
                 </div>
             </div>
         </section>
@@ -569,7 +979,7 @@
         <!-- Privacy Policy Content -->
         <section id="page-privacy" class="page-section hidden py-24 px-6 max-w-4xl mx-auto w-full">
             <h2 class="text-6xl font-black uppercase italic text-white mb-10">Privacy Policy</h2>
-            <div class="policy-text">
+            <div class="policy-text font-sans">
                 <p class="text-lg italic text-emerald-400 mb-8 font-bold">Your privacy is our priority at TheSale3.</p>
                 <h3>1. Data Collection</h3>
                 <p>We collect basic details like name and WhatsApp number only for order processing and delivery fulfillment.</p>
@@ -580,7 +990,7 @@
 
         <!-- Terms Content -->
         <section id="page-terms" class="page-section hidden py-24 px-6 max-w-4xl mx-auto w-full">
-            <h2 class="text-6xl font-black uppercase italic text-white mb-10">Terms of Service</h2>
+            <h2 class="text-6xl font-black uppercase italic text-white mb-10 font-sans">Terms of Service</h2>
             <div class="policy-text">
                 <h3>1. Order Fulfillment</h3>
                 <p>Orders are confirmed only after stock validation and BCEL One transfer verification.</p>
@@ -592,48 +1002,388 @@
 
     <div id="detailsModal" class="modal-overlay" onclick="if(event.target === this) window.closeDetails()">
         <div class="bg-white rounded-[40px] max-w-5xl w-[95%] mx-auto overflow-hidden shadow-2xl flex flex-col md:flex-row relative max-h-[90vh]">
-            <button onclick="window.closeDetails()" class="absolute top-6 right-6 bg-stone-100 w-12 h-12 rounded-full flex items-center justify-center text-stone-900 z-10"><i class="fa-solid fa-xmark"></i></button>
+            <button onclick="window.closeDetails()" class="absolute top-6 right-6 bg-stone-100 w-12 h-12 rounded-full flex items-center justify-center text-stone-900 z-10 font-sans"><i class="fa-solid fa-xmark"></i></button>
             <div class="md:w-1/2 bg-stone-50 flex items-center justify-center p-10"><img id="detailsImage" src="" class="max-w-full max-h-[500px] object-contain"></div>
             <div class="md:w-1/2 p-10 sm:p-16 flex flex-col overflow-y-auto text-stone-900">
-                <div class="flex items-center gap-3 mb-6"><span id="detailsCategory" class="text-[10px] font-black text-emerald-600 uppercase tracking-[0.2em] bg-emerald-50 px-4 py-1.5 rounded-full"></span><span id="detailsStatus" class="px-4 py-1.5 rounded-full border-2 text-[9px] font-black uppercase"></span></div>
+                <div class="flex items-center gap-3 mb-6"><span id="detailsCategory" class="text-[10px] font-black text-emerald-600 uppercase tracking-[0.2em] bg-emerald-50 px-4 py-1.5 rounded-full font-sans"></span><span id="detailsStatus" class="px-4 py-1.5 rounded-full border-2 text-[9px] font-black uppercase font-sans"></span></div>
                 <h2 id="detailsTitle" class="text-4xl font-black mb-8 uppercase italic leading-tight tracking-tighter"></h2>
-                <div class="mb-12 space-y-2"><span id="detailsFakePrice" class="text-xl text-red-500 line-through font-black opacity-50 italic"></span><p id="detailsPrice" class="text-5xl font-black text-emerald-800 italic leading-none"></p></div>
-                <div id="detailsDesc" class="text-stone-500 text-base leading-relaxed mb-12 prose"></div>
-                <button id="detailsAddBtn" class="w-full btn-adventure text-white py-5 rounded-2xl font-black uppercase text-[11px] shadow-lg">Add to Bag</button>
+                <div class="mb-12 space-y-2"><span id="detailsFakePrice" class="text-xl text-red-500 line-through font-black opacity-50 italic font-sans"></span><p id="detailsPrice" class="text-5xl font-black text-emerald-800 italic leading-none font-sans"></p></div>
+                <div id="detailsDesc" class="text-stone-500 text-base leading-relaxed mb-12 prose font-sans"></div>
+                <button id="detailsAddBtn" class="w-full btn-adventure text-white py-5 rounded-2xl font-black uppercase text-[11px] shadow-lg font-sans">Add to Bag</button>
             </div>
         </div>
     </div>
 
-    <footer class="bg-stone-900 pt-32 pb-20 px-8 text-center border-t border-white/5 text-white">
-        <h4 class="font-black text-6xl italic uppercase mb-16 tracking-tighter">THESALE3</h4>
+    <!-- Premium Spot Reader Modal -->
+    <div id="placeModal" class="modal-overlay" onclick="if(event.target === this) window.closePlace()">
+        <div class="bg-stone-950 border border-white/10 rounded-[40px] max-w-4xl w-[95%] mx-auto overflow-hidden shadow-2xl flex flex-col relative max-h-[90vh]">
+            <button onclick="window.closePlace()" class="absolute top-6 right-6 bg-white/10 hover:bg-emerald-500 hover:text-stone-950 text-white w-12 h-12 rounded-full flex items-center justify-center transition-colors z-30 font-sans">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="h-64 sm:h-80 relative overflow-hidden flex-shrink-0">
+                <img id="placeModalImg" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/60 to-transparent"></div>
+                <div class="absolute bottom-8 left-8 right-8">
+                    <span id="placeModalProvince" class="bg-amber-500 text-stone-950 text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-xl shadow-md font-sans"></span>
+                    <h2 id="placeModalTitle" class="text-2xl sm:text-4xl font-black text-white mt-4 italic uppercase tracking-tight leading-snug"></h2>
+                </div>
+            </div>
+            <div class="p-8 sm:p-12 overflow-y-auto flex-grow text-slate-300 no-scrollbar">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 border-b border-white/5 pb-6">
+                    <div class="flex flex-col gap-1">
+                        <span class="text-[9px] font-black uppercase tracking-widest text-slate-500 font-sans">Elevation / Altitude</span>
+                        <span id="placeModalElevation" class="text-white font-black text-lg font-sans"></span>
+                    </div>
+                    <div class="flex flex-col gap-1">
+                        <span class="text-[9px] font-black uppercase tracking-widest text-slate-500 font-sans">Access & Trail Level</span>
+                        <span id="placeModalDifficulty" class="text-white font-black text-lg font-sans"></span>
+                    </div>
+                </div>
+                
+                <div class="mb-8">
+                    <span class="text-[9px] font-black uppercase tracking-widest text-slate-500 block mb-3 font-sans">Available Conveniences</span>
+                    <div id="placeModalAmenities" class="flex flex-wrap gap-3 font-sans"></div>
+                </div>
+
+                <div id="placeModalBody" class="text-slate-300 leading-relaxed text-sm sm:text-base space-y-4 prose prose-invert border-t border-white/5 pt-6 font-sans">
+                    <!-- Dynamic details text -->
+                </div>
+
+                <div class="mt-12 pt-6 border-t border-white/5 flex flex-wrap justify-end gap-4 font-sans">
+                    <button onclick="window.switchPage('products'); window.closePlace();" class="px-6 py-4 rounded-2xl bg-white/5 hover:bg-white/10 text-white text-[10px] font-black uppercase tracking-wider transition">Equip Adventure Gear</button>
+                    <button id="placeModalMapBtn" class="px-6 py-4 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-stone-950 text-[10px] font-black uppercase tracking-wider transition">Open Google Maps Location</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Premium Interactive Article Reader Modal -->
+    <div id="blogModal" class="modal-overlay" onclick="if(event.target === this) window.closeBlog()">
+        <div class="bg-stone-950 border border-white/10 rounded-[40px] max-w-4xl w-[95%] mx-auto overflow-hidden shadow-2xl flex flex-col relative max-h-[90vh]">
+            <button onclick="window.closeBlog()" class="absolute top-6 right-6 bg-white/10 hover:bg-emerald-500 hover:text-stone-950 text-white w-12 h-12 rounded-full flex items-center justify-center transition-colors z-30 font-sans">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="h-64 sm:h-80 relative overflow-hidden flex-shrink-0">
+                <img id="blogModalImg" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/60 to-transparent"></div>
+                <div class="absolute bottom-8 left-8 right-8">
+                    <span id="blogModalTag" class="bg-emerald-500 text-stone-950 text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-xl shadow-md"></span>
+                    <h2 id="blogModalTitle" class="text-2xl sm:text-4xl font-black text-white mt-4 italic uppercase tracking-tight leading-snug"></h2>
+                </div>
+            </div>
+            <div class="p-8 sm:p-12 overflow-y-auto flex-grow text-slate-300 no-scrollbar">
+                <div class="flex flex-wrap gap-x-6 gap-y-2 text-slate-400 text-xs font-bold mb-8 uppercase tracking-wider border-b border-white/5 pb-6">
+                    <span><i class="fa-regular fa-calendar-days text-emerald-400 mr-2 font-sans"></i><span id="blogModalDate font-sans font-sans"></span></span>
+                    <span><i class="fa-regular fa-clock text-emerald-400 mr-2 font-sans"></i><span id="blogModalTime font-sans"></span></span>
+                    <span><i class="fa-regular fa-user text-emerald-400 mr-2 font-sans"></i><span id="blogModalAuthor font-sans"></span></span>
+                </div>
+                <div id="blogModalBody" class="text-slate-300 leading-relaxed text-sm sm:text-base space-y-4 prose prose-invert font-sans">
+                    <!-- Dynamic Entry Content -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toastContainer" class="fixed bottom-24 right-6 z-[200] flex flex-col gap-3 max-w-sm w-full pointer-events-none"></div>
+
+    <!-- Custom Admin Authorization Modal -->
+    <div id="adminAuthModal" class="modal-overlay" onclick="if(event.target === this) window.closeAdminAuth()">
+        <div class="bg-stone-950 border border-emerald-500/30 rounded-[32px] p-8 max-w-md w-[92%] shadow-2xl relative">
+            <button onclick="window.closeAdminAuth()" class="absolute top-5 right-5 text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-lg"></i></button>
+            <div class="text-center mb-6">
+                <div class="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 mb-4 font-sans">
+                    <i class="fa-solid fa-shield-halved text-xl"></i>
+                </div>
+                <h3 class="text-xl font-black text-white uppercase italic font-sans">Access Basecamp Portal</h3>
+                <p class="text-[10px] text-slate-400 uppercase mt-1 tracking-wider font-sans">Provide Secret Security Passkey</p>
+            </div>
+            <div class="space-y-4">
+                <input type="password" id="adminPasswordInput" placeholder="Security Password..." class="w-full px-6 py-4 rounded-2xl bg-white/5 border border-white/10 text-white placeholder-slate-500 outline-none focus:border-emerald-400 transition text-center font-black">
+                <button onclick="window.submitAdminAuth()" class="w-full py-4 rounded-2xl bg-emerald-500 text-stone-950 text-xs font-black uppercase tracking-widest shadow-lg hover:bg-emerald-400 transition font-sans">Enter Basecamp</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Full Screen Premium Admin Dashboard -->
+    <div id="adminPortal" class="fixed inset-0 bg-stone-950 z-[150] overflow-y-auto hidden flex-col">
+        <header class="border-b border-white/5 bg-stone-900/60 backdrop-blur sticky top-0 z-[160]">
+            <div class="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <img src="https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/thesale3-logo.png" class="h-10 w-auto filter brightness-0 invert">
+                    <span class="text-xs font-black text-emerald-400 uppercase tracking-widest px-3 py-1 bg-emerald-500/10 border border-emerald-500/20 rounded-lg font-sans">Basecamp CMS</span>
+                </div>
+                <div class="flex items-center gap-3">
+                    <button onclick="window.openSheetLinkDirectly()" class="px-5 py-3 rounded-2xl bg-white/5 border border-white/10 hover:border-emerald-500 text-slate-300 hover:text-white text-[10px] font-black uppercase tracking-widest transition font-sans"><i class="fa-solid fa-table-cells mr-2"></i> Open Sheet</button>
+                    <button onclick="window.closeAdminPortal()" class="px-5 py-3 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-stone-950 text-[10px] font-black uppercase tracking-widest shadow-lg transition font-sans"><i class="fa-solid fa-rectangle-xmark mr-2"></i> Exit</button>
+                </div>
+            </div>
+        </header>
+
+        <div class="flex-grow max-w-7xl mx-auto w-full px-6 py-12">
+            <div class="flex flex-col lg:flex-row gap-8 items-start">
+                
+                <!-- Left Sidebar Navigation -->
+                <div class="w-full lg:w-64 flex flex-col gap-2 flex-shrink-0">
+                    <button id="tabBtn-list" onclick="window.switchAdminTab('list')" class="admin-tab-btn flex items-center gap-3 px-6 py-4 rounded-2xl bg-emerald-500 text-stone-950 text-xs font-black uppercase tracking-wider transition text-left"><i class="fa-solid fa-list-check font-sans"></i> Manage Essays</button>
+                    <button id="tabBtn-write" onclick="window.switchAdminTab('write')" class="admin-tab-btn flex items-center gap-3 px-6 py-4 rounded-2xl text-slate-300 hover:bg-white/5 text-xs font-black uppercase tracking-wider transition text-left"><i class="fa-solid fa-file-pen font-sans"></i> Write Note</button>
+                    <button id="tabBtn-settings" onclick="window.switchAdminTab('settings')" class="admin-tab-btn flex items-center gap-3 px-6 py-4 rounded-2xl text-slate-300 hover:bg-white/5 text-xs font-black uppercase tracking-wider transition text-left"><i class="fa-solid fa-sliders font-sans"></i> System Settings</button>
+                </div>
+
+                <!-- Main Content Panel -->
+                <div class="flex-grow w-full bg-white/5 border border-white/5 rounded-[40px] p-8 sm:p-12">
+                    
+                    <!-- Tab Content: List of entries -->
+                    <div id="adminTab-list" class="admin-tab-content space-y-6">
+                        <div class="flex items-center justify-between border-b border-white/5 pb-6">
+                            <div>
+                                <h3 class="text-2xl font-black text-white uppercase italic font-sans font-sans">Active Backcountry Notes</h3>
+                                <p class="text-[10px] text-slate-400 uppercase tracking-wider mt-1">Manage active items inside database storage</p>
+                            </div>
+                            <button onclick="window.switchAdminTab('write')" class="px-5 py-3.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 hover:bg-emerald-500 hover:text-stone-950 text-[10px] font-black uppercase tracking-widest transition font-sans"><i class="fa-solid fa-plus-circle mr-1"></i> Add Post</button>
+                        </div>
+                        <div id="adminBlogsList" class="space-y-4 font-sans font-sans">
+                            <!-- Populated Dynamically -->
+                        </div>
+                    </div>
+
+                    <!-- Tab Content: Write New Post / Edit Entry -->
+                    <div id="adminTab-write" class="admin-tab-content hidden font-sans">
+                        <div class="border-b border-white/5 pb-6 mb-8">
+                            <h3 id="adminFormTitle" class="text-2xl font-black text-white uppercase italic">Create New Wilderness Journal Entry</h3>
+                            <p class="text-[10px] text-slate-400 uppercase tracking-wider mt-1">Write premium copy, add visual covers, and layout body pages</p>
+                        </div>
+
+                        <div class="grid grid-cols-1 xl:grid-cols-2 gap-10">
+                            <!-- Form Column -->
+                            <div class="space-y-6">
+                                <input type="hidden" id="blogEditId">
+                                
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                    <div>
+                                        <label class="block text-[9px] font-black uppercase tracking-widest text-slate-400 mb-2">Category Tag</label>
+                                        <select id="blogCategorySelect" onchange="window.updateLivePreview()" class="w-full px-5 py-4 rounded-xl bg-stone-900 border border-white/10 text-white outline-none focus:border-emerald-400 font-sans">
+                                            <option value="Expedition font-sans">Expedition</option>
+                                            <option value="Gear Guide font-sans">Gear Guide</option>
+                                            <option value="Pro-Tips font-sans">Pro-Tips</option>
+                                            <option value="Camping Spots font-sans">Camping Spots</option>
+                                            <option value="Coffee font-sans">Coffee</option>
+                                            <option value="Survival font-sans">Survival</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label class="block text-[9px] font-black uppercase tracking-widest text-slate-400 mb-2">Author Credit</label>
+                                        <input type="text" id="blogAuthorInput" oninput="window.updateLivePreview()" value="Mou Team" class="w-full px-5 py-4 rounded-xl bg-stone-900 border border-white/10 text-white outline-none focus:border-emerald-400">
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                    <div>
+                                        <label class="block text-[9px] font-black uppercase tracking-widest text-slate-400 mb-2">Published Date</label>
+                                        <input type="text" id="blogDateInput" oninput="window.updateLivePreview()" value="June 2026" class="w-full px-5 py-4 rounded-xl bg-stone-900 border border-white/10 text-white outline-none focus:border-emerald-400 font-sans">
+                                    </div>
+                                    <div>
+                                        <label class="block text-[9px] font-black uppercase tracking-widest text-slate-400 mb-2">Read Time Estimate</label>
+                                        <input type="text" id="blogReadTimeInput" oninput="window.updateLivePreview()" value="5 Min Read" class="w-full px-5 py-4 rounded-xl bg-stone-900 border border-white/10 text-white outline-none focus:border-emerald-400">
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <label class="block text-[9px] font-black uppercase tracking-widest text-slate-400 mb-2 font-sans font-sans">Essay Title</label>
+                                    <input type="text" id="blogTitleInput" oninput="window.updateLivePreview()" placeholder="Enter stunning headline..." class="w-full px-5 py-4 rounded-xl bg-stone-900 border border-white/10 text-white outline-none focus:border-emerald-400 font-bold uppercase italic">
+                                </div>
+
+                                <div>
+                                    <label class="block text-[9px] font-black uppercase tracking-widest text-slate-400 mb-2 font-sans font-sans">Cover Image Link (URL)</label>
+                                    <input type="text" id="blogImgInput" oninput="window.updateLivePreview()" placeholder="https://raw.githubusercontent.com/..." class="w-full px-5 py-4 rounded-xl bg-stone-900 border border-white/10 text-white outline-none focus:border-emerald-400 text-xs font-mono">
+                                </div>
+
+                                <div>
+                                    <label class="block text-[9px] font-black uppercase tracking-widest text-slate-400 mb-2">Teaser Description (Max 200 Characters)</label>
+                                    <textarea id="blogDescInput" oninput="window.updateLivePreview()" rows="2" placeholder="Brief and poetic intro summary..." class="w-full px-5 py-4 rounded-xl bg-stone-900 border border-white/10 text-white outline-none focus:border-emerald-400 text-xs resize-none"></textarea>
+                                </div>
+
+                                <div>
+                                    <label class="block text-[9px] font-black uppercase tracking-widest text-slate-400 mb-2">Full Page Body (HTML Format Allowed)</label>
+                                    <textarea id="blogContentInput" oninput="window.updateLivePreview()" rows="8" placeholder="&lt;p class=&quot;mb-4&quot;&gt;Enter story content...&lt;/p&gt;" class="w-full px-5 py-4 rounded-xl bg-stone-900 border border-white/10 text-white outline-none focus:border-emerald-400 text-xs font-mono"></textarea>
+                                </div>
+
+                                <button id="adminFormPublishBtn" class="w-full py-5 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-stone-950 text-xs font-black uppercase tracking-widest shadow-xl transition"></button>
+                            </div>
+
+                            <!-- Live Visual Preview Column -->
+                            <div class="space-y-6">
+                                <span class="block text-[9px] font-black uppercase tracking-widest text-emerald-400 border-b border-white/5 pb-2">Live Visual Layout Previews</span>
+                                
+                                <!-- Card Preview -->
+                                <div>
+                                    <span class="text-[9px] uppercase font-bold text-slate-500 mb-3 block">Journal Listing Grid Preview:</span>
+                                    <div class="max-w-md mx-auto">
+                                        <article class="card-journal flex flex-col overflow-hidden h-full">
+                                            <div class="h-56 overflow-hidden relative">
+                                                <img id="previewCardImg" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x300/022c22/ffffff?text=TheSale3'">
+                                                <span id="previewCardCat" class="absolute bottom-4 left-4 bg-emerald-50 text-stone-950 text-[9px] font-black uppercase tracking-widest px-3 py-1.5 rounded-xl shadow-md"></span>
+                                            </div>
+                                            <div class="p-6 flex flex-col flex-grow text-left">
+                                                <div class="flex items-center gap-4 text-slate-400 text-[10px] uppercase font-bold mb-3 tracking-widest">
+                                                    <span><i class="fa-regular fa-calendar-days text-emerald-400 mr-1"></i> <span id="previewCardDate"></span></span>
+                                                    <span><i class="fa-regular fa-clock text-emerald-400 mr-1"></i> <span id="previewCardReadTime"></span></span>
+                                                </div>
+                                                <h3 id="previewCardTitle" class="text-lg font-black text-white mb-3 uppercase italic tracking-tight leading-snug"></h3>
+                                                <p id="previewCardDesc" class="text-slate-400 text-xs leading-relaxed mb-4 flex-grow"></p>
+                                                <div class="pt-4 border-t border-white/5 mt-auto flex items-center justify-between font-sans">
+                                                    <span class="text-[9px] font-black text-white/50 uppercase tracking-widest"><i class="fa-regular fa-user text-emerald-400 mr-1.5"></i> By <span id="previewCardAuthor"></span></span>
+                                                    <span class="text-emerald-400 text-[9px] font-black uppercase tracking-widest font-sans">Read Essay <i class="fa-solid fa-arrow-right ml-1"></i></span>
+                                                </div>
+                                            </div>
+                                        </article>
+                                    </div>
+                                </div>
+
+                                <!-- Read Modal Preview Overlay -->
+                                <div class="border border-white/5 bg-stone-950 rounded-3xl p-6 text-left">
+                                    <span class="text-[9px] uppercase font-bold text-slate-500 mb-3 block font-sans">Full Page Layout Reading View Preview:</span>
+                                    <div class="h-44 relative rounded-xl overflow-hidden mb-4">
+                                        <img id="previewModalImg" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/400x300/022c22/ffffff?text=TheSale3'">
+                                        <div class="absolute inset-0 bg-gradient-to-t from-stone-950 via-transparent to-transparent"></div>
+                                        <div class="absolute bottom-4 left-4">
+                                            <span id="previewModalCat" class="bg-emerald-500 text-stone-950 text-[8px] font-black uppercase tracking-widest px-2 py-1 rounded-lg"></span>
+                                            <h4 id="previewModalTitle" class="text-sm font-black text-white mt-1 uppercase italic leading-none"></h4>
+                                        </div>
+                                    </div>
+                                    <div class="flex gap-4 text-[9px] font-bold uppercase text-slate-400 mb-3">
+                                        <span><span id="previewModalDate"></span></span>
+                                        <span><span id="previewModalReadTime"></span></span>
+                                        <span>By <span id="previewModalAuthor"></span></span>
+                                    </div>
+                                    <div id="previewModalBody" class="text-[11px] text-slate-300 leading-relaxed space-y-2 border-t border-white/5 pt-3"></div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab Content: System Integration Settings -->
+                    <div id="adminTab-settings" class="admin-tab-content hidden space-y-8 font-sans">
+                        <div class="border-b border-white/5 pb-6">
+                            <h3 class="text-2xl font-black text-white uppercase italic font-sans">Basecamp Integration Settings</h3>
+                            <p class="text-[10px] text-slate-400 uppercase tracking-wider mt-1">Configure your cloud credentials, database parameters, and asset spreadsheets</p>
+                        </div>
+
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                            <div class="space-y-6">
+                                <div>
+                                    <h4 class="text-emerald-400 font-bold text-xs uppercase tracking-wider mb-2 font-sans font-sans font-sans font-sans font-sans font-sans font-sans"><i class="fa-solid fa-table"></i> Google Sheets Product Source</h4>
+                                    <p class="text-[10px] text-slate-400 leading-relaxed mb-4">Provide your Google Sheets Identifier ID to fetch product catalogs automatically.</p>
+                                    <input type="text" id="settingsSheetIdInput" placeholder="Enter Spreadsheet GID..." class="w-full px-5 py-4 rounded-xl bg-stone-900 border border-white/10 text-white outline-none focus:border-emerald-400 text-xs font-mono">
+                                </div>
+
+                                <div class="border-t border-white/5 pt-6 space-y-4">
+                                    <h4 class="text-emerald-400 font-bold text-xs uppercase tracking-wider mb-2 font-sans font-sans font-sans"><i class="fa-solid fa-cloud"></i> Firebase Cloud Connection</h4>
+                                    <p class="text-[10px] text-slate-400 leading-relaxed mb-4">Paste your Firebase Project Web SDK configuration below. Once configured and verified, local backups will sync securely to Google Cloud servers.</p>
+                                    
+                                    <div class="space-y-4 font-mono text-xs font-mono">
+                                        <div>
+                                            <label class="block text-[9px] font-black uppercase tracking-widest text-slate-400 mb-1.5 font-sans">API Key</label>
+                                            <input type="text" id="fbApiKey" placeholder="AIzaSyA1..." class="w-full px-4 py-3 rounded-lg bg-stone-900 border border-white/5 text-white outline-none focus:border-emerald-400">
+                                        </div>
+                                        <div>
+                                            <label class="block text-[9px] font-black uppercase tracking-widest text-slate-400 mb-1.5">Auth Domain</label>
+                                            <input type="text" id="fbAuthDomain" placeholder="your-app-id.firebaseapp.com" class="w-full px-4 py-3 rounded-lg bg-stone-900 border border-white/5 text-white outline-none focus:border-emerald-400">
+                                        </div>
+                                        <div>
+                                            <label class="block text-[9px] font-black uppercase tracking-widest text-slate-400 mb-1.5 font-sans">Project ID</label>
+                                            <input type="text" id="fbProjectId" placeholder="your-app-id" class="w-full px-4 py-3 rounded-lg bg-stone-900 border border-white/5 text-white outline-none focus:border-emerald-400">
+                                        </div>
+                                        <div>
+                                            <label class="block text-[9px] font-black uppercase tracking-widest text-slate-400 mb-1.5 font-sans">Storage Bucket</label>
+                                            <input type="text" id="fbStorageBucket" placeholder="your-app-id.appspot.com" class="w-full px-4 py-3 rounded-lg bg-stone-900 border border-white/5 text-white outline-none focus:border-emerald-400">
+                                        </div>
+                                        <div>
+                                            <label class="block text-[9px] font-black uppercase tracking-widest text-slate-400 mb-1.5 font-sans font-sans">Messaging Sender ID</label>
+                                            <input type="text" id="fbSenderId" placeholder="123456789..." class="w-full px-4 py-3 rounded-lg bg-stone-900 border border-white/5 text-white outline-none focus:border-emerald-400">
+                                        </div>
+                                        <div>
+                                            <label class="block text-[9px] font-black uppercase tracking-widest text-slate-400 mb-1.5">App ID</label>
+                                            <input type="text" id="fbAppId" placeholder="1:123456:web:abcd..." class="w-full px-4 py-3 rounded-lg bg-stone-900 border border-white/5 text-white outline-none focus:border-emerald-400">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <button onclick="window.saveSystemSettings()" class="w-full py-5 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-stone-950 text-xs font-black uppercase tracking-widest shadow-xl transition"><i class="fa-solid fa-circle-check mr-2 font-sans font-sans"></i> Save System Configuration</button>
+                            </div>
+
+                            <div class="space-y-6">
+                                <div class="bg-emerald-500/10 border border-emerald-500/20 rounded-3xl p-6 text-emerald-200 text-xs space-y-4 font-sans font-sans">
+                                    <h5 class="font-black text-sm uppercase tracking-wider flex items-center gap-2 text-white"><i class="fa-solid fa-server"></i> Storage Core Engine</h5>
+                                    <p class="leading-relaxed opacity-90">Your system runs on a **Dual-Layer Storage Architecture** (Cloud + Offline Local Memory Fallback) to protect your wilderness files under all outdoor conditions.</p>
+                                    <div class="space-y-2 font-mono text-[10px] uppercase">
+                                        <div class="flex justify-between border-b border-emerald-500/10 pb-2"><span>Connection Status</span><span id="settingsStatusBadge" class="font-black text-emerald-400">Local Cache Mode</span></div>
+                                        <div class="flex justify-between border-b border-emerald-500/10 pb-2"><span>Inventory Source</span><span id="settingsInventoryBadge" class="font-black text-emerald-400">Active Google Sheet</span></div>
+                                        <div class="flex justify-between border-b border-emerald-500/10 pb-2"><span>Database System</span><span class="font-black font-sans">Firestore Modular V11</span></div>
+                                    </div>
+                                </div>
+
+                                <div class="bg-amber-500/10 border border-amber-500/20 rounded-3xl p-6 text-amber-200 text-xs space-y-3 font-sans">
+                                    <h5 class="font-black text-sm uppercase tracking-wider flex items-center gap-2 text-white"><i class="fa-solid fa-shield-halved"></i> Key Storage Security</h5>
+                                    <p class="leading-relaxed opacity-90 font-sans">All configuration credentials and database variables are securely serialized and kept private. Only administrators authorized with the Basecamp passkey can access and update these values.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-[#021f18]/90 pt-32 pb-20 px-8 text-center border-t border-white/5 text-white">
+        <h4 class="font-black text-6xl italic uppercase mb-16 tracking-tighter text-emerald-400">THESALE3</h4>
         <div class="flex flex-wrap justify-center gap-x-8 gap-y-4 mb-16 text-[10px] font-black uppercase tracking-widest text-white/50">
-            <button onclick="window.switchPage('home')">Home</button>
-            <button onclick="window.switchPage('products')">Gear</button>
-            <button onclick="window.switchPage('about')">About</button>
-            <button onclick="window.switchPage('privacy')">Privacy</button>
-            <button onclick="window.switchPage('terms')">Terms</button>
+            <button onclick="window.switchPage('home')" class="hover:text-emerald-400 transition-colors">Home</button>
+            <button onclick="window.switchPage('products')" class="hover:text-emerald-400 transition-colors">Gear</button>
+            <button onclick="window.switchPage('places')" class="hover:text-emerald-400 transition-colors">Spots</button>
+            <button onclick="window.switchPage('about')" class="hover:text-emerald-400 transition-colors">About</button>
+            <button onclick="window.switchPage('privacy')" class="hover:text-emerald-400 transition-colors">Privacy</button>
+            <button onclick="window.switchPage('terms')" class="hover:text-emerald-400 transition-colors font-sans">Terms</button>
         </div>
-        <div class="flex justify-center gap-12 mb-20">
-            <a href="https://facebook.com/Clicktobuy333333333" target="_blank" class="text-white/20 hover:text-white"><i class="fa-brands fa-facebook text-4xl"></i></a>
-            <a href="https://tiktok.com/@thesale3camping" target="_blank" class="text-white/20 hover:text-white"><i class="fa-brands fa-tiktok text-4xl"></i></a>
+        <div class="flex justify-center gap-12 mb-20 font-sans">
+            <a href="https://facebook.com/Clicktobuy333333333" target="_blank" class="text-white/20 hover:text-emerald-400 transition-colors"><i class="fa-brands fa-facebook text-4xl"></i></a>
+            <a href="https://tiktok.com/@thesale3camping" target="_blank" class="text-white/20 hover:text-emerald-400 transition-colors"><i class="fa-brands fa-tiktok text-4xl font-sans"></i></a>
         </div>
-        <p onclick="window.handleAdminClick()" class="text-[9px] font-black uppercase tracking-widest text-white/30 cursor-pointer hover:text-white">© TheSale3 Business Operations 2026</p>
+        <p onclick="window.handleAdminClick()" class="text-[9px] font-black uppercase tracking-widest text-white/30 cursor-pointer hover:text-white font-sans font-sans">© TheSale3 Business Operations 2026</p>
     </footer>
 
+    <!-- Cart Modal -->
     <div id="cartModal" class="modal-overlay" onclick="if(event.target === this) document.getElementById('cartModal').style.display='none'">
         <div class="bg-white h-full max-w-md w-full ml-auto flex flex-col p-10 shadow-2xl text-stone-900">
-            <h3 class="text-2xl font-black uppercase italic tracking-tighter mb-12">My Bag</h3>
-            <div id="cartItems" class="flex-grow overflow-y-auto space-y-6 no-scrollbar"></div>
-            <div class="pt-10 border-t border-stone-100 mt-10">
+            <h3 class="text-2xl font-black uppercase italic tracking-tighter mb-12 text-emerald-950 font-sans">My Bag</h3>
+            <div id="cartItems" class="flex-grow overflow-y-auto space-y-6 no-scrollbar font-sans"></div>
+            <div class="pt-10 border-t border-emerald-100 mt-10 font-sans">
                 <div class="flex justify-between mb-8"><span class="font-black text-stone-400 uppercase text-[10px]">Total Order</span><span id="cartTotal" class="text-3xl font-black text-emerald-800 italic"></span></div>
-                <button onclick="window.checkoutWhatsApp()" class="w-full bg-[#25D366] text-white py-5 rounded-2xl font-black uppercase text-[11px] shadow-lg">WhatsApp Checkout</button>
+                <button onclick="window.checkoutWhatsApp()" class="w-full bg-[#25D366] text-white py-5 rounded-2xl font-black uppercase text-[11px] shadow-lg hover:brightness-105 transition-all">WhatsApp Checkout</button>
             </div>
         </div>
     </div>
 
     <script type="module">
-        const SHEET_ID = '1N09HDxPd3zEDqxHR-knpH2MP_fq_XkLJZJ4FdCAYEG0';
-        const CSV_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=0&t=${Date.now()}`;
+        // Firebase Modular SDK Imports
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, getDoc, setDoc, updateDoc, deleteDoc, onSnapshot, collection } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Global values provided by environment if available, otherwise fallback
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'thesale3-camping';
+        const rawConfig = typeof __firebase_config !== 'undefined' ? __firebase_config : null;
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+        let db = null;
+        let auth = null;
+        let user = null;
+        let blogsCollectionRef = null;
+
+        let activeSheetId = '1N09HDxPd3zEDqxHR-knpH2MP_fq_XkLJZJ4FdCAYEG0';
 
         function parseCSV(text) {
             const rows = [];
@@ -653,28 +1403,282 @@
             return rows;
         }
 
+        // Initialize Firebase connection if configuration exists
+        async function initializeDatabase() {
+            // Priority 1: User-saved settings inside localStorage
+            const savedFirebaseJSON = localStorage.getItem('thesale3_firebase_config');
+            let finalConfig = null;
+
+            if (savedFirebaseJSON) {
+                try {
+                    finalConfig = JSON.parse(savedFirebaseJSON);
+                } catch (e) {
+                    console.error("Failed to parse saved Firebase config: ", e);
+                }
+            } else if (rawConfig) {
+                // Priority 2: Platform-provided environment config
+                try {
+                    finalConfig = JSON.parse(rawConfig);
+                } catch (e) {
+                    console.error("Failed to parse environment Firebase config: ", e);
+                }
+            } else {
+                // Priority 3: Built-in Default Custom Firebase Settings for Mou's Camping Store Project
+                finalConfig = {
+                    apiKey: "AIzaSyD1sXtRmDOyP7voO2tsgJxwcHApzikh_6k",
+                    authDomain: "thesale3-camping-store-4wgw8.firebaseapp.com",
+                    projectId: "thesale3-camping-store-4wgw8",
+                    storageBucket: "thesale3-camping-store-4wgw8.firebasestorage.app",
+                    messagingSenderId: "705950901202",
+                    appId: "1:705950901202:web:9462985eb602f5d3f25e0b"
+                };
+            }
+
+            if (finalConfig && finalConfig.apiKey && finalConfig.projectId) {
+                try {
+                    const app = initializeApp(finalConfig);
+                    db = getFirestore(app);
+                    auth = getAuth(app);
+
+                    // Perform Authentication before queries (Rule 3)
+                    if (initialAuthToken) {
+                        await signInWithCustomToken(auth, initialAuthToken);
+                    } else {
+                        await signInAnonymously(auth);
+                    }
+
+                    onAuthStateChanged(auth, (u) => {
+                        user = u;
+                        if (user) {
+                            // Strict Path Construction (Rule 1)
+                            blogsCollectionRef = collection(db, 'artifacts', appId, 'public', 'data', 'blogs');
+                            // Start real-time sync with database
+                            syncBlogsRealTime();
+                            
+                            // Update badge statuses
+                            const sb = document.getElementById('settingsStatusBadge');
+                            if(sb) { sb.innerText = 'Connected to Cloud'; sb.className = 'font-black text-emerald-400'; }
+                        }
+                    });
+                } catch (err) {
+                    console.error("Firebase Initialization Failed: ", err);
+                    window.showToast("Cloud connection error. Running in offline/fallback mode.", true);
+                }
+            } else {
+                console.log("No Firebase config provided. Operating in safe local-storage fallback.");
+            }
+        }
+
+        // Realtime blogs fetch (Rule 2: Fetch all, simple collection query, sort in memory)
+        function syncBlogsRealTime() {
+            if (!blogsCollectionRef || !user) return;
+
+            onSnapshot(blogsCollectionRef, (snapshot) => {
+                const fetchedBlogs = [];
+                snapshot.forEach((doc) => {
+                    fetchedBlogs.push({ id: doc.id, ...doc.data() });
+                });
+
+                if (fetchedBlogs.length > 0) {
+                    // Update current client state and render
+                    window.state.blogs = fetchedBlogs;
+                    window.renderBlogs();
+                    window.renderAdminBlogsList();
+                }
+            }, (error) => {
+                console.error("Real-time Blog Sync Error: ", error);
+            });
+        }
+
+        // CRUD: Publish, Update or Edit Note
+        window.saveBlogFromAdmin = async () => {
+            const id = document.getElementById('blogEditId').value || 'blog-' + Math.random().toString(36).substring(2, 9);
+            const title = document.getElementById('blogTitleInput').value.trim();
+            const category = document.getElementById('blogCategorySelect').value;
+            const author = document.getElementById('blogAuthorInput').value.trim();
+            const date = document.getElementById('blogDateInput').value.trim();
+            const readTime = document.getElementById('blogReadTimeInput').value.trim();
+            const img = document.getElementById('blogImgInput').value.trim() || 'image_cd7fa5.jpg';
+            const desc = document.getElementById('blogDescInput').value.trim();
+            const content = document.getElementById('blogContentInput').value.trim();
+
+            if (!title || !desc || !content) {
+                window.showToast("Please fill in all mandatory fields", true);
+                return;
+            }
+
+            const blogData = { category, author, date, readTime, title, desc, img, content };
+
+            if (db && user && blogsCollectionRef) {
+                try {
+                    // Write directly to structured path doc
+                    const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'blogs', id);
+                    await setDoc(docRef, blogData);
+                    window.showToast("Adventure Note published to Cloud!");
+                } catch (err) {
+                    console.error("Error saving blog: ", err);
+                    window.showToast("Cloud publish failed. Saved to local storage instead.", true);
+                    saveLocalFallback(id, blogData);
+                }
+            } else {
+                saveLocalFallback(id, blogData);
+            }
+
+            window.switchAdminTab('list');
+        };
+
+        function saveLocalFallback(id, data) {
+            const existingIdx = window.state.blogs.findIndex(x => x.id === id);
+            if (existingIdx !== -1) {
+                window.state.blogs[existingIdx] = { id, ...data };
+            } else {
+                window.state.blogs.unshift({ id, ...data });
+            }
+            localStorage.setItem('thesale3_blogs_local', JSON.stringify(window.state.blogs));
+            window.renderBlogs();
+            window.renderAdminBlogsList();
+            window.showToast("Adventure Note saved locally.");
+        }
+
+        // CRUD: Deletion hook
+        window.deleteBlogFromAdmin = async (id) => {
+            if (db && user && blogsCollectionRef) {
+                try {
+                    const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'blogs', id);
+                    await deleteDoc(docRef);
+                    window.showToast("Adventure Note deleted from Cloud!");
+                } catch (err) {
+                    console.error("Error deleting blog: ", err);
+                    window.showToast("Cloud deletion failed. Deleted locally instead.", true);
+                    deleteLocalFallback(id);
+                }
+            } else {
+                deleteLocalFallback(id);
+            }
+        };
+
+        function deleteLocalFallback(id) {
+            window.state.blogs = window.state.blogs.filter(x => x.id !== id);
+            localStorage.setItem('thesale3_blogs_local', JSON.stringify(window.state.blogs));
+            window.renderBlogs();
+            window.renderAdminBlogsList();
+            window.showToast("Adventure Note deleted locally.");
+        }
+
+        // Configuration management
+        window.loadSettingsToForm = () => {
+            // Load Spreadsheet ID
+            const savedSheetId = localStorage.getItem('thesale3_sheet_id') || '1N09HDxPd3zEDqxHR-knpH2MP_fq_XkLJZJ4FdCAYEG0';
+            document.getElementById('settingsSheetIdInput').value = savedSheetId;
+
+            // Load Firebase Parameters (checking localstorage first, else display built-in default values)
+            const savedFb = localStorage.getItem('thesale3_firebase_config');
+            if (savedFb) {
+                try {
+                    const parsed = JSON.parse(savedFb);
+                    document.getElementById('fbApiKey').value = parsed.apiKey || '';
+                    document.getElementById('fbAuthDomain').value = parsed.authDomain || '';
+                    document.getElementById('fbProjectId').value = parsed.projectId || '';
+                    document.getElementById('fbStorageBucket').value = parsed.storageBucket || '';
+                    document.getElementById('fbSenderId').value = parsed.messagingSenderId || '';
+                    document.getElementById('fbAppId').value = parsed.appId || '';
+                } catch(e) {
+                    console.error("Error parsing settings config:", e);
+                }
+            } else {
+                // Pre-fill fields with your active database credentials automatically
+                document.getElementById('fbApiKey').value = 'AIzaSyD1sXtRmDOyP7voO2tsgJxwcHApzikh_6k';
+                document.getElementById('fbAuthDomain').value = 'thesale3-camping-store-4wgw8.firebaseapp.com';
+                document.getElementById('fbProjectId').value = 'thesale3-camping-store-4wgw8';
+                document.getElementById('fbStorageBucket').value = 'thesale3-camping-store-4wgw8.firebasestorage.app';
+                document.getElementById('fbSenderId').value = '705950901202';
+                document.getElementById('fbAppId').value = '1:705950901202:web:9462985eb602f5d3f25e0b';
+            }
+        };
+
+        window.saveSystemSettings = () => {
+            const sheetId = document.getElementById('settingsSheetIdInput').value.trim();
+            const config = {
+                apiKey: document.getElementById('fbApiKey').value.trim(),
+                authDomain: document.getElementById('fbAuthDomain').value.trim(),
+                projectId: document.getElementById('fbProjectId').value.trim(),
+                storageBucket: document.getElementById('fbStorageBucket').value.trim(),
+                messagingSenderId: document.getElementById('fbSenderId').value.trim(),
+                appId: document.getElementById('fbAppId').value.trim()
+            };
+
+            if (sheetId) {
+                localStorage.setItem('thesale3_sheet_id', sheetId);
+                activeSheetId = sheetId;
+            }
+
+            // Save Firebase Credentials if customized
+            if (config.apiKey && config.projectId) {
+                localStorage.setItem('thesale3_firebase_config', JSON.stringify(config));
+                window.showToast("System configurations updated! Reloading parameters...");
+                setTimeout(() => window.location.reload(), 1500);
+            } else {
+                localStorage.removeItem('thesale3_firebase_config');
+                window.showToast("Spreadsheet updated. Reverting to custom default Cloud credentials.");
+                setTimeout(() => window.location.reload(), 1500);
+            }
+        };
+
+        // Initialize Products and Offline/Local Blog Data
         window.loadData = async () => {
             try {
                 window.state.isLoading = true;
-                const res = await fetch(CSV_URL);
-                const rows = parseCSV(await res.text()).slice(1);
-                window.state.products = rows.map((cols, i) => ({
-                    id: 'p-' + i,
-                    name: cols[1],
-                    price: parseInt(cols[2]?.replace(/\D/g,'')) || 0,
-                    category: cols[3] || 'General',
-                    img: cols[4] ? (cols[4].startsWith('http') ? cols[4] : `https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/${cols[4]}`) : '',
-                    status: cols[5] || 'In Stock',
-                    desc: cols[6] || 'High-quality outdoor equipment.'
-                }))
-                // EXCLUDE SPECIFIC ERROR ROW AS REQUESTED
-                .filter(x => x.name && x.name.length > 2 && x.name.trim().toUpperCase() !== '60L: 700X370X240MM');
                 
+                // Get Google Sheet ID
+                activeSheetId = localStorage.getItem('thesale3_sheet_id') || '1N09HDxPd3zEDqxHR-knpH2MP_fq_XkLJZJ4FdCAYEG0';
+                const productsCSVUrl = `https://docs.google.com/spreadsheets/d/${activeSheetId}/export?format=csv&gid=0&t=${Date.now()}`;
+
+                // Fetch Products
+                const resProducts = await fetch(productsCSVUrl);
+                const rowsProducts = parseCSV(await resProducts.text()).slice(1);
+                
+                // If sheet loads successfully, overwrite fallback state with dynamic live products
+                if(rowsProducts.length > 0) {
+                    window.state.products = rowsProducts.map((cols, i) => ({
+                        id: 'p-' + i,
+                        name: cols[1],
+                        price: parseInt(cols[2]?.replace(/\D/g,'')) || 0,
+                        category: cols[3] || 'General',
+                        img: cols[4] ? (cols[4].startsWith('http') ? cols[4] : `https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/${cols[4]}`) : '',
+                        status: cols[5] || 'In Stock',
+                        desc: cols[6] || 'High-quality outdoor equipment.'
+                    }))
+                    .filter(x => x.name && x.name.length > 2 && x.name.trim().toUpperCase() !== '60L: 700X370X240MM');
+                }
+            } catch (e) { 
+                console.error("Dynamic Google Sheet Fetch Error (Using fallbacks):", e); 
+            } finally {
+                // Load local storage backups if available
+                const localBackup = localStorage.getItem('thesale3_blogs_local');
+                if (localBackup) {
+                    window.state.blogs = JSON.parse(localBackup);
+                }
+
                 window.state.isLoading = false;
                 window.applyProductFilters();
                 window.renderHomePreview();
-            } catch (e) { console.error("Data Load Error:", e); window.state.isLoading = false; }
+                window.renderBlogs();
+                window.renderPlaces();
+            }
         };
+
+        // Attach event listeners to admin forms
+        document.getElementById('adminFormPublishBtn').addEventListener('click', window.saveBlogFromAdmin);
+
+        // Routing and slider lifecycle callbacks
+        window.addEventListener('hashchange', window.handleRouting);
+        window.addEventListener('DOMContentLoaded', () => {
+            window.handleRouting();
+            window.initHeroSlider(); // Initialize slider on load!
+        });
+
+        // Start initialization sequence
+        initializeDatabase();
         window.loadData();
     </script>
 </body>
