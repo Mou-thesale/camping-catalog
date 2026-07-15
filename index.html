@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- SEO & Social Sharing (Audit Improvement) -->
+    <!-- SEO & Social Sharing -->
     <title>TheSale3 Camping Store | Premium Outdoor Gear Laos</title>
     <meta name="description" content="TheSale3 - Vientiane's premier outdoor equipment specialist. High-quality tents, cooking gear, and adventure supplies for the Lao wilderness.">
     <meta property="og:title" content="TheSale3 Camping Store | Premium Outdoor Gear Laos">
@@ -17,7 +17,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=300;400;500;600;700;800&family=Noto+Sans+Lao:wght@300;400;500;700;900&display=swap');
         
         :root {
             --adventure-green: #064e3b;
@@ -29,7 +29,7 @@
         }
 
         body { 
-            font-family: 'Plus Jakarta Sans', sans-serif; 
+            font-family: 'Plus Jakarta Sans', 'Noto Sans Lao', sans-serif; 
             background: radial-gradient(circle at top right, #065f46, #022c22 70%);
             background-attachment: fixed;
             color: #f8fafc; 
@@ -198,105 +198,192 @@
 <body class="flex flex-col min-h-screen">
 
     <script>
+        // Localization Dictionary Translation Map
+        window.translations = {
+            lo: {
+                home: "ໜ້າຫຼັກ",
+                gear: "ສິນຄ້າ",
+                spots: "ສະຖານທີ່",
+                journal: "ບົດຄວາມ",
+                about: "ກ່ຽວກັບ",
+                contact: "ຕິດຕໍ່",
+                latest_arrivals: "ສິນຄ້າມາໃໝ່ຫຼ້າສຸດ",
+                view_inventory: "ເບິ່ງສິນຄ້າທັງໝົດ",
+                premium_gear_title: "ອຸປະກອນແຄ້ມປິ້ງພຣີມ່ຽມ TheSale3",
+                catalog: "ລາຍການສິນຄ້າ",
+                search_placeholder: "ຄົ້ນຫາສິນຄ້າ...",
+                no_products: "ບໍ່ພົບສິນຄ້າທີ່ຄົ້ນຫາ.",
+                no_spots: "ບໍ່ພົບສະຖານທີ່ທ່ອງທ່ຽວ.",
+                no_blogs: "ບໍ່ພົບເລື່ອງລາວ/ບົດຄວາມ.",
+                add_to_bag: "ເພີ່ມໃສ່ກະເປົາ",
+                my_bag: "ກະເປົາຂອງຂ້ອຍ",
+                bag_empty: "ບໍ່ມີສິນຄ້າໃນກະເປົາ",
+                total_order: "ລາຄາລວມທັງໝົດ",
+                whatsapp_checkout: "ສັ່ງຊື້ຜ່ານ WhatsApp",
+                backcountry_destinations: "ສະຖານທີ່ທ່ອງທ່ຽວຜະຈົນໄພ",
+                wild_spots: "ຈຸດຕັ້ງແຄ້ມຍອດຮິດ",
+                wild_spots_desc: "ຄົ້ນພົບສະຖານທີ່ຕັ້ງແຄ້ມທຳມະຊາດ, ຍອດພູສູງ ແລະ ແຄ້ມແຄມນ້ຳທີ່ຖືກຄັດສັນ ແລະ ຢັ້ງຢືນໂດຍທີມງານເດີນທາງຂອງພວກເຮົາ.",
+                explore_spot_details: "ເບິ່ງລາຍລະອຽດສະຖານທີ່",
+                adventure_notes: "ບັນທຶກການເດີນທາງ",
+                wild_journal: "ວາລະສານຜະຈົນໄພ",
+                wild_journal_desc: "ເລື່ອງລາວ, ຄູ່ມືການຕັ້ງແຄ້ມ ແລະ ຂໍ້ມູນເຈາະເລິກຈາກປະສົບການຈິງຂອງທີມງານເດີນທາງທົ່ວປະເທດລາວ.",
+                read_essay: "ອ່ານບົດຄວາມ",
+                our_mission: "ພາລະກິດຂອງພວກເຮົາ",
+                mission_para1: "ກໍ່ຕັ້ງຂຶ້ນໃນປີ 2021 ຢູ່ໃຈກາງນະຄອນຫຼວງວຽງຈັນ, <span class='text-white font-bold'>TheSale3</span> ເກີດຂຶ້ນມາຈາກຄວາມຮັກ ແລະ ຄວາມຫຼົງໄຫຼໃນຄວາມງາມຂອງທຳມະຊາດໃນປະເທດລາວ. ພວກເຮົາເຊື່ອວ່າທຸກໆເສັ້ນທາງມີເລື່ອງລາວ ແລະ ທຸກໆຈຸດຕັ້ງແຄ້ມຄືບ້ານຫຼັງໃຫມ່ທີ່ຄອຍຖ້າການຄົ້ນພົບ.",
+                mission_para2: "ພວກເຮົາບໍ່ພຽງແຕ່ຂາຍອຸປະກອນເທົ່ານັ້ນ, ແຕ່ພວກເຮົາກຽມຄວາມພ້ອມໃຫ້ກັບການເດີນທາງຂອງທ່ານ. ຈາກພູດອຍທີ່ມີທະເລໝອກຂອງພູຄູນ ຈົນເຖິງແມ່ນ້ຳທີ່ງຽບສະຫງົບຂອງວັງວຽງ ອຸປະກອນທຸກຊິ້ນໄດ້ຮັບການທົດສອບຢ່າງເຂັ້ມງວດເພື່ອໃຫ້ແນ່ໃຈວ່າທ່ານຈະປອດໄພ, ແຫ້ງສະບາຍ ແລະ ມີແຮງບັນດານໃຈໃນທຸກການຜະຈົນໄພ.",
+                get_in_touch: "ຕິດຕໍ່ພວກເຮົາ",
+                whatsapp_support: "ຊ່ອງທາງ WhatsApp",
+                basecamp_location: "ທີ່ຢູ່ Basecamp ຂອງພວກເຮົາ",
+                delivery_available: "ນະຄອນຫຼວງວຽງຈັນ, ສປປ ລາວ<br>ມີບໍລິການຈັດສົ່ງທົ່ວປະເທດ",
+                privacy_policy: "ນະໂຍບາຍຄວາມເປັນສ່ວນຕົວ",
+                privacy_intro: "ຄວາມເປັນສ່ວນຕົວຂອງທ່ານແມ່ນບູລິມະສິດຂອງພວກເຮົາຢູ່ TheSale3.",
+                privacy_header1: "1. ການເກັບກຳຂໍ້ມູນ",
+                privacy_desc1: "ພວກເຮົາເກັບກຳຂໍ້ມູນພື້ນຖານເຊັ່ນ: ຊື່ ແລະ ເບີໂທ WhatsApp ເພື່ອໃຊ້ໃນການປະມວນຜົນການສັ່ງຊື້ ແລະ ການຈັດສົ່ງສິນຄ້າເທົ່ານັ້ນ.",
+                privacy_header2: "2. ບຸກຄົນທີສາມ",
+                privacy_desc2: "ພວກເຮົາແບ່ງປັນຂໍ້ມູນການຈັດສົ່ງທີ່ຈຳເປັນກັບບໍລິສັດຂົນສົ່ງທ້ອງຖິ່ນ (HAL, Anousith, ແລະ ອື່ນໆ). ພວກເຮົາຈະບໍ່ຂາຍຂໍ້ມູນຂອງທ່ານເດັດຂາດ.",
+                terms_of_service: "ເງື່ອນໄຂການບໍລິການ",
+                terms_header1: "1. ການຢືນຢັນການສັ່ງຊື້",
+                terms_desc1: "ການສັ່ງຊື້ຈະຖືກຢືນຢັນຫຼັງຈາກມີການກວດສອບສະຕັອກສິນຄ້າ ແລະ ຢືນຢັນການໂອນເງິນຜ່ານ BCEL One ສໍາເລັດ.",
+                terms_header2: "2. ການຈັດສົ່ງສິນຄ້າ",
+                terms_desc2: "TheSale3 ຈະບໍ່ຮັບຜິດຊອບຕໍ່ຄວາມຊັກຊ້າທີ່ເກີດຈາກບໍລິການຂົນສົ່ງ ຫຼື ສະພາບອາກາດທີ່ຮຸນແຮງໃນພື້ນທີ່ຫ່າງໄກສອກຫຼີກ.",
+                equip_gear: "ກຽມອຸປະກອນຜະຈົນໄພ",
+                open_maps: "ເປີດແຜນທີ່ Google Maps",
+                elevation: "ຄວາມສູງຈາກລະດັບນ້ຳທະເລ",
+                difficulty: "ລະດັບເສັ້ນທາງ ແລະ ທາງເຂົ້າ",
+                amenities: "ສິ່ງອຳນວຍຄວາມສະດວກ",
+                added_to_bag_toast: "ເພີ່ມໃສ່ກະເປົາສຳເລັດແລ້ວ!",
+                all_categories: "ທັງໝົດ",
+                bag_title: "ກະເປົາຂອງຂ້ອຍ"
+            },
+            en: {
+                home: "Home",
+                gear: "Gear",
+                spots: "Spots",
+                journal: "Journal",
+                about: "About",
+                contact: "Contact",
+                latest_arrivals: "Latest Arrivals",
+                view_inventory: "View Inventory",
+                premium_gear_title: "TheSale3 Premium Gear",
+                catalog: "Catalog",
+                search_placeholder: "Search...",
+                no_products: "No products found.",
+                no_spots: "No backcountry spots found.",
+                no_blogs: "No stories found.",
+                add_to_bag: "Add to Bag",
+                my_bag: "My Bag",
+                bag_empty: "Bag Empty",
+                total_order: "Total Order",
+                whatsapp_checkout: "WhatsApp Checkout",
+                backcountry_destinations: "Backcountry Destinations",
+                wild_spots: "Wild Spots",
+                wild_spots_desc: "Discover handpicked, breathtaking wilderness campsites, mountain peaks, and hidden riversides across Lao PDR verified by our expedition crew.",
+                explore_spot_details: "Explore Spot Details",
+                adventure_notes: "Adventure Notes",
+                wild_journal: "Wild Journal",
+                wild_journal_desc: "Stories, practical guides, and expert backcountry insights from our team expeditions right out across the rugged landscapes of Lao PDR.",
+                read_essay: "Read Essay",
+                our_mission: "Our Mission",
+                mission_para1: "Founded in 2021 in the heart of Vientiane, <span class='text-white font-bold'>TheSale3</span> was born from a passion for the untamed beauty of Laos. We believe that every trail has a story, and every campsite is a home waiting to be built.",
+                mission_para2: "We don't just sell gear; we equip expeditions. From the rainy mountains of Phou Khoun to the misty rivers of Vang Vieng, our equipment is rigorously tested to ensure you stay safe, dry, and inspired in the wild.",
+                get_in_touch: "Get in Touch",
+                whatsapp_support: "WhatsApp Support",
+                basecamp_location: "Basecamp Location",
+                delivery_available: "Vientiane, Lao PDR<br>Nationwide Delivery Available",
+                privacy_policy: "Privacy Policy",
+                privacy_intro: "Your privacy is our priority at TheSale3.",
+                privacy_header1: "1. Data Collection",
+                privacy_desc1: "We collect basic details like name and WhatsApp number only for order processing and delivery fulfillment.",
+                privacy_header2: "2. Third-Parties",
+                privacy_desc2: "We share only necessary delivery info with local couriers (HAL, Anousith, etc.). We never sell your data.",
+                terms_of_service: "Terms of Service",
+                terms_header1: "1. Order Fulfillment",
+                terms_desc1: "Orders are confirmed only after stock validation and BCEL One transfer verification.",
+                terms_header2: "2. Shipping",
+                terms_desc2: "TheSale3 is not liable for delays caused by third-party shipping services or weather conditions in remote areas.",
+                equip_gear: "Equip Adventure Gear",
+                open_maps: "Open Google Maps Location",
+                elevation: "Elevation / Altitude",
+                difficulty: "Access & Trail Level",
+                amenities: "Available Conveniences",
+                added_to_bag_toast: "Added to Bag!",
+                all_categories: "All",
+                bag_title: "My Bag"
+            }
+        };
+
         window.state = {
+            lang: localStorage.getItem('thesale3_lang') || 'lo',
             products: [
-                // Premium Safe Fallbacks so Homepage never renders blank during load
+                // Premium Safe Fallbacks with Bilingual Title/Desc syntax split by "|"
                 {
                     id: 'p-default-1',
-                    name: 'Premium Family Dome Tent 4-Person (TheSale3)',
+                    name: 'ເຕັ້ນໂດມຄອບຄົວພຣີມ່ຽມສໍາລັບ 4 ຄົນ | Premium Family Dome Tent 4-Person (TheSale3)',
                     price: 1850000,
                     category: 'ເຕັ້ນTents',
                     img: 'https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/phadang-camping.jpg',
                     status: 'In Stock',
-                    desc: 'Double-layered waterproof dome tent engineered to withstand mountain rains and high-altitude wilderness winds.'
+                    desc: 'ເຕັ້ນໂດມກັນນ້ຳສອງຊັ້ນທີ່ອອກແບບມາເພື່ອຕ້ານທານກັບຝົນເທິງພູເຂົາ ແລະ ລົມແຮງໃນປ່າສູງ. | Double-layered waterproof dome tent engineered to withstand mountain rains and high-altitude wilderness winds.'
                 },
                 {
                     id: 'p-default-2',
-                    name: 'Ultralight Outdoor Wilderness Gas Burner',
+                    name: 'ເຕົາແກັສສະໜາມນ້ຳໜັກເບົາພິເສດ | Ultralight Outdoor Wilderness Gas Burner',
                     price: 320000,
                     category: 'ເຄື່ອງຄົວCooking',
                     img: 'https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/donkoksa-camping.jpg',
                     status: 'In Stock',
-                    desc: 'Compact electronic ignition alloy stove with micro adjustment safety controls.'
+                    desc: 'ເຕົາແກັສສະໜາມຂະໜາດກະທັດຮັດ ລະບົບຈຸດໄຟອັດຕະໂນມັດ ພ້ອມປຸ່ມປັບຄວາມແຮງລະອຽດ. | Compact electronic ignition alloy stove with micro adjustment safety controls.'
                 },
                 {
                     id: 'p-default-3',
-                    name: 'Backcountry Expedition Backpack 60L',
+                    name: 'ກະເປົາເປ້ເດີນປ່າຂະໜາດໃຫຍ່ 60L | Backcountry Expedition Backpack 60L',
                     price: 890000,
                     category: 'ກະເປົາBackpack',
                     img: 'https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/nammung3-camping.jpg',
                     status: 'In Stock',
-                    desc: 'Ergonomic multi-compartment pack with custom load balancer straps and high waterproof covers.'
+                    desc: 'ອອກແບບຕາມຫຼັກສະລີລະສາດ ພ້ອມຊ່ອງໃສ່ເຄື່ອງຫຼາຍຈຸດ ລະບົບກະຈາຍນ້ຳໜັກ ແລະ ຜ້າກັນຝົນພິເສດ. | Ergonomic multi-compartment pack with custom load balancer straps and high waterproof covers.'
                 },
                 {
                     id: 'p-default-4',
-                    name: 'Rechargeable Warm Glow Camping Lantern',
+                    name: 'ຕະກຽງແຄ້ມປິ້ງສາກໄຟໄດ້ ແສງອົບອຸ່ນ | Rechargeable Warm Glow Camping Lantern',
                     price: 240000,
                     category: 'Lighting',
                     img: 'https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/phadang-camping.jpg',
                     status: 'In Stock',
-                    desc: 'Dimmable high-capacity warm light setting for tents, picnic spots, and outdoor emergency paths.'
+                    desc: 'ປັບຄວາມສະຫວ່າງໄດ້ ໃຫ້ແສງສະຫວ່າງສີອົບອຸ່ນເໝາະສຳລັບແຂວນໃນເຕັ້ນ, ຈຸດກິນເຂົ້າ ຫຼື ສາຍຍ່າງກາງຄືນ. | Dimmable high-capacity warm light setting for tents, picnic spots, and outdoor emergency paths.'
                 }
             ],
             places: [
                 {
                     id: 'spot-1',
-                    title: 'Phou Khoun Cloud Camp (ພູຄູນ ຊົມໝອກ)',
-                    province: 'Luang Prabang',
+                    title: 'ຈຸດຊົມທະເລໝອກ ພູຄູນ | Phou Khoun Cloud Camp (ພູຄູນ ຊົມໝອກ)',
+                    province: 'ຫຼວງພຣະບາງ | Luang Prabang',
                     elevation: '1,400m',
-                    difficulty: 'Medium / SUV Accessible',
-                    img: 'image_cd7fa5.jpg',
-                    desc: 'Camp above a breathtaking sea of clouds on mountain ridges connecting Vientiane and Luang Prabang.',
-                    amenities: ['Hot Showers', 'Tent Platforms', '4G Mobile Signal', 'Local Cafe nearby'],
+                    difficulty: 'ລົດໃຫຍ່ທົ່ວໄປ ແລະ SUV ເຂົ້າເຖິງໄດ້ | Medium / SUV Accessible',
+                    img: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80',
+                    desc: 'ຕັ້ງແຄ້ມເໜືອທະເລໝອກທີ່ສວຍງາມເທິງສັນເຂົາທີ່ເຊື່ອມຕໍ່ລະຫວ່າງ ວຽງຈັນ ແລະ ຫຼວງພະບາງ. | Camp above a breathtaking sea of clouds on mountain ridges connecting Vientiane and Luang Prabang.',
+                    amenities: ['ຫ້ອງນ້ຳອຸ່ນ | Hot Showers', 'ແທ່ນຕັ້ງເຕັ້ນ | Tent Platforms', 'ສັນຍານມືຖື 4G | 4G Mobile Signal', 'ຮ້ານກາເຟໃກ້ຄຽງ | Local Cafe nearby'],
                     mapLink: 'https://maps.google.com/?q=Phou+Khoun',
                     content: `
-                        <p class="mb-4">Phou Khoun is spectacular for mountain lovers who want to witness rolling clouds without high-intensity hiking. Setup your dome tent directly on premium wooden platforms and enjoy cool breeze reaching down to 12°C during winter months.</p>
-                        <h4 class="text-amber-400 font-bold mt-6 mb-2">Backcountry Tips</h4>
-                        <p class="mb-4">Ensure you bring high thermal sleep gear (such as a premium sleeping bag or insulated mat) as high altitude winds drop temperatures rapidly after dusk.</p>
+                        <p class="mb-4">ພູຄູນເປັນສະຖານທີ່ທີ່ໜ້າຕື່ນຕາຕື່ນໃຈສຳລັບຄົນຮັກພູເຂົາທີ່ຢາກສຳຜັດກັບທະເລໝອກໂດຍບໍ່ຕ້ອງຍ່າງປ່າໄກ. ຕັ້ງເຕັ້ນຂອງທ່ານເທິງແທ່ນໄມ້ທີ່ຈັດສັນໄວ້ຢ່າງດີ ແລະ ສູດອາກາດໜາວເຢັນທີ່ຫຼຸດລົງເຖິງ 12 ອົງສາໃນຊ່ວງລະດູໜາວ. | Phou Khoun is spectacular for mountain lovers who want to witness rolling clouds without high-intensity hiking. Setup your dome tent directly on premium wooden platforms and enjoy cool breeze reaching down to 12°C during winter months.</p>
+                        <h4 class="text-amber-400 font-bold mt-6 mb-2">ຂໍ້ແນະນຳໃນການເດີນທາງ | Backcountry Tips</h4>
+                        <p class="mb-4">ກຽມອຸປະກອນນອນທີ່ໃຫ້ຄວາມອົບອຸ່ນສູງ (ເຊັ່ນ: ຖົງນອນ ຫຼື ແຜ່ນຮອງນອນກັນຄວາມເຢັນ) ເພາະລົມພູເຂົາຈະເຮັດໃຫ້ອຸນຫະພູມຫຼຸດລົງຢ່າງໄວວາຫຼັງຕາເວັນຕົກດິນ. | Ensure you bring high thermal sleep gear (such as a premium sleeping bag or insulated mat) as high altitude winds drop temperatures rapidly after dusk.</p>
                     `
                 },
                 {
                     id: 'spot-2',
-                    title: 'Nam Lik Riverside Wilderness (ແຄ້ມປິ້ງ ນໍ້າລີກ)',
-                    province: 'Vientiane Province',
+                    title: 'ແຄ້ມປິ້ງແຄມນ້ຳລີກ | Nam Lik Riverside Wilderness (ແຄ້ມປິ້ງ ນໍ້າລີກ)',
+                    province: 'ແຂວງວຽງຈັນ | Vientiane Province',
                     elevation: '180m',
-                    difficulty: 'Easy Family Camping',
-                    img: 'image_cd87fe.jpg',
-                    desc: 'Relax directly beside pristine clear rapids of the Nam Lik river. Perfect for a peaceful weekend camp kitchen setup.',
-                    amenities: ['Fresh Spring Water', 'Fire Pit Rings', 'Car Access', 'Kayaking Options'],
+                    difficulty: 'ເໝາະສຳລັບຄອບຄົວ ທາງເຂົ້າສະດວກ | Easy Family Camping',
+                    img: 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=800&q=80',
+                    desc: 'ພັກຜ່ອນຮ່າງກາຍແຄມແກ້ງນ້ຳລີກທີ່ໃສສະອາດ. ເໝາະສຳລັບການຕັ້ງແຄ້ມປຸງແຕ່ງອາຫານ ແລະ ພັກຜ່ອນໃນທ້າຍສັບປະດາ. | Relax directly beside pristine clear rapids of the Nam Lik river. Perfect for a peaceful weekend camp kitchen setup.',
+                    amenities: ['ນ້ຳຫ້ວຍທຳມະຊາດ | Fresh Spring Water', 'ຈຸດກໍ່ໄຟ | Fire Pit Rings', 'ລົດໃຫຍ່ເຂົ້າເຖິງແຄມນ້ຳ | Car Access', 'ກິດຈະກຳພາຍເຮືອຄາຍັກ | Kayaking Options'],
                     mapLink: 'https://maps.google.com/?q=Nam+Lik+River',
                     content: `
-                        <p class="mb-4">Tuck away along the gentle banks of Nam Lik. This site provides shaded camping spots beneath mature riverbank canopies. Perfect for setting up your hammocks, folding chairs, and trying out your backcountry drip coffee filters.</p>
-                        <h4 class="text-amber-400 font-bold mt-6 mb-2">Cooking Setup</h4>
-                        <p class="mb-4">There is plenty of driftwood along the river gravel. Combine with an ultralight gas burner for quick brews and slow cast iron campfire dinners.</p>
-                    `
-                },
-                {
-                    id: 'spot-3',
-                    title: 'Pha Dang Mountain Ridge Vista (ຜາແດງ ວັງວຽງ)',
-                    province: 'Vientiane Province',
-                    elevation: '650m',
-                    difficulty: 'Challenging Trail Hike',
-                    img: 'IMG_0152.jpg',
-                    desc: 'Hike up to one of the most famous limestone viewpoints in Vang Vieng to witness dramatic sunset shadows.',
-                    amenities: ['Lookout Shelter', 'Breathtaking 360° Views', 'No Power Grid'],
-                    mapLink: 'https://maps.google.com/?q=Pha+Ngem+Viewpoint+Vang+Vieng',
-                    content: `
-                        <p class="mb-4">Pha Dang viewpoint is legendary. The steep trail rewards adventurers with a full vista of Vang Vieng\'s emerald-green rice paddies and jagged limestone peaks. This is a pure wild bivouac setup spot for hikers looking to pack exceptionally light.</p>
-                    `
-                },
-                {
-                    id: 'spot-4',
-                    title: 'Phou Kabo Pine Forest Camp (ຍອດພູກະໂບ້)',
-                    province: 'Xieng Khouang',
-                    elevation: '1,800m',
-                    difficulty: 'Extreme 4x4 Off-Road',
-                    img: 'image_cde979.jpg',
-                    desc: 'An extraordinary pine-covered mountain ridge high above northern Laos, perfect for deep adventure expeditions.',
-                    amenities: ['Deep Wild Pine Forest', 'Stunning night sky stars', 'Remote Spot', 'No Signal'],
-                    mapLink: 'https://maps.google.com/?q=Xieng+Khouang',
-                    content: `
-                        <p class="mb-4">For the true off-road overland enthusiast, Phou Kabo offers unparalleled isolation. Towering pines frame the mountain ridges, providing an Alpine-like atmosphere hidden deep inside northern Lao mountains. Freezing nights, clear skies, and absolute quiet await those who undertake the expedition.</p>
+                        <p class="mb-4">ພັກຜ່ອນສະບາຍໆຕາມແຄມຝັ່ງນ້ຳລີກ. ສະຖານທີ່ນີ້ມີຮົ່ມໄມ້ໃຫຍ່ປົກຄຸມຕະຫຼອດມື້ ເໝາະແກ່ການຜູກອູ່, ຕັ້ງຕັ່ງແຄ້ມ ແລະ ລອງຊີມກາເຟດຣິບໃນຕອນເຊົ້າ. | Tuck away along the gentle banks of Nam Lik. This site provides shaded camping spots beneath mature riverbank canopies. Perfect for setting up your hammocks, folding chairs, and trying out your backcountry drip coffee filters.</p>
+                        <h4 class="text-amber-400 font-bold mt-6 mb-2">ການປຸງອາຫານ | Cooking Setup</h4>
+                        <p class="mb-4">ມີຟືນທຳມະຊາດຫຼວງຫຼາຍຕາມແຄມຝັ່ງແມ່ນ້ຳ. ທ່ານສາມາດໃຊ້ຮ່ວມກັບເຕົາແກັສສະໜາມເພື່ອຄວາມສະດວກໃນການປຸງອາຫານແຊບໆ. | There is plenty of driftwood along the river gravel. Combine with an ultralight gas burner for quick brews and slow cast iron campfire dinners.</p>
                     `
                 }
             ],
@@ -307,29 +394,14 @@
                     date: 'June 2026',
                     readTime: '5 Min Read',
                     author: 'Mou Team',
-                    title: 'Surviving the Misty Monsoons of Phou Khoun Wilderness',
-                    desc: 'A deep look into navigating heavy rainfall paths, maintaining structural integrity on quick-setup shelters, and managing mountain moisture levels safely.',
-                    img: 'image_cd7fa5.jpg',
+                    title: 'ເອົາໂຕລອດໃນລະດູຝົນ ແລະ ໝອກໜາຂອງພູຄູນ | Surviving the Misty Monsoons of Phou Khoun Wilderness',
+                    desc: 'ເຈາະເລິກວິທີການຮັບມືກັບຝົນຕົກໜັກ, ວິທີຮັກສາໂຄງສ້າງເຕັ້ນໃຫ້ແຂງແຮງ ແລະ ການຈັດການຄວາມຊຸ່ມຊື່ນໃນປ່າຢ່າງປອດໄພ. | A deep look into navigating heavy rainfall paths, maintaining structural integrity on quick-setup shelters, and managing mountain moisture levels safely.',
+                    img: 'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=800&q=80',
                     content: `
-                        <p class="mb-4">Phou Khoun is legendary for its rolling sea of clouds, but when the monsoon season hits, those beautiful mist trails quickly transform into torrential downpours and unpredictable mountain wind tunnels. Undertaking an expedition here requires a shift in mindset—from fair-weather recreation to absolute moisture defense.</p>
-                        <h4 class="text-emerald-400 font-bold text-lg mt-6 mb-2">1. Pitching the Perfect Shelter under Pressure</h4>
-                        <p class="mb-4">During monsoons, wind shifts up to 45 degrees in minutes. We recommend a sturdy dome structure with heavy aluminum pole segments. When setting up under heavy downpours, pitch your footprint and rainfly together first if your tent model supports outer-first setup. This guarantees your internal mesh sleeping space remains bone dry.</p>
-                        <blockquote class="border-l-4 border-emerald-500 pl-4 py-1 italic my-4 text-emerald-300">"Never assume your pitch site is safe from pooling. Look for natural runoffs and keep your entry door facing opposite of the dominant mountain winds."</blockquote>
-                    `
-                },
-                {
-                    id: 'blog-2',
-                    category: 'Gear Guide',
-                    date: 'May 2026',
-                    readTime: '8 Min Read',
-                    author: 'Expedition Crew',
-                    title: 'The Ultimate Camping Cookware & Fuel Breakdown',
-                    desc: 'From minimalist titanium wood burners to heavy-duty cast irons along river banks. Learn to optimize pack weight without sacrificing camp meal performance.',
-                    img: 'image_cd87fe.jpg',
-                    content: `
-                        <p class="mb-4">A hot camp meal is not just about nutrition; it is a vital psychological boost after a long trek along the rugged trails of Laos. However, choosing between minimalist titanium setups and versatile cooking systems is an art form every adventurer should master.</p>
-                        <h4 class="text-emerald-400 font-bold text-lg mt-6 mb-2">Titanium vs. Hard-Anodized Aluminum</h4>
-                        <p class="mb-4">Titanium is the absolute king of ultralight backpacking. It is extremely strong, resists corrosion, and weighs next to nothing. However, it disperses heat poorly, leading to hot spots.</p>
+                        <p class="mb-4">ພູຄູນແມ່ນມີຊື່ສຽງໂດ່ງດັງໃນເລື່ອງຂອງທະເລໝອກທີ່ສວຍງາມ, ແຕ່ເມື່ອລະດູຝົນມາຮອດ, ໝອກບາງໆເຫຼົ່ານັ້ນສາມາດປ່ຽນເປັນພາຍຸຝົນ ແລະ ລົມພັດແຮງຢ່າງບໍ່ຄາດຄິດ. ການເດີນທາງມາທີ່ນີ້ຕ້ອງການການກຽມພ້ອມດ້ານການປ້ອງກັນຄວາມຊຸ່ມຊື່ນຢ່າງເຕັມຮູບແບບ. | Phou Khoun is legendary for its rolling sea of clouds, but when the monsoon season hits, those beautiful mist trails quickly transform into torrential downpours and unpredictable mountain wind tunnels. Undertaking an expedition here requires a shift in mindset—from fair-weather recreation to absolute moisture defense.</p>
+                        <h4 class="text-emerald-400 font-bold text-lg mt-6 mb-2">1. ວິທີກາງເຕັ້ນໃນສະພາບລົມແຮງ | Pitching the Perfect Shelter under Pressure</h4>
+                        <p class="mb-4">ໃນຊ່ວງລະດູຝົນ, ທິດທາງລົມສາມາດປ່ຽນແປງໄດ້ຕະຫຼອດເວລາ. ພວກເຮົາແນະນຳໃຫ້ໃຊ້ເຕັ້ນໂດມທີ່ມີໂຄງສ້າງອາລູມີນຽມທີ່ແຂງແຮງ. ເມື່ອຕ້ອງການກາງເຕັ້ນໃນຂະນະທີ່ຝົນຕົກໜັກ ຄວນກາງຜ້າຟາຍຊີດກ່ອນເພື່ອຮັບປະກັນວ່າຫ້ອງນອນດ້ານໃນຈະບໍ່ປຽກ. | During monsoons, wind shifts up to 45 degrees in minutes. We recommend a sturdy dome structure with heavy aluminum pole segments. When setting up under heavy downpours, pitch your footprint and rainfly together first if your tent model supports outer-first setup. This guarantees your internal mesh sleeping space remains bone dry.</p>
+                        <blockquote class="border-l-4 border-emerald-500 pl-4 py-1 italic my-4 text-emerald-300">"ຢ່າຄິດວ່າຈຸດທີ່ທ່ານຕັ້ງແຄ້ມຈະບໍ່ມີນ້ຳຂັງ, ຄວນສັງເກດທາງນ້ຳໄຫຼ ແລະ ຫັນປະຕູເຕັ້ນຫຼົບທິດທາງລົມສະເໝີ. | Never assume your pitch site is safe from pooling. Look for natural runoffs and keep your entry door facing opposite of the dominant mountain winds."</blockquote>
                     `
                 }
             ],
@@ -339,7 +411,6 @@
             isLoading: true
         };
 
-        // Restored online high-resolution camping images for the background hero slideshow
         const heroImages = [
             'https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/phadang-camping.jpg',
             'https://i.postimg.cc/FKL5Q4JW/489751506-1424454392283349-8154752889413656228-n.jpg',
@@ -349,6 +420,70 @@
         
         const categories = ["All", "ເຕັ້ນTents", "ເຄື່ອງຄົວCooking", "ອຸປະກອນກາເຟCoffee", "Lighting", "ເຄື່ອງນອນSleeping", "ເຟີນິເຈີ້Furniture", "ກະເປົາBackpack", "ໄມ້ເທົ້າຍ່າງປ່າPoles", "ເກີບShoes", "ເຄື່ອງນຸ່ງCloth", "ແວ່ນຕາGlasses", "ພາວເວີ້ແບ້ງPowerbank", "ອຸປະກອນເອົາໂຕລອດSurvival", "ອຸປະກອນເສີມລົດຈັກ"];
         const ADMIN_SHEET_URL = 'https://docs.google.com/spreadsheets/d/1N09HDxPd3zEDqxHR-knpH2MP_fq_XkLJZJ4FdCAYEG0/edit';
+
+        // Helper to translate text split by "|"
+        window.getLocalizedText = (text) => {
+            if (!text) return "";
+            if (text.includes('|')) {
+                const parts = text.split('|');
+                return window.state.lang === 'lo' ? parts[0].trim() : parts[1].trim();
+            }
+            return text;
+        };
+
+        // Helper to translate categories like "ເຕັ້ນTents"
+        window.getLocalizedCategory = (cat) => {
+            if (cat === 'All') return window.translations[window.state.lang].all_categories;
+            const laoMatch = cat.match(/[\u0e80-\u0eff]+/g);
+            const engMatch = cat.match(/[a-zA-Z\s]+/g);
+            if (window.state.lang === 'lo') {
+                return laoMatch ? laoMatch.join(' ') : cat;
+            } else {
+                return engMatch ? engMatch.join(' ').trim() : cat;
+            }
+        };
+
+        // Function to cycle or switch languages
+        window.toggleLanguage = (selectedLang) => {
+            window.state.lang = selectedLang;
+            localStorage.setItem('thesale3_lang', selectedLang);
+            
+            // Toggle active status in custom toggle component
+            document.querySelectorAll('.lang-btn').forEach(btn => {
+                if(btn.dataset.lang === selectedLang) {
+                    btn.classList.add('bg-emerald-500', 'text-stone-950');
+                    btn.classList.remove('text-slate-300');
+                } else {
+                    btn.classList.remove('bg-emerald-500', 'text-stone-950');
+                    btn.classList.add('text-slate-300');
+                }
+            });
+
+            // Update DOM Static translations
+            window.updateStaticTranslations();
+            
+            // Re-render Dynamic components with the new language setting
+            window.renderCategoryFilters();
+            window.applyProductFilters(); 
+            window.renderHomePreview();
+            window.renderBlogs();
+            window.renderPlaces();
+            window.updateCartCount();
+        };
+
+        window.updateStaticTranslations = () => {
+            const dictionary = window.translations[window.state.lang];
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (dictionary[key]) {
+                    if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                        el.setAttribute('placeholder', dictionary[key]);
+                    } else {
+                        el.innerHTML = dictionary[key];
+                    }
+                }
+            });
+        };
 
         window.initHeroSlider = () => {
             const container = document.getElementById('heroContainer');
@@ -374,7 +509,6 @@
                 prevLayer.style.opacity = 0;
                 prevLayer.classList.remove('hero-active');
                 
-                // Show core text with excellent high contrast on ALL transitions so homepage never appears blank
                 if (textContainer) {
                     textContainer.style.opacity = '1';
                     textContainer.style.pointerEvents = 'auto';
@@ -425,7 +559,7 @@
             }
             window.switchPage(pageId || 'home', false);
             window.renderCategoryFilters();
-            window.applyProductFilters();
+            window.applyProductFilters(); 
         };
 
         window.renderCategoryFilters = () => {
@@ -433,7 +567,7 @@
             if(!container) return;
             container.innerHTML = categories.map(cat => `
                 <button onclick="window.setCategory('${cat}')" class="category-pill ${window.state.currentCategory.toLowerCase() === cat.toLowerCase() ? 'active' : ''} px-6 py-3 rounded-2xl text-[10px] font-bold uppercase tracking-widest font-sans">
-                    ${cat}
+                    ${window.getLocalizedCategory(cat)}
                 </button>
             `).join('');
         };
@@ -464,7 +598,7 @@
                 return;
             }
             if (items.length === 0) {
-                grid.innerHTML = `<div class="col-span-full py-20 text-center"><p class="opacity-50 italic font-black uppercase text-[10px] tracking-wider">No products found.</p></div>`;
+                grid.innerHTML = `<div class="col-span-full py-20 text-center"><p class="opacity-50 italic font-black uppercase text-[10px] tracking-wider" data-i18n="no_products">${window.translations[window.state.lang].no_products}</p></div>`;
                 return;
             }
             grid.innerHTML = items.map(p => {
@@ -477,15 +611,15 @@
                     </div>
                     <div class="flex items-center gap-2 mb-2">
                         <div class="h-[1px] w-4 bg-amber-500"></div>
-                        <span class="text-[9px] font-bold text-emerald-600 uppercase tracking-widest">${p.category}</span>
+                        <span class="text-[9px] font-bold text-emerald-600 uppercase tracking-widest">${window.getLocalizedCategory(p.category)}</span>
                     </div>
-                    <h3 class="font-black text-lg text-emerald-950 mb-3 flex-grow uppercase italic leading-tight">${p.name}</h3>
+                    <h3 class="font-black text-lg text-emerald-950 mb-3 flex-grow uppercase italic leading-tight">${window.getLocalizedText(p.name)}</h3>
                     <div class="mt-auto pt-4 border-t border-emerald-50">
                         <div class="flex flex-col mb-4">
                             <span class="text-xs text-red-500/60 line-through font-black italic">${fakePrice.toLocaleString()} LAK</span>
                             <p class="font-black text-emerald-700 italic text-2xl leading-none">${p.price.toLocaleString()} LAK</p>
                         </div>
-                        <button onclick="event.stopPropagation(); window.addToCart('${p.id}')" class="w-full h-12 rounded-2xl bg-emerald-950 text-white flex items-center justify-center gap-3 hover:bg-amber-500 transition-all shadow-lg font-black text-[10px] uppercase">Add to Bag</button>
+                        <button onclick="event.stopPropagation(); window.addToCart('${p.id}')" class="w-full h-12 rounded-2xl bg-emerald-950 text-white flex items-center justify-center gap-3 hover:bg-amber-500 transition-all shadow-lg font-black text-[10px] uppercase" data-i18n="add_to_bag">${window.translations[window.state.lang].add_to_bag}</button>
                     </div>
                 </div>`;
             }).join('');
@@ -500,10 +634,10 @@
                     <div class="h-56 rounded-[24px] bg-emerald-50 overflow-hidden mb-6 relative">
                         <img src="${p.img}" class="w-full h-full object-cover transition duration-700 group-hover:scale-110" loading="lazy" onerror="this.src='https://placehold.co/400x300/022c22/ffffff?text=TheSale3+Gear'">
                     </div>
-                    <h3 class="font-black text-lg text-emerald-950 mb-3 flex-grow uppercase italic leading-tight">${p.name}</h3>
+                    <h3 class="font-black text-lg text-emerald-950 mb-3 flex-grow uppercase italic leading-tight">${window.getLocalizedText(p.name)}</h3>
                     <div class="mt-auto pt-4 border-t border-emerald-50">
                         <p class="font-black text-emerald-700 italic text-2xl leading-none mb-4">${p.price.toLocaleString()} LAK</p>
-                        <button onclick="event.stopPropagation(); window.addToCart('${p.id}')" class="w-full h-12 rounded-2xl bg-emerald-950 text-white font-black text-[10px] uppercase">Add to Bag</button>
+                        <button onclick="event.stopPropagation(); window.addToCart('${p.id}')" class="w-full h-12 rounded-2xl bg-emerald-950 text-white font-black text-[10px] uppercase" data-i18n="add_to_bag">${window.translations[window.state.lang].add_to_bag}</button>
                     </div>
                 </div>`).join('');
             }
@@ -513,24 +647,24 @@
             const grid = document.getElementById('placesGrid');
             if(!grid) return;
             if (window.state.places.length === 0) {
-                grid.innerHTML = `<div class="col-span-full py-20 text-center"><p class="opacity-50 italic font-black uppercase text-[10px]">No backcountry spots found.</p></div>`;
+                grid.innerHTML = `<div class="col-span-full py-20 text-center"><p class="opacity-50 italic font-black uppercase text-[10px]" data-i18n="no_spots">${window.translations[window.state.lang].no_spots}</p></div>`;
                 return;
             }
             grid.innerHTML = window.state.places.map(p => `
                 <article onclick="window.openPlaceDetails('${p.id}')" class="card-journal group flex flex-col overflow-hidden h-full cursor-pointer">
                     <div class="h-64 overflow-hidden relative">
-                        <img src="${p.img}" class="w-full h-full object-cover transition duration-700 group-hover:scale-105" alt="${p.title}" onerror="this.src='https://placehold.co/600x400/022c22/ffffff?text=TheSale3+Expedition'">
-                        <span class="absolute bottom-4 left-4 bg-amber-500 text-stone-950 text-[9px] font-black uppercase tracking-widest px-3 py-1.5 rounded-xl shadow-md font-sans">${p.province}</span>
+                        <img src="${p.img}" class="w-full h-full object-cover transition duration-700 group-hover:scale-105" alt="${window.getLocalizedText(p.title)}" onerror="this.src='https://placehold.co/600x400/022c22/ffffff?text=TheSale3+Expedition'">
+                        <span class="absolute bottom-4 left-4 bg-amber-500 text-stone-950 text-[9px] font-black uppercase tracking-widest px-3 py-1.5 rounded-xl shadow-md font-sans">${window.getLocalizedText(p.province)}</span>
                     </div>
                     <div class="p-8 flex flex-col flex-grow">
                         <div class="flex items-center gap-4 text-slate-400 text-[10px] uppercase font-bold mb-4 tracking-widest">
                             <span><i class="fa-solid fa-mountain text-emerald-400 mr-1.5"></i> ${p.elevation}</span>
-                            <span><i class="fa-solid fa-gauge-simple-high text-emerald-400 mr-1.5"></i> ${p.difficulty}</span>
+                            <span><i class="fa-solid fa-gauge-simple-high text-emerald-400 mr-1.5"></i> ${window.getLocalizedText(p.difficulty)}</span>
                         </div>
-                        <h3 class="text-xl font-black text-white group-hover:text-emerald-400 transition mb-4 uppercase italic tracking-tight leading-snug">${p.title}</h3>
-                        <p class="text-slate-400 text-xs leading-relaxed mb-6 flex-grow">${p.desc}</p>
+                        <h3 class="text-xl font-black text-white group-hover:text-emerald-400 transition mb-4 uppercase italic tracking-tight leading-snug">${window.getLocalizedText(p.title)}</h3>
+                        <p class="text-slate-400 text-xs leading-relaxed mb-6 flex-grow">${window.getLocalizedText(p.desc)}</p>
                         <div class="pt-6 border-t border-white/5 mt-auto flex items-center justify-between">
-                            <span class="text-emerald-400 text-[10px] font-black uppercase tracking-widest group-hover:translate-x-2 transition duration-300 font-sans">Explore Spot Details <i class="fa-solid fa-arrow-right ml-1"></i></span>
+                            <span class="text-emerald-400 text-[10px] font-black uppercase tracking-widest group-hover:translate-x-2 transition duration-300 font-sans" data-i18n="explore_spot_details">${window.translations[window.state.lang].explore_spot_details} <i class="fa-solid fa-arrow-right ml-1"></i></span>
                         </div>
                     </div>
                 </article>
@@ -541,16 +675,16 @@
             const p = window.state.places.find(x => x.id === id);
             if(!p) return;
             document.getElementById('placeModalImg').src = p.img;
-            document.getElementById('placeModalProvince').innerText = p.province;
-            document.getElementById('placeModalTitle').innerText = p.title;
+            document.getElementById('placeModalProvince').innerText = window.getLocalizedText(p.province);
+            document.getElementById('placeModalTitle').innerText = window.getLocalizedText(p.title);
             document.getElementById('placeModalElevation').innerText = p.elevation;
-            document.getElementById('placeModalDifficulty').innerText = p.difficulty;
+            document.getElementById('placeModalDifficulty').innerText = window.getLocalizedText(p.difficulty);
             document.getElementById('placeModalAmenities').innerHTML = p.amenities.map(amenity => `
                 <span class="bg-white/5 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-wider text-slate-300 flex items-center gap-1.5 border border-white/5 font-sans">
-                    <i class="fa-solid fa-circle-check text-emerald-400"></i> ${amenity}
+                    <i class="fa-solid fa-circle-check text-emerald-400"></i> ${window.getLocalizedText(amenity)}
                 </span>
             `).join('');
-            document.getElementById('placeModalBody').innerHTML = p.content;
+            document.getElementById('placeModalBody').innerHTML = window.getLocalizedText(p.content);
             document.getElementById('placeModalMapBtn').onclick = () => window.open(p.mapLink, '_blank');
             document.getElementById('placeModal').style.display = 'flex';
         };
@@ -563,13 +697,13 @@
             const grid = document.getElementById('blogGrid');
             if(!grid) return;
             if (window.state.blogs.length === 0) {
-                grid.innerHTML = `<div class="col-span-full py-20 text-center"><p class="opacity-50 italic font-black uppercase text-[10px]">No stories found.</p></div>`;
+                grid.innerHTML = `<div class="col-span-full py-20 text-center"><p class="opacity-50 italic font-black uppercase text-[10px]" data-i18n="no_blogs">${window.translations[window.state.lang].no_blogs}</p></div>`;
                 return;
             }
             grid.innerHTML = window.state.blogs.map(b => `
                 <article onclick="window.openBlog('${b.id}')" class="card-journal group flex flex-col overflow-hidden h-full cursor-pointer">
                     <div class="h-64 overflow-hidden relative">
-                        <img src="${b.img}" class="w-full h-full object-cover transition duration-700 group-hover:scale-105" alt="${b.title}" onerror="this.src='https://placehold.co/600x400/022c22/ffffff?text=TheSale3+Adventure'">
+                        <img src="${b.img}" class="w-full h-full object-cover transition duration-700 group-hover:scale-105" alt="${window.getLocalizedText(b.title)}" onerror="this.src='https://placehold.co/600x400/022c22/ffffff?text=TheSale3+Adventure'">
                         <span class="absolute bottom-4 left-4 bg-emerald-500 text-stone-950 text-[9px] font-black uppercase tracking-widest px-3 py-1.5 rounded-xl shadow-md font-sans">${b.category}</span>
                     </div>
                     <div class="p-8 flex flex-col flex-grow">
@@ -577,11 +711,11 @@
                             <span><i class="fa-regular fa-calendar-days text-emerald-400 mr-1.5"></i> ${b.date}</span>
                             <span><i class="fa-regular fa-clock text-emerald-400 mr-1.5"></i> ${b.readTime}</span>
                         </div>
-                        <h3 class="text-xl font-black text-white group-hover:text-emerald-400 transition mb-4 uppercase italic tracking-tight leading-snug">${b.title}</h3>
-                        <p class="text-slate-400 text-xs leading-relaxed mb-6 flex-grow">${b.desc}</p>
+                        <h3 class="text-xl font-black text-white group-hover:text-emerald-400 transition mb-4 uppercase italic tracking-tight leading-snug">${window.getLocalizedText(b.title)}</h3>
+                        <p class="text-slate-400 text-xs leading-relaxed mb-6 flex-grow">${window.getLocalizedText(b.desc)}</p>
                         <div class="pt-6 border-t border-white/5 mt-auto flex items-center justify-between">
                             <span class="text-[10px] font-black text-white/50 uppercase tracking-widest"><i class="fa-regular fa-user text-emerald-400 mr-1.5"></i> By ${b.author}</span>
-                            <span class="text-emerald-400 text-[10px] font-black uppercase tracking-widest group-hover:translate-x-2 transition duration-300 font-sans">Read Essay <i class="fa-solid fa-arrow-right ml-1"></i></span>
+                            <span class="text-emerald-400 text-[10px] font-black uppercase tracking-widest group-hover:translate-x-2 transition duration-300 font-sans" data-i18n="read_essay">${window.translations[window.state.lang].read_essay} <i class="fa-solid fa-arrow-right ml-1"></i></span>
                         </div>
                     </div>
                 </article>
@@ -593,11 +727,13 @@
             if(!b) return;
             document.getElementById('blogModalImg').src = b.img;
             document.getElementById('blogModalTag').innerText = b.category;
-            document.getElementById('blogModalTitle').innerText = b.title;
+            document.getElementById('blogModalTitle').innerText = window.getLocalizedText(b.title);
+            
             document.getElementById('blogModalDate').innerText = b.date;
             document.getElementById('blogModalTime').innerText = b.readTime;
             document.getElementById('blogModalAuthor').innerText = b.author;
-            document.getElementById('blogModalBody').innerHTML = b.content;
+            
+            document.getElementById('blogModalBody').innerHTML = window.getLocalizedText(b.content);
             document.getElementById('blogModal').style.display = 'flex';
         };
 
@@ -611,6 +747,7 @@
             const exists = window.state.cart.find(i => i.id === id);
             if(exists) exists.qty++; else window.state.cart.push({ ...p, qty: 1 });
             window.updateCartCount();
+            window.showToast(`${window.getLocalizedText(p.name)} ${window.translations[window.state.lang].added_to_bag_toast}`);
         };
 
         window.updateQty = (id, delta) => {
@@ -618,12 +755,14 @@
             if (idx === -1) return;
             window.state.cart[idx].qty += delta;
             if (window.state.cart[idx].qty <= 0) window.state.cart.splice(idx, 1);
-            window.updateCartCount(); window.openCart();
+            window.updateCartCount(); 
+            window.openCart();
         };
 
         window.removeFromCart = (id) => {
             window.state.cart = window.state.cart.filter(i => i.id !== id);
-            window.updateCartCount(); window.openCart();
+            window.updateCartCount(); 
+            window.openCart();
         };
 
         window.updateCartCount = () => {
@@ -641,7 +780,7 @@
             const totalEl = document.getElementById('cartTotal');
             if(!container) return;
             if(window.state.cart.length === 0) {
-                container.innerHTML = '<div class="text-center py-20 text-emerald-200 uppercase font-black text-[10px]">Bag Empty</div>';
+                container.innerHTML = `<div class="text-center py-20 text-emerald-200 uppercase font-black text-[10px]" data-i18n="bag_empty">${window.translations[window.state.lang].bag_empty}</div>`;
                 if(totalEl) totalEl.innerText = '0 LAK';
             } else {
                 let total = 0;
@@ -649,7 +788,10 @@
                     total += item.price * item.qty;
                     return `<div class="flex gap-4 p-4 bg-emerald-50 rounded-2xl text-emerald-950 items-center border border-emerald-100 font-sans">
                         <img src="${item.img}" class="w-12 h-12 rounded-xl object-cover" onerror="this.src='https://placehold.co/100x100/022c22/ffffff?text=TheSale3'">
-                        <div class="flex-grow"><h4 class="font-black text-[10px] uppercase leading-tight">${item.name}</h4><p class="text-emerald-700 font-bold text-[9px]">${item.price.toLocaleString()} LAK</p></div>
+                        <div class="flex-grow">
+                            <h4 class="font-black text-[10px] uppercase leading-tight">${window.getLocalizedText(item.name)}</h4>
+                            <p class="text-emerald-700 font-bold text-[9px]">${item.price.toLocaleString()} LAK</p>
+                        </div>
                         <div class="flex items-center gap-2">
                             <button onclick="window.updateQty('${item.id}', -1)" class="w-6 h-6 rounded-lg bg-white border border-emerald-200 flex items-center justify-center text-xs text-emerald-900"><i class="fa-solid fa-minus"></i></button>
                             <span class="font-black text-xs w-4 text-center">${item.qty}</span>
@@ -666,12 +808,12 @@
         window.checkoutWhatsApp = () => {
             if (window.state.cart.length === 0) return;
             let total = 0;
-            let msg = "ສະບາຍດີ! *--- ລາຍການສັ່ງຊື້ສິນຄ້າ (TheSale3) ---*\n\n";
+            let msg = window.state.lang === 'lo' ? "ສະບາຍດີ! *--- ລາຍການສັ່ງຊື້ສິນຄ້າ (TheSale3) ---*\n\n" : "Hello! *--- Purchase Order List (TheSale3) ---*\n\n";
             window.state.cart.forEach((item, index) => {
                 total += item.price * item.qty;
-                msg += `${index + 1}. *${item.name}* x ${item.qty} (${(item.price * item.qty).toLocaleString()} LAK)\n`;
+                msg += `${index + 1}. *${window.getLocalizedText(item.name)}* x ${item.qty} (${(item.price * item.qty).toLocaleString()} LAK)\n`;
             });
-            msg += `\n*ລາຄາລວມສຸດທິ:* ${total.toLocaleString()} LAK`;
+            msg += window.state.lang === 'lo' ? `\n*ລາຄາລວມສຸດທິ:* ${total.toLocaleString()} LAK` : `\n*Total Net Amount:* ${total.toLocaleString()} LAK`;
             window.open(`https://wa.me/8562054849393?text=${encodeURIComponent(msg)}`, '_blank');
         };
 
@@ -680,11 +822,11 @@
             if(!p) return;
             const fakePrice = Math.round((p.price * 1.25) / 1000) * 1000;
             document.getElementById('detailsImage').src = p.img;
-            document.getElementById('detailsTitle').innerText = p.name;
+            document.getElementById('detailsTitle').innerText = window.getLocalizedText(p.name);
             document.getElementById('detailsPrice').innerText = p.price.toLocaleString() + ' LAK';
             document.getElementById('detailsFakePrice').innerText = fakePrice.toLocaleString() + ' LAK';
-            document.getElementById('detailsCategory').innerText = p.category;
-            document.getElementById('detailsDesc').innerHTML = p.desc;
+            document.getElementById('detailsCategory').innerText = window.getLocalizedCategory(p.category);
+            document.getElementById('detailsDesc').innerHTML = window.getLocalizedText(p.desc);
             const statusBadge = document.getElementById('detailsStatus');
             statusBadge.innerText = p.status;
             statusBadge.className = `px-5 py-2.5 rounded-full border-2 text-[10px] font-black uppercase ${p.status?.toLowerCase().includes('pre') ? 'status-pre-order' : 'status-in-stock'}`;
@@ -778,7 +920,7 @@
                         <img src="${b.img}" class="w-16 h-16 rounded-2xl object-cover" onerror="this.src='https://placehold.co/100x100/022c22/ffffff?text=TheSale3'">
                         <div>
                             <span class="text-[9px] font-black uppercase text-emerald-400 bg-emerald-500/10 px-2 py-1 rounded-md tracking-wider">${b.category}</span>
-                            <h4 class="font-black text-white uppercase italic mt-1 leading-snug">${b.title}</h4>
+                            <h4 class="font-black text-white uppercase italic mt-1 leading-snug">${window.getLocalizedText(b.title)}</h4>
                             <p class="text-[10px] text-slate-500 uppercase mt-0.5">${b.date} • By ${b.author}</p>
                         </div>
                     </div>
@@ -831,27 +973,27 @@
             const author = document.getElementById('blogAuthorInput').value || 'Mou Team';
             const date = document.getElementById('blogDateInput').value || 'Today';
             const readTime = document.getElementById('blogReadTimeInput').value || '1 Min Read';
-            const img = document.getElementById('blogImgInput').value || 'https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/phadang-camping.jpg';
+            const img = document.getElementById('blogImgInput').value || 'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=800&q=80';
             const desc = document.getElementById('blogDescInput').value || 'A beautifully drafted teaser for our premium audience...';
             const body = document.getElementById('blogContentInput').value || '<p>The story begins here...</p>';
 
             // Update Card Preview
             document.getElementById('previewCardImg').src = img;
             document.getElementById('previewCardCat').innerText = cat;
-            document.getElementById('previewCardTitle').innerText = title;
-            document.getElementById('previewCardDesc').innerText = desc;
+            document.getElementById('previewCardTitle').innerText = window.getLocalizedText(title);
+            document.getElementById('previewCardDesc').innerText = window.getLocalizedText(desc);
             document.getElementById('previewCardDate').innerText = date;
             document.getElementById('previewCardReadTime').innerText = readTime;
             document.getElementById('previewCardAuthor').innerText = author;
 
-            // Update Article Reading Preview
+            // Update Article Reading Preview (Linked with corrected matching preview IDs)
             document.getElementById('previewModalImg').src = img;
             document.getElementById('previewModalCat').innerText = cat;
-            document.getElementById('previewModalTitle').innerText = title;
+            document.getElementById('previewModalTitle').innerText = window.getLocalizedText(title);
             document.getElementById('previewModalDate').innerText = date;
             document.getElementById('previewModalTime').innerText = readTime;
             document.getElementById('previewModalAuthor').innerText = author;
-            document.getElementById('previewModalBody').innerHTML = body;
+            document.getElementById('previewModalBody').innerHTML = window.getLocalizedText(body);
         };
 
         window.openSheetLinkDirectly = () => {
@@ -863,18 +1005,28 @@
     <nav class="nav-blur sticky top-0 z-[100]">
         <div class="max-w-7xl mx-auto px-4 sm:px-8">
             <div class="flex justify-between items-center h-20 sm:h-24">
-                <div class="cursor-pointer transition hover:opacity-80" onclick="window.switchPage('home')">
+                <div class="cursor-pointer transition hover:opacity-80 flex items-center gap-4" onclick="window.switchPage('home')">
                     <img src="https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/thesale3-logo.png" alt="Logo" class="h-14 sm:h-16 w-auto filter brightness-0 invert" onerror="this.src='https://via.placeholder.com/150x50?text=TheSale3'">
                 </div>
+                
+                <!-- Desktop Nav Buttons with data-i18n Localization Hooks -->
                 <div class="hidden md:flex items-center gap-8 font-bold text-[10px] uppercase tracking-[0.2em] text-slate-300">
-                    <button onclick="window.switchPage('home')" class="nav-btn py-2 hover:text-white transition" id="btn-home-desktop">ໜ້າຫຼັກ | Home</button>
-                    <button onclick="window.switchPage('products')" class="nav-btn py-2 hover:text-white transition" id="btn-products-desktop">ສິນຄ້າ | Gear</button>
-                    <button onclick="window.switchPage('places')" class="nav-btn py-2 hover:text-white transition" id="btn-places-desktop">ສະຖານທີ່ | Spots</button>
-                    <button onclick="window.switchPage('blogs')" class="nav-btn py-2 hover:text-white transition" id="btn-blogs-desktop">ບົດຄວາມ | Journal</button>
-                    <button onclick="window.switchPage('about')" class="nav-btn py-2 hover:text-white transition" id="btn-about-desktop">ກ່ຽວກັບ | About</button>
-                    <button onclick="window.switchPage('contact')" class="nav-btn py-2 hover:text-white transition" id="btn-contact-desktop">ຕິດຕໍ່ | Contact</button>
+                    <button onclick="window.switchPage('home')" class="nav-btn py-2 hover:text-white transition" id="btn-home-desktop" data-i18n="home">ໜ້າຫຼັກ</button>
+                    <button onclick="window.switchPage('products')" class="nav-btn py-2 hover:text-white transition" id="btn-products-desktop" data-i18n="gear">ສິນຄ້າ</button>
+                    <button onclick="window.switchPage('places')" class="nav-btn py-2 hover:text-white transition" id="btn-places-desktop" data-i18n="spots">ສະຖານທີ່</button>
+                    <button onclick="window.switchPage('blogs')" class="nav-btn py-2 hover:text-white transition" id="btn-blogs-desktop" data-i18n="journal">ບົດຄວາມ</button>
+                    <button onclick="window.switchPage('about')" class="nav-btn py-2 hover:text-white transition" id="btn-about-desktop" data-i18n="about">ກ່ຽວກັບ</button>
+                    <button onclick="window.switchPage('contact')" class="nav-btn py-2 hover:text-white transition" id="btn-contact-desktop" data-i18n="contact">ຕິດຕໍ່</button>
                 </div>
+                
+                <!-- Action Controls (Cart & Language Toggle) -->
                 <div class="flex items-center gap-4">
+                    <!-- Segmented Pill Language Switcher Component -->
+                    <div class="flex bg-stone-900 border border-white/10 rounded-2xl p-1 font-black text-[9px] tracking-widest uppercase">
+                        <button onclick="window.toggleLanguage('lo')" data-lang="lo" class="lang-btn px-3 py-1.5 rounded-xl transition-all font-sans">LA</button>
+                        <button onclick="window.toggleLanguage('en')" data-lang="en" class="lang-btn px-3 py-1.5 rounded-xl transition-all font-sans">EN</button>
+                    </div>
+
                     <button onclick="window.openCart()" class="relative p-3 bg-white/10 rounded-2xl border border-white/10 hover:bg-white/20 transition group">
                         <i class="fa-solid fa-shopping-bag text-white text-lg transition group-hover:scale-110"></i>
                         <span id="cartCount" class="absolute -top-1 -right-1 bg-amber-500 text-white text-[8px] font-black w-5 h-5 flex items-center justify-center rounded-full border-2 border-emerald-950 hidden">0</span>
@@ -884,14 +1036,14 @@
         </div>
     </nav>
 
-    <!-- Mobile Nav -->
+    <!-- Mobile Navigation Panel -->
     <div class="md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 w-[92%] z-[100] flex justify-around items-center py-4 px-6 bg-emerald-950/80 backdrop-blur-2xl border border-white/10 rounded-[32px] shadow-2xl overflow-x-auto no-scrollbar">
-        <button onclick="window.switchPage('home')" class="nav-btn flex-shrink-0 flex flex-col items-center gap-1.5 text-[9px] uppercase font-black text-slate-400 px-3" id="btn-home-mobile"><i class="fa-solid fa-home-alt text-xl"></i><span>Home</span></button>
-        <button onclick="window.switchPage('products')" class="nav-btn flex-shrink-0 flex flex-col items-center gap-1.5 text-[9px] uppercase font-black text-slate-400 px-3" id="btn-products-mobile"><i class="fa-solid fa-tent text-xl"></i><span>Gear</span></button>
-        <button onclick="window.switchPage('places')" class="nav-btn flex-shrink-0 flex flex-col items-center gap-1.5 text-[9px] uppercase font-black text-slate-400 px-3" id="btn-places-mobile"><i class="fa-solid fa-map-marked-alt text-xl"></i><span>Spots</span></button>
-        <button onclick="window.switchPage('blogs')" class="nav-btn flex-shrink-0 flex flex-col items-center gap-1.5 text-[9px] uppercase font-black text-slate-400 px-3" id="btn-blogs-mobile"><i class="fa-solid fa-book-open text-xl"></i><span>Journal</span></button>
-        <button onclick="window.switchPage('about')" class="nav-btn flex-shrink-0 flex flex-col items-center gap-1.5 text-[9px] uppercase font-black text-slate-400 px-3" id="btn-about-mobile"><i class="fa-solid fa-info-circle text-xl"></i><span>About</span></button>
-        <button onclick="window.switchPage('contact')" class="nav-btn flex-shrink-0 flex flex-col items-center gap-1.5 text-[9px] uppercase font-black text-slate-400 px-3" id="btn-contact-mobile"><i class="fa-solid fa-envelope text-xl"></i><span>Contact</span></button>
+        <button onclick="window.switchPage('home')" class="nav-btn flex-shrink-0 flex flex-col items-center gap-1.5 text-[9px] uppercase font-black text-slate-400 px-3" id="btn-home-mobile"><i class="fa-solid fa-home-alt text-xl"></i><span data-i18n="home">Home</span></button>
+        <button onclick="window.switchPage('products')" class="nav-btn flex-shrink-0 flex flex-col items-center gap-1.5 text-[9px] uppercase font-black text-slate-400 px-3" id="btn-products-mobile"><i class="fa-solid fa-tent text-xl"></i><span data-i18n="gear">Gear</span></button>
+        <button onclick="window.switchPage('places')" class="nav-btn flex-shrink-0 flex flex-col items-center gap-1.5 text-[9px] uppercase font-black text-slate-400 px-3" id="btn-places-mobile"><i class="fa-solid fa-map-marked-alt text-xl"></i><span data-i18n="spots">Spots</span></button>
+        <button onclick="window.switchPage('blogs')" class="nav-btn flex-shrink-0 flex flex-col items-center gap-1.5 text-[9px] uppercase font-black text-slate-400 px-3" id="btn-blogs-mobile"><i class="fa-solid fa-book-open text-xl"></i><span data-i18n="journal">Journal</span></button>
+        <button onclick="window.switchPage('about')" class="nav-btn flex-shrink-0 flex flex-col items-center gap-1.5 text-[9px] uppercase font-black text-slate-400 px-3" id="btn-about-mobile"><i class="fa-solid fa-info-circle text-xl"></i><span data-i18n="about">About</span></button>
+        <button onclick="window.switchPage('contact')" class="nav-btn flex-shrink-0 flex flex-col items-center gap-1.5 text-[9px] uppercase font-black text-slate-400 px-3" id="btn-contact-mobile"><i class="fa-solid fa-envelope text-xl"></i><span data-i18n="contact">Contact</span></button>
     </div>
 
     <!-- Page Content -->
@@ -900,13 +1052,13 @@
             <header id="heroContainer" class="hero-container">
                 <div class="absolute inset-0 z-10 flex items-center justify-center text-center px-6">
                     <div class="max-w-4xl">
-                        <span class="hero-text-animate text-emerald-400 text-[12px] font-black uppercase tracking-[0.6em] mb-8 block font-sans">TheSale3 Premium Gear</span>
-                        <button onclick="window.switchPage('products')" class="hero-text-animate bg-white text-stone-900 px-12 py-5 rounded-[24px] font-black text-[11px] uppercase tracking-widest shadow-2xl hover:bg-emerald-400 transition-all font-sans">View Inventory</button>
+                        <span class="hero-text-animate text-emerald-400 text-[12px] font-black uppercase tracking-[0.6em] mb-8 block font-sans" data-i18n="premium_gear_title">TheSale3 Premium Gear</span>
+                        <button onclick="window.switchPage('products')" class="hero-text-animate bg-white text-stone-900 px-12 py-5 rounded-[24px] font-black text-[11px] uppercase tracking-widest shadow-2xl hover:bg-emerald-400 transition-all font-sans" data-i18n="view_inventory">View Inventory</button>
                     </div>
                 </div>
             </header>
             <div class="max-w-7xl mx-auto px-6 py-24">
-                <h2 class="text-4xl sm:text-5xl font-black uppercase italic tracking-tighter text-white mb-16">Latest Arrivals</h2>
+                <h2 class="text-4xl sm:text-5xl font-black uppercase italic tracking-tighter text-white mb-16" data-i18n="latest_arrivals">Latest Arrivals</h2>
                 <div id="homeProductGrid" class="product-grid"></div>
             </div>
         </section>
@@ -914,33 +1066,34 @@
         <!-- Dynamic Places (Spots) Page Content -->
         <section id="page-places" class="page-section hidden py-24 px-6 max-w-7xl mx-auto w-full">
             <div class="text-center md:text-left mb-16 max-w-2xl">
-                <span class="text-emerald-400 text-xs font-black uppercase tracking-[0.4em] mb-3 block font-sans">Backcountry Destinations</span>
-                <h2 class="text-5xl sm:text-7xl font-black uppercase italic tracking-tighter text-white mb-6">Wild Spots</h2>
-                <p class="text-slate-400 text-sm leading-relaxed font-sans">Discover handpicked, breathtaking wilderness campsites, mountain peaks, and hidden riversides across Lao PDR verified by our expedition crew.</p>
+                <span class="text-emerald-400 text-xs font-black uppercase tracking-[0.4em] mb-3 block font-sans" data-i18n="backcountry_destinations">Backcountry Destinations</span>
+                <h2 class="text-5xl sm:text-7xl font-black uppercase italic tracking-tighter text-white mb-6" data-i18n="wild_spots">Wild Spots</h2>
+                <p class="text-slate-400 text-sm leading-relaxed font-sans" data-i18n="wild_spots_desc">Discover handpicked, breathtaking wilderness campsites, mountain peaks, and hidden riversides across Lao PDR verified by our expedition crew.</p>
             </div>
             <div id="placesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Dynamically generated places -->
             </div>
         </section>
 
+        <!-- Catalog Section -->
         <section id="page-products" class="page-section hidden py-24 px-6 max-w-7xl mx-auto w-full">
             <div class="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-16 gap-10">
-                <h2 class="text-6xl font-black uppercase italic tracking-tighter text-white font-sans">Catalog</h2>
+                <h2 class="text-6xl font-black uppercase italic tracking-tighter text-white font-sans" data-i18n="catalog">Catalog</h2>
                 <div class="relative w-full lg:w-[450px]">
                     <i class="fa-solid fa-search absolute left-7 top-1/2 -translate-y-1/2 text-emerald-300"></i>
-                    <input type="text" id="searchInput" oninput="window.applyProductFilters()" placeholder="Search..." class="w-full pl-16 pr-8 py-5 rounded-[28px] bg-white/5 border border-white/10 text-white outline-none">
+                    <input type="text" id="searchInput" oninput="window.applyProductFilters()" placeholder="Search..." data-i18n="search_placeholder" class="w-full pl-16 pr-8 py-5 rounded-[28px] bg-white/5 border border-white/10 text-white outline-none">
                 </div>
             </div>
             <div id="categoryFilter" class="flex gap-4 overflow-x-auto no-scrollbar pb-10 mb-10 border-b border-white/5"></div>
             <div id="productGrid" class="product-grid"></div>
         </section>
 
-        <!-- Redesigned Premium Blog Page Section -->
+        <!-- Premium Blog Page Section -->
         <section id="page-blogs" class="page-section hidden py-24 px-6 max-w-7xl mx-auto w-full">
             <div class="text-center md:text-left mb-16 max-w-2xl">
-                <span class="text-emerald-400 text-xs font-black uppercase tracking-[0.4em] mb-3 block font-sans">Adventure Notes</span>
-                <h2 class="text-5xl sm:text-7xl font-black uppercase italic tracking-tighter text-white mb-6">Wild Journal</h2>
-                <p class="text-slate-400 text-sm leading-relaxed font-sans font-sans">Stories, practical guides, and expert backcountry insights from our team expeditions right out across the rugged landscapes of Lao PDR.</p>
+                <span class="text-emerald-400 text-xs font-black uppercase tracking-[0.4em] mb-3 block font-sans" data-i18n="adventure_notes">Adventure Notes</span>
+                <h2 class="text-5xl sm:text-7xl font-black uppercase italic tracking-tighter text-white mb-6" data-i18n="wild_journal">Wild Journal</h2>
+                <p class="text-slate-400 text-sm leading-relaxed font-sans" data-i18n="wild_journal_desc">Stories, practical guides, and expert backcountry insights from our team expeditions right out across the rugged landscapes of Lao PDR.</p>
             </div>
             <div id="blogGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Dynamically generated entries -->
@@ -950,56 +1103,57 @@
         <!-- About Page Content -->
         <section id="page-about" class="page-section hidden py-24 px-6 max-w-5xl mx-auto w-full">
             <div class="text-center mb-20 fade-in">
-                <h2 class="text-6xl font-black uppercase italic tracking-tighter text-white mb-6">Our Mission</h2>
+                <h2 class="text-6xl font-black uppercase italic tracking-tighter text-white mb-6" data-i18n="our_mission">Our Mission</h2>
                 <div class="h-1 w-24 bg-emerald-500 mx-auto rounded-full"></div>
-                <div class="mt-16 space-y-8 text-slate-300 text-lg leading-relaxed text-left">
-                    <p>Founded in 2021 in the heart of Vientiane, <span class="text-white font-bold">TheSale3</span> was born from a passion for the untamed beauty of Laos. We believe that every trail has a story, and every campsite is a home waiting to be built.</p>
-                    <p>We don't just sell gear; we equip expeditions. From the rainy mountains of Phou Khoun to the misty rivers of Vang Vieng, our equipment is rigorously tested to ensure you stay safe, dry, and inspired in the wild.</p>
+                <div class="mt-16 space-y-8 text-slate-300 text-lg leading-relaxed text-left font-sans">
+                    <p data-i18n="mission_para1">Founded in 2021 in the heart of Vientiane, <span class="text-white font-bold font-sans">TheSale3</span> was born from a passion for the untamed beauty of Laos. We believe that every trail has a story, and every campsite is a home waiting to be built.</p>
+                    <p data-i18n="mission_para2">We don't just sell gear; we equip expeditions. From the rainy mountains of Phou Khoun to the misty rivers of Vang Vieng, our equipment is rigorously tested to ensure you stay safe, dry, and inspired in the wild.</p>
                 </div>
             </div>
         </section>
 
         <!-- Contact Page Content -->
         <section id="page-contact" class="page-section hidden py-24 px-6 max-w-7xl mx-auto w-full text-center">
-            <h2 class="text-6xl font-black uppercase italic tracking-tighter text-white mb-16">Get in Touch</h2>
+            <h2 class="text-6xl font-black uppercase italic tracking-tighter text-white mb-16" data-i18n="get_in_touch">Get in Touch</h2>
             <div class="grid md:grid-cols-2 gap-12 max-w-4xl mx-auto">
                 <div class="bg-white/5 p-12 rounded-[40px] border border-white/10">
                     <i class="fa-brands fa-whatsapp text-4xl text-emerald-400 mb-6"></i>
-                    <h4 class="text-white font-bold uppercase text-xs mb-2 tracking-widest font-sans">WhatsApp Support</h4>
+                    <h4 class="text-white font-bold uppercase text-xs mb-2 tracking-widest font-sans" data-i18n="whatsapp_support">WhatsApp Support</h4>
                     <p class="text-slate-300 font-sans">+856 20 5484 9393</p>
                 </div>
                 <div class="bg-white/5 p-12 rounded-[40px] border border-white/10">
                     <i class="fa-solid fa-location-dot text-4xl text-emerald-400 mb-6"></i>
-                    <h4 class="text-white font-bold uppercase text-xs mb-2 tracking-widest font-sans">Basecamp Location</h4>
-                    <p class="text-slate-300 font-sans">Vientiane, Lao PDR<br>Nationwide Delivery Available</p>
+                    <h4 class="text-white font-bold uppercase text-xs mb-2 tracking-widest font-sans" data-i18n="basecamp_location">Basecamp Location</h4>
+                    <p class="text-slate-300 font-sans" data-i18n="delivery_available">Vientiane, Lao PDR<br>Nationwide Delivery Available</p>
                 </div>
             </div>
         </section>
 
         <!-- Privacy Policy Content -->
         <section id="page-privacy" class="page-section hidden py-24 px-6 max-w-4xl mx-auto w-full">
-            <h2 class="text-6xl font-black uppercase italic text-white mb-10">Privacy Policy</h2>
+            <h2 class="text-6xl font-black uppercase italic text-white mb-10" data-i18n="privacy_policy">Privacy Policy</h2>
             <div class="policy-text font-sans">
-                <p class="text-lg italic text-emerald-400 mb-8 font-bold">Your privacy is our priority at TheSale3.</p>
-                <h3>1. Data Collection</h3>
-                <p>We collect basic details like name and WhatsApp number only for order processing and delivery fulfillment.</p>
-                <h3>2. Third-Parties</h3>
-                <p>We share only necessary delivery info with local couriers (HAL, Anousith, etc.). We never sell your data.</p>
+                <p class="text-lg italic text-emerald-400 mb-8 font-bold" data-i18n="privacy_intro">Your privacy is our priority at TheSale3.</p>
+                <h3 data-i18n="privacy_header1">1. Data Collection</h3>
+                <p data-i18n="privacy_desc1">We collect basic details like name and WhatsApp number only for order processing and delivery fulfillment.</p>
+                <h3 data-i18n="privacy_header2">2. Third-Parties</h3>
+                <p data-i18n="privacy_desc2">We share only necessary delivery info with local couriers (HAL, Anousith, etc.). We never sell your data.</p>
             </div>
         </section>
 
         <!-- Terms Content -->
         <section id="page-terms" class="page-section hidden py-24 px-6 max-w-4xl mx-auto w-full">
-            <h2 class="text-6xl font-black uppercase italic text-white mb-10 font-sans">Terms of Service</h2>
+            <h2 class="text-6xl font-black uppercase italic text-white mb-10 font-sans" data-i18n="terms_of_service">Terms of Service</h2>
             <div class="policy-text">
-                <h3>1. Order Fulfillment</h3>
-                <p>Orders are confirmed only after stock validation and BCEL One transfer verification.</p>
-                <h3>2. Shipping</h3>
-                <p>TheSale3 is not liable for delays caused by third-party shipping services or weather conditions in remote areas.</p>
+                <h3 data-i18n="terms_header1">1. Order Fulfillment</h3>
+                <p data-i18n="terms_desc1">Orders are confirmed only after stock validation and BCEL One transfer verification.</p>
+                <h3 data-i18n="terms_header2">2. Shipping</h3>
+                <p data-i18n="terms_desc2">TheSale3 is not liable for delays caused by third-party shipping services or weather conditions in remote areas.</p>
             </div>
         </section>
     </main>
 
+    <!-- Details Modal -->
     <div id="detailsModal" class="modal-overlay" onclick="if(event.target === this) window.closeDetails()">
         <div class="bg-white rounded-[40px] max-w-5xl w-[95%] mx-auto overflow-hidden shadow-2xl flex flex-col md:flex-row relative max-h-[90vh]">
             <button onclick="window.closeDetails()" class="absolute top-6 right-6 bg-stone-100 w-12 h-12 rounded-full flex items-center justify-center text-stone-900 z-10 font-sans"><i class="fa-solid fa-xmark"></i></button>
@@ -1009,7 +1163,7 @@
                 <h2 id="detailsTitle" class="text-4xl font-black mb-8 uppercase italic leading-tight tracking-tighter"></h2>
                 <div class="mb-12 space-y-2"><span id="detailsFakePrice" class="text-xl text-red-500 line-through font-black opacity-50 italic font-sans"></span><p id="detailsPrice" class="text-5xl font-black text-emerald-800 italic leading-none font-sans"></p></div>
                 <div id="detailsDesc" class="text-stone-500 text-base leading-relaxed mb-12 prose font-sans"></div>
-                <button id="detailsAddBtn" class="w-full btn-adventure text-white py-5 rounded-2xl font-black uppercase text-[11px] shadow-lg font-sans">Add to Bag</button>
+                <button id="detailsAddBtn" class="w-full btn-adventure text-white py-5 rounded-2xl font-black uppercase text-[11px] shadow-lg font-sans" data-i18n="add_to_bag">Add to Bag</button>
             </div>
         </div>
     </div>
@@ -1031,27 +1185,25 @@
             <div class="p-8 sm:p-12 overflow-y-auto flex-grow text-slate-300 no-scrollbar">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 border-b border-white/5 pb-6">
                     <div class="flex flex-col gap-1">
-                        <span class="text-[9px] font-black uppercase tracking-widest text-slate-500 font-sans">Elevation / Altitude</span>
+                        <span class="text-[9px] font-black uppercase tracking-widest text-slate-500 font-sans" data-i18n="elevation">Elevation / Altitude</span>
                         <span id="placeModalElevation" class="text-white font-black text-lg font-sans"></span>
                     </div>
                     <div class="flex flex-col gap-1">
-                        <span class="text-[9px] font-black uppercase tracking-widest text-slate-500 font-sans">Access & Trail Level</span>
+                        <span class="text-[9px] font-black uppercase tracking-widest text-slate-500 font-sans" data-i18n="difficulty">Access & Trail Level</span>
                         <span id="placeModalDifficulty" class="text-white font-black text-lg font-sans"></span>
                     </div>
                 </div>
                 
                 <div class="mb-8">
-                    <span class="text-[9px] font-black uppercase tracking-widest text-slate-500 block mb-3 font-sans">Available Conveniences</span>
+                    <span class="text-[9px] font-black uppercase tracking-widest text-slate-500 block mb-3 font-sans" data-i18n="amenities">Available Conveniences</span>
                     <div id="placeModalAmenities" class="flex flex-wrap gap-3 font-sans"></div>
                 </div>
 
-                <div id="placeModalBody" class="text-slate-300 leading-relaxed text-sm sm:text-base space-y-4 prose prose-invert border-t border-white/5 pt-6 font-sans">
-                    <!-- Dynamic details text -->
-                </div>
+                <div id="placeModalBody" class="text-slate-300 leading-relaxed text-sm sm:text-base space-y-4 prose prose-invert border-t border-white/5 pt-6 font-sans"></div>
 
                 <div class="mt-12 pt-6 border-t border-white/5 flex flex-wrap justify-end gap-4 font-sans">
-                    <button onclick="window.switchPage('products'); window.closePlace();" class="px-6 py-4 rounded-2xl bg-white/5 hover:bg-white/10 text-white text-[10px] font-black uppercase tracking-wider transition">Equip Adventure Gear</button>
-                    <button id="placeModalMapBtn" class="px-6 py-4 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-stone-950 text-[10px] font-black uppercase tracking-wider transition">Open Google Maps Location</button>
+                    <button onclick="window.switchPage('products'); window.closePlace();" class="px-6 py-4 rounded-2xl bg-white/5 hover:bg-white/10 text-white text-[10px] font-black uppercase tracking-wider transition" data-i18n="equip_gear">Equip Adventure Gear</button>
+                    <button id="placeModalMapBtn" class="px-6 py-4 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-stone-950 text-[10px] font-black uppercase tracking-wider transition" data-i18n="open_maps">Open Google Maps Location</button>
                 </div>
             </div>
         </div>
@@ -1072,10 +1224,10 @@
                 </div>
             </div>
             <div class="p-8 sm:p-12 overflow-y-auto flex-grow text-slate-300 no-scrollbar">
-                <div class="flex flex-wrap gap-x-6 gap-y-2 text-slate-400 text-xs font-bold mb-8 uppercase tracking-wider border-b border-white/5 pb-6">
-                    <span><i class="fa-regular fa-calendar-days text-emerald-400 mr-2 font-sans"></i><span id="blogModalDate font-sans font-sans"></span></span>
-                    <span><i class="fa-regular fa-clock text-emerald-400 mr-2 font-sans"></i><span id="blogModalTime font-sans"></span></span>
-                    <span><i class="fa-regular fa-user text-emerald-400 mr-2 font-sans"></i><span id="blogModalAuthor font-sans"></span></span>
+                <div class="flex flex-wrap gap-x-6 gap-y-2 text-slate-400 text-xs font-bold mb-8 uppercase tracking-wider border-b border-white/5 pb-6 font-sans">
+                    <span><i class="fa-regular fa-calendar-days text-emerald-400 mr-2 font-sans"></i><span id="blogModalDate" class="font-sans"></span></span>
+                    <span><i class="fa-regular fa-clock text-emerald-400 mr-2 font-sans"></i><span id="blogModalTime" class="font-sans"></span></span>
+                    <span><i class="fa-regular fa-user text-emerald-400 mr-2 font-sans"></i><span id="blogModalAuthor" class="font-sans"></span></span>
                 </div>
                 <div id="blogModalBody" class="text-slate-300 leading-relaxed text-sm sm:text-base space-y-4 prose prose-invert font-sans">
                     <!-- Dynamic Entry Content -->
@@ -1106,7 +1258,7 @@
     </div>
 
     <!-- Full Screen Premium Admin Dashboard -->
-    <div id="adminPortal" class="fixed inset-0 bg-stone-950 z-[150] overflow-y-auto hidden flex-col">
+    <div id="adminPortal" class="fixed inset-0 bg-stone-950 z-[150] overflow-y-auto hidden flex-col font-sans">
         <header class="border-b border-white/5 bg-stone-900/60 backdrop-blur sticky top-0 z-[160]">
             <div class="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
                 <div class="flex items-center gap-3">
@@ -1137,12 +1289,12 @@
                     <div id="adminTab-list" class="admin-tab-content space-y-6">
                         <div class="flex items-center justify-between border-b border-white/5 pb-6">
                             <div>
-                                <h3 class="text-2xl font-black text-white uppercase italic font-sans font-sans">Active Backcountry Notes</h3>
+                                <h3 class="text-2xl font-black text-white uppercase italic font-sans">Active Backcountry Notes</h3>
                                 <p class="text-[10px] text-slate-400 uppercase tracking-wider mt-1">Manage active items inside database storage</p>
                             </div>
                             <button onclick="window.switchAdminTab('write')" class="px-5 py-3.5 rounded-2xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 hover:bg-emerald-500 hover:text-stone-950 text-[10px] font-black uppercase tracking-widest transition font-sans"><i class="fa-solid fa-plus-circle mr-1"></i> Add Post</button>
                         </div>
-                        <div id="adminBlogsList" class="space-y-4 font-sans font-sans">
+                        <div id="adminBlogsList" class="space-y-4 font-sans">
                             <!-- Populated Dynamically -->
                         </div>
                     </div>
@@ -1163,12 +1315,12 @@
                                     <div>
                                         <label class="block text-[9px] font-black uppercase tracking-widest text-slate-400 mb-2">Category Tag</label>
                                         <select id="blogCategorySelect" onchange="window.updateLivePreview()" class="w-full px-5 py-4 rounded-xl bg-stone-900 border border-white/10 text-white outline-none focus:border-emerald-400 font-sans">
-                                            <option value="Expedition font-sans">Expedition</option>
-                                            <option value="Gear Guide font-sans">Gear Guide</option>
-                                            <option value="Pro-Tips font-sans">Pro-Tips</option>
-                                            <option value="Camping Spots font-sans">Camping Spots</option>
-                                            <option value="Coffee font-sans">Coffee</option>
-                                            <option value="Survival font-sans">Survival</option>
+                                            <option value="Expedition">Expedition</option>
+                                            <option value="Gear Guide">Gear Guide</option>
+                                            <option value="Pro-Tips">Pro-Tips</option>
+                                            <option value="Camping Spots">Camping Spots</option>
+                                            <option value="Coffee">Coffee</option>
+                                            <option value="Survival">Survival</option>
                                         </select>
                                     </div>
                                     <div>
@@ -1189,13 +1341,13 @@
                                 </div>
 
                                 <div>
-                                    <label class="block text-[9px] font-black uppercase tracking-widest text-slate-400 mb-2 font-sans font-sans">Essay Title</label>
+                                    <label class="block text-[9px] font-black uppercase tracking-widest text-slate-400 mb-2">Essay Title</label>
                                     <input type="text" id="blogTitleInput" oninput="window.updateLivePreview()" placeholder="Enter stunning headline..." class="w-full px-5 py-4 rounded-xl bg-stone-900 border border-white/10 text-white outline-none focus:border-emerald-400 font-bold uppercase italic">
                                 </div>
 
                                 <div>
-                                    <label class="block text-[9px] font-black uppercase tracking-widest text-slate-400 mb-2 font-sans font-sans">Cover Image Link (URL)</label>
-                                    <input type="text" id="blogImgInput" oninput="window.updateLivePreview()" placeholder="https://raw.githubusercontent.com/..." class="w-full px-5 py-4 rounded-xl bg-stone-900 border border-white/10 text-white outline-none focus:border-emerald-400 text-xs font-mono">
+                                    <label class="block text-[9px] font-black uppercase tracking-widest text-slate-400 mb-2">Cover Image Link (URL)</label>
+                                    <input type="text" id="blogImgInput" oninput="window.updateLivePreview()" placeholder="https://images.unsplash.com/..." class="w-full px-5 py-4 rounded-xl bg-stone-900 border border-white/10 text-white outline-none focus:border-emerald-400 text-xs font-mono">
                                 </div>
 
                                 <div>
@@ -1253,7 +1405,7 @@
                                     </div>
                                     <div class="flex gap-4 text-[9px] font-bold uppercase text-slate-400 mb-3">
                                         <span><span id="previewModalDate"></span></span>
-                                        <span><span id="previewModalReadTime"></span></span>
+                                        <span><span id="previewModalTime"></span></span>
                                         <span>By <span id="previewModalAuthor"></span></span>
                                     </div>
                                     <div id="previewModalBody" class="text-[11px] text-slate-300 leading-relaxed space-y-2 border-t border-white/5 pt-3"></div>
@@ -1273,13 +1425,13 @@
                         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                             <div class="space-y-6">
                                 <div>
-                                    <h4 class="text-emerald-400 font-bold text-xs uppercase tracking-wider mb-2 font-sans font-sans font-sans font-sans font-sans font-sans font-sans"><i class="fa-solid fa-table"></i> Google Sheets Product Source</h4>
+                                    <h4 class="text-emerald-400 font-bold text-xs uppercase tracking-wider mb-2 font-sans"><i class="fa-solid fa-table"></i> Google Sheets Product Source</h4>
                                     <p class="text-[10px] text-slate-400 leading-relaxed mb-4">Provide your Google Sheets Identifier ID to fetch product catalogs automatically.</p>
                                     <input type="text" id="settingsSheetIdInput" placeholder="Enter Spreadsheet GID..." class="w-full px-5 py-4 rounded-xl bg-stone-900 border border-white/10 text-white outline-none focus:border-emerald-400 text-xs font-mono">
                                 </div>
 
                                 <div class="border-t border-white/5 pt-6 space-y-4">
-                                    <h4 class="text-emerald-400 font-bold text-xs uppercase tracking-wider mb-2 font-sans font-sans font-sans"><i class="fa-solid fa-cloud"></i> Firebase Cloud Connection</h4>
+                                    <h4 class="text-emerald-400 font-bold text-xs uppercase tracking-wider mb-2 font-sans"><i class="fa-solid fa-cloud"></i> Firebase Cloud Connection</h4>
                                     <p class="text-[10px] text-slate-400 leading-relaxed mb-4">Paste your Firebase Project Web SDK configuration below. Once configured and verified, local backups will sync securely to Google Cloud servers.</p>
                                     
                                     <div class="space-y-4 font-mono text-xs font-mono">
@@ -1288,7 +1440,7 @@
                                             <input type="text" id="fbApiKey" placeholder="AIzaSyA1..." class="w-full px-4 py-3 rounded-lg bg-stone-900 border border-white/5 text-white outline-none focus:border-emerald-400">
                                         </div>
                                         <div>
-                                            <label class="block text-[9px] font-black uppercase tracking-widest text-slate-400 mb-1.5">Auth Domain</label>
+                                            <label class="block text-[9px] font-black uppercase tracking-widest text-slate-400 mb-1.5 font-sans">Auth Domain</label>
                                             <input type="text" id="fbAuthDomain" placeholder="your-app-id.firebaseapp.com" class="w-full px-4 py-3 rounded-lg bg-stone-900 border border-white/5 text-white outline-none focus:border-emerald-400">
                                         </div>
                                         <div>
@@ -1300,21 +1452,21 @@
                                             <input type="text" id="fbStorageBucket" placeholder="your-app-id.appspot.com" class="w-full px-4 py-3 rounded-lg bg-stone-900 border border-white/5 text-white outline-none focus:border-emerald-400">
                                         </div>
                                         <div>
-                                            <label class="block text-[9px] font-black uppercase tracking-widest text-slate-400 mb-1.5 font-sans font-sans">Messaging Sender ID</label>
+                                            <label class="block text-[9px] font-black uppercase tracking-widest text-slate-400 mb-1.5 font-sans">Messaging Sender ID</label>
                                             <input type="text" id="fbSenderId" placeholder="123456789..." class="w-full px-4 py-3 rounded-lg bg-stone-900 border border-white/5 text-white outline-none focus:border-emerald-400">
                                         </div>
                                         <div>
-                                            <label class="block text-[9px] font-black uppercase tracking-widest text-slate-400 mb-1.5">App ID</label>
+                                            <label class="block text-[9px] font-black uppercase tracking-widest text-slate-400 mb-1.5 font-sans">App ID</label>
                                             <input type="text" id="fbAppId" placeholder="1:123456:web:abcd..." class="w-full px-4 py-3 rounded-lg bg-stone-900 border border-white/5 text-white outline-none focus:border-emerald-400">
                                         </div>
                                     </div>
                                 </div>
 
-                                <button onclick="window.saveSystemSettings()" class="w-full py-5 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-stone-950 text-xs font-black uppercase tracking-widest shadow-xl transition"><i class="fa-solid fa-circle-check mr-2 font-sans font-sans"></i> Save System Configuration</button>
+                                <button onclick="window.saveSystemSettings()" class="w-full py-5 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-stone-950 text-xs font-black uppercase tracking-widest shadow-xl transition"><i class="fa-solid fa-circle-check mr-2 font-sans"></i> Save System Configuration</button>
                             </div>
 
                             <div class="space-y-6">
-                                <div class="bg-emerald-500/10 border border-emerald-500/20 rounded-3xl p-6 text-emerald-200 text-xs space-y-4 font-sans font-sans">
+                                <div class="bg-emerald-500/10 border border-emerald-500/20 rounded-3xl p-6 text-emerald-200 text-xs space-y-4 font-sans">
                                     <h5 class="font-black text-sm uppercase tracking-wider flex items-center gap-2 text-white"><i class="fa-solid fa-server"></i> Storage Core Engine</h5>
                                     <p class="leading-relaxed opacity-90">Your system runs on a **Dual-Layer Storage Architecture** (Cloud + Offline Local Memory Fallback) to protect your wilderness files under all outdoor conditions.</p>
                                     <div class="space-y-2 font-mono text-[10px] uppercase">
@@ -1327,7 +1479,7 @@
                                 <div class="bg-amber-500/10 border border-amber-500/20 rounded-3xl p-6 text-amber-200 text-xs space-y-3 font-sans">
                                     <h5 class="font-black text-sm uppercase tracking-wider flex items-center gap-2 text-white"><i class="fa-solid fa-shield-halved"></i> Key Storage Security</h5>
                                     <p class="leading-relaxed opacity-90 font-sans">All configuration credentials and database variables are securely serialized and kept private. Only administrators authorized with the Basecamp passkey can access and update these values.</p>
-                                </div>
+                                end</div>
                             </div>
                         </div>
                     </div>
@@ -1341,28 +1493,28 @@
     <footer class="bg-[#021f18]/90 pt-32 pb-20 px-8 text-center border-t border-white/5 text-white">
         <h4 class="font-black text-6xl italic uppercase mb-16 tracking-tighter text-emerald-400">THESALE3</h4>
         <div class="flex flex-wrap justify-center gap-x-8 gap-y-4 mb-16 text-[10px] font-black uppercase tracking-widest text-white/50">
-            <button onclick="window.switchPage('home')" class="hover:text-emerald-400 transition-colors">Home</button>
-            <button onclick="window.switchPage('products')" class="hover:text-emerald-400 transition-colors">Gear</button>
-            <button onclick="window.switchPage('places')" class="hover:text-emerald-400 transition-colors">Spots</button>
-            <button onclick="window.switchPage('about')" class="hover:text-emerald-400 transition-colors">About</button>
-            <button onclick="window.switchPage('privacy')" class="hover:text-emerald-400 transition-colors">Privacy</button>
-            <button onclick="window.switchPage('terms')" class="hover:text-emerald-400 transition-colors font-sans">Terms</button>
+            <button onclick="window.switchPage('home')" class="hover:text-emerald-400 transition-colors" data-i18n="home">Home</button>
+            <button onclick="window.switchPage('products')" class="hover:text-emerald-400 transition-colors" data-i18n="gear">Gear</button>
+            <button onclick="window.switchPage('places')" class="hover:text-emerald-400 transition-colors" data-i18n="spots">Spots</button>
+            <button onclick="window.switchPage('about')" class="hover:text-emerald-400 transition-colors" data-i18n="about">About</button>
+            <button onclick="window.switchPage('privacy')" class="hover:text-emerald-400 transition-colors" data-i18n="privacy_policy">Privacy</button>
+            <button onclick="window.switchPage('terms')" class="hover:text-emerald-400 transition-colors font-sans" data-i18n="terms_of_service">Terms</button>
         </div>
         <div class="flex justify-center gap-12 mb-20 font-sans">
             <a href="https://facebook.com/Clicktobuy333333333" target="_blank" class="text-white/20 hover:text-emerald-400 transition-colors"><i class="fa-brands fa-facebook text-4xl"></i></a>
-            <a href="https://tiktok.com/@thesale3camping" target="_blank" class="text-white/20 hover:text-emerald-400 transition-colors"><i class="fa-brands fa-tiktok text-4xl font-sans"></i></a>
+            <a href="https://tiktok.com/@thesale3camping" target="_blank" class="text-white/20 hover:text-emerald-400 transition-colors"><i class="fa-brands fa-tiktok text-4xl"></i></a>
         </div>
-        <p onclick="window.handleAdminClick()" class="text-[9px] font-black uppercase tracking-widest text-white/30 cursor-pointer hover:text-white font-sans font-sans">© TheSale3 Business Operations 2026</p>
+        <p onclick="window.handleAdminClick()" class="text-[9px] font-black uppercase tracking-widest text-white/30 cursor-pointer hover:text-white font-sans">© TheSale3 Business Operations 2026</p>
     </footer>
 
     <!-- Cart Modal -->
     <div id="cartModal" class="modal-overlay" onclick="if(event.target === this) document.getElementById('cartModal').style.display='none'">
         <div class="bg-white h-full max-w-md w-full ml-auto flex flex-col p-10 shadow-2xl text-stone-900">
-            <h3 class="text-2xl font-black uppercase italic tracking-tighter mb-12 text-emerald-950 font-sans">My Bag</h3>
+            <h3 class="text-2xl font-black uppercase italic tracking-tighter mb-12 text-emerald-950 font-sans" data-i18n="bag_title">My Bag</h3>
             <div id="cartItems" class="flex-grow overflow-y-auto space-y-6 no-scrollbar font-sans"></div>
             <div class="pt-10 border-t border-emerald-100 mt-10 font-sans">
-                <div class="flex justify-between mb-8"><span class="font-black text-stone-400 uppercase text-[10px]">Total Order</span><span id="cartTotal" class="text-3xl font-black text-emerald-800 italic"></span></div>
-                <button onclick="window.checkoutWhatsApp()" class="w-full bg-[#25D366] text-white py-5 rounded-2xl font-black uppercase text-[11px] shadow-lg hover:brightness-105 transition-all">WhatsApp Checkout</button>
+                <div class="flex justify-between mb-8"><span class="font-black text-stone-400 uppercase text-[10px]" data-i18n="total_order">Total Order</span><span id="cartTotal" class="text-3xl font-black text-emerald-800 italic"></span></div>
+                <button onclick="window.checkoutWhatsApp()" class="w-full bg-[#25D366] text-white py-5 rounded-2xl font-black uppercase text-[11px] shadow-lg hover:brightness-105 transition-all" data-i18n="whatsapp_checkout">WhatsApp Checkout</button>
             </div>
         </div>
     </div>
@@ -1405,7 +1557,6 @@
 
         // Initialize Firebase connection if configuration exists
         async function initializeDatabase() {
-            // Priority 1: User-saved settings inside localStorage
             const savedFirebaseJSON = localStorage.getItem('thesale3_firebase_config');
             let finalConfig = null;
 
@@ -1416,14 +1567,12 @@
                     console.error("Failed to parse saved Firebase config: ", e);
                 }
             } else if (rawConfig) {
-                // Priority 2: Platform-provided environment config
                 try {
                     finalConfig = JSON.parse(rawConfig);
                 } catch (e) {
                     console.error("Failed to parse environment Firebase config: ", e);
                 }
             } else {
-                // Priority 3: Built-in Default Custom Firebase Settings for Mou's Camping Store Project
                 finalConfig = {
                     apiKey: "AIzaSyD1sXtRmDOyP7voO2tsgJxwcHApzikh_6k",
                     authDomain: "thesale3-camping-store-4wgw8.firebaseapp.com",
@@ -1440,7 +1589,6 @@
                     db = getFirestore(app);
                     auth = getAuth(app);
 
-                    // Perform Authentication before queries (Rule 3)
                     if (initialAuthToken) {
                         await signInWithCustomToken(auth, initialAuthToken);
                     } else {
@@ -1450,12 +1598,9 @@
                     onAuthStateChanged(auth, (u) => {
                         user = u;
                         if (user) {
-                            // Strict Path Construction (Rule 1)
                             blogsCollectionRef = collection(db, 'artifacts', appId, 'public', 'data', 'blogs');
-                            // Start real-time sync with database
                             syncBlogsRealTime();
                             
-                            // Update badge statuses
                             const sb = document.getElementById('settingsStatusBadge');
                             if(sb) { sb.innerText = 'Connected to Cloud'; sb.className = 'font-black text-emerald-400'; }
                         }
@@ -1469,7 +1614,6 @@
             }
         }
 
-        // Realtime blogs fetch (Rule 2: Fetch all, simple collection query, sort in memory)
         function syncBlogsRealTime() {
             if (!blogsCollectionRef || !user) return;
 
@@ -1480,7 +1624,6 @@
                 });
 
                 if (fetchedBlogs.length > 0) {
-                    // Update current client state and render
                     window.state.blogs = fetchedBlogs;
                     window.renderBlogs();
                     window.renderAdminBlogsList();
@@ -1490,7 +1633,6 @@
             });
         }
 
-        // CRUD: Publish, Update or Edit Note
         window.saveBlogFromAdmin = async () => {
             const id = document.getElementById('blogEditId').value || 'blog-' + Math.random().toString(36).substring(2, 9);
             const title = document.getElementById('blogTitleInput').value.trim();
@@ -1498,7 +1640,7 @@
             const author = document.getElementById('blogAuthorInput').value.trim();
             const date = document.getElementById('blogDateInput').value.trim();
             const readTime = document.getElementById('blogReadTimeInput').value.trim();
-            const img = document.getElementById('blogImgInput').value.trim() || 'image_cd7fa5.jpg';
+            const img = document.getElementById('blogImgInput').value.trim() || 'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=800&q=80';
             const desc = document.getElementById('blogDescInput').value.trim();
             const content = document.getElementById('blogContentInput').value.trim();
 
@@ -1511,13 +1653,12 @@
 
             if (db && user && blogsCollectionRef) {
                 try {
-                    // Write directly to structured path doc
                     const docRef = doc(db, 'artifacts', appId, 'public', 'data', 'blogs', id);
                     await setDoc(docRef, blogData);
                     window.showToast("Adventure Note published to Cloud!");
                 } catch (err) {
                     console.error("Error saving blog: ", err);
-                    window.showToast("Cloud publish failed. Saved to local storage instead.", true);
+                    window.showToast("Cloud publish failed. Saved locally instead.", true);
                     saveLocalFallback(id, blogData);
                 }
             } else {
@@ -1540,7 +1681,6 @@
             window.showToast("Adventure Note saved locally.");
         }
 
-        // CRUD: Deletion hook
         window.deleteBlogFromAdmin = async (id) => {
             if (db && user && blogsCollectionRef) {
                 try {
@@ -1565,13 +1705,10 @@
             window.showToast("Adventure Note deleted locally.");
         }
 
-        // Configuration management
         window.loadSettingsToForm = () => {
-            // Load Spreadsheet ID
             const savedSheetId = localStorage.getItem('thesale3_sheet_id') || '1N09HDxPd3zEDqxHR-knpH2MP_fq_XkLJZJ4FdCAYEG0';
             document.getElementById('settingsSheetIdInput').value = savedSheetId;
 
-            // Load Firebase Parameters (checking localstorage first, else display built-in default values)
             const savedFb = localStorage.getItem('thesale3_firebase_config');
             if (savedFb) {
                 try {
@@ -1586,7 +1723,6 @@
                     console.error("Error parsing settings config:", e);
                 }
             } else {
-                // Pre-fill fields with your active database credentials automatically
                 document.getElementById('fbApiKey').value = 'AIzaSyD1sXtRmDOyP7voO2tsgJxwcHApzikh_6k';
                 document.getElementById('fbAuthDomain').value = 'thesale3-camping-store-4wgw8.firebaseapp.com';
                 document.getElementById('fbProjectId').value = 'thesale3-camping-store-4wgw8';
@@ -1612,32 +1748,26 @@
                 activeSheetId = sheetId;
             }
 
-            // Save Firebase Credentials if customized
             if (config.apiKey && config.projectId) {
                 localStorage.setItem('thesale3_firebase_config', JSON.stringify(config));
                 window.showToast("System configurations updated! Reloading parameters...");
                 setTimeout(() => window.location.reload(), 1500);
             } else {
                 localStorage.removeItem('thesale3_firebase_config');
-                window.showToast("Spreadsheet updated. Reverting to custom default Cloud credentials.");
+                window.showToast("Spreadsheet updated. Reverting to default credentials.");
                 setTimeout(() => window.location.reload(), 1500);
             }
         };
 
-        // Initialize Products and Offline/Local Blog Data
         window.loadData = async () => {
             try {
                 window.state.isLoading = true;
-                
-                // Get Google Sheet ID
                 activeSheetId = localStorage.getItem('thesale3_sheet_id') || '1N09HDxPd3zEDqxHR-knpH2MP_fq_XkLJZJ4FdCAYEG0';
                 const productsCSVUrl = `https://docs.google.com/spreadsheets/d/${activeSheetId}/export?format=csv&gid=0&t=${Date.now()}`;
 
-                // Fetch Products
                 const resProducts = await fetch(productsCSVUrl);
                 const rowsProducts = parseCSV(await resProducts.text()).slice(1);
                 
-                // If sheet loads successfully, overwrite fallback state with dynamic live products
                 if(rowsProducts.length > 0) {
                     window.state.products = rowsProducts.map((cols, i) => ({
                         id: 'p-' + i,
@@ -1653,31 +1783,24 @@
             } catch (e) { 
                 console.error("Dynamic Google Sheet Fetch Error (Using fallbacks):", e); 
             } finally {
-                // Load local storage backups if available
                 const localBackup = localStorage.getItem('thesale3_blogs_local');
                 if (localBackup) {
                     window.state.blogs = JSON.parse(localBackup);
                 }
 
                 window.state.isLoading = false;
-                window.applyProductFilters();
-                window.renderHomePreview();
-                window.renderBlogs();
-                window.renderPlaces();
+                window.toggleLanguage(window.state.lang); // Run toggle once on boot to set localized DOM fields
             }
         };
 
-        // Attach event listeners to admin forms
         document.getElementById('adminFormPublishBtn').addEventListener('click', window.saveBlogFromAdmin);
 
-        // Routing and slider lifecycle callbacks
         window.addEventListener('hashchange', window.handleRouting);
         window.addEventListener('DOMContentLoaded', () => {
             window.handleRouting();
-            window.initHeroSlider(); // Initialize slider on load!
+            window.initHeroSlider(); 
         });
 
-        // Start initialization sequence
         initializeDatabase();
         window.loadData();
     </script>
