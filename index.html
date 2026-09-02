@@ -421,6 +421,18 @@
             isLoading: true
         };
 
+        // Helper to convert GitHub web URLs (/blob/) into direct raw image URLs
+        window.fixGithubImageUrl = (url) => {
+            if (!url) return '';
+            let trimmed = url.trim();
+            if (trimmed.includes('github.com') && trimmed.includes('/blob/')) {
+                return trimmed
+                    .replace('github.com', 'raw.githubusercontent.com')
+                    .replace('/blob/', '/');
+            }
+            return trimmed;
+        };
+
         // Helper to match recommended gear by Product ID, Category, or Title Keyword
         window.getRecommendedGear = (recGearString, defaultStart = 0, defaultCount = 2) => {
             if (recGearString) {
@@ -1195,7 +1207,7 @@
             const desc = document.getElementById('blogDescInput').value || 'A beautifully drafted teaser for our premium audience...';
             const body = document.getElementById('blogContentInput').value || '<p>The story begins here...</p>';
 
-            document.getElementById('previewCardImg').src = img;
+            document.getElementById('previewCardImg').src = window.fixGithubImageUrl(img);
             document.getElementById('previewCardCat').innerText = cat;
             document.getElementById('previewCardTitle').innerText = window.getLocalizedText(title);
             document.getElementById('previewCardDesc').innerText = window.getLocalizedText(desc);
@@ -1203,7 +1215,7 @@
             document.getElementById('previewCardReadTime').innerText = readTime;
             document.getElementById('previewCardAuthor').innerText = author;
 
-            document.getElementById('previewModalImg').src = img;
+            document.getElementById('previewModalImg').src = window.fixGithubImageUrl(img);
             document.getElementById('previewModalCat').innerText = cat;
             document.getElementById('previewModalTitle').innerText = window.getLocalizedText(title);
             document.getElementById('previewModalDate').innerText = date;
@@ -1523,33 +1535,6 @@
                     </button>
                 </div>
 
-            </div>
-        </div>
-    </div>
-
-    <!-- Interactive Article Reader Modal -->
-    <div id="blogModal" class="modal-overlay" onclick="if(event.target === this) window.closeBlog()">
-        <div class="bg-stone-950 border border-white/10 rounded-[40px] max-w-4xl w-[95%] mx-auto overflow-hidden shadow-2xl flex flex-col relative max-h-[90vh]">
-            <button onclick="window.closeBlog()" class="absolute top-6 right-6 bg-white/10 hover:bg-emerald-500 hover:text-stone-950 text-white w-12 h-12 rounded-full flex items-center justify-center transition-colors z-30 font-sans">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-            <div class="h-64 sm:h-80 relative overflow-hidden flex-shrink-0">
-                <img id="blogModalImg" class="w-full h-full object-cover">
-                <div class="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/60 to-transparent"></div>
-                <div class="absolute bottom-8 left-8 right-8">
-                    <span id="blogModalTag" class="bg-emerald-500 text-stone-950 text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-xl shadow-md"></span>
-                    <h2 id="blogModalTitle" class="text-2xl sm:text-4xl font-black text-white mt-4 italic uppercase tracking-tight leading-snug"></h2>
-                </div>
-            </div>
-            <div class="p-8 sm:p-12 overflow-y-auto flex-grow text-slate-300 no-scrollbar">
-                <div class="flex flex-wrap gap-x-6 gap-y-2 text-slate-400 text-xs font-bold mb-8 uppercase tracking-wider border-b border-white/5 pb-6 font-sans">
-                    <span><i class="fa-regular fa-calendar-days text-emerald-400 mr-2 font-sans"></i><span id="blogModalDate" class="font-sans"></span></span>
-                    <span><i class="fa-regular fa-clock text-emerald-400 mr-2 font-sans"></i><span id="blogModalTime" class="font-sans"></span></span>
-                    <span><i class="fa-regular fa-user text-emerald-400 mr-2 font-sans"></i><span id="blogModalAuthor" class="font-sans"></span></span>
-                </div>
-                <div id="blogModalBody" class="text-slate-300 leading-relaxed text-sm sm:text-base space-y-4 prose prose-invert font-sans">
-                    <!-- Dynamic Entry Content -->
-                </div>
             </div>
         </div>
     </div>
@@ -1984,7 +1969,8 @@
             const author = document.getElementById('blogAuthorInput').value.trim();
             const date = document.getElementById('blogDateInput').value.trim();
             const readTime = document.getElementById('blogReadTimeInput').value.trim();
-            const img = document.getElementById('blogImgInput').value.trim() || 'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=800&q=80';
+            const rawImg = document.getElementById('blogImgInput').value.trim() || 'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=800&q=80';
+            const img = window.fixGithubImageUrl(rawImg);
             const desc = document.getElementById('blogDescInput').value.trim();
             const content = document.getElementById('blogContentInput').value.trim();
 
@@ -2141,15 +2127,18 @@
                 if (resProducts.ok) {
                     const rowsProducts = parseCSV(await resProducts.text()).slice(1);
                     if(rowsProducts.length > 0) {
-                        window.state.products = rowsProducts.map((cols, i) => ({
-                            id: cols[0] || 'p-' + i,
-                            name: cols[1],
-                            price: parseInt(cols[2]?.replace(/\D/g,'')) || 0,
-                            category: cols[3] || 'General',
-                            img: cols[4] ? (cols[4].startsWith('http') ? cols[4] : `https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/${cols[4]}`) : '',
-                            status: cols[5] || 'In Stock',
-                            desc: cols[6] || 'High-quality outdoor equipment.'
-                        }))
+                        window.state.products = rowsProducts.map((cols, i) => {
+                            let imgUrl = cols[4] ? (cols[4].startsWith('http') ? cols[4] : `https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/${cols[4]}`) : '';
+                            return {
+                                id: cols[0] || 'p-' + i,
+                                name: cols[1],
+                                price: parseInt(cols[2]?.replace(/\D/g,'')) || 0,
+                                category: cols[3] || 'General',
+                                img: window.fixGithubImageUrl(imgUrl),
+                                status: cols[5] || 'In Stock',
+                                desc: cols[6] || 'High-quality outdoor equipment.'
+                            };
+                        })
                         .filter(x => x.name && x.name.length > 2 && x.name.trim().toUpperCase() !== '60L: 700X370X240MM');
                     }
                 }
@@ -2164,7 +2153,7 @@
                         province: cols[2] || '',
                         elevation: cols[3] || 'N/A',
                         difficulty: cols[4] || 'Easy Access',
-                        img: cols[5] || 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80',
+                        img: window.fixGithubImageUrl(cols[5]) || 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80',
                         desc: cols[6] || '',
                         amenities: cols[7] ? cols[7].split(',').map(a => a.trim()) : [],
                         mapLink: cols[8] || 'https://maps.google.com',
@@ -2188,7 +2177,7 @@
                         author: cols[3] || 'Mou Team',
                         date: cols[4] || '2026',
                         readTime: cols[5] || '5 Min Read',
-                        img: cols[6] || 'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=800&q=80',
+                        img: window.fixGithubImageUrl(cols[6]) || 'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=800&q=80',
                         desc: cols[7] || '',
                         content: cols[8] || cols[7] || '',
                         recGear: cols[9] ? cols[9].trim() : ''
