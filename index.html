@@ -17,7 +17,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=300;400;500;600;700;800&family=Noto+Sans+Lao:wght=300;400;500;700;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Noto+Sans+Lao:wght@300;400;500;700;900&display=swap');
         
         :root {
             --adventure-green: #064e3b;
@@ -101,18 +101,44 @@
             background: #ffffff;
         }
 
-        /* Journal/Blog Premium Adjustments */
+        /* Journal/Blog & Places Premium Adjustments */
         .card-journal {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.05) 0%, rgba(2, 44, 34, 0.45) 100%);
+            backdrop-filter: blur(14px);
+            border: 1px solid rgba(255, 255, 255, 0.09);
             border-radius: 32px;
             transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.45);
         }
         .card-journal:hover {
-            background: rgba(255, 255, 255, 0.06);
-            border-color: rgba(16, 185, 129, 0.4);
+            background: linear-gradient(145deg, rgba(255, 255, 255, 0.08) 0%, rgba(6, 78, 59, 0.55) 100%);
+            border-color: rgba(16, 185, 129, 0.45);
             transform: translateY(-8px);
-            box-shadow: 0 30px 50px -15px rgba(2, 44, 34, 0.6);
+            box-shadow: 0 32px 60px -15px rgba(16, 185, 129, 0.22);
+        }
+
+        .journal-featured-card {
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.06) 0%, rgba(2, 44, 34, 0.7) 100%);
+            backdrop-filter: blur(18px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 36px;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 30px 70px -20px rgba(0, 0, 0, 0.6);
+        }
+        .journal-featured-card:hover {
+            border-color: rgba(16, 185, 129, 0.5);
+            box-shadow: 0 35px 80px -20px rgba(16, 185, 129, 0.25);
+        }
+
+        .journal-prose p {
+            margin-bottom: 1.25rem;
+            line-height: 1.9;
+        }
+        .journal-prose h4, .journal-prose h3 {
+            color: #fbbf24;
+            font-weight: 800;
+            margin-top: 1.75rem;
+            margin-bottom: 0.75rem;
         }
         
         /* Skeleton Animation */
@@ -212,6 +238,8 @@
                 premium_gear_title: "ອຸປະກອນແຄ້ມປິ້ງພຣີມ່ຽມ TheSale3",
                 catalog: "ລາຍການສິນຄ້າ",
                 search_placeholder: "ຄົ້ນຫາສິນຄ້າ...",
+                search_places_placeholder: "ຄົ້ນຫາຈຸດຕັ້ງແຄ້ມ, ແຂວງ, ຄວາມສູງ...",
+                search_blogs_placeholder: "ຄົ້ນຫາບົດຄວາມ, ຄູ່ມືການຕັ້ງແຄ້ມ...",
                 no_products: "ບໍ່ພົບສິນຄ້າທີ່ຄົ້ນຫາ.",
                 no_spots: "ບໍ່ພົບສະຖານທີ່ທ່ອງທ່ຽວ.",
                 no_blogs: "ບໍ່ພົບເລື່ອງລາວ/ບົດຄວາມ.",
@@ -224,10 +252,16 @@
                 wild_spots: "ຈຸດຕັ້ງແຄ້ມຍອດຮິດ",
                 wild_spots_desc: "ຄົ້ນພົບສະຖານທີ່ຕັ້ງແຄ້ມທຳມະຊາດ, ຍອດພູສູງ ແລະ ແຄ້ມແຄມນ້ຳທີ່ຖືກຄັດສັນ ແລະ ຢັ້ງຢືນໂດຍທີມງານເດີນທາງຂອງພວກເຮົາ.",
                 explore_spot_details: "ເບິ່ງລາຍລະອຽດສະຖານທີ່",
+                featured_spot: "ຈຸດຕັ້ງແຄ້ມແນະນຳ",
+                related_spots: "ຈຸດຕັ້ງແຄ້ມອື່ນໆທີ່ໜ້າສົນໃຈ",
                 adventure_notes: "ບັນທຶກການເດີນທາງ",
                 wild_journal: "ວາລະສານຜະຈົນໄພ",
                 wild_journal_desc: "ເລື່ອງລາວ, ຄູ່ມືການຕັ້ງແຄ້ມ ແລະ ຂໍ້ມູນເຈາະເລິກຈາກປະສົບການຈິງຂອງທີມງານເດີນທາງທົ່ວປະເທດລາວ.",
                 read_essay: "ອ່ານບົດຄວາມ",
+                featured_story: "ບົດຄວາມແນະນຳ",
+                sync_sheet: "ອັບເດດຂໍ້ມູນ Sheet",
+                connect_sheet: "ຕັ້ງຄ່າ Google Sheet",
+                related_stories: "ບົດຄວາມອື່ນໆທີ່ໜ້າສົນໃຈ",
                 our_mission: "ພາລະກິດຂອງພວກເຮົາ",
                 mission_para1: "ກໍ່ຕັ້ງຂຶ້ນໃນປີ 2021 ຢູ່ໃຈກາງນະຄອນຫຼວງວຽງຈັນ, <span class='text-white font-bold'>TheSale3</span> ເກີດຂຶ້ນມາຈາກຄວາມຮັກ ແລະ ຄວາມຫຼົງໄຫຼໃນຄວາມງາມຂອງທຳມະຊາດໃນປະເທດລາວ. ພວກເຮົາເຊື່ອວ່າທຸກໆເສັ້ນທາງມີເລື່ອງລາວ ແລະ ທຸກໆຈຸດຕັ້ງແຄ້ມຄືບ້ານຫຼັງໃຫມ່ທີ່ຄອຍຖ້າການຄົ້ນພົບ.",
                 mission_para2: "ພວກເຮົາບໍ່ພຽງແຕ່ຂາຍອຸປະກອນເທົ່ານັ້ນ, ແຕ່ພວກເຮົາກຽມຄວາມພ້ອມໃຫ້ກັບການເດີນທາງຂອງທ່ານ. ຈາກພູດອຍທີ່ມີທະເລໝອກຂອງພູຄູນ ຈົນເຖິງແມ່ນ້ຳທີ່ງຽບສະຫງົບຂອງວັງວຽງ ອຸປະກອນທຸກຊິ້ນໄດ້ຮັບການທົດສອບຢ່າງເຂັ້ມງວດເພື່ອໃຫ້ແນ່ໃຈວ່າທ່ານຈະປອດໄພ, ແຫ້ງສະບາຍ ແລະ ມີແຮງບັນດານໃຈໃນທຸກການຜະຈົນໄພ.",
@@ -285,6 +319,8 @@
                 premium_gear_title: "TheSale3 Premium Gear",
                 catalog: "Catalog",
                 search_placeholder: "Search...",
+                search_places_placeholder: "Search campsites, province, elevation...",
+                search_blogs_placeholder: "Search essays, camping guides...",
                 no_products: "No products found.",
                 no_spots: "No backcountry spots found.",
                 no_blogs: "No stories found.",
@@ -297,10 +333,16 @@
                 wild_spots: "Wild Spots",
                 wild_spots_desc: "Discover handpicked, breathtaking wilderness campsites, mountain peaks, and hidden riversides across Lao PDR verified by our expedition crew.",
                 explore_spot_details: "Explore Spot Details",
+                featured_spot: "Featured Camp Spot",
+                related_spots: "More Wilderness Campsites",
                 adventure_notes: "Adventure Notes",
                 wild_journal: "Wild Journal",
                 wild_journal_desc: "Stories, practical guides, and expert backcountry insights from our team expeditions right out across the rugged landscapes of Lao PDR.",
                 read_essay: "Read Essay",
+                featured_story: "Featured Story",
+                sync_sheet: "Sync Sheet",
+                connect_sheet: "Sheet Link",
+                related_stories: "More Stories From The Trail",
                 our_mission: "Our Mission",
                 mission_para1: "Founded in 2021 in the heart of Vientiane, <span class='text-white font-bold'>TheSale3</span> was born from a passion for the untamed beauty of Laos. We believe that every trail has a story, and every campsite is a home waiting to be built.",
                 mission_para2: "We don't just sell gear; we equip expeditions. From the rainy mountains of Phou Khoun to the misty rivers of Vang Vieng, our equipment is rigorously tested to ensure you stay safe, dry, and inspired in the wild.",
@@ -399,6 +441,7 @@
                     desc: 'ຕັ້ງແຄ້ມເໜືອທະເລໝອກທີ່ສວຍງາມເທິງສັນເຂົາທີ່ເຊື່ອມຕໍ່ລະຫວ່າງ ວຽງຈັນ ແລະ ຫຼວງພະບາງ. | Camp above a breathtaking sea of clouds on mountain ridges connecting Vientiane and Luang Prabang.',
                     amenities: ['ຫ້ອງນ້ຳອຸ່ນ | Hot Showers', 'ແທ່ນຕັ້ງເຕັ້ນ | Tent Platforms', 'ສັນຍານມືຖື 4G | 4G Mobile Signal', 'ຮ້ານກາເຟໃກ້ຄຽງ | Local Cafe nearby'],
                     mapLink: 'https://maps.google.com/?q=Phou+Khoun',
+                    featured: true,
                     content: `<p class="mb-4">ພູຄູນເປັນສະຖານທີ່ທີ່ໜ້າຕື່ນຕາຕື່ນໃຈສຳລັບຄົນຮັກພູເຂົາທີ່ຢາກສຳຜັດກັບທະເລໝອກໂດຍບໍ່ຕ້ອງຍ່າງປ່າໄກ. ຕັ້ງເຕັ້ນຂອງທ່ານເທິງແທ່ນໄມ້ທີ່ຈັດສັນໄວ້ຢ່າງດີ ແລະ ສູດອາກາດໜາວເຢັນທີ່ຫຼຸດລົງເຖິງ 12 ອົງສາໃນຊ່ວງລະດູໜາວ. | Phou Khoun is spectacular for mountain lovers who want to witness rolling clouds without high-intensity hiking. Setup your dome tent directly on premium wooden platforms and enjoy cool breeze reaching down to 12°C during winter months.</p><h4 class="text-amber-400 font-bold mt-6 mb-2">ຂໍ້ແນະນຳໃນການເດີນທາງ | Backcountry Tips</h4><p class="mb-4">ກຽມອຸປະກອນນອນທີ່ໃຫ້ຄວາມອົບອຸ່ນສູງ (ເຊັ່ນ: ຖົງນອນ ຫຼື ແຜ່ນຮອງນອນກັນຄວາມເຢັນ) ເພາະລົມພູເຂົາຈະເຮັດໃຫ້ອຸນຫະພູມຫຼຸດລົງຢ່າງໄວວາຫຼັງຕາເວັນຕົກດິນ. | Ensure you bring high thermal sleep gear (such as a premium sleeping bag or insulated mat) as high altitude winds drop temperatures rapidly after dusk.</p>`
                 },
                 {
@@ -411,6 +454,7 @@
                     desc: 'ພັກຜ່ອນຮ່າງກາຍແຄມແກ້ງນ້ຳລີກທີ່ໃສສະອາດ. ເໝາະສຳລັບການຕັ້ງແຄ້ມປຸງແຕ່ງອາຫານ ແລະ ພັກຜ່ອນໃນທ້າຍສັບປະດາ. | Relax directly beside pristine clear rapids of the Nam Lik river. Perfect for a peaceful weekend camp kitchen setup.',
                     amenities: ['ນ້ຳຫ້ວຍທຳມະຊາດ | Fresh Spring Water', 'ຈຸດກໍ່ໄຟ | Fire Pit Rings', 'ລົດໃຫຍ່ເຂົ້າເຖິງແຄມນ້ຳ | Car Access', 'ກິດຈະກຳພາຍເຮືອຄາຍັກ | Kayaking Options'],
                     mapLink: 'https://maps.google.com/?q=Nam+Lik+River',
+                    featured: false,
                     content: `<p class="mb-4">ພັກຜ່ອນສະບາຍໆຕາມແຄມຝັ່ງນ້ຳລີກ. ສະຖານທີ່ນີ້ມີຮົ່ມໄມ້ໃຫຍ່ປົກຄຸມຕະຫຼອດມື້ ເໝາະແກ່ການຜູກອູ່, ຕັ້ງຕັ່ງແຄ້ມ ແລະ ລອງຊີມກາເຟດຣິບໃນຕອນເຊົ້າ. | Tuck away along the gentle banks of Nam Lik. This site provides shaded camping spots beneath mature riverbank canopies. Perfect for setting up your hammocks, folding chairs, and trying out your backcountry drip coffee filters.</p><h4 class="text-amber-400 font-bold mt-6 mb-2">ການປຸງອາຫານ | Cooking Setup</h4><p class="mb-4">ມີຟືນທຳມະຊາດຫຼວງຫຼາຍຕາມແຄມຝັ່ງແມ່ນ້ຳ. ທ່ານສາມາດໃຊ້ຮ່ວມກັບເຕົາແກັສສະໜາມເພື່ອຄວາມສະດວກໃນການປຸງອາຫານແຊບໆ. | There is plenty of driftwood along the river gravel. Combine with an ultralight gas burner for quick brews and slow cast iron campfire dinners.</p>`
                 }
             ],
@@ -421,6 +465,7 @@
                     date: 'June 2026',
                     readTime: '5 Min Read',
                     author: 'Mou Team',
+                    featured: true,
                     title: 'ເອົາໂຕລອດໃນລະດູຝົນ ແລະ ໝອກໜາຂອງພູຄູນ | Surviving the Misty Monsoons of Phou Khoun Wilderness',
                     desc: 'ເຈາະເລິກວິທີການຮັບມືກັບຝົນຕົກໜັກ, ວິທີຮັກສາໂຄງສ້າງເຕັ້ນໃຫ້ແຂງແຮງ ແລະ ການຈັດການອຸປະກອນໃຫ້ແຫ້ງສະບາຍ. | In-depth strategies on handling heavy seasonal rain, high wind loads, and maintaining dry gear setups on high altitude trails.',
                     img: 'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=800&q=80',
@@ -432,6 +477,7 @@
                     date: 'May 2026',
                     readTime: '4 Min Read',
                     author: 'Mou Team',
+                    featured: false,
                     title: 'ຄູ່ມືການດຣິບກາເຟກາງປ່າໃຫ້ຫອມກະລົມກ່ອມ | The Ultimate Backcountry Drip Coffee Guide',
                     desc: 'ເທັກນິກການເລືອກເມັດກາເຟ, ອຸນຫະພູມນ້ຳ ແລະ ອຸປະກອນດຣິບຂະໜາດເບົາສຳລັບສາຍແຄ້ມ. | Master the art of brewing rich drip coffee at your campsite with lightweight gear and precision water control.',
                     img: 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=800&q=80',
@@ -443,11 +489,16 @@
             checkoutStep: 1, // 1 = Cart list, 2 = Customer details, 3 = Draft Invoice & BCEL QR
             customerInfo: JSON.parse(localStorage.getItem('thesale3_customer') || '{"name":"","phone":"","address":"","courier":"HAL Logistics","branch":""}'),
             currentCategory: 'All',
+            currentPlaceProvince: 'All',
+            currentBlogCategory: 'All',
+            blogFontSize: 'base',
+            placeSheetConnected: false,
+            blogSheetConnected: false,
             activePage: 'home',
             isLoading: true
         };
 
-        // Helper to convert GitHub web URLs (/blob/) into direct raw image URLs
+        // Helper to convert GitHub web URLs (/blob/) & Google Drive URLs into direct raw image URLs
         window.fixGithubImageUrl = (url) => {
             if (!url) return '';
             let trimmed = url.trim();
@@ -456,7 +507,49 @@
                     .replace('github.com', 'raw.githubusercontent.com')
                     .replace('/blob/', '/');
             }
+            const driveMatch = trimmed.match(/drive\.google\.com\/file\/d\/([^\/]+)/) || trimmed.match(/drive\.google\.com\/open\?id=([^&]+)/);
+            if (driveMatch && driveMatch[1]) {
+                return `https://lh3.googleusercontent.com/d/${driveMatch[1]}`;
+            }
             return trimmed;
+        };
+
+        // Parse any Google Sheet link (full URL or raw ID) into { sheetId, gid, directCsvUrl }
+        window.parseGoogleSheetInput = (inputStr) => {
+            const raw = (inputStr || '').trim();
+            if (!raw) return null;
+            if (raw.includes('/pub?output=csv') || raw.includes('/export?format=csv') || raw.includes('tqx=out:csv')) {
+                return { directCsvUrl: raw };
+            }
+            const idMatch = raw.match(/\/spreadsheets\/d\/([a-zA-Z0-9-_]+)/);
+            const gidMatch = raw.match(/[#?&]gid=([0-9]+)/);
+            if (idMatch && idMatch[1]) {
+                return {
+                    sheetId: idMatch[1],
+                    gid: gidMatch ? gidMatch[1] : null
+                };
+            }
+            if (/^[a-zA-Z0-9-_]{20,}$/.test(raw)) {
+                return { sheetId: raw, gid: null };
+            }
+            return null;
+        };
+
+        // Format plain text or HTML article/spot body cleanly
+        window.formatBlogBody = (rawContent) => {
+            const text = window.getLocalizedText(rawContent || '');
+            if (!text) return '';
+            if (/<(p|div|h1|h2|h3|h4|ul|ol|blockquote|br)\b/i.test(text)) {
+                return text;
+            }
+            return text.split(/\n{2,}|\n/).map(line => {
+                const t = line.trim();
+                if (!t) return '';
+                if (t.startsWith('## ')) {
+                    return `<h4>${t.replace(/^##\s+/, '')}</h4>`;
+                }
+                return `<p>${t}</p>`;
+            }).join('');
         };
 
         // Helper to match recommended gear by Product ID, Category, or Title Keyword
@@ -708,32 +801,187 @@
             }
         };
 
+        // ==========================================
+        // UPGRADED WILD SPOTS (WEB_PLACES) PAGE LOGIC
+        // ==========================================
+        window.setPlaceProvince = (prov) => {
+            window.state.currentPlaceProvince = prov;
+            window.renderPlaces();
+        };
+
+        window.renderPlaceProvincePills = () => {
+            const filterContainer = document.getElementById('placeProvinceFilter');
+            if (!filterContainer) return;
+            const dynamicProvs = Array.from(new Set(window.state.places.map(p => p.province).filter(Boolean)));
+            const allProvs = ['All', ...dynamicProvs];
+            filterContainer.innerHTML = allProvs.map(prov => {
+                const isActive = window.state.currentPlaceProvince.toLowerCase() === prov.toLowerCase();
+                const label = prov === 'All' ? window.translations[window.state.lang].all_categories : window.getLocalizedText(prov);
+                return `
+                    <button onclick="window.setPlaceProvince('${prov.replace(/'/g, "\\'")}')" class="category-pill ${isActive ? 'active' : ''} px-5 py-2.5 rounded-2xl text-[10px] font-black uppercase tracking-widest font-sans">
+                        ${label}
+                    </button>
+                `;
+            }).join('');
+        };
+
         window.renderPlaces = () => {
             const grid = document.getElementById('placesGrid');
-            if(!grid) return;
-            if (window.state.places.length === 0) {
-                grid.innerHTML = `<div class="col-span-full py-20 text-center"><p class="opacity-50 italic font-black uppercase text-[10px]" data-i18n="no_spots">${window.translations[window.state.lang].no_spots}</p></div>`;
+            const featuredBox = document.getElementById('featuredPlaceContainer');
+            if (!grid) return;
+
+            window.renderPlaceProvincePills();
+
+            const statusPill = document.getElementById('placeSheetLiveBadge');
+            if (statusPill) {
+                const count = window.state.places.length;
+                statusPill.innerHTML = window.state.placeSheetConnected
+                    ? `<span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span><span>Web_Places (${count})</span>`
+                    : `<span class="w-2 h-2 rounded-full bg-amber-400"></span><span>Sheet Ready (${count})</span>`;
+            }
+
+            if (window.state.isLoading) {
+                if (featuredBox) featuredBox.innerHTML = `<div class="h-80 rounded-[36px] skeleton opacity-20 mb-12"></div>`;
+                grid.innerHTML = Array(3).fill(0).map(() => `<div class="h-[430px] rounded-[32px] skeleton opacity-20"></div>`).join('');
                 return;
             }
-            grid.innerHTML = window.state.places.map(p => `
-                <article onclick="window.openPlaceDetails('${p.id}')" class="card-journal group flex flex-col overflow-hidden h-full cursor-pointer">
+
+            const searchEl = document.getElementById('placeSearchInput');
+            const query = searchEl ? searchEl.value.toLowerCase().trim() : '';
+            const activeProv = window.state.currentPlaceProvince.toLowerCase();
+
+            const filtered = window.state.places.filter(p => {
+                const titleText = (p.title || '').toLowerCase();
+                const provText = (p.province || '').toLowerCase();
+                const descText = (p.desc || '').toLowerCase();
+                const elevText = (p.elevation || '').toLowerCase();
+                const amenitiesText = (p.amenities || []).join(' ').toLowerCase();
+                const mSearch = !query || titleText.includes(query) || provText.includes(query) || descText.includes(query) || elevText.includes(query) || amenitiesText.includes(query);
+                const mProv = activeProv === 'all' || provText === activeProv;
+                return mSearch && mProv;
+            });
+
+            if (filtered.length === 0) {
+                if (featuredBox) featuredBox.innerHTML = '';
+                grid.innerHTML = `<div class="col-span-full py-20 text-center bg-white/5 rounded-[32px] border border-white/10"><i class="fa-solid fa-map-location-dot text-3xl text-emerald-400/50 mb-3 block"></i><p class="opacity-60 italic font-black uppercase text-xs" data-i18n="no_spots">${window.translations[window.state.lang].no_spots}</p></div>`;
+                return;
+            }
+
+            let listForGrid = filtered;
+
+            // Featured Camp Spot Showcase Card when viewing All without search query
+            if (featuredBox) {
+                if (activeProv === 'all' && !query && filtered.length > 0) {
+                    const featuredSpot = filtered.find(p => p.featured) || filtered[0];
+                    listForGrid = filtered.filter(p => p.id !== featuredSpot.id);
+
+                    const seasonPreview = featuredSpot.bestSeason
+                        ? window.getLocalizedText(featuredSpot.bestSeason)
+                        : (window.state.lang === 'lo' ? 'ພະຈິກ - ກຸມພາ (ອາກາດເຢັນ)' : 'Nov - Feb (Cool & Misty)');
+
+                    featuredBox.innerHTML = `
+                        <article onclick="window.openPlaceDetails('${featuredSpot.id}')" class="journal-featured-card group grid grid-cols-1 lg:grid-cols-12 overflow-hidden mb-12 cursor-pointer fade-in">
+                            <div class="lg:col-span-7 h-72 sm:h-96 lg:h-[440px] relative overflow-hidden">
+                                <img src="${featuredSpot.img}" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105" alt="${window.getLocalizedText(featuredSpot.title)}" onerror="this.src='https://placehold.co/900x600/022c22/ffffff?text=TheSale3+Expedition'">
+                                <div class="absolute inset-0 bg-gradient-to-t from-stone-950/90 via-stone-950/20 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:via-transparent lg:to-stone-950/85"></div>
+                                <div class="absolute top-6 left-6 flex flex-wrap items-center gap-2">
+                                    <span class="bg-amber-500 text-stone-950 text-[10px] font-black uppercase tracking-widest px-3.5 py-1.5 rounded-xl shadow-lg flex items-center gap-1.5 font-sans">
+                                        <i class="fa-solid fa-star text-[9px]"></i> ${window.translations[window.state.lang].featured_spot}
+                                    </span>
+                                    <span class="bg-emerald-500/90 backdrop-blur text-stone-950 text-[10px] font-black uppercase tracking-widest px-3.5 py-1.5 rounded-xl shadow-lg font-sans">
+                                        <i class="fa-solid fa-location-dot mr-1"></i> ${window.getLocalizedText(featuredSpot.province)}
+                                    </span>
+                                </div>
+                                <div class="absolute bottom-6 left-6 flex flex-wrap items-center gap-2.5">
+                                    <span class="bg-stone-950/80 backdrop-blur-md border border-white/15 text-emerald-300 text-[10px] font-black uppercase tracking-wider px-3.5 py-1.5 rounded-xl font-sans">
+                                        <i class="fa-solid fa-mountain mr-1.5"></i> ${featuredSpot.elevation}
+                                    </span>
+                                    <span class="bg-stone-950/80 backdrop-blur-md border border-white/15 text-slate-200 text-[10px] font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-xl font-sans">
+                                        <i class="fa-solid fa-cloud-sun text-amber-400 mr-1.5"></i> ${seasonPreview}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="lg:col-span-5 p-8 sm:p-10 lg:p-12 flex flex-col justify-between">
+                                <div>
+                                    <div class="flex items-center gap-2 text-emerald-400 text-[10px] uppercase font-black mb-4 tracking-widest font-sans">
+                                        <i class="fa-solid fa-compass"></i>
+                                        <span>${window.getLocalizedText(featuredSpot.difficulty)}</span>
+                                    </div>
+                                    <h3 class="text-2xl sm:text-3xl font-black text-white group-hover:text-emerald-400 transition mb-4 uppercase italic tracking-tight leading-snug">
+                                        ${window.getLocalizedText(featuredSpot.title)}
+                                    </h3>
+                                    <p class="text-slate-300 text-sm leading-relaxed mb-6 line-clamp-3 font-sans">
+                                        ${window.getLocalizedText(featuredSpot.desc)}
+                                    </p>
+                                    <div class="flex flex-wrap gap-2 mb-6">
+                                        ${(featuredSpot.amenities || []).slice(0, 3).map(a => `
+                                            <span class="bg-white/5 border border-white/10 text-slate-300 text-[9px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-xl font-sans">
+                                                <i class="fa-solid fa-check text-emerald-400 mr-1"></i> ${window.getLocalizedText(a)}
+                                            </span>
+                                        `).join('')}
+                                    </div>
+                                </div>
+                                <div class="pt-6 border-t border-white/10 flex items-center justify-between gap-3">
+                                    <button onclick="event.stopPropagation(); window.open('${featuredSpot.mapLink}', '_blank')" class="px-4 py-3 rounded-2xl bg-white/5 hover:bg-white/15 border border-white/10 text-slate-200 text-[10px] font-black uppercase tracking-wider transition flex items-center gap-1.5 font-sans">
+                                        <i class="fa-solid fa-map-pin text-amber-400"></i> Maps
+                                    </button>
+                                    <span class="px-5 py-3 rounded-2xl bg-emerald-500 group-hover:bg-emerald-400 text-stone-950 text-[10px] font-black uppercase tracking-widest transition shadow-lg flex items-center gap-2 font-sans">
+                                        ${window.translations[window.state.lang].explore_spot_details} <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </article>
+                    `;
+                } else {
+                    featuredBox.innerHTML = '';
+                }
+            }
+
+            grid.innerHTML = listForGrid.map(p => `
+                <article onclick="window.openPlaceDetails('${p.id}')" class="card-journal group flex flex-col overflow-hidden h-full cursor-pointer fade-in">
                     <div class="h-64 overflow-hidden relative">
-                        <img src="${p.img}" class="w-full h-full object-cover transition duration-700 group-hover:scale-105" alt="${window.getLocalizedText(p.title)}" onerror="this.src='https://placehold.co/600x400/022c22/ffffff?text=TheSale3+Expedition'">
-                        <span class="absolute bottom-4 left-4 bg-amber-500 text-stone-950 text-[9px] font-black uppercase tracking-widest px-3 py-1.5 rounded-xl shadow-md font-sans">${window.getLocalizedText(p.province)}</span>
+                        <img src="${p.img}" class="w-full h-full object-cover transition duration-700 group-hover:scale-110" alt="${window.getLocalizedText(p.title)}" loading="lazy" onerror="this.src='https://placehold.co/600x400/022c22/ffffff?text=TheSale3+Expedition'">
+                        <div class="absolute inset-0 bg-gradient-to-t from-stone-950/85 via-transparent to-transparent"></div>
+                        <span class="absolute bottom-4 left-4 bg-amber-500 text-stone-950 text-[9px] font-black uppercase tracking-widest px-3.5 py-1.5 rounded-xl shadow-md font-sans">
+                            <i class="fa-solid fa-location-dot mr-1"></i> ${window.getLocalizedText(p.province)}
+                        </span>
+                        <span class="absolute top-4 right-4 bg-stone-950/75 backdrop-blur-md border border-white/10 text-emerald-300 text-[9px] font-black uppercase tracking-wider px-3 py-1.5 rounded-xl font-sans">
+                            <i class="fa-solid fa-mountain mr-1"></i> ${p.elevation}
+                        </span>
                     </div>
                     <div class="p-8 flex flex-col flex-grow">
-                        <div class="flex items-center gap-4 text-slate-400 text-[10px] uppercase font-bold mb-4 tracking-widest">
-                            <span><i class="fa-solid fa-mountain text-emerald-400 mr-1.5"></i> ${p.elevation}</span>
-                            <span><i class="fa-solid fa-gauge-simple-high text-emerald-400 mr-1.5"></i> ${window.getLocalizedText(p.difficulty)}</span>
+                        <div class="flex items-center gap-3 text-slate-400 text-[10px] uppercase font-bold mb-3.5 tracking-widest font-sans">
+                            <span class="line-clamp-1"><i class="fa-solid fa-gauge-simple-high text-emerald-400 mr-1.5"></i> ${window.getLocalizedText(p.difficulty)}</span>
                         </div>
-                        <h3 class="text-xl font-black text-white group-hover:text-emerald-400 transition mb-4 uppercase italic tracking-tight leading-snug">${window.getLocalizedText(p.title)}</h3>
-                        <p class="text-slate-400 text-xs leading-relaxed mb-6 flex-grow">${window.getLocalizedText(p.desc)}</p>
-                        <div class="pt-6 border-t border-white/5 mt-auto flex items-center justify-between">
-                            <span class="text-emerald-400 text-[10px] font-black uppercase tracking-widest group-hover:translate-x-2 transition duration-300 font-sans">${window.translations[window.state.lang].explore_spot_details} <i class="fa-solid fa-arrow-right ml-1"></i></span>
+                        <h3 class="text-xl font-black text-white group-hover:text-emerald-400 transition mb-3.5 uppercase italic tracking-tight leading-snug line-clamp-2">${window.getLocalizedText(p.title)}</h3>
+                        <p class="text-slate-400 text-xs leading-relaxed mb-5 flex-grow line-clamp-3 font-sans">${window.getLocalizedText(p.desc)}</p>
+                        
+                        <div class="flex flex-wrap gap-1.5 mb-6">
+                            ${(p.amenities || []).slice(0, 2).map(a => `
+                                <span class="bg-white/5 border border-white/10 text-slate-300 text-[9px] font-bold px-2.5 py-1 rounded-lg font-sans">
+                                    <i class="fa-solid fa-circle-check text-emerald-400 mr-1"></i> ${window.getLocalizedText(a)}
+                                </span>
+                            `).join('')}
+                        </div>
+
+                        <div class="pt-5 border-t border-white/10 mt-auto flex items-center justify-between gap-2">
+                            <button onclick="event.stopPropagation(); window.open('${p.mapLink}', '_blank')" title="Google Maps" class="w-9 h-9 rounded-xl bg-white/5 hover:bg-amber-500 text-slate-300 hover:text-stone-950 border border-white/10 flex items-center justify-center transition">
+                                <i class="fa-solid fa-map-location-dot text-xs"></i>
+                            </button>
+                            <span class="text-emerald-400 text-[10px] font-black uppercase tracking-widest group-hover:translate-x-1.5 transition duration-300 font-sans">${window.translations[window.state.lang].explore_spot_details} <i class="fa-solid fa-arrow-right ml-1"></i></span>
                         </div>
                     </div>
                 </article>
             `).join('');
+        };
+
+        window.updatePlaceReadProgress = () => {
+            const scroller = document.getElementById('placeModalScrollArea');
+            const bar = document.getElementById('placeReadProgressBar');
+            if (!scroller || !bar) return;
+            const maxScroll = scroller.scrollHeight - scroller.clientHeight;
+            const pct = maxScroll > 0 ? Math.min(100, Math.max(0, (scroller.scrollTop / maxScroll) * 100)) : 100;
+            bar.style.width = `${pct}%`;
         };
 
         window.openPlaceDetails = (id) => {
@@ -780,8 +1028,30 @@
                 `).join('');
             }
 
-            document.getElementById('placeModalBody').innerHTML = window.getLocalizedText(p.content);
+            // Related Spots inside Spot Reader Modal
+            const relatedPlacesContainer = document.getElementById('placeModalRelated');
+            if (relatedPlacesContainer) {
+                const otherSpots = window.state.places.filter(x => x.id !== p.id).slice(0, 2);
+                relatedPlacesContainer.innerHTML = otherSpots.map(rel => `
+                    <div onclick="window.openPlaceDetails('${rel.id}')" class="group flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-emerald-500/40 cursor-pointer transition">
+                        <img src="${rel.img}" class="w-16 h-16 rounded-xl object-cover flex-shrink-0" onerror="this.src='https://placehold.co/100x100/022c22/ffffff?text=TheSale3'">
+                        <div class="min-w-0">
+                            <span class="text-[9px] font-black uppercase text-amber-400 tracking-wider">${window.getLocalizedText(rel.province)} • ${rel.elevation}</span>
+                            <h5 class="text-xs font-black text-white group-hover:text-emerald-400 uppercase italic line-clamp-2 mt-0.5 transition">${window.getLocalizedText(rel.title)}</h5>
+                        </div>
+                    </div>
+                `).join('');
+            }
+
+            document.getElementById('placeModalBody').innerHTML = window.formatBlogBody(p.content);
             document.getElementById('placeModalMapBtn').onclick = () => window.open(p.mapLink, '_blank');
+            const quickMapBtn = document.getElementById('placeModalQuickMapBtn');
+            if (quickMapBtn) quickMapBtn.onclick = () => window.open(p.mapLink, '_blank');
+
+            const scroller = document.getElementById('placeModalScrollArea');
+            if (scroller) scroller.scrollTop = 0;
+            const bar = document.getElementById('placeReadProgressBar');
+            if (bar) bar.style.width = '0%';
             document.getElementById('placeModal').style.display = 'flex';
         };
 
@@ -789,33 +1059,227 @@
             document.getElementById('placeModal').style.display = 'none';
         };
 
-        window.renderBlogs = () => {
-            const grid = document.getElementById('blogGrid');
-            if(!grid) return;
-            if (window.state.blogs.length === 0) {
-                grid.innerHTML = `<div class="col-span-full py-20 text-center"><p class="opacity-50 italic font-black uppercase text-[10px]" data-i18n="no_blogs">${window.translations[window.state.lang].no_blogs}</p></div>`;
+        // Dedicated Web_Places Google Sheet Link & Template Modal
+        window.openPlaceSheetModal = () => {
+            const savedPlaceSheet = localStorage.getItem('thesale3_place_sheet_url') || '';
+            const savedPlaceTab = localStorage.getItem('thesale3_place_sheet_tab') || 'Web_Places';
+            const urlInput = document.getElementById('placeSheetUrlInput');
+            const tabInput = document.getElementById('placeSheetTabInput');
+            if (urlInput) urlInput.value = savedPlaceSheet;
+            if (tabInput) tabInput.value = savedPlaceTab;
+            document.getElementById('placeSheetModal').style.display = 'flex';
+        };
+
+        window.savePlaceSheetSettings = async () => {
+            const urlVal = (document.getElementById('placeSheetUrlInput')?.value || '').trim();
+            const tabVal = (document.getElementById('placeSheetTabInput')?.value || '').trim() || 'Web_Places';
+            if (urlVal) {
+                localStorage.setItem('thesale3_place_sheet_url', urlVal);
+            } else {
+                localStorage.removeItem('thesale3_place_sheet_url');
+            }
+            localStorage.setItem('thesale3_place_sheet_tab', tabVal);
+            document.getElementById('placeSheetModal').style.display = 'none';
+            window.showToast(window.state.lang === 'lo' ? 'ກຳລັງດຶງຂໍ້ມູນສະຖານທີ່ຈາກ Google Sheet...' : 'Syncing Wild Spots with Google Sheet...');
+            await window.loadData();
+        };
+
+        window.resetPlaceSheetSettings = async () => {
+            localStorage.removeItem('thesale3_place_sheet_url');
+            localStorage.removeItem('thesale3_place_sheet_tab');
+            document.getElementById('placeSheetModal').style.display = 'none';
+            window.showToast(window.state.lang === 'lo' ? 'ກັບຄືນໃຊ້ຄ່າເລີ່ມຕົ້ນແລ້ວ' : 'Reset to Default Sheet');
+            await window.loadData();
+        };
+
+        window.manualSyncPlaces = async () => {
+            const icon = document.getElementById('placeSyncSpinIcon');
+            if (icon) icon.classList.add('fa-spin');
+            await window.loadData();
+            if (icon) setTimeout(() => icon.classList.remove('fa-spin'), 500);
+            window.showToast(window.state.lang === 'lo' ? 'ອັບເດດຂໍ້ມູນສະຖານທີ່ຈາກ Google Sheet ສຳເລັດ!' : 'Wild Spots synced with Google Sheet!');
+        };
+
+        window.copyPlaceSheetHeaders = () => {
+            const headers = "id\ttitle\tprovince\televation\tdifficulty\timg\tdesc\tamenities\tmapLink\tcontent\trecGear\tbestSeason\tcellSignal\tfee\tdistance\tfeatured";
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(headers);
+                window.showToast(window.state.lang === 'lo' ? 'ຄັດລອກຫົວຂໍ້ຄໍລຳ Web_Places ແລ້ວ! ວາງໃສ່ແຖວທີ 1 ໄດ້ເລີຍ' : 'Copied Web_Places headers! Paste into Row 1');
+            }
+        };
+
+        window.openPlaceSheetLinkDirectly = () => {
+            const savedPlaceSheet = localStorage.getItem('thesale3_place_sheet_url');
+            const parsed = window.parseGoogleSheetInput(savedPlaceSheet);
+            if (parsed && parsed.sheetId) {
+                window.open(`https://docs.google.com/spreadsheets/d/${parsed.sheetId}/edit`, '_blank');
                 return;
             }
-            grid.innerHTML = window.state.blogs.map(b => `
-                <article onclick="window.openBlog('${b.id}')" class="card-journal group flex flex-col overflow-hidden h-full cursor-pointer">
+            window.open(ADMIN_SHEET_URL, '_blank');
+        };
+
+        // ==========================================
+        // UPGRADED JOURNAL / BLOG PAGE LOGIC
+        // ==========================================
+        window.setBlogCategory = (cat) => {
+            window.state.currentBlogCategory = cat;
+            window.renderBlogs();
+        };
+
+        window.renderBlogCategoryPills = () => {
+            const filterContainer = document.getElementById('blogCategoryFilter');
+            if (!filterContainer) return;
+            const dynamicCats = Array.from(new Set(window.state.blogs.map(b => b.category).filter(Boolean)));
+            const allCats = ['All', ...dynamicCats];
+            filterContainer.innerHTML = allCats.map(cat => {
+                const isActive = window.state.currentBlogCategory.toLowerCase() === cat.toLowerCase();
+                const label = cat === 'All' ? window.translations[window.state.lang].all_categories : cat;
+                return `
+                    <button onclick="window.setBlogCategory('${cat.replace(/'/g, "\\'")}')" class="category-pill ${isActive ? 'active' : ''} px-5 py-2.5 rounded-2xl text-[10px] font-black uppercase tracking-widest font-sans">
+                        ${label}
+                    </button>
+                `;
+            }).join('');
+        };
+
+        window.renderBlogs = () => {
+            const grid = document.getElementById('blogGrid');
+            const featuredBox = document.getElementById('featuredBlogContainer');
+            if (!grid) return;
+
+            window.renderBlogCategoryPills();
+
+            const statusPill = document.getElementById('blogSheetLiveBadge');
+            if (statusPill) {
+                const count = window.state.blogs.length;
+                statusPill.innerHTML = window.state.blogSheetConnected
+                    ? `<span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span><span>Google Sheet (${count})</span>`
+                    : `<span class="w-2 h-2 rounded-full bg-amber-400"></span><span>Sheet Ready (${count})</span>`;
+            }
+
+            if (window.state.isLoading) {
+                if (featuredBox) featuredBox.innerHTML = `<div class="h-80 rounded-[36px] skeleton opacity-20 mb-12"></div>`;
+                grid.innerHTML = Array(3).fill(0).map(() => `<div class="h-[420px] rounded-[32px] skeleton opacity-20"></div>`).join('');
+                return;
+            }
+
+            const searchEl = document.getElementById('blogSearchInput');
+            const query = searchEl ? searchEl.value.toLowerCase().trim() : '';
+            const activeCat = window.state.currentBlogCategory.toLowerCase();
+
+            const filtered = window.state.blogs.filter(b => {
+                const titleText = (b.title || '').toLowerCase();
+                const descText = (b.desc || '').toLowerCase();
+                const bodyText = (b.content || '').toLowerCase();
+                const mSearch = !query || titleText.includes(query) || descText.includes(query) || bodyText.includes(query);
+                const mCat = activeCat === 'all' || (b.category || '').toLowerCase() === activeCat;
+                return mSearch && mCat;
+            });
+
+            if (filtered.length === 0) {
+                if (featuredBox) featuredBox.innerHTML = '';
+                grid.innerHTML = `<div class="col-span-full py-20 text-center bg-white/5 rounded-[32px] border border-white/10"><i class="fa-solid fa-compass text-3xl text-emerald-400/50 mb-3 block"></i><p class="opacity-60 italic font-black uppercase text-xs" data-i18n="no_blogs">${window.translations[window.state.lang].no_blogs}</p></div>`;
+                return;
+            }
+
+            let listForGrid = filtered;
+
+            if (featuredBox) {
+                if (activeCat === 'all' && !query && filtered.length > 0) {
+                    const featuredArticle = filtered.find(b => b.featured) || filtered[0];
+                    listForGrid = filtered.filter(b => b.id !== featuredArticle.id);
+                    featuredBox.innerHTML = `
+                        <article onclick="window.openBlog('${featuredArticle.id}')" class="journal-featured-card group grid grid-cols-1 lg:grid-cols-12 overflow-hidden mb-12 cursor-pointer fade-in">
+                            <div class="lg:col-span-7 h-72 sm:h-96 lg:h-[430px] relative overflow-hidden">
+                                <img src="${featuredArticle.img}" class="w-full h-full object-cover transition duration-1000 group-hover:scale-105" alt="${window.getLocalizedText(featuredArticle.title)}" onerror="this.src='https://placehold.co/900x600/022c22/ffffff?text=TheSale3+Adventure'">
+                                <div class="absolute inset-0 bg-gradient-to-t from-stone-950/90 via-stone-950/20 to-transparent lg:bg-gradient-to-r lg:from-transparent lg:via-transparent lg:to-stone-950/80"></div>
+                                <div class="absolute top-6 left-6 flex flex-wrap items-center gap-2">
+                                    <span class="bg-amber-500 text-stone-950 text-[10px] font-black uppercase tracking-widest px-3.5 py-1.5 rounded-xl shadow-lg flex items-center gap-1.5 font-sans">
+                                        <i class="fa-solid fa-star text-[9px]"></i> ${window.translations[window.state.lang].featured_story}
+                                    </span>
+                                    <span class="bg-emerald-500/90 backdrop-blur text-stone-950 text-[10px] font-black uppercase tracking-widest px-3.5 py-1.5 rounded-xl shadow-lg font-sans">
+                                        ${featuredArticle.category}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="lg:col-span-5 p-8 sm:p-10 lg:p-12 flex flex-col justify-between">
+                                <div>
+                                    <div class="flex flex-wrap items-center gap-4 text-slate-400 text-[11px] uppercase font-bold mb-5 tracking-widest font-sans">
+                                        <span><i class="fa-regular fa-calendar-days text-emerald-400 mr-1.5"></i> ${featuredArticle.date}</span>
+                                        <span><i class="fa-regular fa-clock text-emerald-400 mr-1.5"></i> ${featuredArticle.readTime}</span>
+                                    </div>
+                                    <h3 class="text-2xl sm:text-3xl font-black text-white group-hover:text-emerald-400 transition mb-5 uppercase italic tracking-tight leading-snug">
+                                        ${window.getLocalizedText(featuredArticle.title)}
+                                    </h3>
+                                    <p class="text-slate-300 text-sm leading-relaxed mb-8 line-clamp-4 font-sans">
+                                        ${window.getLocalizedText(featuredArticle.desc)}
+                                    </p>
+                                </div>
+                                <div class="pt-6 border-t border-white/10 flex items-center justify-between gap-4">
+                                    <div class="flex items-center gap-3">
+                                        <div class="w-9 h-9 rounded-full bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 text-xs font-black">
+                                            <i class="fa-solid fa-feather-pointed"></i>
+                                        </div>
+                                        <span class="text-xs font-bold text-slate-300 font-sans">${featuredArticle.author}</span>
+                                    </div>
+                                    <span class="px-5 py-3 rounded-2xl bg-emerald-500 group-hover:bg-emerald-400 text-stone-950 text-[10px] font-black uppercase tracking-widest transition shadow-lg flex items-center gap-2 font-sans">
+                                        ${window.translations[window.state.lang].read_essay} <i class="fa-solid fa-arrow-right group-hover:translate-x-1 transition-transform"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </article>
+                    `;
+                } else {
+                    featuredBox.innerHTML = '';
+                }
+            }
+
+            grid.innerHTML = listForGrid.map(b => `
+                <article onclick="window.openBlog('${b.id}')" class="card-journal group flex flex-col overflow-hidden h-full cursor-pointer fade-in">
                     <div class="h-64 overflow-hidden relative">
-                        <img src="${b.img}" class="w-full h-full object-cover transition duration-700 group-hover:scale-105" alt="${window.getLocalizedText(b.title)}" onerror="this.src='https://placehold.co/600x400/022c22/ffffff?text=TheSale3+Adventure'">
-                        <span class="absolute bottom-4 left-4 bg-emerald-500 text-stone-950 text-[9px] font-black uppercase tracking-widest px-3 py-1.5 rounded-xl shadow-md font-sans">${b.category}</span>
+                        <img src="${b.img}" class="w-full h-full object-cover transition duration-700 group-hover:scale-110" alt="${window.getLocalizedText(b.title)}" loading="lazy" onerror="this.src='https://placehold.co/600x400/022c22/ffffff?text=TheSale3+Adventure'">
+                        <div class="absolute inset-0 bg-gradient-to-t from-stone-950/85 via-transparent to-transparent"></div>
+                        <span class="absolute bottom-4 left-4 bg-emerald-500 text-stone-950 text-[9px] font-black uppercase tracking-widest px-3.5 py-1.5 rounded-xl shadow-md font-sans">${b.category}</span>
+                        <span class="absolute top-4 right-4 bg-stone-950/75 backdrop-blur-md border border-white/10 text-slate-200 text-[9px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-xl font-sans">
+                            <i class="fa-regular fa-clock text-emerald-400 mr-1"></i> ${b.readTime}
+                        </span>
                     </div>
                     <div class="p-8 flex flex-col flex-grow">
-                        <div class="flex items-center gap-4 text-slate-400 text-[10px] uppercase font-bold mb-4 tracking-widest">
+                        <div class="flex items-center gap-4 text-slate-400 text-[10px] uppercase font-bold mb-3.5 tracking-widest font-sans">
                             <span><i class="fa-regular fa-calendar-days text-emerald-400 mr-1.5"></i> ${b.date}</span>
-                            <span><i class="fa-regular fa-clock text-emerald-400 mr-1.5"></i> ${b.readTime}</span>
                         </div>
-                        <h3 class="text-xl font-black text-white group-hover:text-emerald-400 transition mb-4 uppercase italic tracking-tight leading-snug">${window.getLocalizedText(b.title)}</h3>
-                        <p class="text-slate-400 text-xs leading-relaxed mb-6 flex-grow">${window.getLocalizedText(b.desc)}</p>
-                        <div class="pt-6 border-t border-white/5 mt-auto flex items-center justify-between">
-                            <span class="text-[10px] font-black text-white/50 uppercase tracking-widest"><i class="fa-regular fa-user text-emerald-400 mr-1.5"></i> By ${b.author}</span>
-                            <span class="text-emerald-400 text-[10px] font-black uppercase tracking-widest group-hover:translate-x-2 transition duration-300 font-sans">${window.translations[window.state.lang].read_essay} <i class="fa-solid fa-arrow-right ml-1"></i></span>
+                        <h3 class="text-xl font-black text-white group-hover:text-emerald-400 transition mb-4 uppercase italic tracking-tight leading-snug line-clamp-2">${window.getLocalizedText(b.title)}</h3>
+                        <p class="text-slate-400 text-xs leading-relaxed mb-6 flex-grow line-clamp-3 font-sans">${window.getLocalizedText(b.desc)}</p>
+                        <div class="pt-5 border-t border-white/10 mt-auto flex items-center justify-between">
+                            <span class="text-[10px] font-bold text-slate-400 uppercase tracking-widest font-sans"><i class="fa-regular fa-user text-emerald-400 mr-1.5"></i> ${b.author}</span>
+                            <span class="text-emerald-400 text-[10px] font-black uppercase tracking-widest group-hover:translate-x-1.5 transition duration-300 font-sans">${window.translations[window.state.lang].read_essay} <i class="fa-solid fa-arrow-right ml-1"></i></span>
                         </div>
                     </div>
                 </article>
             `).join('');
+        };
+
+        window.toggleBlogFontSize = () => {
+            const bodyEl = document.getElementById('blogModalBody');
+            if (!bodyEl) return;
+            if (window.state.blogFontSize === 'base') {
+                window.state.blogFontSize = 'lg';
+                bodyEl.classList.remove('text-sm', 'sm:text-base');
+                bodyEl.classList.add('text-base', 'sm:text-lg');
+            } else {
+                window.state.blogFontSize = 'base';
+                bodyEl.classList.remove('text-base', 'sm:text-lg');
+                bodyEl.classList.add('text-sm', 'sm:text-base');
+            }
+        };
+
+        window.updateBlogReadProgress = () => {
+            const scroller = document.getElementById('blogModalScrollArea');
+            const bar = document.getElementById('blogReadProgressBar');
+            if (!scroller || !bar) return;
+            const maxScroll = scroller.scrollHeight - scroller.clientHeight;
+            const pct = maxScroll > 0 ? Math.min(100, Math.max(0, (scroller.scrollTop / maxScroll) * 100)) : 100;
+            bar.style.width = `${pct}%`;
         };
 
         window.openBlog = (blogId) => {
@@ -831,8 +1295,8 @@
             const summaryBox = document.getElementById('blogModalSummary');
             if (summaryBox) {
                 summaryBox.innerHTML = window.state.lang === 'lo' 
-                    ? `<strong>ຈຸດສຳຄັນຂອງບົດຄວາມ:</strong> ${window.getLocalizedText(b.desc)}` 
-                    : `<strong>Expedition Takeaway:</strong> ${window.getLocalizedText(b.desc)}`;
+                    ? `<strong class="text-amber-300 block mb-1"><i class="fa-solid fa-lightbulb mr-1.5"></i> ຈຸດສຳຄັນຂອງບົດຄວາມ:</strong> ${window.getLocalizedText(b.desc)}` 
+                    : `<strong class="text-amber-300 block mb-1"><i class="fa-solid fa-lightbulb mr-1.5"></i> Expedition Takeaway:</strong> ${window.getLocalizedText(b.desc)}`;
             }
 
             const recGearContainer = document.getElementById('blogModalRecGear');
@@ -854,12 +1318,83 @@
                 `).join('');
             }
 
-            document.getElementById('blogModalBody').innerHTML = window.getLocalizedText(b.content);
+            const relatedContainer = document.getElementById('blogModalRelated');
+            if (relatedContainer) {
+                const others = window.state.blogs.filter(x => x.id !== b.id).slice(0, 2);
+                if (others.length > 0) {
+                    relatedContainer.innerHTML = others.map(rel => `
+                        <div onclick="window.openBlog('${rel.id}')" class="group flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/10 hover:border-emerald-500/40 cursor-pointer transition">
+                            <img src="${rel.img}" class="w-16 h-16 rounded-xl object-cover flex-shrink-0" onerror="this.src='https://placehold.co/100x100/022c22/ffffff?text=TheSale3'">
+                            <div class="min-w-0">
+                                <span class="text-[9px] font-black uppercase text-emerald-400 tracking-wider">${rel.category} • ${rel.date}</span>
+                                <h5 class="text-xs font-black text-white group-hover:text-emerald-400 uppercase italic line-clamp-2 mt-0.5 transition">${window.getLocalizedText(rel.title)}</h5>
+                            </div>
+                        </div>
+                    `).join('');
+                } else {
+                    relatedContainer.innerHTML = '';
+                }
+            }
+
+            document.getElementById('blogModalBody').innerHTML = window.formatBlogBody(b.content);
+            const scroller = document.getElementById('blogModalScrollArea');
+            if (scroller) scroller.scrollTop = 0;
+            const bar = document.getElementById('blogReadProgressBar');
+            if (bar) bar.style.width = '0%';
             document.getElementById('blogModal').style.display = 'flex';
         };
 
         window.closeBlog = () => {
             document.getElementById('blogModal').style.display = 'none';
+        };
+
+        // Blog Google Sheet Configuration Modal Controls
+        window.openBlogSheetModal = () => {
+            const savedBlogSheet = localStorage.getItem('thesale3_blog_sheet_url') || '';
+            const savedBlogTab = localStorage.getItem('thesale3_blog_sheet_tab') || 'Web_Blogs';
+            const urlInput = document.getElementById('blogSheetUrlInput');
+            const tabInput = document.getElementById('blogSheetTabInput');
+            if (urlInput) urlInput.value = savedBlogSheet;
+            if (tabInput) tabInput.value = savedBlogTab;
+            document.getElementById('blogSheetModal').style.display = 'flex';
+        };
+
+        window.saveBlogSheetSettings = async () => {
+            const urlVal = (document.getElementById('blogSheetUrlInput')?.value || '').trim();
+            const tabVal = (document.getElementById('blogSheetTabInput')?.value || '').trim() || 'Web_Blogs';
+            if (urlVal) {
+                localStorage.setItem('thesale3_blog_sheet_url', urlVal);
+            } else {
+                localStorage.removeItem('thesale3_blog_sheet_url');
+            }
+            localStorage.setItem('thesale3_blog_sheet_tab', tabVal);
+            document.getElementById('blogSheetModal').style.display = 'none';
+            window.showToast(window.state.lang === 'lo' ? 'ກຳລັງດຶງຂໍ້ມູນບົດຄວາມຈາກ Google Sheet...' : 'Syncing Journal with Google Sheet...');
+            await window.loadData();
+        };
+
+        window.resetBlogSheetSettings = async () => {
+            localStorage.removeItem('thesale3_blog_sheet_url');
+            localStorage.removeItem('thesale3_blog_sheet_tab');
+            document.getElementById('blogSheetModal').style.display = 'none';
+            window.showToast(window.state.lang === 'lo' ? 'ກັບຄືນໃຊ້ຄ່າເລີ່ມຕົ້ນແລ້ວ' : 'Reset to Default Sheet');
+            await window.loadData();
+        };
+
+        window.manualSyncBlogs = async () => {
+            const icon = document.getElementById('blogSyncSpinIcon');
+            if (icon) icon.classList.add('fa-spin');
+            await window.loadData();
+            if (icon) setTimeout(() => icon.classList.remove('fa-spin'), 500);
+            window.showToast(window.state.lang === 'lo' ? 'ອັບເດດບົດຄວາມຈາກ Google Sheet ສຳເລັດ!' : 'Journal synced with Google Sheet!');
+        };
+
+        window.copyBlogSheetHeaders = () => {
+            const headers = "id\ttitle\tcategory\tauthor\tdate\treadTime\timg\tdesc\tcontent\trecGear\tfeatured";
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(headers);
+                window.showToast(window.state.lang === 'lo' ? 'ຄັດລອກຫົວຂໍ້ຄໍລຳແລ້ວ! ວາງໃສ່ແຖວທີ 1 ຂອງ Sheet ໄດ້ເລີຍ' : 'Copied headers! Paste into Row 1 of your Google Sheet');
+            }
         };
 
         window.addToCart = (id) => {
@@ -909,7 +1444,6 @@
         };
 
         window.setCheckoutStep = (step) => {
-            // Validation before step 3
             if (step === 3) {
                 const name = document.getElementById('custName')?.value.trim();
                 const phone = document.getElementById('custPhone')?.value.trim();
@@ -937,7 +1471,6 @@
             
             if(!container || !innerModal) return;
 
-            // Render Step Progress Indicator Bar
             if (stepIndicator) {
                 const dict = window.translations[window.state.lang];
                 stepIndicator.innerHTML = `
@@ -960,7 +1493,6 @@
                 `;
             }
 
-            // Adjust width based on view layout or step
             if (window.state.checkoutStep === 1 && window.state.cartLayout === 'grid') {
                 innerModal.className = "bg-white h-full ml-auto flex flex-col p-6 sm:p-10 shadow-2xl text-stone-900 transition-all duration-300 w-full max-w-5xl relative";
             } else {
@@ -970,7 +1502,6 @@
             const total = window.state.cart.reduce((s, i) => s + (i.price * i.qty), 0);
             const dict = window.translations[window.state.lang];
 
-            // STEP 1: CART ITEMS LIST
             if (window.state.checkoutStep === 1) {
                 if(window.state.cart.length === 0) {
                     container.innerHTML = `<div class="py-20 text-center text-emerald-800 uppercase font-black text-xs font-sans">${dict.bag_empty}</div>`;
@@ -1033,7 +1564,6 @@
                 `;
             }
 
-            // STEP 2: CUSTOMER DELIVERY & LOGISTICS INFO
             else if (window.state.checkoutStep === 2) {
                 const info = window.state.customerInfo;
                 container.innerHTML = `
@@ -1085,14 +1615,12 @@
                 `;
             }
 
-            // STEP 3: DRAFT INVOICE & BCEL QR PAYMENT
             else if (window.state.checkoutStep === 3) {
                 const info = window.state.customerInfo;
                 const orderNum = 'TS3-' + Math.floor(100000 + Math.random() * 900000);
 
                 container.innerHTML = `
                     <div class="space-y-6 font-sans py-2 overflow-y-auto max-h-[70vh] no-scrollbar">
-                        <!-- Invoice Header Card -->
                         <div class="bg-stone-900 text-white p-6 rounded-3xl border border-white/10 shadow-xl relative overflow-hidden">
                             <div class="flex justify-between items-start mb-4">
                                 <div>
@@ -1116,7 +1644,6 @@
                             </div>
                         </div>
 
-                        <!-- Order Summary Breakdown -->
                         <div class="bg-emerald-50/60 rounded-2xl p-4 border border-emerald-100/60 space-y-2">
                             <span class="text-[9px] font-black uppercase tracking-widest text-emerald-950 block mb-2">Order Items</span>
                             ${window.state.cart.map(i => `
@@ -1131,7 +1658,6 @@
                             </div>
                         </div>
 
-                        <!-- Official BCEL One QR Code Image Poster -->
                         <div class="bg-stone-900 border border-white/10 p-5 rounded-3xl text-center space-y-3">
                             <span class="text-[10px] font-black uppercase tracking-widest text-emerald-400 block"><i class="fa-solid fa-qrcode mr-1"></i> ${dict.bcel_qr_title}</span>
                             <div class="bg-white p-3 rounded-2xl inline-block max-w-[280px] mx-auto shadow-2xl">
@@ -1143,7 +1669,6 @@
                             </div>
                         </div>
 
-                        <!-- Action Controls -->
                         <div class="pt-4 border-t border-emerald-100 flex gap-3">
                             <button onclick="window.setCheckoutStep(2)" class="px-6 py-4 rounded-2xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-black uppercase tracking-wider transition">
                                 ${dict.back_step}
@@ -1281,7 +1806,7 @@
         window.openAdminPortal = () => {
             document.getElementById('adminPortal').style.display = 'flex';
             window.renderAdminBlogsList();
-            window.loadSettingsToForm();
+            if (typeof window.loadSettingsToForm === 'function') window.loadSettingsToForm();
         };
 
         window.closeAdminPortal = () => {
@@ -1334,8 +1859,6 @@
             document.getElementById('blogTitleInput').value = '';
             document.getElementById('blogCategorySelect').value = 'Expedition';
             document.getElementById('blogAuthorInput').value = 'Mou Team';
-            document.getElementById('blogDateInput').value = 'June 2026';
-            document.getElementById('blogReadTimeInput').value = '5 Min Read';
             document.getElementById('blogImgInput').value = '';
             document.getElementById('blogDescInput').value = '';
             document.getElementById('blogContentInput').value = '';
@@ -1353,8 +1876,6 @@
             document.getElementById('blogTitleInput').value = b.title;
             document.getElementById('blogCategorySelect').value = b.category;
             document.getElementById('blogAuthorInput').value = b.author;
-            document.getElementById('blogDateInput').value = b.date;
-            document.getElementById('blogReadTimeInput').value = b.readTime;
             document.getElementById('blogImgInput').value = b.img;
             document.getElementById('blogDescInput').value = b.desc;
             document.getElementById('blogContentInput').value = b.content;
@@ -1367,32 +1888,41 @@
         window.updateLivePreview = () => {
             const title = document.getElementById('blogTitleInput').value || 'Untitled Adventure Note';
             const cat = document.getElementById('blogCategorySelect').value;
-            const author = document.getElementById('blogAuthorInput').value || 'Mou Team';
-            const date = document.getElementById('blogDateInput').value || 'Today';
-            const readTime = document.getElementById('blogReadTimeInput').value || '1 Min Read';
             const img = document.getElementById('blogImgInput').value || 'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=800&q=80';
             const desc = document.getElementById('blogDescInput').value || 'A beautifully drafted teaser for our premium audience...';
-            const body = document.getElementById('blogContentInput').value || '<p>The story begins here...</p>';
 
             document.getElementById('previewCardImg').src = window.fixGithubImageUrl(img);
             document.getElementById('previewCardCat').innerText = cat;
             document.getElementById('previewCardTitle').innerText = window.getLocalizedText(title);
             document.getElementById('previewCardDesc').innerText = window.getLocalizedText(desc);
-            document.getElementById('previewCardDate').innerText = date;
-            document.getElementById('previewCardReadTime').innerText = readTime;
-            document.getElementById('previewCardAuthor').innerText = author;
-
-            document.getElementById('previewModalImg').src = window.fixGithubImageUrl(img);
-            document.getElementById('previewModalCat').innerText = cat;
-            document.getElementById('previewModalTitle').innerText = window.getLocalizedText(title);
-            document.getElementById('previewModalDate').innerText = date;
-            document.getElementById('previewModalTime').innerText = readTime;
-            document.getElementById('previewModalAuthor').innerText = author;
-            document.getElementById('previewModalBody').innerHTML = window.getLocalizedText(body);
         };
 
         window.openSheetLinkDirectly = () => {
+            const savedBlogSheet = localStorage.getItem('thesale3_blog_sheet_url');
+            const parsed = window.parseGoogleSheetInput(savedBlogSheet);
+            if (parsed && parsed.sheetId) {
+                window.open(`https://docs.google.com/spreadsheets/d/${parsed.sheetId}/edit`, '_blank');
+                return;
+            }
             window.open(ADMIN_SHEET_URL, '_blank');
+        };
+
+        window.loadSettingsToForm = () => {
+            const mainInput = document.getElementById('settingsSheetIdInput');
+            if (mainInput) {
+                mainInput.value = localStorage.getItem('thesale3_sheet_id') || '1N09HDxPd3zEDqxHR-knpH2MP_fq_XkLJZJ4FdCAYEG0';
+            }
+        };
+
+        window.saveSystemSettings = async () => {
+            const mainInput = document.getElementById('settingsSheetIdInput');
+            if (mainInput && mainInput.value.trim()) {
+                localStorage.setItem('thesale3_sheet_id', mainInput.value.trim());
+            } else {
+                localStorage.removeItem('thesale3_sheet_id');
+            }
+            window.showToast('System settings saved & syncing data...');
+            await window.loadData();
         };
     </script>
 
@@ -1457,15 +1987,37 @@
             </div>
         </section>
 
-        <!-- Dynamic Places (Spots) Page Content -->
-        <section id="page-places" class="page-section hidden py-24 px-6 max-w-7xl mx-auto w-full">
-            <div class="text-center md:text-left mb-16 max-w-2xl">
-                <span class="text-emerald-400 text-xs font-black uppercase tracking-[0.4em] mb-3 block font-sans" data-i18n="backcountry_destinations">Backcountry Destinations</span>
-                <h2 class="text-5xl sm:text-7xl font-black uppercase italic tracking-tighter text-white mb-6" data-i18n="wild_spots">Wild Spots</h2>
-                <p class="text-slate-400 text-sm leading-relaxed font-sans" data-i18n="wild_spots_desc">Discover handpicked, breathtaking wilderness campsites, mountain peaks, and hidden riversides across Lao PDR verified by our expedition crew.</p>
+        <!-- UPGRADED Dynamic Places (Web_Places / Wild Spots) Page Content -->
+        <section id="page-places" class="page-section hidden py-20 sm:py-24 px-6 max-w-7xl mx-auto w-full">
+            <!-- Top Editorial Header & Search -->
+            <div class="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-12 gap-8">
+                <div class="max-w-2xl">
+                    <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/25 mb-4">
+                        <span class="w-2 h-2 rounded-full bg-amber-400"></span>
+                        <span class="text-amber-400 text-[10px] font-black uppercase tracking-[0.35em] font-sans" data-i18n="backcountry_destinations">Backcountry Destinations</span>
+                    </div>
+                    <h2 class="text-5xl sm:text-7xl font-black uppercase italic tracking-tighter text-white mb-5" data-i18n="wild_spots">Wild Spots</h2>
+                    <p class="text-slate-300/80 text-sm sm:text-base leading-relaxed font-sans" data-i18n="wild_spots_desc">Discover handpicked, breathtaking wilderness campsites, mountain peaks, and hidden riversides across Lao PDR verified by our expedition crew.</p>
+                </div>
+
+                <!-- Search Control -->
+                <div class="w-full lg:w-auto">
+                    <div class="relative w-full lg:w-[400px]">
+                        <i class="fa-solid fa-search absolute left-6 top-1/2 -translate-y-1/2 text-emerald-400 text-sm"></i>
+                        <input type="text" id="placeSearchInput" oninput="window.renderPlaces()" placeholder="ຄົ້ນຫາຈຸດຕັ້ງແຄ້ມ, ແຂວງ..." data-i18n="search_places_placeholder" class="w-full pl-14 pr-6 py-4 rounded-[24px] bg-white/5 border border-white/10 focus:border-emerald-400/60 text-white placeholder-slate-400 text-xs sm:text-sm outline-none transition font-sans">
+                    </div>
+                </div>
             </div>
+
+            <!-- Dynamic Province Filter Pills -->
+            <div id="placeProvinceFilter" class="flex gap-3 overflow-x-auto no-scrollbar pb-8 mb-10 border-b border-white/10"></div>
+
+            <!-- Featured Camp Spot Showcase -->
+            <div id="featuredPlaceContainer"></div>
+
+            <!-- Wild Spots Grid -->
             <div id="placesGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Dynamically generated places -->
+                <!-- Dynamically generated places from Web_Places -->
             </div>
         </section>
 
@@ -1482,15 +2034,37 @@
             <div id="productGrid" class="product-grid"></div>
         </section>
 
-        <!-- Premium Blog Page Section -->
-        <section id="page-blogs" class="page-section hidden py-24 px-6 max-w-7xl mx-auto w-full">
-            <div class="text-center md:text-left mb-16 max-w-2xl">
-                <span class="text-emerald-400 text-xs font-black uppercase tracking-[0.4em] mb-3 block font-sans" data-i18n="adventure_notes">Adventure Notes</span>
-                <h2 class="text-5xl sm:text-7xl font-black uppercase italic tracking-tighter text-white mb-6" data-i18n="wild_journal">Wild Journal</h2>
-                <p class="text-slate-400 text-sm leading-relaxed font-sans" data-i18n="wild_journal_desc">Stories, practical guides, and expert backcountry insights from our team expeditions right out across the rugged landscapes of Lao PDR.</p>
+        <!-- UPGRADED Premium Blog / Wild Journal Page Section -->
+        <section id="page-blogs" class="page-section hidden py-20 sm:py-24 px-6 max-w-7xl mx-auto w-full">
+            <!-- Top Editorial Header & Search -->
+            <div class="flex flex-col lg:flex-row justify-between items-start lg:items-end mb-12 gap-8">
+                <div class="max-w-2xl">
+                    <div class="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/25 mb-4">
+                        <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                        <span class="text-emerald-400 text-[10px] font-black uppercase tracking-[0.35em] font-sans" data-i18n="adventure_notes">Adventure Notes</span>
+                    </div>
+                    <h2 class="text-5xl sm:text-7xl font-black uppercase italic tracking-tighter text-white mb-5" data-i18n="wild_journal">Wild Journal</h2>
+                    <p class="text-slate-300/80 text-sm sm:text-base leading-relaxed font-sans" data-i18n="wild_journal_desc">Stories, practical guides, and expert backcountry insights from our team expeditions right out across the rugged landscapes of Lao PDR.</p>
+                </div>
+
+                <!-- Search Control -->
+                <div class="w-full lg:w-auto">
+                    <div class="relative w-full lg:w-[400px]">
+                        <i class="fa-solid fa-search absolute left-6 top-1/2 -translate-y-1/2 text-emerald-400 text-sm"></i>
+                        <input type="text" id="blogSearchInput" oninput="window.renderBlogs()" placeholder="ຄົ້ນຫາບົດຄວາມ..." data-i18n="search_blogs_placeholder" class="w-full pl-14 pr-6 py-4 rounded-[24px] bg-white/5 border border-white/10 focus:border-emerald-400/60 text-white placeholder-slate-400 text-xs sm:text-sm outline-none transition font-sans">
+                    </div>
+                </div>
             </div>
+
+            <!-- Dynamic Category Filter Pills -->
+            <div id="blogCategoryFilter" class="flex gap-3 overflow-x-auto no-scrollbar pb-8 mb-10 border-b border-white/10"></div>
+
+            <!-- Featured Cover Story Container -->
+            <div id="featuredBlogContainer"></div>
+
+            <!-- Articles Grid -->
             <div id="blogGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Dynamically generated entries -->
+                <!-- Dynamically generated entries from Google Sheet -->
             </div>
         </section>
 
@@ -1562,124 +2136,313 @@
         </div>
     </div>
 
-    <!-- Spot Reader Modal -->
+    <!-- UPGRADED Spot Reader Modal -->
     <div id="placeModal" class="modal-overlay" onclick="if(event.target === this) window.closePlace()">
-        <div class="bg-stone-950 border border-white/10 rounded-[40px] max-w-4xl w-[95%] mx-auto overflow-hidden shadow-2xl flex flex-col relative max-h-[90vh]">
-            <button onclick="window.closePlace()" class="absolute top-6 right-6 bg-white/10 hover:bg-emerald-500 hover:text-stone-950 text-white w-12 h-12 rounded-full flex items-center justify-center transition-colors z-30 font-sans">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
-            <div class="h-64 sm:h-80 relative overflow-hidden flex-shrink-0">
-                <img id="placeModalImg" class="w-full h-full object-cover">
-                <div class="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/60 to-transparent"></div>
-                <div class="absolute bottom-8 left-8 right-8">
-                    <span id="placeModalProvince" class="bg-amber-500 text-stone-950 text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-xl shadow-md font-sans"></span>
-                    <h2 id="placeModalTitle" class="text-2xl sm:text-4xl font-black text-white mt-4 italic uppercase tracking-tight leading-snug"></h2>
-                </div>
+        <div class="bg-stone-950 border border-white/10 rounded-[40px] max-w-4xl w-[95%] mx-auto overflow-hidden shadow-2xl flex flex-col relative max-h-[92vh]">
+            <!-- Top Reading Progress Bar -->
+            <div class="w-full h-1.5 bg-white/5 z-40 flex-shrink-0">
+                <div id="placeReadProgressBar" class="h-full bg-gradient-to-r from-amber-400 to-emerald-500 transition-all duration-150" style="width: 0%;"></div>
             </div>
-            <div class="p-8 sm:p-12 overflow-y-auto flex-grow text-slate-300 no-scrollbar">
-                <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8 border-b border-white/5 pb-8">
-                    <div class="bg-white/5 p-4 rounded-2xl border border-white/5">
-                        <span class="text-[9px] font-black uppercase tracking-widest text-emerald-400 block mb-1 font-sans"><i class="fa-solid fa-mountain mr-1"></i> Altitude</span>
-                        <span id="placeModalElevation" class="text-white font-black text-sm font-sans"></span>
-                    </div>
-                    <div class="bg-white/5 p-4 rounded-2xl border border-white/5">
-                        <span class="text-[9px] font-black uppercase tracking-widest text-emerald-400 block mb-1 font-sans"><i class="fa-solid fa-gauge-high mr-1"></i> Access Level</span>
-                        <span id="placeModalDifficulty" class="text-white font-black text-sm font-sans"></span>
-                    </div>
-                    <div class="bg-white/5 p-4 rounded-2xl border border-white/5">
-                        <span class="text-[9px] font-black uppercase tracking-widest text-emerald-400 block mb-1 font-sans"><i class="fa-solid fa-cloud-sun mr-1"></i> Best Season</span>
-                        <span id="placeModalSeason" class="text-white font-black text-sm font-sans"></span>
-                    </div>
-                    <div class="bg-white/5 p-4 rounded-2xl border border-white/5">
-                        <span class="text-[9px] font-black uppercase tracking-widest text-emerald-400 block mb-1 font-sans"><i class="fa-solid fa-tower-cell mr-1"></i> Mobile Signal</span>
-                        <span id="placeModalSignal" class="text-white font-black text-sm font-sans"></span>
-                    </div>
-                    <div class="bg-white/5 p-4 rounded-2xl border border-white/5">
-                        <span class="text-[9px] font-black uppercase tracking-widest text-emerald-400 block mb-1 font-sans"><i class="fa-solid fa-ticket mr-1"></i> Camping Fee</span>
-                        <span id="placeModalFee" class="text-white font-black text-sm font-sans"></span>
-                    </div>
-                    <div class="bg-white/5 p-4 rounded-2xl border border-white/5">
-                        <span class="text-[9px] font-black uppercase tracking-widest text-emerald-400 block mb-1 font-sans"><i class="fa-solid fa-route mr-1"></i> Travel Distance</span>
-                        <span id="placeModalDistance" class="text-white font-black text-sm font-sans"></span>
+
+            <!-- Floating Controls -->
+            <div class="absolute top-6 right-6 flex items-center gap-2.5 z-30 font-sans">
+                <button id="placeModalQuickMapBtn" class="bg-stone-950/75 backdrop-blur-md border border-white/15 hover:bg-amber-500 hover:text-stone-950 text-amber-300 px-4 h-11 rounded-full flex items-center justify-center gap-1.5 text-[10px] font-black uppercase tracking-wider transition-colors">
+                    <i class="fa-solid fa-location-dot"></i> Maps
+                </button>
+                <button onclick="window.closePlace()" class="bg-stone-950/75 backdrop-blur-md border border-white/15 hover:bg-emerald-500 hover:text-stone-950 text-white w-11 h-11 rounded-full flex items-center justify-center transition-colors">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div id="placeModalScrollArea" onscroll="window.updatePlaceReadProgress()" class="overflow-y-auto flex-grow no-scrollbar">
+                <div class="h-72 sm:h-96 relative overflow-hidden">
+                    <img id="placeModalImg" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/900x500/022c22/ffffff?text=TheSale3+Expedition'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/55 to-transparent"></div>
+                    <div class="absolute bottom-8 left-8 right-8">
+                        <span id="placeModalProvince" class="bg-amber-500 text-stone-950 text-[10px] font-black uppercase tracking-widest px-3.5 py-1.5 rounded-xl shadow-md font-sans"></span>
+                        <h2 id="placeModalTitle" class="text-2xl sm:text-4xl font-black text-white mt-4 italic uppercase tracking-tight leading-snug"></h2>
                     </div>
                 </div>
-                
-                <div class="mb-8">
-                    <span class="text-[9px] font-black uppercase tracking-widest text-slate-500 block mb-3 font-sans" data-i18n="amenities">Available Conveniences</span>
-                    <div id="placeModalAmenities" class="flex flex-wrap gap-3 font-sans"></div>
-                </div>
 
-                <div id="placeModalBody" class="text-slate-300 leading-relaxed text-sm sm:text-base space-y-4 prose prose-invert border-t border-white/5 pt-6 font-sans"></div>
-
-                <div class="mt-10 pt-8 border-t border-white/5 space-y-4 font-sans">
-                    <div class="flex items-center justify-between">
-                        <span class="text-xs font-black uppercase tracking-widest text-amber-400 flex items-center gap-2">
-                            <i class="fa-solid fa-compass text-emerald-400"></i> Recommended Gear for this Location
-                        </span>
-                        <span class="text-[9px] text-slate-500 uppercase font-bold">Tested in Wilderness</span>
+                <div class="p-8 sm:p-12 text-slate-300">
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8 border-b border-white/10 pb-8">
+                        <div class="bg-white/5 p-4 rounded-2xl border border-white/10">
+                            <span class="text-[9px] font-black uppercase tracking-widest text-emerald-400 block mb-1 font-sans"><i class="fa-solid fa-mountain mr-1"></i> Altitude</span>
+                            <span id="placeModalElevation" class="text-white font-black text-sm font-sans"></span>
+                        </div>
+                        <div class="bg-white/5 p-4 rounded-2xl border border-white/10">
+                            <span class="text-[9px] font-black uppercase tracking-widest text-emerald-400 block mb-1 font-sans"><i class="fa-solid fa-gauge-high mr-1"></i> Access Level</span>
+                            <span id="placeModalDifficulty" class="text-white font-black text-sm font-sans"></span>
+                        </div>
+                        <div class="bg-white/5 p-4 rounded-2xl border border-white/10">
+                            <span class="text-[9px] font-black uppercase tracking-widest text-emerald-400 block mb-1 font-sans"><i class="fa-solid fa-cloud-sun mr-1"></i> Best Season</span>
+                            <span id="placeModalSeason" class="text-white font-black text-sm font-sans"></span>
+                        </div>
+                        <div class="bg-white/5 p-4 rounded-2xl border border-white/10">
+                            <span class="text-[9px] font-black uppercase tracking-widest text-emerald-400 block mb-1 font-sans"><i class="fa-solid fa-tower-cell mr-1"></i> Mobile Signal</span>
+                            <span id="placeModalSignal" class="text-white font-black text-sm font-sans"></span>
+                        </div>
+                        <div class="bg-white/5 p-4 rounded-2xl border border-white/10">
+                            <span class="text-[9px] font-black uppercase tracking-widest text-emerald-400 block mb-1 font-sans"><i class="fa-solid fa-ticket mr-1"></i> Camping Fee</span>
+                            <span id="placeModalFee" class="text-white font-black text-sm font-sans"></span>
+                        </div>
+                        <div class="bg-white/5 p-4 rounded-2xl border border-white/10">
+                            <span class="text-[9px] font-black uppercase tracking-widest text-emerald-400 block mb-1 font-sans"><i class="fa-solid fa-route mr-1"></i> Travel Distance</span>
+                            <span id="placeModalDistance" class="text-white font-black text-sm font-sans"></span>
+                        </div>
                     </div>
-                    <div id="placeModalRecGear" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
-                </div>
+                    
+                    <div class="mb-8">
+                        <span class="text-[9px] font-black uppercase tracking-widest text-slate-400 block mb-3 font-sans" data-i18n="amenities">Available Conveniences</span>
+                        <div id="placeModalAmenities" class="flex flex-wrap gap-3 font-sans"></div>
+                    </div>
 
-                <div class="mt-10 pt-6 border-t border-white/5 flex flex-wrap items-center justify-between gap-4 font-sans">
-                    <div class="flex flex-wrap items-center gap-3 w-full sm:w-auto justify-end">
-                        <button onclick="window.switchPage('products'); window.closePlace();" class="px-6 py-4 rounded-2xl bg-white/5 hover:bg-white/10 text-white text-[10px] font-black uppercase tracking-wider transition" data-i18n="equip_gear">Equip Adventure Gear</button>
-                        <button id="placeModalMapBtn" class="px-6 py-4 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-stone-950 text-[10px] font-black uppercase tracking-wider transition shadow-lg" data-i18n="open_maps">Open Google Maps Location</button>
+                    <div id="placeModalBody" class="journal-prose text-slate-200 leading-relaxed text-sm sm:text-base border-t border-white/10 pt-6 font-sans"></div>
+
+                    <div class="mt-10 pt-8 border-t border-white/10 space-y-4 font-sans">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-black uppercase tracking-widest text-amber-400 flex items-center gap-2">
+                                <i class="fa-solid fa-compass text-emerald-400"></i> Recommended Gear for this Location
+                            </span>
+                            <span class="text-[9px] text-slate-500 uppercase font-bold">Tested in Wilderness</span>
+                        </div>
+                        <div id="placeModalRecGear" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+                    </div>
+
+                    <!-- Other Wild Spots -->
+                    <div class="mt-10 pt-8 border-t border-white/10 space-y-4 font-sans">
+                        <span class="text-xs font-black uppercase tracking-widest text-emerald-400 block" data-i18n="related_spots">More Wilderness Campsites</span>
+                        <div id="placeModalRelated" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+                    </div>
+
+                    <div class="mt-10 pt-6 border-t border-white/10 flex flex-wrap items-center justify-between gap-4 font-sans">
+                        <div class="flex flex-wrap items-center gap-3 w-full sm:w-auto justify-end ml-auto">
+                            <button onclick="window.switchPage('products'); window.closePlace();" class="px-6 py-4 rounded-2xl bg-white/5 hover:bg-white/10 text-white text-[10px] font-black uppercase tracking-wider transition" data-i18n="equip_gear">Equip Adventure Gear</button>
+                            <button id="placeModalMapBtn" class="px-6 py-4 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-stone-950 text-[10px] font-black uppercase tracking-wider transition shadow-lg flex items-center gap-2">
+                                <i class="fa-solid fa-map-location-dot"></i> <span data-i18n="open_maps">Open Google Maps Location</span>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Blog Reader Modal -->
-    <div id="blogModal" class="modal-overlay" onclick="if(event.target === this) window.closeBlog()">
-        <div class="bg-stone-950 border border-white/10 rounded-[40px] max-w-4xl w-[95%] mx-auto overflow-hidden shadow-2xl flex flex-col relative max-h-[90vh]">
-            <button onclick="window.closeBlog()" class="absolute top-6 right-6 bg-white/10 hover:bg-emerald-500 hover:text-stone-950 text-white w-12 h-12 rounded-full flex items-center justify-center transition-colors z-30 font-sans">
+    <!-- Dedicated Web_Places Google Sheet Link & Template Modal -->
+    <div id="placeSheetModal" class="modal-overlay" onclick="if(event.target === this) document.getElementById('placeSheetModal').style.display='none'">
+        <div class="bg-stone-900 border border-white/10 text-white rounded-[32px] p-6 sm:p-8 max-w-2xl w-[94%] mx-auto shadow-2xl font-sans relative max-h-[90vh] overflow-y-auto no-scrollbar">
+            <button onclick="document.getElementById('placeSheetModal').style.display='none'" class="absolute top-6 right-6 text-slate-400 hover:text-white text-lg">
                 <i class="fa-solid fa-xmark"></i>
             </button>
-            <div class="h-64 sm:h-80 relative overflow-hidden flex-shrink-0">
-                <img id="blogModalImg" class="w-full h-full object-cover">
-                <div class="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/60 to-transparent"></div>
-                <div class="absolute bottom-8 left-8 right-8">
-                    <span id="blogModalTag" class="bg-emerald-500 text-stone-950 text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-xl shadow-md font-sans"></span>
-                    <h2 id="blogModalTitle" class="text-2xl sm:text-4xl font-black text-white mt-4 italic uppercase tracking-tight leading-snug"></h2>
+
+            <div class="flex items-center gap-3 mb-5">
+                <div class="w-11 h-11 rounded-2xl bg-amber-500/20 text-amber-400 border border-amber-500/30 flex items-center justify-center text-lg">
+                    <i class="fa-solid fa-map-location-dot"></i>
+                </div>
+                <div>
+                    <h3 class="text-lg font-black uppercase italic">Web_Places Google Sheet Sync</h3>
+                    <p class="text-[10px] text-slate-400 uppercase font-bold">ເຊື່ອມຕໍ່ & ອັບເດດຈຸດຕັ້ງແຄ້ມຜ່ານ Google Sheet</p>
                 </div>
             </div>
-            <div class="p-8 sm:p-12 overflow-y-auto flex-grow text-slate-300 no-scrollbar">
-                <div class="flex flex-wrap items-center justify-between gap-4 text-slate-400 text-xs font-bold mb-8 uppercase tracking-wider border-b border-white/5 pb-6 font-sans">
-                    <div class="flex items-center gap-4">
-                        <div class="w-10 h-10 rounded-full bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 font-black text-sm">
-                            <i class="fa-solid fa-feather-pointed"></i>
-                        </div>
-                        <div>
-                            <span class="text-[9px] text-slate-500 block">Written By</span>
-                            <span id="blogModalAuthor" class="text-white font-black"></span>
-                        </div>
-                    </div>
-                    <div class="flex items-center gap-6">
-                        <span><i class="fa-regular fa-calendar-days text-emerald-400 mr-2"></i><span id="blogModalDate"></span></span>
-                        <span><i class="fa-regular fa-clock text-emerald-400 mr-2"></i><span id="blogModalTime"></span></span>
-                    </div>
+
+            <div class="space-y-4 mb-6">
+                <div>
+                    <label class="block text-[10px] font-black uppercase text-emerald-400 mb-1.5">Google Sheet Link ຫຼື Sheet ID (ວາງລີ້ງໄດ້ເລີຍ)</label>
+                    <input type="text" id="placeSheetUrlInput" placeholder="https://docs.google.com/spreadsheets/d/..." class="w-full px-4 py-3.5 rounded-xl bg-stone-950 border border-white/10 text-emerald-300 text-xs outline-none focus:border-emerald-500 font-mono">
+                    <p class="text-[10px] text-slate-400 mt-1.5">ຖ້າປະຫວ່າງໄວ້ ລະບົບຈະດຶງຈາກ Tab <strong>Web_Places</strong> ໃນ Sheet ຫຼັກຂອງຮ້ານໂດຍອັດຕະໂນມັດ.</p>
                 </div>
 
-                <div id="blogModalSummary" class="bg-amber-500/10 border border-amber-500/20 rounded-2xl p-5 mb-8 text-amber-200 text-xs leading-relaxed font-sans"></div>
-                <div id="blogModalBody" class="text-slate-300 leading-relaxed text-sm sm:text-base space-y-4 prose prose-invert font-sans"></div>
-
-                <div class="mt-12 pt-8 border-t border-white/5 space-y-4 font-sans">
-                    <div class="flex items-center justify-between">
-                        <span class="text-xs font-black uppercase tracking-widest text-emerald-400 flex items-center gap-2">
-                            <i class="fa-solid fa-screwdriver-wrench"></i> Equipment Featured in this Expedition
-                        </span>
-                        <span class="text-[9px] text-slate-500 uppercase font-bold">Tested Gear</span>
-                    </div>
-                    <div id="blogModalRecGear" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+                <div>
+                    <label class="block text-[10px] font-black uppercase text-slate-400 mb-1.5">ຊື່ Tab ໃນ Google Sheet (Sheet Tab Name)</label>
+                    <input type="text" id="placeSheetTabInput" value="Web_Places" placeholder="Web_Places" class="w-full px-4 py-3 rounded-xl bg-stone-950 border border-white/10 text-white text-xs outline-none focus:border-emerald-500 font-mono">
                 </div>
+            </div>
 
-                <div class="mt-10 pt-6 border-t border-white/5 flex items-center justify-end font-sans">
-                    <button onclick="window.switchPage('products'); window.closeBlog();" class="px-6 py-4 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-stone-950 text-[10px] font-black uppercase tracking-wider transition shadow-lg">
-                        Explore Full Gear Catalog
+            <!-- Column Structure Guide Box -->
+            <div class="bg-white/5 border border-white/10 rounded-2xl p-4 mb-6 space-y-2.5">
+                <div class="flex items-center justify-between">
+                    <span class="text-[10px] font-black uppercase text-amber-400"><i class="fa-solid fa-circle-info mr-1"></i> ໂຄງສ້າງຄໍລຳ (A ຫາ P) ສຳລັບ Tab Web_Places</span>
+                    <button onclick="window.copyPlaceSheetHeaders()" class="px-2.5 py-1 rounded-lg bg-emerald-500/20 hover:bg-emerald-500 text-emerald-300 hover:text-stone-950 text-[9px] font-black uppercase transition">
+                        <i class="fa-regular fa-copy mr-1"></i> Copy Headers
                     </button>
                 </div>
+                <div class="text-[10px] text-slate-300 grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1 font-mono bg-stone-950/70 p-3 rounded-xl">
+                    <span><strong>A:</strong> id (spot-1)</span>
+                    <span><strong>B:</strong> title (ຊື່ສະຖານທີ່ ລາວ | EN)</span>
+                    <span><strong>C:</strong> province (ແຂວງ ລາວ | EN)</span>
+                    <span><strong>D:</strong> elevation (1,400m)</span>
+                    <span><strong>E:</strong> difficulty (ລະດັບທາງເຂົ້າ)</span>
+                    <span><strong>F:</strong> img (URL ຮູບພາບ)</span>
+                    <span><strong>G:</strong> desc (ຄຳອະທິບາຍຫຍໍ້)</span>
+                    <span><strong>H:</strong> amenities (ຂັ້ນດ້ວຍ ,)</span>
+                    <span><strong>I:</strong> mapLink (ລີ້ງ Google Maps)</span>
+                    <span><strong>J:</strong> content (ລາຍລະອຽດເຕັມ)</span>
+                    <span><strong>K:</strong> recGear (ID ສິນຄ້າແນະນຳ)</span>
+                    <span><strong>L:</strong> bestSeason (ລະດູທີ່ເໝາະສົມ)</span>
+                    <span><strong>M:</strong> cellSignal (ສັນຍານມືຖື)</span>
+                    <span><strong>N:</strong> fee (ຄ່າບໍລິການຕັ້ງເຕັ້ນ)</span>
+                    <span><strong>O:</strong> distance (ໄລຍະທາງ/ເວລາເດີນທາງ)</span>
+                    <span><strong>P:</strong> featured (TRUE = ປັກໝຸດເດັ່ນ)</span>
+                </div>
+                <p class="text-[10px] text-slate-400">
+                    * ຕັ້ງຄ່າ Share ຂອງ Google Sheet ເປັນ <strong>Anyone with the link can view</strong> ເພື່ອໃຫ້ເວັບດຶງຂໍ້ມູນໄດ້.
+                </p>
+            </div>
+
+            <div class="flex flex-wrap gap-3">
+                <button onclick="window.savePlaceSheetSettings()" class="flex-1 py-3.5 bg-emerald-500 hover:bg-emerald-400 text-stone-950 font-black text-xs uppercase tracking-wider rounded-xl transition shadow-md">
+                    ບັນທຶກ & ອັບເດດສະຖານທີ່
+                </button>
+                <button onclick="window.openPlaceSheetLinkDirectly()" class="px-4 py-3.5 bg-white/10 hover:bg-white/20 text-emerald-300 font-bold text-xs uppercase rounded-xl transition">
+                    <i class="fa-solid fa-arrow-up-right-from-square mr-1"></i> ເປີດ Sheet
+                </button>
+                <button onclick="window.resetPlaceSheetSettings()" class="px-4 py-3.5 bg-white/5 hover:bg-white/15 text-slate-400 font-bold text-xs uppercase rounded-xl transition">
+                    Reset
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- UPGRADED Blog Reader Modal -->
+    <div id="blogModal" class="modal-overlay" onclick="if(event.target === this) window.closeBlog()">
+        <div class="bg-stone-950 border border-white/10 rounded-[40px] max-w-4xl w-[95%] mx-auto overflow-hidden shadow-2xl flex flex-col relative max-h-[92vh]">
+            <!-- Top Reading Progress Bar -->
+            <div class="w-full h-1.5 bg-white/5 z-40 flex-shrink-0">
+                <div id="blogReadProgressBar" class="h-full bg-gradient-to-r from-emerald-500 to-amber-400 transition-all duration-150" style="width: 0%;"></div>
+            </div>
+
+            <!-- Floating Reader Controls -->
+            <div class="absolute top-6 right-6 flex items-center gap-2.5 z-30 font-sans">
+                <button onclick="window.toggleBlogFontSize()" title="Toggle Text Size" class="bg-stone-950/70 backdrop-blur-md border border-white/15 hover:bg-emerald-500 hover:text-stone-950 text-white px-3.5 h-11 rounded-full flex items-center justify-center text-xs font-black transition-colors">
+                    A-/A+
+                </button>
+                <button onclick="window.closeBlog()" class="bg-stone-950/70 backdrop-blur-md border border-white/15 hover:bg-emerald-500 hover:text-stone-950 text-white w-11 h-11 rounded-full flex items-center justify-center transition-colors">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+
+            <div id="blogModalScrollArea" onscroll="window.updateBlogReadProgress()" class="overflow-y-auto flex-grow no-scrollbar">
+                <div class="h-72 sm:h-96 relative overflow-hidden">
+                    <img id="blogModalImg" class="w-full h-full object-cover" onerror="this.src='https://placehold.co/900x500/022c22/ffffff?text=TheSale3+Adventure'">
+                    <div class="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/55 to-transparent"></div>
+                    <div class="absolute bottom-8 left-8 right-8">
+                        <span id="blogModalTag" class="bg-emerald-500 text-stone-950 text-[10px] font-black uppercase tracking-widest px-3.5 py-1.5 rounded-xl shadow-md font-sans"></span>
+                        <h2 id="blogModalTitle" class="text-2xl sm:text-4xl font-black text-white mt-4 italic uppercase tracking-tight leading-snug"></h2>
+                    </div>
+                </div>
+
+                <div class="p-8 sm:p-12 text-slate-300">
+                    <div class="flex flex-wrap items-center justify-between gap-4 text-slate-400 text-xs font-bold mb-8 uppercase tracking-wider border-b border-white/10 pb-6 font-sans">
+                        <div class="flex items-center gap-4">
+                            <div class="w-11 h-11 rounded-full bg-emerald-500/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 font-black text-sm">
+                                <i class="fa-solid fa-feather-pointed"></i>
+                            </div>
+                            <div>
+                                <span class="text-[9px] text-slate-500 block">Written By</span>
+                                <span id="blogModalAuthor" class="text-white font-black"></span>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-6">
+                            <span><i class="fa-regular fa-calendar-days text-emerald-400 mr-2"></i><span id="blogModalDate"></span></span>
+                            <span><i class="fa-regular fa-clock text-emerald-400 mr-2"></i><span id="blogModalTime"></span></span>
+                        </div>
+                    </div>
+
+                    <div id="blogModalSummary" class="bg-amber-500/10 border border-amber-500/25 rounded-2xl p-6 mb-8 text-amber-100 text-xs sm:text-sm leading-relaxed font-sans"></div>
+                    <div id="blogModalBody" class="journal-prose text-slate-200 leading-relaxed text-sm sm:text-base font-sans"></div>
+
+                    <div class="mt-12 pt-8 border-t border-white/10 space-y-4 font-sans">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-black uppercase tracking-widest text-emerald-400 flex items-center gap-2">
+                                <i class="fa-solid fa-screwdriver-wrench"></i> Equipment Featured in this Expedition
+                            </span>
+                            <span class="text-[9px] text-slate-500 uppercase font-bold">Tested Gear</span>
+                        </div>
+                        <div id="blogModalRecGear" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+                    </div>
+
+                    <!-- Related Stories inside Reader -->
+                    <div class="mt-10 pt-8 border-t border-white/10 space-y-4 font-sans">
+                        <span class="text-xs font-black uppercase tracking-widest text-amber-400 block" data-i18n="related_stories">More Stories From The Trail</span>
+                        <div id="blogModalRelated" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+                    </div>
+
+                    <div class="mt-10 pt-6 border-t border-white/10 flex items-center justify-end font-sans">
+                        <button onclick="window.switchPage('products'); window.closeBlog();" class="px-6 py-4 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-stone-950 text-[10px] font-black uppercase tracking-wider transition shadow-lg">
+                            Explore Full Gear Catalog
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Dedicated Blog Google Sheet Link & Template Modal -->
+    <div id="blogSheetModal" class="modal-overlay" onclick="if(event.target === this) document.getElementById('blogSheetModal').style.display='none'">
+        <div class="bg-stone-900 border border-white/10 text-white rounded-[32px] p-6 sm:p-8 max-w-xl w-[94%] mx-auto shadow-2xl font-sans relative max-h-[90vh] overflow-y-auto no-scrollbar">
+            <button onclick="document.getElementById('blogSheetModal').style.display='none'" class="absolute top-6 right-6 text-slate-400 hover:text-white text-lg">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="flex items-center gap-3 mb-5">
+                <div class="w-11 h-11 rounded-2xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 flex items-center justify-center text-lg">
+                    <i class="fa-solid fa-table"></i>
+                </div>
+                <div>
+                    <h3 class="text-lg font-black uppercase italic">Journal Google Sheet Sync</h3>
+                    <p class="text-[10px] text-slate-400 uppercase font-bold">ເຊື່ອມຕໍ່ & ອັບເດດບົດຄວາມຜ່ານ Google Sheet</p>
+                </div>
+            </div>
+
+            <div class="space-y-4 mb-6">
+                <div>
+                    <label class="block text-[10px] font-black uppercase text-emerald-400 mb-1.5">Google Sheet Link ຫຼື Sheet ID (ວາງລີ້ງໄດ້ເລີຍ)</label>
+                    <input type="text" id="blogSheetUrlInput" placeholder="https://docs.google.com/spreadsheets/d/..." class="w-full px-4 py-3.5 rounded-xl bg-stone-950 border border-white/10 text-emerald-300 text-xs outline-none focus:border-emerald-500 font-mono">
+                    <p class="text-[10px] text-slate-400 mt-1.5">ຖ້າປະຫວ່າງໄວ້ ລະບົບຈະດຶງຈາກ Sheet ຫຼັກຂອງຮ້ານ (`Web_Blogs` / `Blogs`) ໂດຍອັດຕະໂນມັດ.</p>
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-black uppercase text-slate-400 mb-1.5">ຊື່ Tab ໃນ Google Sheet (Sheet Tab Name)</label>
+                    <input type="text" id="blogSheetTabInput" value="Web_Blogs" placeholder="Web_Blogs" class="w-full px-4 py-3 rounded-xl bg-stone-950 border border-white/10 text-white text-xs outline-none focus:border-emerald-500 font-mono">
+                </div>
+            </div>
+
+            <!-- Column Structure Guide Box -->
+            <div class="bg-white/5 border border-white/10 rounded-2xl p-4 mb-6 space-y-2.5">
+                <div class="flex items-center justify-between">
+                    <span class="text-[10px] font-black uppercase text-amber-400"><i class="fa-solid fa-circle-info mr-1"></i> ໂຄງສ້າງຄໍລຳ (A ຫາ K) ໃນ Google Sheet</span>
+                    <button onclick="window.copyBlogSheetHeaders()" class="px-2.5 py-1 rounded-lg bg-emerald-500/20 hover:bg-emerald-500 text-emerald-300 hover:text-stone-950 text-[9px] font-black uppercase transition">
+                        <i class="fa-regular fa-copy mr-1"></i> Copy Headers
+                    </button>
+                </div>
+                <div class="text-[10px] text-slate-300 grid grid-cols-2 gap-x-4 gap-y-1 font-mono bg-stone-950/70 p-3 rounded-xl">
+                    <span><strong>A:</strong> id (blog-1)</span>
+                    <span><strong>B:</strong> title (ລາວ | EN)</span>
+                    <span><strong>C:</strong> category (Expedition)</span>
+                    <span><strong>D:</strong> author (Mou Team)</span>
+                    <span><strong>E:</strong> date (June 2026)</span>
+                    <span><strong>F:</strong> readTime (5 Min Read)</span>
+                    <span><strong>G:</strong> img (URL ຮູບພາບ)</span>
+                    <span><strong>H:</strong> desc (ຄຳອະທິບາຍຫຍໍ້)</span>
+                    <span><strong>I:</strong> content (ເນື້ອໃນບົດຄວາມ)</span>
+                    <span><strong>J:</strong> recGear (ID ສິນຄ້າແນະນຳ)</span>
+                    <span class="col-span-2"><strong>K:</strong> featured (TRUE = ປັກໝຸດເປັນບົດຄວາມເດັ່ນ)</span>
+                </div>
+                <p class="text-[10px] text-slate-400">
+                    * ຕັ້ງຄ່າ Share ຂອງ Google Sheet ເປັນ <strong>Anyone with the link can view</strong> ເພື່ອໃຫ້ເວັບດຶງຂໍ້ມູນໄດ້.
+                </p>
+            </div>
+
+            <div class="flex flex-wrap gap-3">
+                <button onclick="window.saveBlogSheetSettings()" class="flex-1 py-3.5 bg-emerald-500 hover:bg-emerald-400 text-stone-950 font-black text-xs uppercase tracking-wider rounded-xl transition shadow-md">
+                    ບັນທຶກ & ອັບເດດບົດຄວາມ
+                </button>
+                <button onclick="window.openSheetLinkDirectly()" class="px-4 py-3.5 bg-white/10 hover:bg-white/20 text-emerald-300 font-bold text-xs uppercase rounded-xl transition">
+                    <i class="fa-solid fa-arrow-up-right-from-square mr-1"></i> ເປີດ Sheet
+                </button>
+                <button onclick="window.resetBlogSheetSettings()" class="px-4 py-3.5 bg-white/5 hover:bg-white/15 text-slate-400 font-bold text-xs uppercase rounded-xl transition">
+                    Reset
+                </button>
             </div>
         </div>
     </div>
@@ -1721,7 +2484,7 @@
                     <input type="text" id="sheetIdInput" value="1N09HDxPd3zEDqxHR-knpH2MP_fq_XkLJZJ4FdCAYEG0" class="w-full px-4 py-3 rounded-xl bg-stone-950 border border-white/10 text-emerald-400 text-xs outline-none focus:border-emerald-500 font-mono">
                 </div>
                 <p class="text-[9px] text-slate-400 leading-normal">
-                    * Make sure your Google Sheet is shared as <strong>Anyone with the link can view</strong>.
+- Make sure your Google Sheet is shared as <strong>Anyone with the link can view</strong>.
                 </p>
             </div>
 
@@ -1858,11 +2621,43 @@
 
                     <div id="adminTab-settings" class="admin-tab-content hidden space-y-8 font-sans">
                         <div class="border-b border-white/5 pb-6">
-                            <h3 class="text-2xl font-black text-white uppercase italic font-sans">System Settings</h3>
+                            <h3 class="text-2xl font-black text-white uppercase italic font-sans">System Settings & Sheet Connections</h3>
+                            <p class="text-[10px] text-slate-400 uppercase tracking-wider mt-1">Private backend spreadsheet controls (Admin Only)</p>
                         </div>
                         <div class="space-y-4">
+                            <label class="block text-[10px] font-black uppercase tracking-widest text-slate-400">Main Store Google Sheet ID</label>
                             <input type="text" id="settingsSheetIdInput" placeholder="Google Sheet ID..." class="w-full px-5 py-4 rounded-xl bg-stone-900 border border-white/10 text-white outline-none focus:border-emerald-400 text-xs font-mono">
-                            <button onclick="window.saveSystemSettings()" class="w-full py-4 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-stone-950 text-xs font-black uppercase tracking-widest shadow-xl transition">Save System Configurations</button>
+                            <button onclick="window.saveSystemSettings()" class="w-full py-4 rounded-2xl bg-emerald-500 hover:bg-emerald-400 text-stone-950 text-xs font-black uppercase tracking-widest shadow-xl transition">Save & Reload All Data</button>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-6 border-t border-white/10">
+                            <div class="bg-stone-900/80 border border-white/10 p-6 rounded-3xl space-y-4">
+                                <div class="flex items-center gap-3">
+                                    <i class="fa-solid fa-book-open text-emerald-400 text-lg"></i>
+                                    <div>
+                                        <h4 class="text-sm font-black uppercase text-white">Wild Journal (`Web_Blogs`)</h4>
+                                        <p class="text-[10px] text-slate-400">Manage blog sheet link & headers</p>
+                                    </div>
+                                </div>
+                                <div class="flex flex-wrap gap-2">
+                                    <button onclick="window.openBlogSheetModal()" class="flex-1 py-3 px-4 rounded-xl bg-emerald-500/15 hover:bg-emerald-500 text-emerald-300 hover:text-stone-950 border border-emerald-500/30 text-[10px] font-black uppercase tracking-wider transition">Configure Link</button>
+                                    <button onclick="window.manualSyncBlogs()" class="py-3 px-4 rounded-xl bg-white/5 hover:bg-white/15 text-slate-200 text-[10px] font-black uppercase tracking-wider transition"><i id="blogSyncSpinIcon" class="fa-solid fa-rotate mr-1"></i> Sync</button>
+                                </div>
+                            </div>
+
+                            <div class="bg-stone-900/80 border border-white/10 p-6 rounded-3xl space-y-4">
+                                <div class="flex items-center gap-3">
+                                    <i class="fa-solid fa-map-location-dot text-amber-400 text-lg"></i>
+                                    <div>
+                                        <h4 class="text-sm font-black uppercase text-white">Wild Spots (`Web_Places`)</h4>
+                                        <p class="text-[10px] text-slate-400">Manage camping spots sheet link & headers</p>
+                                    </div>
+                                </div>
+                                <div class="flex flex-wrap gap-2">
+                                    <button onclick="window.openPlaceSheetModal()" class="flex-1 py-3 px-4 rounded-xl bg-amber-500/15 hover:bg-amber-500 text-amber-300 hover:text-stone-950 border border-amber-500/30 text-[10px] font-black uppercase tracking-wider transition">Configure Link</button>
+                                    <button onclick="window.manualSyncPlaces()" class="py-3 px-4 rounded-xl bg-white/5 hover:bg-white/15 text-slate-200 text-[10px] font-black uppercase tracking-wider transition"><i id="placeSyncSpinIcon" class="fa-solid fa-rotate mr-1"></i> Sync</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1926,21 +2721,47 @@
         const appId = typeof __app_id !== 'undefined' ? __app_id : 'thesale3-camping';
         let activeSheetId = '1N09HDxPd3zEDqxHR-knpH2MP_fq_XkLJZJ4FdCAYEG0';
 
+        // Robust RFC-4180 CSV parser supporting multi-line cells & escaped double quotes in Google Sheets
         function parseCSV(text) {
             const rows = [];
-            const lines = text.split(/\r?\n/);
-            for (let line of lines) {
-                if (!line.trim()) continue;
-                const result = [];
-                let current = '', inQuotes = false;
-                for (let i = 0; i < line.length; i++) {
-                    if (line[i] === '"') inQuotes = !inQuotes;
-                    else if (line[i] === ',' && !inQuotes) { result.push(current.trim()); current = ''; }
-                    else current += line[i];
+            let currentRow = [];
+            let currentVal = '';
+            let inQuotes = false;
+
+            for (let i = 0; i < text.length; i++) {
+                const char = text[i];
+                const nextChar = text[i + 1];
+
+                if (char === '"') {
+                    if (inQuotes && nextChar === '"') {
+                        currentVal += '"';
+                        i++;
+                    } else {
+                        inQuotes = !inQuotes;
+                    }
+                } else if (char === ',' && !inQuotes) {
+                    currentRow.push(currentVal.trim());
+                    currentVal = '';
+                } else if ((char === '\n' || (char === '\r' && nextChar === '\n')) && !inQuotes) {
+                    if (char === '\r') i++;
+                    currentRow.push(currentVal.trim());
+                    if (currentRow.some(cell => cell.length > 0)) {
+                        rows.push(currentRow);
+                    }
+                    currentRow = [];
+                    currentVal = '';
+                } else {
+                    currentVal += char;
                 }
-                result.push(current.trim());
-                rows.push(result);
             }
+
+            if (currentVal.length > 0 || currentRow.length > 0) {
+                currentRow.push(currentVal.trim());
+                if (currentRow.some(cell => cell.length > 0)) {
+                    rows.push(currentRow);
+                }
+            }
+
             return rows;
         }
 
@@ -1949,10 +2770,11 @@
                 window.state.isLoading = true;
                 activeSheetId = localStorage.getItem('thesale3_sheet_id') || '1N09HDxPd3zEDqxHR-knpH2MP_fq_XkLJZJ4FdCAYEG0';
                 
-                const fetchSheetCSV = async (sheetNames, fallbackGid = null) => {
+                const fetchSheetCSV = async (sheetNames, fallbackGid = null, targetSheetId = activeSheetId) => {
                     for (let sName of sheetNames) {
+                        if (!sName) continue;
                         try {
-                            const url = `https://docs.google.com/spreadsheets/d/${activeSheetId}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(sName)}&t=${Date.now()}`;
+                            const url = `https://docs.google.com/spreadsheets/d/${targetSheetId}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(sName)}&t=${Date.now()}`;
                             const res = await fetch(url);
                             if (res.ok) {
                                 const text = await res.text();
@@ -1963,7 +2785,7 @@
                     }
                     if (fallbackGid) {
                         try {
-                            const url = `https://docs.google.com/spreadsheets/d/${activeSheetId}/export?format=csv&gid=${fallbackGid}&t=${Date.now()}`;
+                            const url = `https://docs.google.com/spreadsheets/d/${targetSheetId}/export?format=csv&gid=${fallbackGid}&t=${Date.now()}`;
                             const res = await fetch(url);
                             if (res.ok) {
                                 const text = await res.text();
@@ -1996,45 +2818,105 @@
                     }
                 }
 
-                // 2. Wild Spots ('Web_Places' or 'places')
-                const rowsPlaces = await fetchSheetCSV(['Web_Places', 'places', 'Places', 'Spots', 'spots'], '187773397');
-                if (rowsPlaces && rowsPlaces.length > 1) {
-                    const dataRows = rowsPlaces.slice(1);
-                    window.state.places = dataRows.map((cols, i) => ({
-                        id: cols[0] || 'spot-' + i,
-                        title: cols[1] || '',
-                        province: cols[2] || '',
-                        elevation: cols[3] || 'N/A',
-                        difficulty: cols[4] || 'Easy Access',
-                        img: window.fixGithubImageUrl(cols[5]) || 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80',
-                        desc: cols[6] || '',
-                        amenities: cols[7] ? cols[7].split(',').map(a => a.trim()) : [],
-                        mapLink: cols[8] || 'https://maps.google.com',
-                        content: cols[9] || cols[6] || '',
-                        recGear: cols[10] ? cols[10].trim() : '',
-                        bestSeason: cols[11] || '',
-                        cellSignal: cols[12] || '',
-                        fee: cols[13] || '',
-                        distance: cols[14] || ''
-                    })).filter(x => x.title && x.title.trim().length > 0);
+                // 2. Wild Spots ('Web_Places' or custom Place Google Sheet)
+                let rowsPlaces = null;
+                const customPlaceUrl = localStorage.getItem('thesale3_place_sheet_url');
+                const customPlaceTab = localStorage.getItem('thesale3_place_sheet_tab');
+                const parsedPlaceSheet = window.parseGoogleSheetInput(customPlaceUrl);
+
+                if (parsedPlaceSheet && parsedPlaceSheet.directCsvUrl) {
+                    const resDirectPlace = await fetch(`${parsedPlaceSheet.directCsvUrl}&t=${Date.now()}`);
+                    if (resDirectPlace.ok) rowsPlaces = parseCSV(await resDirectPlace.text());
+                } else if (parsedPlaceSheet && parsedPlaceSheet.sheetId) {
+                    rowsPlaces = await fetchSheetCSV(
+                        [customPlaceTab, 'Web_Places', 'places', 'Places', 'Spots', 'spots', 'Sheet1'],
+                        parsedPlaceSheet.gid,
+                        parsedPlaceSheet.sheetId
+                    );
+                } else {
+                    rowsPlaces = await fetchSheetCSV([customPlaceTab, 'Web_Places', 'places', 'Places', 'Spots', 'spots'], '187773397');
                 }
 
-                // 3. Wild Journal Articles ('Web_Blogs' or 'blogs')
-                const rowsBlogs = await fetchSheetCSV(['Web_Blogs', 'blogs', 'Blogs', 'journal', 'Journal']);
+                if (rowsPlaces && rowsPlaces.length > 1) {
+                    const dataRows = rowsPlaces.slice(1);
+                    const parsedPlaces = dataRows.map((cols, i) => {
+                        const rawImg = (cols[5] || '').trim();
+                        const resolvedImg = rawImg
+                            ? (rawImg.startsWith('http') ? rawImg : `https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/${rawImg}`)
+                            : 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=800&q=80';
+                        const featuredFlag = (cols[15] || '').trim().toLowerCase();
+                        return {
+                            id: cols[0] || 'spot-' + i,
+                            title: cols[1] || '',
+                            province: cols[2] || '',
+                            elevation: cols[3] || 'N/A',
+                            difficulty: cols[4] || 'Easy Access',
+                            img: window.fixGithubImageUrl(resolvedImg),
+                            desc: cols[6] || '',
+                            amenities: cols[7] ? cols[7].split(',').map(a => a.trim()).filter(Boolean) : [],
+                            mapLink: cols[8] || 'https://maps.google.com',
+                            content: cols[9] || cols[6] || '',
+                            recGear: cols[10] ? cols[10].trim() : '',
+                            bestSeason: cols[11] || '',
+                            cellSignal: cols[12] || '',
+                            fee: cols[13] || '',
+                            distance: cols[14] || '',
+                            featured: featuredFlag === 'true' || featuredFlag === 'yes' || featuredFlag === '1'
+                        };
+                    }).filter(x => x.title && x.title.trim().length > 0);
+
+                    if (parsedPlaces.length > 0) {
+                        window.state.places = parsedPlaces;
+                        window.state.placeSheetConnected = true;
+                    }
+                }
+
+                // 3. Wild Journal Articles (Supports custom Blog Google Sheet link or main Sheet tabs)
+                let rowsBlogs = null;
+                const customBlogUrl = localStorage.getItem('thesale3_blog_sheet_url');
+                const customBlogTab = localStorage.getItem('thesale3_blog_sheet_tab');
+                const parsedBlogSheet = window.parseGoogleSheetInput(customBlogUrl);
+
+                if (parsedBlogSheet && parsedBlogSheet.directCsvUrl) {
+                    const resDirect = await fetch(`${parsedBlogSheet.directCsvUrl}&t=${Date.now()}`);
+                    if (resDirect.ok) rowsBlogs = parseCSV(await resDirect.text());
+                } else if (parsedBlogSheet && parsedBlogSheet.sheetId) {
+                    rowsBlogs = await fetchSheetCSV(
+                        [customBlogTab, 'Web_Blogs', 'blogs', 'Blogs', 'journal', 'Journal', 'Sheet1'],
+                        parsedBlogSheet.gid,
+                        parsedBlogSheet.sheetId
+                    );
+                } else {
+                    rowsBlogs = await fetchSheetCSV([customBlogTab, 'Web_Blogs', 'blogs', 'Blogs', 'journal', 'Journal']);
+                }
+
                 if (rowsBlogs && rowsBlogs.length > 1) {
                     const dataRows = rowsBlogs.slice(1);
-                    window.state.blogs = dataRows.map((cols, i) => ({
-                        id: cols[0] || 'blog-' + i,
-                        title: cols[1] || '',
-                        category: cols[2] || 'Expedition',
-                        author: cols[3] || 'Mou Team',
-                        date: cols[4] || '2026',
-                        readTime: cols[5] || '5 Min Read',
-                        img: window.fixGithubImageUrl(cols[6]) || 'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=800&q=80',
-                        desc: cols[7] || '',
-                        content: cols[8] || cols[7] || '',
-                        recGear: cols[9] ? cols[9].trim() : ''
-                    })).filter(x => x.title && x.title.trim().length > 0);
+                    const parsedBlogs = dataRows.map((cols, i) => {
+                        const rawImg = (cols[6] || '').trim();
+                        const resolvedImg = rawImg
+                            ? (rawImg.startsWith('http') ? rawImg : `https://raw.githubusercontent.com/Mou-thesale/camping-catalog/main/assets/products/${rawImg}`)
+                            : 'https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?auto=format&fit=crop&w=800&q=80';
+                        const featuredFlag = (cols[10] || '').trim().toLowerCase();
+                        return {
+                            id: cols[0] || 'blog-' + i,
+                            title: cols[1] || '',
+                            category: cols[2] || 'Expedition',
+                            author: cols[3] || 'Mou Team',
+                            date: cols[4] || '2026',
+                            readTime: cols[5] || '5 Min Read',
+                            img: window.fixGithubImageUrl(resolvedImg),
+                            desc: cols[7] || '',
+                            content: cols[8] || cols[7] || '',
+                            recGear: cols[9] ? cols[9].trim() : '',
+                            featured: featuredFlag === 'true' || featuredFlag === 'yes' || featuredFlag === '1'
+                        };
+                    }).filter(x => x.title && x.title.trim().length > 0);
+
+                    if (parsedBlogs.length > 0) {
+                        window.state.blogs = parsedBlogs;
+                        window.state.blogSheetConnected = true;
+                    }
                 }
 
                 const statusText = document.getElementById('sheetStatusText');
